@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Business Launch Workflow Wizard</title>
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --success-green: #059669;
+            --warning-yellow: #D97706;
+            --purple: #7C3AED;
+            --bg-gray: #F8FAFC;
+            --text-gray: #374151;
+            --border-gray: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            opacity: 0.8;
+        }
+
+        .workflow-progress {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .step {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step.pending {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        .step.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .step.completed {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-gray);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--border-gray);
+            color: var(--text-gray);
+        }
+
+        .btn-secondary:hover {
+            background: #D1D5DB;
+        }
+
+        .btn-success {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .prompt-output {
+            background: #F8FAFC;
+            border: 2px solid var(--border-gray);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-gray);
+        }
+
+        .prompt-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+        }
+
+        .copy-btn {
+            background: var(--success-green);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #047857;
+            transform: scale(1.05);
+        }
+
+        .prompt-content {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-gray);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #FEF3C7, #FCD34D);
+            border: 2px solid #F59E0B;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .tip-box h4 {
+            color: #92400E;
+            margin-bottom: 8px;
+        }
+
+        .tip-box p {
+            color: #78350F;
+            margin: 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #DBEAFE, #93C5FD);
+            border: 2px solid var(--primary-blue);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card h3 {
+            color: #1E40AF;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #1E3A8A;
+            margin: 5px 0;
+        }
+
+        .validation-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .validation-indicator.valid {
+            background: var(--success-green);
+        }
+
+        .validation-indicator.invalid {
+            background: #DC2626;
+        }
+
+        .validation-indicator.pending {
+            background: var(--border-gray);
+        }
+
+        .collapsible {
+            background: #F9FAFB;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .collapsible-header {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapsible-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible.open .collapsible-content {
+            padding: 15px;
+            max-height: 1000px;
+        }
+
+        .collapsible-header::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible.open .collapsible-header::after {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .progress-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AI Business Launch Wizard</h1>
+            <p class="subtitle">Transform your business idea into a complete launch plan with AI-powered workflow</p>
+        </div>
+
+        <div class="workflow-progress">
+            <h3>📊 Workflow Progress</h3>
+            <div class="progress-steps">
+                <div class="step active" data-step="0">
+                    📝 Collect Information
+                </div>
+                <div class="step pending" data-step="1">
+                    🟦 ChatGPT: Business Ideas
+                </div>
+                <div class="step pending" data-step="2">
+                    🟩 Gemini: Validation & MVP
+                </div>
+                <div class="step pending" data-step="3">
+                    🟪 Claude: Interactive Calendar
+                </div>
+                <div class="step pending" data-step="4">
+                    🟨 Claude: Optimization
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Step 0: Information Collection -->
+            <div class="section active" id="step-0">
+                <h2>📝 Business Information Collection</h2>
+                <p>Let's gather all the information needed to generate personalized AI prompts for your business launch.</p>
+
+                <div class="info-card" style="margin-bottom: 20px;">
+                    <h3>💡 Import Previous Data</h3>
+                    <p>If you have a saved workflow file, you can import it here to continue where you left off:</p>
+                    <input type="file" id="import-workflow" accept=".json" style="margin: 10px 0;">
+                    <button class="btn btn-secondary" onclick="importWorkflowData()">📂 Import Workflow Data</button>
+                </div>
+
+                <div class="collapsible open">
+                    <div class="collapsible-header">
+                        👩‍💼 Personal & Family Situation
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Kids' Ages & Schedules</label>
+                                <textarea id="family-structure" placeholder="e.g., 5-year-old in kindergarten 8am-3pm, 3-year-old at home, spouse works 9-5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Current Work Status</label>
+                                <select id="work-status">
+                                    <option value="">Select...</option>
+                                    <option value="stay-at-home">Stay-at-home mom</option>
+                                    <option value="part-time">Part-time worker</option>
+                                    <option value="full-time">Full-time employee</option>
+                                    <option value="freelancer">Freelancer</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Daily Schedule Reality</label>
+                                <textarea id="daily-schedule" placeholder="When are kids occupied? School hours? Nap times? Evening availability?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Energy Patterns</label>
+                                <select id="energy-pattern">
+                                    <option value="">Select...</option>
+                                    <option value="morning">Morning person (best 6-10am)</option>
+                                    <option value="midday">Midday person (best 10am-2pm)</option>
+                                    <option value="evening">Evening person (best 6-10pm)</option>
+                                    <option value="night">Night owl (best 10pm+)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        🧠 Skills & Experience
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Professional Background</label>
+                                <textarea id="professional-bg" placeholder="Career before kids, education, certifications, work experience"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Natural Talents</label>
+                                <textarea id="natural-talents" placeholder="What do people always ask you for help with? What feels effortless?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Personal Transformation</label>
+                                <textarea id="transformation" placeholder="What challenges have you overcome? What life changes have you mastered?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Creative Skills</label>
+                                <textarea id="creative-skills" placeholder="Writing, design, photography, video, organization, planning, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        💻 Technology & Platforms
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Tech Comfort Level</label>
+                                <select id="tech-comfort">
+                                    <option value="">Select...</option>
+                                    <option value="beginner">Beginner (basic social media)</option>
+                                    <option value="intermediate">Intermediate (comfortable learning new apps)</option>
+                                    <option value="advanced">Advanced (can figure out most tech)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Social Media Platforms Used</label>
+                                <textarea id="social-platforms" placeholder="Which platforms do you currently use? How comfortable posting/sharing?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Camera Comfort</label>
+                                <select id="camera-comfort">
+                                    <option value="">Select...</option>
+                                    <option value="comfortable">Comfortable being on video</option>
+                                    <option value="behind-scenes">Prefer behind-the-scenes</option>
+                                    <option value="audio-only">Audio only preferred</option>
+                                    <option value="text-only">Text/writing only</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        🎯 Business Goals & Constraints
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Monthly Income Goals</label>
+                                <input type="text" id="income-goals" placeholder="e.g., $2,000 life-changing, $5,000 dream, $500 minimum">
+                            </div>
+                            <div class="form-group">
+                                <label>Timeline Pressure</label>
+                                <select id="timeline">
+                                    <option value="">Select...</option>
+                                    <option value="3-months">Need income in 3 months</option>
+                                    <option value="6-months">6 months timeline</option>
+                                    <option value="1-year">1 year to build</option>
+                                    <option value="no-pressure">No time pressure</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Daily Work Hours Available</label>
+                                <select id="work-hours">
+                                    <option value="">Select...</option>
+                                    <option value="1-2">1-2 hours per day</option>
+                                    <option value="3-4">3-4 hours per day</option>
+                                    <option value="5-6">5-6 hours per day</option>
+                                    <option value="7+">7+ hours per day</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Startup Budget</label>
+                                <select id="budget">
+                                    <option value="">Select...</option>
+                                    <option value="0">$0 (completely free)</option>
+                                    <option value="100">Up to $100</option>
+                                    <option value="500">Up to $500</option>
+                                    <option value="1000+">$1,000+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        💡 Passion & Motivation
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Topics You Research</label>
+                                <textarea id="research-topics" placeholder="What do you find yourself googling, reading about, or watching videos about?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Problems You Notice</label>
+                                <textarea id="problems-noticed" placeholder="What frustrates you about products/services? What gaps do you see?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Mom Friend Conversations</label>
+                                <textarea id="mom-conversations" placeholder="What do you and your mom friends always discuss? What advice do you give?"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Personal Mission</label>
+                                <textarea id="personal-mission" placeholder="What legacy do you want to build for your kids? What values drive you?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="generatePrompts()">🚀 Generate AI Prompts</button>
+                </div>
+            </div>
+
+            <!-- Step 1: ChatGPT Prompt -->
+            <div class="section" id="step-1">
+                <h2>🟦 Step 1: Business Ideation (ChatGPT)</h2>
+                
+                <div class="info-card">
+                    <h3>📋 Instructions:</h3>
+                    <p>1. Copy the prompt below</p>
+                    <p>2. Open ChatGPT in a new tab</p>
+                    <p>3. Paste the prompt and hit enter</p>
+                    <p>4. Save ChatGPT's business recommendations</p>
+                    <p>5. Come back here to proceed to Step 2</p>
+                </div>
+
+                <div class="prompt-output">
+                    <div class="prompt-header">
+                        <span class="prompt-title">🟦 ChatGPT Business Ideation Prompt</span>
+                        <button class="copy-btn" onclick="copyPrompt('chatgpt-prompt')">📋 Copy Prompt</button>
+                    </div>
+                    <div class="prompt-content" id="chatgpt-prompt">
+                        <!-- Generated prompt will appear here -->
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Pro Tip:</h4>
+                    <p>ChatGPT might ask follow-up questions. Answer them to get more personalized business ideas. Look for the business idea that excites you most AND matches your constraints.</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="showStep(0)">← Back</button>
+                    <button class="btn btn-primary" onclick="showStep(2)">Next: Validation & MVP →</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Gemini Prompt -->
+            <div class="section" id="step-2">
+                <h2>🟩 Step 2: Validation & MVP (Gemini)</h2>
+                
+                <div class="info-card">
+                    <h3>📋 Instructions:</h3>
+                    <p>1. First, paste your chosen business idea from ChatGPT below</p>
+                    <p>2. Copy the generated Gemini prompt</p>
+                    <p>3. Open Gemini in a new tab</p>
+                    <p>4. Paste the prompt and hit enter</p>
+                    <p>5. Save Gemini's validation plan</p>
+                    <p>6. Come back here for Step 3</p>
+                </div>
+
+                <div class="form-group">
+                    <label>🟦 Paste Your Chosen Business Idea from ChatGPT:</label>
+                    <textarea id="business-idea-input" placeholder="Paste the complete business idea and analysis that ChatGPT recommended..." style="min-height: 150px;"></textarea>
+                    <button class="btn btn-secondary" onclick="updateGeminiPrompt()" style="margin-top: 10px;">Update Gemini Prompt</button>
+                </div>
+
+                <div class="prompt-output">
+                    <div class="prompt-header">
+                        <span class="prompt-title">🟩 Gemini Validation & MVP Prompt</span>
+                        <button class="copy-btn" onclick="copyPrompt('gemini-prompt')">📋 Copy Prompt</button>
+                    </div>
+                    <div class="prompt-content" id="gemini-prompt">
+                        <!-- Generated prompt will appear here -->
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🎯 Pro Tip:</h4>
+                    <p>Gemini's validation plan is crucial! Don't skip the validation experiments. It's better to spend 2 weeks validating than 6 months building something nobody wants.</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="showStep(1)">← Back</button>
+                    <button class="btn btn-primary" onclick="showStep(3)">Next: Create Calendar →</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Claude Calendar Prompt -->
+            <div class="section" id="step-3">
+                <h2>🟪 Step 3: Interactive Calendar Creation (Claude)</h2>
+                
+                <div class="info-card">
+                    <h3>📋 Instructions:</h3>
+                    <p>1. Paste your business idea and MVP plan below</p>
+                    <p>2. Add your specific schedule constraints</p>
+                    <p>3. Copy the generated Claude prompt</p>
+                    <p>4. Open Claude in a new tab</p>
+                    <p>5. Paste the prompt to generate your interactive calendar</p>
+                </div>
+
+                <div class="form-group">
+                    <label>🟦 Business Idea from ChatGPT:</label>
+                    <textarea id="claude-business-idea" placeholder="Paste your chosen business idea..." style="min-height: 100px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>🟩 Validation & MVP Plan from Gemini:</label>
+                    <textarea id="claude-mvp-plan" placeholder="Paste Gemini's validation and MVP strategy..." style="min-height: 100px;"></textarea>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        ⏰ Schedule Constraints (Auto-filled from your info)
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Wake Up Time</label>
+                                <input type="time" id="wake-time" value="06:00">
+                            </div>
+                            <div class="form-group">
+                                <label>Kids' Schedule Details</label>
+                                <textarea id="kids-schedule-detail" placeholder="Specific times when kids are occupied or need supervision"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Best Work Hours</label>
+                                <input type="text" id="best-work-hours" placeholder="e.g., 9am-11am, 7pm-10pm">
+                            </div>
+                            <div class="form-group">
+                                <label>Weekend Availability</label>
+                                <select id="weekend-availability">
+                                    <option value="">Select...</option>
+                                    <option value="full">Full weekends available</option>
+                                    <option value="partial">Partial weekend availability</option>
+                                    <option value="minimal">Minimal weekend work</option>
+                                    <option value="none">No weekend work</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="updateClaudePrompt()" style="margin-top: 15px;">Update Claude Prompt</button>
+                    </div>
+                </div>
+
+                <div class="prompt-output">
+                    <div class="prompt-header">
+                        <span class="prompt-title">🟪 Claude Interactive Calendar Prompt</span>
+                        <button class="copy-btn" onclick="copyPrompt('claude-prompt')">📋 Copy Prompt</button>
+                    </div>
+                    <div class="prompt-content" id="claude-prompt">
+                        <!-- Generated prompt will appear here -->
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🎯 Pro Tip:</h4>
+                    <p>Claude will create a comprehensive HTML calendar. Save it as an HTML file on your computer and bookmark it for daily use!</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="showStep(2)">← Back</button>
+                    <button class="btn btn-primary" onclick="showStep(4)">Next: Optimization →</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Claude Optimization Prompt -->
+            <div class="section" id="step-4">
+                <h2>🟨 Step 4: Calendar Optimization (Claude - If Needed)</h2>
+                
+                <div class="info-card">
+                    <h3>📋 When to Use This Step:</h3>
+                    <p>• Calendar layout is broken or not displaying properly</p>
+                    <p>• Tasks don't fit your real schedule</p>
+                    <p>• Missing specific step-by-step instructions</p>
+                    <p>• Technical issues with auto-save or other features</p>
+                </div>
+
+                <div class="collapsible">
+                    <div class="collapsible-header">
+                        🚨 Identify Issues with Your Calendar
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="form-group">
+                            <label>Layout & Design Problems:</label>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin: 10px 0;">
+                                <label><input type="checkbox" id="issue-layout"> Calendar layout broken</label>
+                                <label><input type="checkbox" id="issue-mobile"> Mobile responsiveness issues</label>
+                                <label><input type="checkbox" id="issue-colors"> Color coding unclear</label>
+                                <label><input type="checkbox" id="issue-text"> Text too small/hard to read</label>
+                                <label><input type="checkbox" id="issue-progress"> Progress bars not working</label>
+                                <label><input type="checkbox" id="issue-buttons"> Buttons/checkboxes broken</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Schedule Integration Issues:</label>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin: 10px 0;">
+                                <label><input type="checkbox" id="issue-schedule"> Time blocks don't match availability</label>
+                                <label><input type="checkbox" id="issue-realistic"> Tasks unrealistic for time allocated</label>
+                                <label><input type="checkbox" id="issue-buffer"> No buffer time between activities</label>
+                                <label><input type="checkbox" id="issue-family"> Doesn't account for family schedule</label>
+                                <label><input type="checkbox" id="issue-breaks"> Missing meal breaks/personal time</label>
+                                <label><input type="checkbox" id="issue-conflicts"> Work hours conflict with commitments</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Content & Instruction Gaps:</label>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin: 10px 0;">
+                                <label><input type="checkbox" id="issue-vague"> Tasks too vague</label>
+                                <label><input type="checkbox" id="issue-copy"> Missing copy-paste content</label>
+                                <label><input type="checkbox" id="issue-guidance"> No clear HOW-TO guidance</label>
+                                <label><input type="checkbox" id="issue-seo"> SEO content too generic</label>
+                                <label><input type="checkbox" id="issue-platform"> Platform strategies missing</label>
+                                <label><input type="checkbox" id="issue-resources"> No links to tools/resources</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Functionality Problems:</label>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; margin: 10px 0;">
+                                <label><input type="checkbox" id="issue-save"> Auto-save not working</label>
+                                <label><input type="checkbox" id="issue-tracking"> Progress tracking inaccurate</label>
+                                <label><input type="checkbox" id="issue-clipboard"> Copy-to-clipboard broken</label>
+                                <label><input type="checkbox" id="issue-expand"> Expandable content not working</label>
+                                <label><input type="checkbox" id="issue-metrics"> Metrics dashboard not updating</label>
+                                <label><input type="checkbox" id="issue-export"> Export function broken</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Additional Issues Description:</label>
+                            <textarea id="additional-issues" placeholder="Describe any other specific problems you're experiencing with your calendar..."></textarea>
+                        </div>
+
+                        <button class="btn btn-secondary" onclick="updateOptimizationPrompt()" style="margin-top: 15px;">Generate Optimization Prompt</button>
+                    </div>
+                </div>
+
+                <div class="prompt-output">
+                    <div class="prompt-header">
+                        <span class="prompt-title">🟨 Claude Calendar Optimization Prompt</span>
+                        <button class="copy-btn" onclick="copyPrompt('optimization-prompt')">📋 Copy Prompt</button>
+                    </div>
+                    <div class="prompt-content" id="optimization-prompt">
+                        <!-- Generated prompt will appear here -->
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🔧 Pro Tip:</h4>
+                    <p>Be specific about issues! The more detailed you are, the better Claude can fix your calendar. Include screenshots if possible when you paste the prompt.</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="showStep(3)">← Back</button>
+                    <button class="btn btn-success" onclick="showCompletion()">🎉 Complete Workflow</button>
+                </div>
+            </div>
+
+            <!-- Completion Section -->
+            <div class="section" id="completion">
+                <div style="text-align: center; padding: 50px 20px;">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">🎉 Congratulations!</h2>
+                    <p style="font-size: 1.3rem; margin-bottom: 30px;">You've completed the AI-powered business launch workflow!</p>
+                    
+                    <div style="background: linear-gradient(135deg, #10B981, #059669); color: white; padding: 30px; border-radius: 16px; margin: 30px 0;">
+                        <h3>🚀 What You Now Have:</h3>
+                        <div style="text-align: left; margin-top: 20px;">
+                            <p>✅ Validated business idea tailored to your skills and situation</p>
+                            <p>✅ Complete MVP strategy with validation experiments</p>
+                            <p>✅ Interactive daily calendar with step-by-step guidance</p>
+                            <p>✅ Copy-paste ready marketing content and SEO strategies</p>
+                            <p>✅ Realistic timeline based on your actual constraints</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>🎯 Next Steps:</h3>
+                        <p>1. Save your interactive calendar as an HTML file</p>
+                        <p>2. Bookmark it for daily use</p>
+                        <p>3. Start following the day-by-day action plan</p>
+                        <p>4. Track your progress and celebrate milestones</p>
+                        <p>5. Adjust the plan based on real-world feedback</p>
+                    </div>
+
+                    <div class="button-group" style="justify-content: center;">
+                        <button class="btn btn-primary" onclick="downloadWorkflowData()">💾 Download Workflow Data</button>
+                        <button class="btn btn-secondary" onclick="showStep(0)">🔄 Start New Workflow</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let workflowData = {
+            personalInfo: {},
+            businessIdea: '',
+            mvpPlan: '',
+            scheduleConstraints: {},
+            currentStep: 0
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWorkflowData();
+            setupCollapsibles();
+            setupAutoSave();
+        });
+
+        // Setup auto-save functionality
+        function setupAutoSave() {
+            const formElements = document.querySelectorAll('input, textarea, select');
+            formElements.forEach(element => {
+                element.addEventListener('change', function() {
+                    collectFormData();
+                    saveWorkflowData();
+                });
+                
+                // Auto-save on input for text areas and inputs
+                if (element.type === 'textarea' || element.type === 'text') {
+                    element.addEventListener('input', debounce(function() {
+                        collectFormData();
+                        saveWorkflowData();
+                    }, 1000));
+                }
+            });
+        }
+
+        // Debounce function to limit auto-save frequency
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Show specific step
+        function showStep(stepNumber) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+            
+            // Update progress indicators
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index < stepNumber) {
+                    step.classList.add('completed');
+                } else if (index === stepNumber) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.add('pending');
+                }
+            });
+            
+            workflowData.currentStep = stepNumber;
+            saveWorkflowData();
+        }
+
+        // Show completion
+        function showCompletion() {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('completion').classList.add('active');
+            
+            // Mark all steps as completed
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active', 'pending');
+                step.classList.add('completed');
+            });
+        }
+
+        // Setup collapsible sections
+        function setupCollapsibles() {
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const collapsible = this.parentElement;
+                    collapsible.classList.toggle('open');
+                });
+            });
+        }
+
+        // Collect all form data
+        function collectFormData() {
+            const formData = {
+                familyStructure: document.getElementById('family-structure').value,
+                workStatus: document.getElementById('work-status').value,
+                dailySchedule: document.getElementById('daily-schedule').value,
+                energyPattern: document.getElementById('energy-pattern').value,
+                professionalBg: document.getElementById('professional-bg').value,
+                naturalTalents: document.getElementById('natural-talents').value,
+                transformation: document.getElementById('transformation').value,
+                creativeSkills: document.getElementById('creative-skills').value,
+                techComfort: document.getElementById('tech-comfort').value,
+                socialPlatforms: document.getElementById('social-platforms').value,
+                cameraComfort: document.getElementById('camera-comfort').value,
+                incomeGoals: document.getElementById('income-goals').value,
+                timeline: document.getElementById('timeline').value,
+                workHours: document.getElementById('work-hours').value,
+                budget: document.getElementById('budget').value,
+                researchTopics: document.getElementById('research-topics').value,
+                problemsNoticed: document.getElementById('problems-noticed').value,
+                momConversations: document.getElementById('mom-conversations').value,
+                personalMission: document.getElementById('personal-mission').value
+            };
+            
+            workflowData.personalInfo = formData;
+            return formData;
+        }
+
+        // Generate all AI prompts
+        function generatePrompts() {
+            const data = collectFormData();
+            
+            // Validate required fields
+            const requiredFields = ['familyStructure', 'workStatus', 'energyPattern', 'techComfort', 'incomeGoals', 'timeline', 'workHours'];
+            const missingFields = requiredFields.filter(field => !data[field]);
+            
+            if (missingFields.length > 0) {
+                alert('Please fill in all required fields before generating prompts.');
+                return;
+            }
+            
+            generateChatGPTPrompt(data);
+            generateGeminiPrompt();
+            generateClaudePrompt();
+            generateOptimizationPrompt();
+            
+            saveWorkflowData();
+            showStep(1);
+        }
+
+        // Generate ChatGPT prompt
+        function generateChatGPTPrompt(data) {
+            const prompt = `I'm a mom who wants to start an online business, but I need help identifying the RIGHT business idea that matches my unique situation, skills, and constraints. I need you to analyze my complete profile and recommend 3-5 specific, viable business ideas.
+
+Please ask me strategic follow-up questions if you need clarification on any answers.
+
+## 👩‍💼 MY COMPLETE PROFILE:
+
+**PERSONAL & FAMILY SITUATION:**
+• Family Structure: ${data.familyStructure}
+• Current Work Status: ${data.workStatus}
+• Daily Schedule Reality: ${data.dailySchedule}
+• Energy Patterns: ${data.energyPattern}
+
+**SKILLS & EXPERIENCE INVENTORY:**
+• Professional Background: ${data.professionalBg}
+• Natural Talents: ${data.naturalTalents}
+• Personal Transformation: ${data.transformation}
+• Creative Skills: ${data.creativeSkills}
+
+**TECHNOLOGY & COMFORT ZONES:**
+• Tech Comfort Level: ${data.techComfort}
+• Social Media Platforms: ${data.socialPlatforms}
+• Camera Comfort: ${data.cameraComfort}
+
+**BUSINESS PREFERENCES & CONSTRAINTS:**
+• Income Goals: ${data.incomeGoals}
+• Timeline Pressure: ${data.timeline}
+• Time Investment: ${data.workHours}
+• Startup Budget: ${data.budget}
+
+**PASSION & MOTIVATION DRIVERS:**
+• Topics I Research: ${data.researchTopics}
+• Problems I Notice: ${data.problemsNoticed}
+• Mom Friend Conversations: ${data.momConversations}
+• Personal Mission: ${data.personalMission}
+
+## 🎯 ANALYSIS REQUEST:
+
+Based on my complete profile above, please provide:
+
+**BUSINESS IDEA RECOMMENDATIONS:**
+For each business idea, provide:
+
+1. **Business Concept:** Clear, specific description of what this business is
+2. **Target Customer:** Exactly who would buy this (demographics, psychographics, pain points)
+3. **Revenue Model:** How you'd make money (pricing strategy, customer lifetime value)
+4. **Why This Fits Me:** Specific reasons this matches my skills, situation, and goals
+5. **Competitive Landscape:** Who else does this? What's my unique angle?
+6. **Startup Requirements:** What I'd need to get started (time, money, skills, tools)
+7. **Income Potential:** Realistic revenue projections based on my constraints
+8. **Biggest Challenges:** What obstacles I'd face and how to overcome them
+9. **Success Timeline:** When I could expect to see first income and growth milestones
+10. **Next Steps:** Exactly what I'd do first to test/validate this idea
+
+**STRATEGIC ANALYSIS:**
+- **Skill-Business Alignment:** How well each idea leverages my existing strengths
+- **Lifestyle Integration:** Which ideas work best with my family situation and schedule
+- **Growth Potential:** Which has the most potential for scaling vs. staying small
+- **Risk Assessment:** Which ideas are lowest risk vs. highest potential reward
+- **Market Timing:** Are any of these ideas particularly well-timed for current market conditions?
+
+**DECISION FRAMEWORK:**
+Help me understand:
+- Which idea should I pursue if I need income FAST (3-6 months)?
+- Which idea has the most long-term potential (2+ years)?
+- Which idea requires the least upfront investment?
+- Which idea best matches my personality and natural working style?
+- Which idea would I be most likely to stick with during tough times?
+
+**RED FLAGS & REALITY CHECKS:**
+- Are any of these ideas oversaturated markets I should avoid?
+- What would make each idea fail, and how can I test for those risks early?
+- Which ideas require skills/time I realistically don't have?
+- Are my income expectations realistic for any of these ideas?
+- What market conditions could kill these business ideas?
+
+## 🚀 FINAL DELIVERABLES NEEDED:
+
+1. **3-5 Ranked Business Ideas** with complete analysis for each
+2. **Top Recommendation** with detailed reasoning why this is best for me
+3. **Quick-Start Action Plan** for my #1 choice (first 3 steps to take this week)
+4. **Validation Questions** I should ask myself/others before committing
+5. **Resource List** of tools, platforms, or learning materials I'd need
+
+Make your recommendations specific, actionable, and realistic for a mom who can't afford to waste time on ideas that won't work. I need clarity and confidence in my next steps.`;
+
+            document.getElementById('chatgpt-prompt').textContent = prompt;
+        }
+
+        // Generate base Gemini prompt (will be updated when business idea is added)
+        function generateGeminiPrompt() {
+            const basePrompt = `I'm a mom entrepreneur who has identified this business idea from ChatGPT: 
+
+🟦 [PASTE YOUR CHOSEN BUSINESS IDEA FROM CHATGPT HERE]
+
+I need you to create a comprehensive validation and MVP strategy that proves people will actually pay for this BEFORE I invest significant time and money. This validation phase is critical - I can't afford to waste months building something nobody wants.
+
+PROVIDE A DETAILED VALIDATION PLAN THAT INCLUDES:
+
+## 🔍 MARKET VALIDATION FRAMEWORK
+
+**1. DEMAND VALIDATION TESTS:**
+- Create 5 specific experiments I can run this week to test if people actually want this
+- Design 3 different ways to gauge interest level (surveys, pre-sales, waitlists, etc.)
+- Identify which online communities/groups where my target audience hangs out
+- Provide specific questions to ask in these communities to validate pain points
+- Give me scripts for reaching out to potential customers for interviews
+
+**2. FINANCIAL VALIDATION STRATEGY:**
+- How can I test if people will PAY for this (not just say they're interested)?
+- What's the minimum viable way to collect actual money commitments?
+- Should I do pre-sales, beta testing with payment, or another approach?
+- How many paying customers do I need to validate this is viable?
+- What price points should I test and how?
+
+**3. COMPETITIVE LANDSCAPE ANALYSIS:**
+- Who else is solving this problem and how successful are they?
+- What are they charging and what seems to be working/not working?
+- Where are the gaps in current solutions that I could fill?
+- How can I differentiate without reinventing the wheel?
+- What can I learn from their customer reviews/complaints?
+
+## 💡 MVP DEVELOPMENT STRATEGY
+
+**4. MINIMUM VIABLE PRODUCT DESIGN:**
+- What's the absolute simplest version I can create to test this idea?
+- Should this be a PDF guide, mini-course, 1:1 consultation, group workshop, or something else?
+- What can I create in 1-2 weeks maximum with my current skills/resources?
+- How can I deliver value without building complex systems?
+- What tools/platforms require minimal setup and cost?
+
+**5. VALIDATION MVP TIMELINE:**
+Create a specific timeline:
+- Week 1: [specific validation activities with daily tasks]
+- Week 2: [specific creation and testing activities]  
+- Week 3: [specific launch and feedback collection]
+- Week 4: [analysis and decision point]
+
+**6. SUCCESS METRICS & DECISION FRAMEWORK:**
+- What specific numbers/feedback will prove this is worth pursuing?
+- How many people need to show interest vs. actually pay?
+- What's my minimum threshold for moving forward vs. pivoting?
+- What red flags should make me stop immediately?
+- How will I know if I need to adjust the idea vs. completely pivot?
+
+## 🚀 PRACTICAL IMPLEMENTATION GUIDANCE
+
+**7. MOM-FRIENDLY VALIDATION APPROACH:**
+- How can I do this validation with only ${workflowData.personalInfo.workHours} hours per day?
+- What can I do while kids are around vs. what needs focused time?
+- How can I leverage my existing network (mom friends, social media, etc.)?
+- What's the most efficient way to get feedback without being salesy?
+- How do I balance validation with family responsibilities?
+
+**8. LOW-COST TESTING METHODS:**
+- What can I validate for free or under $${workflowData.personalInfo.budget}?
+- Which platforms offer the best free tools for testing?
+- How can I use my personal social media for validation without being spammy?
+- What guerrilla research methods work for my target audience?
+- How can I test multiple approaches simultaneously?
+
+**9. RISK MITIGATION STRATEGY:**
+- What are the biggest risks with this business idea?
+- How can I test the riskiest assumptions first?
+- What's my backup plan if initial validation fails?
+- How can I minimize time/money investment while maximizing learning?
+- What would make this completely unfeasible and how do I test for that?
+
+## 📋 SPECIFIC DELIVERABLES I NEED:
+
+**10. ACTIONABLE VALIDATION TOOLKIT:**
+- 5 specific posts I can make on social media to test interest
+- Email templates for reaching out to potential customers
+- Survey questions that reveal real willingness to pay
+- Scripts for informal customer interviews
+- Simple landing page copy to test conversion
+- Social media content ideas that naturally gather feedback
+
+**11. DECISION MATRIX:**
+Create a clear framework for:
+- When to proceed to full business development
+- When to pivot the idea but stay in the same market
+- When to completely change direction
+- How to interpret mixed or unclear feedback
+- What to do if validation is positive but slow
+
+**12. NEXT STEPS FRAMEWORK:**
+If validation is successful, provide:
+- Exactly what to build first (detailed specs)
+- How to price it based on validation feedback
+- Which platform to launch on first
+- How many customers to target for initial launch
+- What marketing approaches showed the most promise during validation
+
+## 🎯 SPECIFIC VALIDATION QUESTIONS TO ANSWER:
+
+Answer these definitively:
+- Will people actually pay money for this solution?
+- Is the problem painful enough that they'll prioritize solving it?
+- Am I the right person to solve this problem?
+- Is the market large enough to support my income goals?
+- Can I reach my target customers cost-effectively?
+- Is this something I can realistically execute with my constraints?
+- Will this business model work with my lifestyle and family needs?
+
+MAKE THIS PLAN SPECIFIC, ACTIONABLE, AND REALISTIC FOR A MOM WITH LIMITED TIME WHO CAN'T AFFORD TO WASTE EFFORT ON UNVALIDATED IDEAS. I NEED CONCRETE STEPS, NOT THEORETICAL ADVICE.
+
+MY CONSTRAINTS:
+- Available time: ${workflowData.personalInfo.workHours} per day
+- Budget for validation: $${workflowData.personalInfo.budget}
+- Technical skills: ${workflowData.personalInfo.techComfort}
+- Energy pattern: ${workflowData.personalInfo.energyPattern}`;
+
+            document.getElementById('gemini-prompt').textContent = basePrompt;
+        }
+
+        // Update Gemini prompt with business idea
+        function updateGeminiPrompt() {
+            const businessIdea = document.getElementById('business-idea-input').value;
+            if (!businessIdea.trim()) {
+                alert('Please paste your business idea from ChatGPT first.');
+                return;
+            }
+            
+            workflowData.businessIdea = businessIdea;
+            
+            const updatedPrompt = document.getElementById('gemini-prompt').textContent.replace(
+                '🟦 [PASTE YOUR CHOSEN BUSINESS IDEA FROM CHATGPT HERE]',
+                businessIdea
+            );
+            
+            document.getElementById('gemini-prompt').textContent = updatedPrompt;
+            saveWorkflowData();
+        }
+
+        // Generate Claude prompt
+        function generateClaudePrompt() {
+            const basePrompt = `Create a comprehensive interactive HTML calendar artifact that provides hand-holding, step-by-step guidance for launching my business. This needs to be incredibly detailed with complete instructions for every single task.
+
+## 📋 MY VALIDATED BUSINESS PLAN:
+
+🟦 **BUSINESS IDEA FROM CHATGPT:**
+[PASTE YOUR CHOSEN BUSINESS IDEA WITH COMPLETE ANALYSIS]
+
+🟩 **VALIDATION & MVP STRATEGY FROM GEMINI:**
+[PASTE YOUR COMPLETE VALIDATION PLAN AND MVP STRATEGY]
+
+## ⏰ MY REAL SCHEDULE CONSTRAINTS:
+
+**DAILY AVAILABILITY:**
+- Family Structure: ${workflowData.personalInfo.familyStructure}
+- Daily Schedule: ${workflowData.personalInfo.dailySchedule}
+- Energy Pattern: ${workflowData.personalInfo.energyPattern}
+- Available Work Hours: ${workflowData.personalInfo.workHours}
+
+**WORK PREFERENCES:**
+- Tech Comfort: ${workflowData.personalInfo.techComfort}
+- Camera Comfort: ${workflowData.personalInfo.cameraComfort}
+- Social Platforms: ${workflowData.personalInfo.socialPlatforms}
+
+## 🎯 CRITICAL REQUIREMENTS - FOLLOW EXACTLY:
+
+### **1. COMPLETE DAILY SCHEDULE (MANDATORY):**
+- Generate ALL 84 days (12 weeks) with specific tasks for EVERY day
+- NO empty days - every single day must have detailed activities
+- Each day should have 4-8 specific tasks during my available work hours
+- Include weekend tasks appropriate for family schedule
+
+### **2. ULTRA-DETAILED STEP-BY-STEP INSTRUCTIONS:**
+For EVERY task, provide:
+- **Exact steps numbered 1, 2, 3...** (not just "Create landing page")
+- **Direct clickable links** to tools/platforms mentioned
+- **Specific pricing:** "FREE" or "$X/month" for every tool
+- **Time estimates:** "This should take 15-20 minutes"
+- **Expected outcomes:** "You should have X when complete"
+
+**EXAMPLE OF REQUIRED DETAIL LEVEL:**
+\`\`\`
+✅ Create Carrd.co Landing Page with Waitlist
+   
+   STEP-BY-STEP INSTRUCTIONS:
+   1. Go to https://carrd.co (FREE for 1 site, $19/year for Pro)
+   2. Click "Choose a Starting Point" 
+   3. Select "Landing" template category
+   4. Choose "Attract" template (has built-in email signup)
+   5. Edit headline: Replace with "[Your Business Name] - Coming Soon"
+   6. Add your value proposition from validation research
+   7. Set up email collection:
+      • Click the email form element
+      • Choose "Mailchimp" integration (FREE up to 2,000 contacts)
+      • Connect your Mailchimp account (sign up at https://mailchimp.com if needed)
+   8. Customize colors to match your brand
+   9. Add "Notify Me" button text
+   10. Preview and test email signup
+   11. Publish with custom domain or carrd.co subdomain
+   
+   💰 COST: FREE (Carrd) + FREE (Mailchimp)
+   ⏱️ TIME: 45-60 minutes
+   📝 OUTCOME: Live landing page collecting emails
+   
+   📋 NOTES SECTION:
+   [Expandable text area for user notes]
+   
+   🔗 HELPFUL LINKS:
+   • Carrd Tutorial: [link]
+   • Mailchimp Setup Guide: [link]
+   • Landing Page Examples: [link]
+\`\`\`
+
+### **3. EXPANDABLE TEMPLATES & CONTENT:**
+Create clickable/expandable sections for:
+- **Email Templates:** Full subject lines and body copy
+- **Social Media Posts:** Complete captions with hashtags
+- **Survey Questions:** Ready-to-copy survey forms
+- **Scripts:** Word-for-word phone/video scripts
+- **Landing Page Copy:** Headlines, descriptions, CTAs
+
+**EACH TEMPLATE MUST BE:**
+- Completely filled out (not placeholders)
+- Customized to my specific business
+- Copy-paste ready
+- Include performance tips
+
+### **4. COMPREHENSIVE TOOL DATABASE:**
+For every tool mentioned, include:
+- **Direct link to signup page**
+- **Exact pricing** (FREE, $X/month, one-time $X)
+- **Free trial info** if available
+- **Alternative free options** when possible
+- **Setup time estimate**
+
+### **5. INTERACTIVE FEATURES (MANDATORY):**
+- ✅ **Checkboxes for every task** with auto-save to localStorage
+- 📝 **Expandable notes section** for each task (auto-save)
+- 📊 **Progress tracking** with percentages and visual progress bars
+- 🎯 **Daily completion tracking** with celebration animations
+- 📱 **Mobile-responsive design** that works perfectly on phones
+- 💾 **Auto-save everything** every 10 seconds
+- 📤 **Export to HTML file** button for offline use
+- 🔄 **Reset/restart** functionality for new iterations
+
+### **6. BEGINNER-FRIENDLY EXPLANATIONS:**
+- **Assume zero prior knowledge** about business tools
+- **Define all technical terms** in simple language
+- **Include screenshots descriptions** where helpful
+- **Provide troubleshooting tips** for common issues
+- **Add "Why are we doing this?" explanations**
+
+### **7. VALIDATION TRACKING SYSTEM:**
+Include specific tracking for:
+- **Email signups per day**
+- **Social media engagement numbers**
+- **Survey responses and insights**
+- **Customer interview feedback**
+- **Pre-sale interest levels**
+- **Pivot decisions and reasons**
+
+### **8. CONTENT LIBRARY (FULLY POPULATED):**
+Provide complete, ready-to-use:
+- **10+ Social media posts** for each platform
+- **5+ Email templates** for different purposes
+- **3+ Landing page variations** to test
+- **Survey with 15+ specific questions**
+- **Customer interview script** (20+ questions)
+- **Hashtag lists** for each platform
+
+## 🚨 QUALITY STANDARDS:
+
+**UNACCEPTABLE:**
+- Vague tasks like "Create content"
+- Missing pricing information
+- Empty days or incomplete weeks
+- Non-clickable templates
+- Generic copy-paste content
+
+**REQUIRED:**
+- Every task broken down into 5-15 specific steps
+- All tools have direct links and pricing
+- Every day filled with realistic tasks
+- All templates fully populated and customized
+- Complete hand-holding guidance
+
+## 💡 EXAMPLE DAILY STRUCTURE:
+
+\`\`\`
+📅 TUESDAY, WEEK 2 - DAY 9
+
+🎯 Today's Goal: Launch first validation experiment
+📊 Success Metric: 50+ people see your validation post
+
+⏰ 2:00-2:30 PM: Social Media Validation Post
+✅ Post validation content to Facebook groups
+   [Detailed 10-step process with links and scripts]
+   
+⏰ 2:30-3:15 PM: Customer Interview Outreach  
+✅ Send 10 interview requests using email template
+   [Exact email template and contact strategy]
+   
+⏰ 3:15-4:00 PM: Survey Setup and Distribution
+✅ Create Google Forms survey and share in 5 groups
+   [Step-by-step Google Forms tutorial]
+   
+⏰ 7:00-7:30 PM: Analyze Day 1 Results
+✅ Review responses and update tracking spreadsheet
+   [Response analysis framework]
+
+📝 DAILY NOTES: [Expandable section]
+📊 TODAY'S METRICS: [Tracking checkboxes]
+\`\`\`
+
+Create a calendar that provides this level of detail for all 84 days, making it impossible for someone to get stuck or confused about what to do next.`;
+
+            document.getElementById('claude-prompt').textContent = basePrompt;
+        }
+
+        // Update Claude prompt with specific info
+        function updateClaudePrompt() {
+            const businessIdea = document.getElementById('claude-business-idea').value;
+            const mvpPlan = document.getElementById('claude-mvp-plan').value;
+            const scheduleInfo = {
+                wakeTime: document.getElementById('wake-time').value,
+                kidsSchedule: document.getElementById('kids-schedule-detail').value,
+                bestWorkHours: document.getElementById('best-work-hours').value,
+                weekendAvailability: document.getElementById('weekend-availability').value
+            };
+            
+            workflowData.businessIdea = businessIdea;
+            workflowData.mvpPlan = mvpPlan;
+            workflowData.scheduleConstraints = scheduleInfo;
+            
+            let updatedPrompt = document.getElementById('claude-prompt').textContent;
+            
+            if (businessIdea) {
+                updatedPrompt = updatedPrompt.replace(
+                    '[PASTE YOUR CHOSEN BUSINESS IDEA WITH COMPLETE ANALYSIS]',
+                    businessIdea
+                );
+            }
+            
+            if (mvpPlan) {
+                updatedPrompt = updatedPrompt.replace(
+                    '[PASTE YOUR COMPLETE VALIDATION PLAN AND MVP STRATEGY]',
+                    mvpPlan
+                );
+            }
+            
+            // Add specific schedule details
+            if (scheduleInfo.kidsSchedule) {
+                updatedPrompt += `\n\n**ADDITIONAL SCHEDULE DETAILS:**
+- Wake up time: ${scheduleInfo.wakeTime}
+- Kids' specific schedule: ${scheduleInfo.kidsSchedule}
+- Best work hours: ${scheduleInfo.bestWorkHours}
+- Weekend availability: ${scheduleInfo.weekendAvailability}`;
+            }
+            
+            document.getElementById('claude-prompt').textContent = updatedPrompt;
+            saveWorkflowData();
+        }
+
+        // Generate optimization prompt
+        function generateOptimizationPrompt() {
+            const basePrompt = `I've generated my business launch calendar, but I need you to fix several issues and optimize it for better functionality and usability. Please analyze the current calendar and make comprehensive improvements.
+
+## 🚨 CURRENT ISSUES I'VE IDENTIFIED:
+
+[Issues will be populated based on user selections]
+
+## 📋 MY REAL SCHEDULE CONSTRAINTS:
+
+**DAILY AVAILABILITY:**
+- Family Structure: ${workflowData.personalInfo.familyStructure}
+- Daily Schedule: ${workflowData.personalInfo.dailySchedule}
+- Energy Pattern: ${workflowData.personalInfo.energyPattern}
+- Available Work Hours: ${workflowData.personalInfo.workHours}
+
+## 🎯 SPECIFIC IMPROVEMENTS NEEDED:
+
+**1. DETAILED TASK BREAKDOWNS:**
+For each task, I need:
+- Specific step-by-step instructions (not just "create content")
+- Estimated time for each sub-step
+- Tools needed for each step
+- Exact templates or scripts to use
+- Links to resources mentioned
+- Troubleshooting tips for common problems
+
+**2. REALISTIC TIME ALLOCATION:**
+- Adjust all tasks to fit my REAL available time slots
+- Add buffer time between different types of activities
+- Account for interruptions and family needs
+- Include setup/cleanup time for each work session
+- Allow for learning curve on new tools/skills
+
+**3. COPY-READY CONTENT ENHANCEMENT:**
+Provide more specific content for:
+- Social media captions with my business details
+- Email subject lines and full email templates
+- Video scripts with timing and shot descriptions
+- Hashtag research specific to my niche
+- Pinterest pin descriptions with keywords
+- Blog post outlines and introductions
+
+**4. TECHNICAL FUNCTIONALITY FIXES:**
+- Ensure all JavaScript functions work properly
+- Fix auto-save and progress loading
+- Improve mobile responsiveness
+- Make copy-to-clipboard reliable
+- Fix any broken interactive elements
+- Optimize page loading speed
+
+## 🚀 DELIVERABLE:
+
+Please provide:
+1. **Fixed HTML Calendar** with all issues resolved
+2. **Change Log** explaining what you improved
+3. **User Guide** for any new features added
+4. **Testing Checklist** so I can verify everything works
+
+🟪 **CURRENT CALENDAR TO FIX:**
+[PASTE YOUR CURRENT CALENDAR CODE OR DESCRIBE SPECIFIC ISSUES]
+
+🟦🟩 **MY BUSINESS DETAILS:**
+[PASTE RELEVANT BUSINESS INFORMATION IF NEEDED FOR CUSTOMIZATION]`;
+
+            document.getElementById('optimization-prompt').textContent = basePrompt;
+        }
+
+        // Update optimization prompt with selected issues
+        function updateOptimizationPrompt() {
+            const issues = [];
+            
+            // Layout & Design Problems
+            if (document.getElementById('issue-layout').checked) issues.push('- Calendar layout broken or not displaying properly');
+            if (document.getElementById('issue-mobile').checked) issues.push('- Mobile responsiveness issues');
+            if (document.getElementById('issue-colors').checked) issues.push('- Color coding unclear or not working');
+            if (document.getElementById('issue-text').checked) issues.push('- Text too small or hard to read');
+            if (document.getElementById('issue-progress').checked) issues.push('- Progress bars not displaying correctly');
+            if (document.getElementById('issue-buttons').checked) issues.push('- Buttons/checkboxes not functioning properly');
+            
+            // Schedule Integration Issues
+            if (document.getElementById('issue-schedule').checked) issues.push('- Time blocks don\'t match my real availability');
+            if (document.getElementById('issue-realistic').checked) issues.push('- Tasks are unrealistic for the time allocated');
+            if (document.getElementById('issue-buffer').checked) issues.push('- No buffer time between activities');
+            if (document.getElementById('issue-family').checked) issues.push('- Doesn\'t account for my family schedule');
+            if (document.getElementById('issue-breaks').checked) issues.push('- Missing meal breaks or personal time');
+            if (document.getElementById('issue-conflicts').checked) issues.push('- Work hours conflict with other commitments');
+            
+            // Content & Instruction Gaps
+            if (document.getElementById('issue-vague').checked) issues.push('- Tasks are too vague - need specific step-by-step instructions');
+            if (document.getElementById('issue-copy').checked) issues.push('- Missing copy-paste marketing content');
+            if (document.getElementById('issue-guidance').checked) issues.push('- No clear guidance on HOW to complete tasks');
+            if (document.getElementById('issue-seo').checked) issues.push('- SEO content is generic, not specific to my business');
+            if (document.getElementById('issue-platform').checked) issues.push('- Platform-specific strategies are missing');
+            if (document.getElementById('issue-resources').checked) issues.push('- No links to tools or resources mentioned');
+            
+            // Functionality Problems
+            if (document.getElementById('issue-save').checked) issues.push('- Auto-save is not working');
+            if (document.getElementById('issue-tracking').checked) issues.push('- Progress tracking is inaccurate');
+            if (document.getElementById('issue-clipboard').checked) issues.push('- Copy-to-clipboard buttons don\'t work');
+            if (document.getElementById('issue-expand').checked) issues.push('- Expandable content not showing/hiding properly');
+            if (document.getElementById('issue-metrics').checked) issues.push('- Metrics dashboard not updating');
+            if (document.getElementById('issue-export').checked) issues.push('- Export function not working');
+            
+            const additionalIssues = document.getElementById('additional-issues').value;
+            
+            let issuesText = '**LAYOUT & DESIGN PROBLEMS:**\n';
+            issuesText += issues.filter(issue => issue.includes('layout') || issue.includes('mobile') || issue.includes('color') || issue.includes('text') || issue.includes('progress') || issue.includes('buttons')).join('\n') || '- No layout issues identified';
+            
+            issuesText += '\n\n**SCHEDULE INTEGRATION ISSUES:**\n';
+            issuesText += issues.filter(issue => issue.includes('Time blocks') || issue.includes('unrealistic') || issue.includes('buffer') || issue.includes('family') || issue.includes('breaks') || issue.includes('conflict')).join('\n') || '- No schedule issues identified';
+            
+            issuesText += '\n\n**CONTENT & INSTRUCTION GAPS:**\n';
+            issuesText += issues.filter(issue => issue.includes('vague') || issue.includes('copy-paste') || issue.includes('guidance') || issue.includes('SEO') || issue.includes('Platform') || issue.includes('resources')).join('\n') || '- No content issues identified';
+            
+            issuesText += '\n\n**FUNCTIONALITY PROBLEMS:**\n';
+            issuesText += issues.filter(issue => issue.includes('Auto-save') || issue.includes('tracking') || issue.includes('clipboard') || issue.includes('Expandable') || issue.includes('dashboard') || issue.includes('Export')).join('\n') || '- No functionality issues identified';
+            
+            if (additionalIssues) {
+                issuesText += '\n\n**ADDITIONAL ISSUES:**\n' + additionalIssues;
+            }
+            
+            let updatedPrompt = document.getElementById('optimization-prompt').textContent.replace(
+                '[Issues will be populated based on user selections]',
+                issuesText
+            );
+            
+            document.getElementById('optimization-prompt').textContent = updatedPrompt;
+        }
+
+        // Copy prompt to clipboard
+        function copyPrompt(promptId) {
+            const promptText = document.getElementById(promptId).textContent;
+            navigator.clipboard.writeText(promptText).then(function() {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = '#059669';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#10B981';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Error copying text: ', err);
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+
+        // Save workflow data
+        function saveWorkflowData() {
+            try {
+                // Data is already stored in the global workflowData object
+                // Update form data if needed
+                collectFormData();
+                console.log('Workflow data updated in memory');
+            } catch (e) {
+                console.log('Unable to save data');
+            }
+        }
+
+        // Download workflow data as JSON file
+        function downloadWorkflowData() {
+            try {
+                // Update with latest form data
+                collectFormData();
+                
+                // Create downloadable JSON file
+                const dataStr = JSON.stringify(workflowData, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                
+                // Create download link
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                downloadLink.download = `ai-business-workflow-${new Date().toISOString().split('T')[0]}.json`;
+                
+                // Trigger download
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                // Clean up URL
+                URL.revokeObjectURL(url);
+                
+                // Show success message
+                alert('Workflow data downloaded successfully! You can save this file and re-import it later.');
+                
+            } catch (e) {
+                console.error('Download error:', e);
+                alert('Unable to download data. Please try copying the data manually from the console.');
+                console.log('Workflow Data:', JSON.stringify(workflowData, null, 2));
+            }
+        }
+
+        // Import workflow data from JSON file
+        function importWorkflowData() {
+            const fileInput = document.getElementById('import-workflow');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a workflow JSON file to import.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    // Validate the imported data structure
+                    if (importedData.personalInfo || importedData.businessIdea || importedData.mvpPlan) {
+                        // Merge imported data with current workflowData
+                        workflowData = { ...workflowData, ...importedData };
+                        
+                        // Restore form values
+                        restoreFormValues();
+                        
+                        // Update prompts if data exists
+                        if (workflowData.personalInfo && Object.keys(workflowData.personalInfo).length > 0) {
+                            generateChatGPTPrompt(workflowData.personalInfo);
+                            generateGeminiPrompt();
+                            generateClaudePrompt();
+                            generateOptimizationPrompt();
+                        }
+                        
+                        // Show success message
+                        alert('Workflow data imported successfully! Your previous data has been restored.');
+                        
+                        // Clear file input
+                        fileInput.value = '';
+                        
+                    } else {
+                        alert('Invalid workflow file format. Please select a valid AI Business Workflow JSON file.');
+                    }
+                    
+                } catch (error) {
+                    console.error('Import error:', error);
+                    alert('Error reading the workflow file. Please check that it\'s a valid JSON file.');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Load workflow data
+        function loadWorkflowData() {
+            try {
+                // Since we can't use localStorage, we'll start with fresh data each time
+                // but preserve any data entered during the current session
+                console.log('Workflow ready - starting fresh session');
+                
+                // Initialize form values if workflowData exists
+                if (workflowData.personalInfo && Object.keys(workflowData.personalInfo).length > 0) {
+                    restoreFormValues();
+                }
+            } catch (e) {
+                console.log('Unable to load data');
+            }
+        }
+
+        // Restore form values from workflowData
+        function restoreFormValues() {
+            Object.keys(workflowData.personalInfo).forEach(key => {
+                const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+                const element = document.getElementById(elementId);
+                if (element && workflowData.personalInfo[key]) {
+                    element.value = workflowData.personalInfo[key];
+                }
+            });
+            
+            // Restore business idea and MVP plan
+            if (workflowData.businessIdea) {
+                const businessIdeaInput = document.getElementById('business-idea-input');
+                const claudeBusinessIdea = document.getElementById('claude-business-idea');
+                if (businessIdeaInput) businessIdeaInput.value = workflowData.businessIdea;
+                if (claudeBusinessIdea) claudeBusinessIdea.value = workflowData.businessIdea;
+            }
+            
+            if (workflowData.mvpPlan) {
+                const claudeMvpPlan = document.getElementById('claude-mvp-plan');
+                if (claudeMvpPlan) claudeMvpPlan.value = workflowData.mvpPlan;
+            }
+            
+            // Restore schedule constraints
+            if (workflowData.scheduleConstraints) {
+                Object.keys(workflowData.scheduleConstraints).forEach(key => {
+                    const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+                    const element = document.getElementById(elementId);
+                    if (element && workflowData.scheduleConstraints[key]) {
+                        element.value = workflowData.scheduleConstraints[key];
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
