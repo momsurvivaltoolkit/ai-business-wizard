@@ -352,9 +352,118 @@
             transform: rotate(180deg);
         }
 
+        .language-selection {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .language-selection h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .language-selection p {
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .language-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .lang-selection-btn {
+            background: white;
+            border: 3px solid white;
+            border-radius: 12px;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 240px;
+            text-align: left;
+        }
+
+        .lang-selection-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .lang-selection-btn.active {
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .lang-selection-btn .flag {
+            font-size: 2rem;
+        }
+
+        .lang-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .lang-content strong {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            font-weight: 700;
+        }
+
+        .lang-content small {
+            font-size: 0.9rem;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .lang-selection-btn.active .lang-content strong {
+            color: #059669;
+        }
+
+        .lang-selection-btn.active .lang-content small {
+            color: #047857;
+        }
+
+        .header {
+            position: relative;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
+            }
+            
+            .language-selection {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .language-selection h3 {
+                font-size: 1.3rem;
+            }
+
+            .language-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .lang-selection-btn {
+                min-width: 100%;
+                max-width: 300px;
+                padding: 15px 20px;
             }
             
             .header h1 {
@@ -379,13 +488,34 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚀 AI Business Launch Wizard</h1>
-            <p class="subtitle">Transform your business idea into a complete launch plan with AI-powered workflow</p>
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="changeLanguage('en')">🇺🇸 English</button>
+                <button class="lang-btn" onclick="changeLanguage('es')">🇪🇸 Español</button>
+            </div>
+            <h1>🚀 Smart Mom Method</h1>
+            <p class="subtitle">The proven AI-powered system for busy moms to discover, validate, and launch profitable online businesses</p>
+            <p style="margin-top: 15px; font-size: 1rem; color: #7C3AED; font-weight: 600;">
+                ✨ 100% Free • No Signups Required • Works on Any Device
+            </p>
         </div>
 
         <div class="workflow-progress">
-            <h3>📊 Workflow Progress</h3>
-            <div class="progress-steps">
+            <h3>📊 Choose Your Workflow</h3>
+            <div style="margin: 20px 0;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div style="border: 2px solid #2563EB; border-radius: 12px; padding: 20px; cursor: pointer;" onclick="selectWorkflow('multi')" id="multi-workflow">
+                        <h4 style="color: #2563EB; margin-bottom: 10px;">🔄 Multi-AI Approach (Recommended)</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;"><strong>Free for everyone</strong></p>
+                        <p style="font-size: 0.9rem;">Uses ChatGPT + Gemini + Claude for diverse perspectives and maximum accessibility</p>
+                    </div>
+                    <div style="border: 2px solid #7C3AED; border-radius: 12px; padding: 20px; cursor: pointer;" onclick="selectWorkflow('claude')" id="claude-workflow">
+                        <h4 style="color: #7C3AED; margin-bottom: 10px;">🟪 Claude-Only Approach</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;"><strong>Requires Claude Pro ($20/month)</strong></p>
+                        <p style="font-size: 0.9rem;">Simpler workflow using only Claude for everything - more consistent and detailed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-steps" id="progress-steps">
                 <div class="step active" data-step="0">
                     📝 Collect Information
                 </div>
@@ -590,37 +720,67 @@
                 </div>
             </div>
 
-            <!-- Step 1: ChatGPT Prompt -->
+            <!-- Step 1: ChatGPT Prompt OR Claude Complete -->
             <div class="section" id="step-1">
-                <h2>🟦 Step 1: Business Ideation (ChatGPT)</h2>
-                
-                <div class="info-card">
-                    <h3>📋 Instructions:</h3>
-                    <p>1. Copy the prompt below</p>
-                    <p>2. Open ChatGPT in a new tab</p>
-                    <p>3. Paste the prompt and hit enter</p>
-                    <p>4. Save ChatGPT's business recommendations</p>
-                    <p>5. Come back here to proceed to Step 2</p>
+                <div id="multi-ai-step-1">
+                    <h2>🟦 Step 1: Business Ideation (ChatGPT)</h2>
+                    
+                    <div class="info-card">
+                        <h3>📋 Instructions:</h3>
+                        <p>1. Copy the prompt below</p>
+                        <p>2. Open ChatGPT in a new tab</p>
+                        <p>3. Paste the prompt and hit enter</p>
+                        <p>4. Save ChatGPT's business recommendations</p>
+                        <p>5. Come back here to proceed to Step 2</p>
+                    </div>
+
+                    <div class="prompt-output">
+                        <div class="prompt-header">
+                            <span class="prompt-title">🟦 ChatGPT Business Ideation Prompt</span>
+                            <button class="copy-btn" onclick="copyPrompt('chatgpt-prompt')">📋 Copy Prompt</button>
+                        </div>
+                        <div class="prompt-content" id="chatgpt-prompt">
+                            <!-- Generated prompt will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>💡 Pro Tip:</h4>
+                        <p>ChatGPT might ask follow-up questions. Answer them to get more personalized business ideas. Look for the business idea that excites you most AND matches your constraints.</p>
+                    </div>
                 </div>
 
-                <div class="prompt-output">
-                    <div class="prompt-header">
-                        <span class="prompt-title">🟦 ChatGPT Business Ideation Prompt</span>
-                        <button class="copy-btn" onclick="copyPrompt('chatgpt-prompt')">📋 Copy Prompt</button>
+                <div id="claude-only-step-1" style="display: none;">
+                    <h2>🟪 Step 1: Complete Business Plan (Claude)</h2>
+                    
+                    <div class="info-card">
+                        <h3>📋 Instructions:</h3>
+                        <p>1. Copy the comprehensive prompt below</p>
+                        <p>2. Open Claude in a new tab (Claude Pro recommended for best results)</p>
+                        <p>3. Paste the prompt and hit enter</p>
+                        <p>4. Claude will provide your complete business plan including ideation, validation, and implementation</p>
+                        <p>5. Save Claude's complete response - this is your entire business strategy!</p>
                     </div>
-                    <div class="prompt-content" id="chatgpt-prompt">
-                        <!-- Generated prompt will appear here -->
-                    </div>
-                </div>
 
-                <div class="tip-box">
-                    <h4>💡 Pro Tip:</h4>
-                    <p>ChatGPT might ask follow-up questions. Answer them to get more personalized business ideas. Look for the business idea that excites you most AND matches your constraints.</p>
+                    <div class="prompt-output">
+                        <div class="prompt-header">
+                            <span class="prompt-title">🟪 Claude Complete Business Plan Prompt</span>
+                            <button class="copy-btn" onclick="copyPrompt('chatgpt-prompt')">📋 Copy Prompt</button>
+                        </div>
+                        <div class="prompt-content" id="claude-complete-prompt">
+                            <!-- Generated prompt will appear here -->
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <h4>🎯 Pro Tip:</h4>
+                        <p>This single Claude response will give you everything: business ideas, validation strategy, and implementation plan. It's comprehensive but requires Claude Pro for best results due to the detailed response needed.</p>
+                    </div>
                 </div>
 
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="showStep(0)">← Back</button>
-                    <button class="btn btn-primary" onclick="showStep(2)">Next: Validation & MVP →</button>
+                    <button class="btn btn-primary" onclick="showNextStep()">Next Step →</button>
                 </div>
             </div>
 
@@ -873,20 +1033,393 @@
     </div>
 
     <script>
+        // Utility function to safely handle classList operations
+        function safeClassList(element, action, className) {
+            try {
+                if (!element || typeof element !== 'object') {
+                    return false;
+                }
+                if (!element.classList || typeof element.classList[action] !== 'function') {
+                    return false;
+                }
+                if (className) {
+                    element.classList[action](className);
+                } else {
+                    element.classList[action]();
+                }
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        // Utility function to safely get element by ID
+        function safeGetElement(id) {
+            try {
+                return document.getElementById(id);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Utility function to safely query selector
+        function safeQuerySelector(selector) {
+            try {
+                return document.querySelector(selector);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Utility function to safely query all selectors
+        function safeQuerySelectorAll(selector) {
+            try {
+                return document.querySelectorAll(selector) || [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        // Global error handler to catch any remaining errors
+        window.addEventListener('error', function(e) {
+            // Completely suppress classList errors
+            if (e.error && e.error.message && e.error.message.includes('classList')) {
+                e.stopPropagation();
+                e.preventDefault();
+                return false;
+            }
+        });
+
         // Global state
         let workflowData = {
             personalInfo: {},
             businessIdea: '',
             mvpPlan: '',
             scheduleConstraints: {},
-            currentStep: 0
+            currentStep: 0,
+            workflowType: '', // 'multi' or 'claude'
+            language: 'en' // 'en' or 'es'
         };
+
+        // Language content
+        const content = {
+            en: {
+                title: "Smart Mom Method",
+                subtitle: "The proven AI-powered system for busy moms to discover, validate, and launch profitable online businesses",
+                freeText: "✨ 100% Free • No Signups Required • Works on Any Device",
+                workflowTitle: "Choose Your Workflow",
+                multiAITitle: "🔄 Multi-AI Approach (Recommended)",
+                multiAIDesc: "Uses ChatGPT + Gemini + Claude for diverse perspectives and maximum accessibility",
+                claudeOnlyTitle: "🟪 Claude-Only Approach", 
+                claudeOnlyDesc: "Simpler workflow using only Claude for everything - more consistent and detailed",
+                freeForEveryone: "Free for everyone",
+                requiresClaudePro: "Requires Claude Pro ($20/month)",
+                collectInfo: "Business Information Collection",
+                collectInfoDesc: "Let's gather all the information needed to generate personalized AI prompts for your business launch.",
+                importDataTitle: "💡 Import Previous Data",
+                importDataDesc: "If you have a saved workflow file, you can import it here to continue where you left off:",
+                importButton: "📂 Import Workflow Data",
+                generatePrompts: "🚀 Generate AI Prompts",
+                // Form labels
+                kidsAges: "Kids' Ages & Schedules",
+                workStatus: "Current Work Status", 
+                dailySchedule: "Daily Schedule Reality",
+                energyPatterns: "Energy Patterns",
+                professionalBg: "Professional Background",
+                naturalTalents: "Natural Talents",
+                transformation: "Personal Transformation",
+                creativeSkills: "Creative Skills",
+                techComfort: "Tech Comfort Level",
+                socialPlatforms: "Social Media Platforms Used",
+                cameraComfort: "Camera Comfort",
+                incomeGoals: "Monthly Income Goals",
+                timeline: "Timeline Pressure",
+                workHours: "Daily Work Hours Available",
+                budget: "Startup Budget",
+                researchTopics: "Topics You Research",
+                problemsNoticed: "Problems You Notice",
+                momConversations: "Mom Friend Conversations",
+                personalMission: "Personal Mission"
+            },
+            es: {
+                title: "Método Mamá Inteligente",
+                subtitle: "El sistema comprobado con IA para madres ocupadas para descubrir, validar y lanzar negocios online rentables",
+                freeText: "✨ 100% Gratis • Sin Registro Requerido • Funciona en Cualquier Dispositivo",
+                workflowTitle: "Elige Tu Proceso",
+                multiAITitle: "🔄 Enfoque Multi-IA (Recomendado)",
+                multiAIDesc: "Usa ChatGPT + Gemini + Claude para perspectivas diversas y máxima accesibilidad",
+                claudeOnlyTitle: "🟪 Solo Claude",
+                claudeOnlyDesc: "Proceso más simple usando solo Claude para todo - más consistente y detallado",
+                freeForEveryone: "Gratis para todos",
+                requiresClaudePro: "Requiere Claude Pro ($20/mes)",
+                collectInfo: "Recolección de Información del Negocio",
+                collectInfoDesc: "Recopilemos toda la información necesaria para generar prompts de IA personalizados para el lanzamiento de tu negocio.",
+                importDataTitle: "💡 Importar Datos Previos",
+                importDataDesc: "Si tienes un archivo de proceso guardado, puedes importarlo aquí para continuar donde lo dejaste:",
+                importButton: "📂 Importar Datos del Proceso",
+                generatePrompts: "🚀 Generar Prompts de IA",
+                // Form labels
+                kidsAges: "Edades y Horarios de los Niños",
+                workStatus: "Estado Laboral Actual",
+                dailySchedule: "Realidad del Horario Diario",
+                energyPatterns: "Patrones de Energía",
+                professionalBg: "Experiencia Profesional",
+                naturalTalents: "Talentos Naturales",
+                transformation: "Transformación Personal",
+                creativeSkills: "Habilidades Creativas",
+                techComfort: "Nivel de Comodidad Tecnológica",
+                socialPlatforms: "Plataformas de Redes Sociales Usadas",
+                cameraComfort: "Comodidad con la Cámara",
+                incomeGoals: "Objetivos de Ingresos Mensuales",
+                timeline: "Presión de Tiempo",
+                workHours: "Horas de Trabajo Diarias Disponibles",
+                budget: "Presupuesto Inicial",
+                researchTopics: "Temas que Investigas",
+                problemsNoticed: "Problemas que Notas",
+                momConversations: "Conversaciones entre Madres",
+                personalMission: "Misión Personal"
+            }
+        };
+
+        // Change language
+        function changeLanguage(lang) {
+            workflowData.language = lang;
+            updateLanguageContent();
+            saveWorkflowData();
+            
+            // Update language selector visual state
+            document.querySelectorAll('.lang-selection-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`${lang}-btn`).classList.add('active');
+
+            // Update language selection display text
+            updateLanguageSelectionDisplay(lang);
+        }
+
+        // Update the language selection display based on current language
+        function updateLanguageSelectionDisplay(lang) {
+            const languageSection = document.querySelector('.language-selection');
+            
+            if (lang === 'es') {
+                languageSection.querySelector('h3').textContent = '🌎 Elige Tu Idioma / Choose Your Language';
+                languageSection.querySelector('p:first-of-type').textContent = 'Selecciona el idioma para toda tu experiencia del Método Mamá Inteligente';
+                languageSection.querySelector('p:last-of-type').textContent = 'Select the language for your entire Smart Mom Method experience';
+            } else {
+                languageSection.querySelector('h3').textContent = '🌎 Choose Your Language / Elige Tu Idioma';
+                languageSection.querySelector('p:first-of-type').textContent = 'Select the language for your entire Smart Mom Method experience';
+                languageSection.querySelector('p:last-of-type').textContent = 'Selecciona el idioma para toda tu experiencia del Método Mamá Inteligente';
+            }
+        }
+
+        // Update all content based on selected language
+        function updateLanguageContent() {
+            const lang = workflowData.language;
+            const c = content[lang];
+            
+            // Update main headers
+            document.querySelector('.header h1').innerHTML = `🚀 ${c.title}`;
+            document.querySelector('.subtitle').textContent = c.subtitle;
+            document.querySelector('.header p:last-child').innerHTML = c.freeText;
+            
+            // Update workflow section
+            document.querySelector('.workflow-progress h3').textContent = `📊 ${c.workflowTitle}`;
+            
+            // Update step 0 content
+            document.querySelector('#step-0 h2').innerHTML = `📝 ${c.collectInfo}`;
+            document.querySelector('#step-0 p:first-of-type').textContent = c.collectInfoDesc;
+            document.querySelector('#step-0 .info-card h3').innerHTML = c.importDataTitle;
+            document.querySelector('#step-0 .info-card p').textContent = c.importDataDesc;
+            document.querySelector('button[onclick="importWorkflowData()"]').innerHTML = c.importButton;
+            document.querySelector('button[onclick="generatePrompts()"]').innerHTML = c.generatePrompts;
+            
+            // Update form labels
+            updateFormLabels(lang);
+        }
+
+        // Update form labels
+        function updateFormLabels(lang) {
+            const c = content[lang];
+            const labelUpdates = [
+                ['family-structure', c.kidsAges],
+                ['work-status', c.workStatus],
+                ['daily-schedule', c.dailySchedule],
+                ['energy-pattern', c.energyPatterns],
+                ['professional-bg', c.professionalBg],
+                ['natural-talents', c.naturalTalents],
+                ['transformation', c.transformation],
+                ['creative-skills', c.creativeSkills],
+                ['tech-comfort', c.techComfort],
+                ['social-platforms', c.socialPlatforms],
+                ['camera-comfort', c.cameraComfort],
+                ['income-goals', c.incomeGoals],
+                ['timeline', c.timeline],
+                ['work-hours', c.workHours],
+                ['budget', c.budget],
+                ['research-topics', c.researchTopics],
+                ['problems-noticed', c.problemsNoticed],
+                ['mom-conversations', c.momConversations],
+                ['personal-mission', c.personalMission]
+            ];
+            
+            labelUpdates.forEach(([id, text]) => {
+                const label = document.querySelector(`label[for="${id}"], #${id} + label, #${id} ~ label`);
+                if (!label) {
+                    // Find label by looking for input/textarea/select and then finding associated label
+                    const input = document.getElementById(id);
+                    if (input) {
+                        const parentGroup = input.closest('.form-group');
+                        if (parentGroup) {
+                            const labelElement = parentGroup.querySelector('label');
+                            if (labelElement) {
+                                labelElement.textContent = text;
+                            }
+                        }
+                    }
+                } else {
+                    label.textContent = text;
+                }
+            });
+        }
+
+        // Select workflow type with comprehensive error handling
+        function selectWorkflow(type) {
+            try {
+                // Check if workflow elements exist first using safe functions
+                const multiWorkflow = safeGetElement('multi-workflow');
+                const claudeWorkflow = safeGetElement('claude-workflow');
+                
+                if (!multiWorkflow || !claudeWorkflow) {
+                    console.log('Workflow elements not found, skipping selectWorkflow');
+                    return;
+                }
+                
+                workflowData.workflowType = type;
+                
+                // Update visual selection with safe functions
+                const workflowElements = safeQuerySelectorAll('#multi-workflow, #claude-workflow');
+                workflowElements.forEach(el => {
+                    if (el && el.style) {
+                        el.style.border = '2px solid #E5E7EB';
+                        el.style.background = 'white';
+                    }
+                });
+                
+                const lang = workflowData.language || 'en';
+                const c = content[lang];
+                
+                if (type === 'multi' && multiWorkflow) {
+                    if (multiWorkflow.style) {
+                        multiWorkflow.style.border = '2px solid #2563EB';
+                        multiWorkflow.style.background = '#EFF6FF';
+                    }
+                    setupMultiAISteps();
+                    
+                    // Update content with null checks
+                    const multiTitle = multiWorkflow.querySelector('h4');
+                    const multiPrice = multiWorkflow.querySelector('p:first-of-type');
+                    const multiDesc = multiWorkflow.querySelector('p:last-of-type');
+                    
+                    if (multiTitle) multiTitle.innerHTML = c.multiAITitle;
+                    if (multiPrice) multiPrice.innerHTML = `<strong>${c.freeForEveryone}</strong>`;
+                    if (multiDesc) multiDesc.textContent = c.multiAIDesc;
+                    
+                } else if (type === 'claude' && claudeWorkflow) {
+                    if (claudeWorkflow.style) {
+                        claudeWorkflow.style.border = '2px solid #7C3AED';
+                        claudeWorkflow.style.background = '#F3E8FF';
+                    }
+                    setupClaudeOnlySteps();
+                    
+                    // Update content with null checks
+                    const claudeTitle = claudeWorkflow.querySelector('h4');
+                    const claudePrice = claudeWorkflow.querySelector('p:first-of-type');
+                    const claudeDesc = claudeWorkflow.querySelector('p:last-of-type');
+                    
+                    if (claudeTitle) claudeTitle.innerHTML = c.claudeOnlyTitle;
+                    if (claudePrice) claudePrice.innerHTML = `<strong>${c.requiresClaudePro}</strong>`;
+                    if (claudeDesc) claudeDesc.textContent = c.claudeOnlyDesc;
+                }
+                
+                saveWorkflowData();
+                
+            } catch (error) {
+                console.error('SelectWorkflow error:', error);
+            }
+        }
+
+        // Setup Multi-AI workflow steps
+        function setupMultiAISteps() {
+            const stepsContainer = safeGetElement('progress-steps');
+            if (!stepsContainer) return;
+            
+            stepsContainer.innerHTML = `
+                <div class="step active" data-step="0">
+                    📝 Collect Information
+                </div>
+                <div class="step pending" data-step="1">
+                    🟦 ChatGPT: Business Ideas
+                </div>
+                <div class="step pending" data-step="2">
+                    🟩 Gemini: Validation & MVP
+                </div>
+                <div class="step pending" data-step="3">
+                    🟪 Claude: Interactive Calendar
+                </div>
+                <div class="step pending" data-step="4">
+                    🟨 Claude: Optimization
+                </div>
+            `;
+        }
+
+        // Setup Claude-only workflow steps
+        function setupClaudeOnlySteps() {
+            const stepsContainer = safeGetElement('progress-steps');
+            if (!stepsContainer) return;
+            
+            stepsContainer.innerHTML = `
+                <div class="step active" data-step="0">
+                    📝 Collect Information
+                </div>
+                <div class="step pending" data-step="1">
+                    🟪 Claude: Complete Business Plan
+                </div>
+                <div class="step pending" data-step="2">
+                    🟪 Claude: Interactive Calendar
+                </div>
+                <div class="step pending" data-step="3">
+                    🟪 Claude: Optimization (If Needed)
+                </div>
+            `;
+        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             loadWorkflowData();
             setupCollapsibles();
             setupAutoSave();
+            
+            // Set up language system
+            if (!workflowData.language) {
+                workflowData.language = 'en'; // Default to English
+            }
+            
+            // Set the correct active language button
+            document.querySelectorAll('.lang-selection-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`${workflowData.language}-btn`).classList.add('active');
+            
+            // Update content to match language
+            updateLanguageContent();
+            updateLanguageSelectionDisplay(workflowData.language);
+            
+            // Set default workflow if none selected
+            if (!workflowData.workflowType) {
+                selectWorkflow('multi'); // Default to multi-AI approach
+            } else {
+                selectWorkflow(workflowData.workflowType); // Restore saved selection
+            }
         });
 
         // Setup auto-save functionality
@@ -931,6 +1464,17 @@
             // Show target section
             document.getElementById(`step-${stepNumber}`).classList.add('active');
             
+            // Show appropriate workflow content for step 1
+            if (stepNumber === 1) {
+                if (workflowData.workflowType === 'multi') {
+                    document.getElementById('multi-ai-step-1').style.display = 'block';
+                    document.getElementById('claude-only-step-1').style.display = 'none';
+                } else if (workflowData.workflowType === 'claude') {
+                    document.getElementById('multi-ai-step-1').style.display = 'none';
+                    document.getElementById('claude-only-step-1').style.display = 'block';
+                }
+            }
+            
             // Update progress indicators
             document.querySelectorAll('.step').forEach((step, index) => {
                 step.classList.remove('active', 'completed');
@@ -945,6 +1489,15 @@
             
             workflowData.currentStep = stepNumber;
             saveWorkflowData();
+        }
+
+        // Show next step based on workflow type
+        function showNextStep() {
+            if (workflowData.workflowType === 'multi') {
+                showStep(2); // Go to Gemini step
+            } else {
+                showStep(2); // Go to Claude calendar step (skipping Gemini)
+            }
         }
 
         // Show completion
@@ -971,32 +1524,40 @@
             });
         }
 
-        // Collect all form data
+        // Collect all form data with error handling
         function collectFormData() {
-            const formData = {
-                familyStructure: document.getElementById('family-structure').value,
-                workStatus: document.getElementById('work-status').value,
-                dailySchedule: document.getElementById('daily-schedule').value,
-                energyPattern: document.getElementById('energy-pattern').value,
-                professionalBg: document.getElementById('professional-bg').value,
-                naturalTalents: document.getElementById('natural-talents').value,
-                transformation: document.getElementById('transformation').value,
-                creativeSkills: document.getElementById('creative-skills').value,
-                techComfort: document.getElementById('tech-comfort').value,
-                socialPlatforms: document.getElementById('social-platforms').value,
-                cameraComfort: document.getElementById('camera-comfort').value,
-                incomeGoals: document.getElementById('income-goals').value,
-                timeline: document.getElementById('timeline').value,
-                workHours: document.getElementById('work-hours').value,
-                budget: document.getElementById('budget').value,
-                researchTopics: document.getElementById('research-topics').value,
-                problemsNoticed: document.getElementById('problems-noticed').value,
-                momConversations: document.getElementById('mom-conversations').value,
-                personalMission: document.getElementById('personal-mission').value
-            };
-            
-            workflowData.personalInfo = formData;
-            return formData;
+            try {
+                const formData = {};
+                
+                // List of form field IDs to collect
+                const fieldIds = [
+                    'family-structure', 'work-status', 'daily-schedule', 'energy-pattern',
+                    'professional-bg', 'natural-talents', 'transformation', 'creative-skills',
+                    'tech-comfort', 'social-platforms', 'camera-comfort', 'income-goals',
+                    'timeline', 'work-hours', 'budget', 'research-topics', 'problems-noticed',
+                    'mom-conversations', 'personal-mission'
+                ];
+                
+                fieldIds.forEach(id => {
+                    try {
+                        const element = safeGetElement(id);
+                        if (element && typeof element.value !== 'undefined') {
+                            // Convert ID to camelCase for object property
+                            const propName = id.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+                            formData[propName] = element.value || '';
+                        }
+                    } catch (fieldError) {
+                        console.log(`Error collecting field ${id}:`, fieldError);
+                    }
+                });
+                
+                workflowData.personalInfo = formData;
+                return formData;
+                
+            } catch (error) {
+                console.log('Error collecting form data:', error);
+                return workflowData.personalInfo || {};
+            }
         }
 
         // Generate all AI prompts
@@ -1011,19 +1572,147 @@
                 alert('Please fill in all required fields before generating prompts.');
                 return;
             }
+
+            if (!workflowData.workflowType) {
+                alert('Please select a workflow type (Multi-AI or Claude-Only) first.');
+                return;
+            }
             
-            generateChatGPTPrompt(data);
-            generateGeminiPrompt();
-            generateClaudePrompt();
-            generateOptimizationPrompt();
+            if (workflowData.workflowType === 'multi') {
+                generateChatGPTPrompt(data);
+                generateGeminiPrompt();
+                generateClaudePrompt();
+                generateOptimizationPrompt();
+                showStep(1);
+            } else {
+                generateClaudeCompletePrompt(data);
+                generateClaudePrompt();
+                generateOptimizationPrompt();
+                showStep(1);
+            }
             
             saveWorkflowData();
-            showStep(1);
+        }
+
+        // Generate Claude complete business plan prompt (Claude-only workflow)
+        function generateClaudeCompletePrompt(data) {
+            const prompt = `I'm a mom who wants to start an online business. I need you to analyze my complete situation and create a comprehensive business plan that includes ideation, validation strategy, and implementation roadmap - all in one detailed response.
+
+## 👩‍💼 MY COMPLETE PROFILE:
+
+**PERSONAL & FAMILY SITUATION:**
+• Family Structure: ${data.familyStructure}
+• Current Work Status: ${data.workStatus}
+• Daily Schedule Reality: ${data.dailySchedule}
+• Energy Patterns: ${data.energyPattern}
+
+**SKILLS & EXPERIENCE INVENTORY:**
+• Professional Background: ${data.professionalBg}
+• Natural Talents: ${data.naturalTalents}
+• Personal Transformation: ${data.transformation}
+• Creative Skills: ${data.creativeSkills}
+
+**TECHNOLOGY & COMFORT ZONES:**
+• Tech Comfort Level: ${data.techComfort}
+• Social Media Platforms: ${data.socialPlatforms}
+• Camera Comfort: ${data.cameraComfort}
+
+**BUSINESS PREFERENCES & CONSTRAINTS:**
+• Income Goals: ${data.incomeGoals}
+• Timeline Pressure: ${data.timeline}
+• Time Investment: ${data.workHours}
+• Startup Budget: ${data.budget}
+
+**PASSION & MOTIVATION DRIVERS:**
+• Topics I Research: ${data.researchTopics}
+• Problems I Notice: ${data.problemsNoticed}
+• Mom Friend Conversations: ${data.momConversations}
+• Personal Mission: ${data.personalMission}
+
+## 🎯 COMPREHENSIVE BUSINESS PLAN REQUEST:
+
+Please provide a complete business plan that includes:
+
+### **PART 1: BUSINESS IDEATION & SELECTION**
+1. **3-5 Ranked Business Ideas** based on my profile
+   - Clear description of each business concept
+   - Target customer analysis
+   - Revenue model and pricing strategy
+   - Why this fits my situation and constraints
+   - Realistic income potential
+   - Startup requirements and timeline
+
+2. **Top Recommendation** with detailed reasoning
+   - Why this is the best choice for me specifically
+   - Competitive landscape analysis
+   - Unique positioning and differentiators
+   - Scalability potential
+
+### **PART 2: VALIDATION STRATEGY**
+3. **Complete Validation Framework**
+   - 5 specific experiments to test demand
+   - Financial validation methods (testing willingness to pay)
+   - Target audience identification and research methods
+   - Validation timeline (weeks 1-4 breakdown)
+   - Success metrics and decision framework
+
+4. **MVP Development Plan**
+   - Minimum viable product design
+   - Tools and platforms needed (with costs)
+   - Creation timeline and resource requirements
+   - Testing and feedback collection methods
+
+### **PART 3: IMPLEMENTATION ROADMAP**
+5. **12-Week Launch Plan**
+   - Week-by-week breakdown of activities
+   - Daily tasks that fit my ${data.workHours} schedule
+   - Marketing and customer acquisition strategy
+   - Content creation plan and templates
+   - Milestone tracking and success metrics
+
+6. **Ready-to-Use Resources**
+   - Social media content templates
+   - Email templates for customer outreach
+   - Survey scripts for market research
+   - Landing page copy variations
+   - Customer interview questions
+
+### **PART 4: PRACTICAL GUIDANCE**
+7. **Mom-Specific Implementation Tips**
+   - How to work around family schedule
+   - Managing interruptions and limited time blocks
+   - Leveraging existing networks (mom friends, school community)
+   - Balancing business and family responsibilities
+
+8. **Tool and Resource Library**
+   - Free tools for each business function
+   - Paid tool recommendations with exact costs
+   - Alternatives for different budget levels
+   - Setup tutorials and time estimates
+
+9. **Risk Management**
+   - Common pitfalls and how to avoid them
+   - What to do if validation fails
+   - Pivot strategies and alternatives
+   - When to stop vs. when to persist
+
+Make this plan incredibly detailed, actionable, and realistic for a mom with my specific constraints. I need clarity and confidence in every step, with no guesswork about what to do next.`;
+
+            // Store the prompt for both displays (maintain compatibility)
+            document.getElementById('chatgpt-prompt').textContent = prompt;
+            if (document.getElementById('claude-complete-prompt')) {
+                document.getElementById('claude-complete-prompt').textContent = prompt;
+            }
         }
 
         // Generate ChatGPT prompt
         function generateChatGPTPrompt(data) {
-            const prompt = `I'm a mom who wants to start an online business, but I need help identifying the RIGHT business idea that matches my unique situation, skills, and constraints. I need you to analyze my complete profile and recommend 3-5 specific, viable business ideas.
+            const isSpanish = workflowData.language === 'es';
+            const langInstruction = isSpanish ? 
+                '\n\n🌎 IMPORTANTE: Por favor responde COMPLETAMENTE EN ESPAÑOL. Toda tu respuesta debe estar en español, incluyendo todos los análisis, recomendaciones, y consejos.\n\n' :
+                '\n\n🌎 IMPORTANT: Please respond COMPLETELY IN ENGLISH.\n\n';
+            
+            const prompt = `${langInstruction}I'm a mom who wants to start an online business, but I need help identifying the RIGHT business idea that matches my unique situation, skills, and constraints. I need you to analyze my complete profile and recommend 3-5 specific, viable business ideas.
 
 Please ask me strategic follow-up questions if you need clarification on any answers.
 
@@ -1113,7 +1802,12 @@ Make your recommendations specific, actionable, and realistic for a mom who can'
 
         // Generate base Gemini prompt (will be updated when business idea is added)
         function generateGeminiPrompt() {
-            const basePrompt = `I'm a mom entrepreneur who has identified this business idea from ChatGPT: 
+            const isSpanish = workflowData.language === 'es';
+            const langInstruction = isSpanish ? 
+                '\n\n🌎 IMPORTANTE: Por favor responde COMPLETAMENTE EN ESPAÑOL. Toda tu respuesta debe estar en español, incluyendo todos los análisis, estrategias, y recomendaciones.\n\n' :
+                '\n\n🌎 IMPORTANT: Please respond COMPLETELY IN ENGLISH.\n\n';
+                
+            const basePrompt = `${langInstruction}I'm a mom entrepreneur who has identified this business idea from ChatGPT: 
 
 🟦 [PASTE YOUR CHOSEN BUSINESS IDEA FROM CHATGPT HERE]
 
@@ -1177,7 +1871,7 @@ Create a specific timeline:
 - How do I balance validation with family responsibilities?
 
 **8. LOW-COST TESTING METHODS:**
-- What can I validate for free or under $${workflowData.personalInfo.budget}?
+- What can I validate for free or under ${workflowData.personalInfo.budget}?
 - Which platforms offer the best free tools for testing?
 - How can I use my personal social media for validation without being spammy?
 - What guerrilla research methods work for my target audience?
@@ -1231,7 +1925,7 @@ MAKE THIS PLAN SPECIFIC, ACTIONABLE, AND REALISTIC FOR A MOM WITH LIMITED TIME W
 
 MY CONSTRAINTS:
 - Available time: ${workflowData.personalInfo.workHours} per day
-- Budget for validation: $${workflowData.personalInfo.budget}
+- Budget for validation: ${workflowData.personalInfo.budget}
 - Technical skills: ${workflowData.personalInfo.techComfort}
 - Energy pattern: ${workflowData.personalInfo.energyPattern}`;
 
@@ -1259,7 +1953,12 @@ MY CONSTRAINTS:
 
         // Generate Claude prompt
         function generateClaudePrompt() {
-            const basePrompt = `Create a comprehensive interactive HTML calendar artifact that provides hand-holding, step-by-step guidance for launching my business. This needs to be incredibly detailed with complete instructions for every single task.
+            const isSpanish = workflowData.language === 'es';
+            const langInstruction = isSpanish ? 
+                '\n\n🌎 IMPORTANTE: Por favor responde COMPLETAMENTE EN ESPAÑOL. Toda tu respuesta debe estar en español, incluyendo todas las instrucciones, calendarios, y contenido.\n\n' :
+                '\n\n🌎 IMPORTANT: Please respond COMPLETELY IN ENGLISH.\n\n';
+                
+            const basePrompt = `${langInstruction}Create a comprehensive interactive HTML calendar artifact that provides hand-holding, step-by-step guidance for launching my business. This needs to be incredibly detailed with complete instructions for every single task.
 
 ## 📋 MY VALIDATED BUSINESS PLAN:
 
@@ -1744,36 +2443,51 @@ Please provide:
 
         // Restore form values from workflowData
         function restoreFormValues() {
-            Object.keys(workflowData.personalInfo).forEach(key => {
-                const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-                const element = document.getElementById(elementId);
-                if (element && workflowData.personalInfo[key]) {
-                    element.value = workflowData.personalInfo[key];
-                }
-            });
-            
-            // Restore business idea and MVP plan
-            if (workflowData.businessIdea) {
-                const businessIdeaInput = document.getElementById('business-idea-input');
-                const claudeBusinessIdea = document.getElementById('claude-business-idea');
-                if (businessIdeaInput) businessIdeaInput.value = workflowData.businessIdea;
-                if (claudeBusinessIdea) claudeBusinessIdea.value = workflowData.businessIdea;
-            }
-            
-            if (workflowData.mvpPlan) {
-                const claudeMvpPlan = document.getElementById('claude-mvp-plan');
-                if (claudeMvpPlan) claudeMvpPlan.value = workflowData.mvpPlan;
-            }
-            
-            // Restore schedule constraints
-            if (workflowData.scheduleConstraints) {
-                Object.keys(workflowData.scheduleConstraints).forEach(key => {
-                    const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-                    const element = document.getElementById(elementId);
-                    if (element && workflowData.scheduleConstraints[key]) {
-                        element.value = workflowData.scheduleConstraints[key];
+            try {
+                if (!workflowData.personalInfo) return;
+                
+                Object.keys(workflowData.personalInfo).forEach(key => {
+                    try {
+                        const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+                        const element = safeGetElement(elementId);
+                        if (element && workflowData.personalInfo[key]) {
+                            element.value = workflowData.personalInfo[key];
+                        }
+                    } catch (fieldError) {
+                        console.log(`Error restoring field ${key}:`, fieldError);
                     }
                 });
+                
+                // Restore business idea and MVP plan
+                if (workflowData.businessIdea) {
+                    const businessIdeaInput = safeGetElement('business-idea-input');
+                    const claudeBusinessIdea = safeGetElement('claude-business-idea');
+                    if (businessIdeaInput) businessIdeaInput.value = workflowData.businessIdea;
+                    if (claudeBusinessIdea) claudeBusinessIdea.value = workflowData.businessIdea;
+                }
+                
+                if (workflowData.mvpPlan) {
+                    const claudeMvpPlan = safeGetElement('claude-mvp-plan');
+                    if (claudeMvpPlan) claudeMvpPlan.value = workflowData.mvpPlan;
+                }
+                
+                // Restore schedule constraints
+                if (workflowData.scheduleConstraints) {
+                    Object.keys(workflowData.scheduleConstraints).forEach(key => {
+                        try {
+                            const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+                            const element = safeGetElement(elementId);
+                            if (element && workflowData.scheduleConstraints[key]) {
+                                element.value = workflowData.scheduleConstraints[key];
+                            }
+                        } catch (fieldError) {
+                            console.log(`Error restoring schedule field ${key}:`, fieldError);
+                        }
+                    });
+                }
+                
+            } catch (error) {
+                console.log('Error in restoreFormValues:', error);
             }
         }
     </script>
