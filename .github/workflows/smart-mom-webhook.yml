@@ -1,6 +1,20 @@
 name: Smart Mom Business Plan Webhook
 
 on:
+name: Smart Mom Business Plan Webhook
+
+on:
+  issues:
+    types: [opened]
+
+# ADD THESE LINES HERE:
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  process-submission:
+    # ... rest of your existing code
   issues:
     types: [opened]
 
