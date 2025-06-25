@@ -1,24 +1,9 @@
 name: Smart Mom Business Plan Webhook
 
 on:
-name: Smart Mom Business Plan Webhook
-
-on:
   issues:
     types: [opened]
 
-# ADD THESE LINES HERE:
-permissions:
-  issues: write
-  contents: read
-
-jobs:
-  process-submission:
-    # ... rest of your existing code
-  issues:
-    types: [opened]
-
-# ADD THIS SECTION - GitHub Actions Permissions
 permissions:
   issues: write
   contents: read
@@ -33,4 +18,105 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          # Your existing script here...
+          // Get issue data
+          const issue = context.payload.issue;
+          const issueBody = issue.body;
+          
+          // Extract email from issue body (multiple patterns)
+          const emailPatterns = [
+            /\*\*Email:\*\* (.+)/,
+            /Email: (.+)/,
+            /- \*\*Email:\*\* (.+)/,
+            /email[:\s]+([^\s\n]+@[^\s\n]+)/i
+          ];
+
+          let email = '';
+          for (const pattern of emailPatterns) {
+            const match = issueBody.match(pattern);
+            if (match) {
+              email = match[1].trim();
+              break;
+            }
+          }
+
+          // Extract name similarly
+          const namePatterns = [
+            /\*\*Name:\*\* (.+)/,
+            /Name: (.+)/,
+            /- \*\*Name:\*\* (.+)/
+          ];
+
+          let name = '';
+          for (const pattern of namePatterns) {
+            const match = issueBody.match(pattern);
+            if (match) {
+              name = match[1].trim();
+              break;
+            }
+          }
+          
+          // Prepare webhook payload for n8n
+          const webhookPayload = {
+            name: name,
+            email: email,
+            issueNumber: issue.number,
+            issueUrl: issue.html_url,
+            fullIssueBody: issueBody,
+            timestamp: new Date().toISOString(),
+            repository: context.repo.repo,
+            labels: issue.labels.map(label => label.name)
+          };
+          
+          // Send to n8n webhook
+          const webhookUrl = '${{ secrets.N8N_WEBHOOK_URL }}';
+          
+          if (webhookUrl) {
+            try {
+              const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(webhookPayload)
+              });
+              
+              if (response.ok) {
+                console.log('✅ Successfully sent to n8n webhook');
+                
+                // Add success comment to issue
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: '✅ **Webhook processed successfully!** Your email automation has been triggered.'
+                });
+                
+              } else {
+                throw new Error(`Webhook failed: ${response.status}`);
+              }
+              
+            } catch (error) {
+              console.error('❌ Webhook error:', error);
+              
+              // Add error comment to issue
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `❌ **Webhook failed:** ${error.message}`
+              });
+            }
+          } else {
+            console.log('⚠️ No webhook URL configured');
+          }
+
+    - name: Add Processing Label
+      uses: actions/github-script@v6
+      with:
+        script: |
+          await github.rest.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.payload.issue.number,
+            labels: ['processed', 'webhook-sent']
+          });
