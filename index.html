@@ -3294,5 +3294,405 @@ Focus on practical solutions that work for busy moms with limited time and techn
             saveFormData();
         });
     </script>
+<!-- SERVICE BLOCKS SECTION -->
+<section class="services-section">
+  <div class="services-container">
+    <h2 class="services-title">Choose Your Smart Mom Support Level</h2>
+    <p class="services-subtitle">Two specialized tracks designed for your specific needs:</p>
+    
+    <!-- LIFE ORGANIZATION TRACK -->
+    <div class="track-section">
+      <h3 class="track-title">Life Organization Track</h3>
+      <p class="track-subtitle">Perfect for busy moms who want to organize daily life, family schedules, and household management</p>
+      
+      <div class="service-blocks">
+        <!-- Free Support -->
+        <div class="service-block free-service">
+          <div class="service-icon">FREE</div>
+          <h3>Life Organization Support</h3>
+          <p class="service-price">$0</p>
+          <p class="service-description">Struggling with daily chaos? Let's troubleshoot your family organization challenges together!</p>
+          <ul class="service-features">
+            <li>30-minute support call</li>
+            <li>Family schedule troubleshooting</li>
+            <li>Organization quick wins</li>
+            <li>Executive function strategies</li>
+          </ul>
+          <button class="service-button free-button" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/momsurvivaltoolkit/free-smart-mom-support-call-30-min'});return false;">
+            Book Free Support Call
+          </button>
+        </div>
+        
+        <!-- Done-For-You Life Calendar -->
+        <div class="service-block popular-service">
+          <div class="popular-badge">Most Popular</div>
+          <div class="service-icon">DONE FOR YOU</div>
+          <h3>Life Organization Calendar</h3>
+          <p class="service-price">$49.99</p>
+          <p class="service-description">I'll create your personalized family organization calendar - meal planning, pickup schedules, household routines!</p>
+          <ul class="service-features">
+            <li>Custom family calendar creation</li>
+            <li>Daily routines & schedules</li>
+            <li>Meal planning integration</li>
+            <li>School/activity coordination</li>
+            <li>Ready-to-download file</li>
+          </ul>
+          <button class="service-button premium-button" onclick="handleStripePayment('life-calendar')">
+            Get My Life Calendar - $49.99
+          </button>
+        </div>
+        
+        <!-- Life Organization Training -->
+        <div class="service-block premium-service">
+          <div class="service-icon">TRAINING</div>
+          <h3>Life Organization Mastery</h3>
+          <p class="service-price">$149.99</p>
+          <p class="service-description">Get your calendar created PLUS learn executive function strategies and organization systems!</p>
+          <ul class="service-features">
+            <li>60-minute training session</li>
+            <li>Custom calendar creation</li>
+            <li>ADHD-friendly organization tips</li>
+            <li>Future update training</li>
+            <li>Family routine optimization</li>
+          </ul>
+          <button class="service-button premium-button" onclick="handleStripePayment('life-training')">
+            Book Life Mastery - $149.99
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- BUSINESS GROWTH TRACK -->
+    <div class="track-section">
+      <h3 class="track-title">Business Growth Track</h3>
+      <p class="track-subtitle">For mom entrepreneurs who want to build and scale their business while managing family life</p>
+      
+      <div class="service-blocks">
+        <!-- Free Business Support -->
+        <div class="service-block free-service">
+          <div class="service-icon">FREE</div>
+          <h3>Business Planning Support</h3>
+          <p class="service-price">$0</p>
+          <p class="service-description">Stuck with your business calendar? Let's troubleshoot your entrepreneurial challenges together!</p>
+          <ul class="service-features">
+            <li>30-minute strategy call</li>
+            <li>Business calendar troubleshooting</li>
+            <li>Revenue planning advice</li>
+            <li>Mom entrepreneur tips</li>
+          </ul>
+          <button class="service-button free-button" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/momsurvivaltoolkit/30min'});return false;">
+            Book Free Strategy Call
+          </button>
+        </div>
+        
+        <!-- Done-For-You Business Calendar -->
+        <div class="service-block popular-service">
+          <div class="popular-badge">Most Popular</div>
+          <div class="service-icon">BUSINESS</div>
+          <h3>Business Growth Calendar</h3>
+          <p class="service-price">$199.99</p>
+          <p class="service-description">I'll create your personalized business planning calendar with revenue goals, marketing tasks, and growth strategies!</p>
+          <ul class="service-features">
+            <li>Custom business calendar creation</li>
+            <li>Revenue goal planning</li>
+            <li>Marketing task scheduling</li>
+            <li>Client management system</li>
+            <li>SEO content suggestions</li>
+          </ul>
+          <button class="service-button premium-button" onclick="handleStripePayment('business-calendar')">
+            Get My Business Calendar - $199.99
+          </button>
+        </div>
+        
+        <!-- Business Training -->
+        <div class="service-block premium-service">
+          <div class="service-icon">STRATEGY</div>
+          <h3>Business Growth Mastery</h3>
+          <p class="service-price">$499.99</p>
+          <p class="service-description">Complete business planning system + personal training to scale your mom business successfully!</p>
+          <ul class="service-features">
+            <li>90-minute strategy session</li>
+            <li>Custom business calendar</li>
+            <li>Revenue optimization training</li>
+            <li>Marketing automation setup</li>
+            <li>Ongoing update training</li>
+          </ul>
+          <button class="service-button premium-button" onclick="handleStripePayment('business-training')">
+            Book Business Mastery - $499.99
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Trust Elements -->
+    <div class="trust-section">
+      <p class="trust-text">
+        <strong>No pressure approach:</strong> Start with the free Smart Mom Method above. 
+        When you're ready for personalized help, choose the track that fits your current needs and goals!
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+.services-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 60px 20px;
+  margin-top: 40px;
+}
+
+.services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.services-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.services-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-bottom: 50px;
+}
+
+.track-section {
+  margin-bottom: 60px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  border-left: 5px solid #6366f1;
+}
+
+.track-title {
+  font-size: 2rem;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.track-subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.service-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.service-block {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.popular-service {
+  border: 3px solid #6366f1;
+  transform: scale(1.05);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #6366f1;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.service-icon {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #6366f1;
+  background: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.service-block h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.service-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #10b981;
+  margin-bottom: 15px;
+}
+
+.service-description {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.service-features li {
+  padding: 5px 0;
+  color: #475569;
+  font-size: 0.95rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+.service-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.service-button {
+  width: 100%;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.free-button {
+  background: #10b981;
+  color: white;
+}
+
+.free-button:hover {
+  background: #059669;
+}
+
+.premium-button {
+  background: #6366f1;
+  color: white;
+}
+
+.premium-button:hover {
+  background: #4f46e5;
+}
+
+.trust-section {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+}
+
+.trust-text {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .services-title {
+    font-size: 2rem;
+  }
+  
+  .track-title {
+    font-size: 1.5rem;
+  }
+  
+  .service-blocks {
+    grid-template-columns: 1fr;
+  }
+  
+  .popular-service {
+    transform: none;
+  }
+  
+  .services-section {
+    padding: 40px 15px;
+  }
+  
+  .track-section {
+    padding: 20px;
+  }
+}
+</style>
+
+<script>
+// Stripe Payment Integration with Calendly Redirect
+function handleStripePayment(serviceType) {
+  // Your actual Stripe Payment Links
+  const paymentData = {
+    'life-calendar': {
+      stripeUrl: 'https://buy.stripe.com/fZubJ1ecga3O02Igq17Vm00',
+      calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/create-done-for-you-30-min-planning-call'
+    },
+    'life-training': {
+      stripeUrl: 'https://buy.stripe.com/7sY28r8RW6RCeXC3Df7Vm01',
+      calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/create-training-session-60-min'
+    },
+    'business-calendar': {
+      stripeUrl: 'https://buy.stripe.com/4gM5kD4BGcbW02I5Ln7Vm02',
+      calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/create-done-for-you-30-min-planning-call'
+    },
+    'business-training': {
+      stripeUrl: 'https://buy.stripe.com/6oU7sL9W03FqeXC2zb7Vm03',
+      calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/done-with-you-training-session-60-min'
+    }
+  };
+  
+  // Redirect to Stripe Payment (customer pays first, then books consultation)
+  if (paymentData[serviceType]) {
+    // Open Stripe payment in new tab
+    window.open(paymentData[serviceType].stripeUrl, '_blank');
+    
+    // Optional: Show message about next steps
+    alert('After completing payment, you\'ll be redirected to book your consultation call. Keep this page open!');
+  }
+}
+
+// Add Calendly script if not already included
+if (!window.Calendly) {
+  const script = document.createElement('script');
+  script.src = 'https://assets.calendly.com/assets/external/widget.js';
+  script.async = true;
+  document.head.appendChild(script);
+}
+</script>
 </body>
 </html>
