@@ -3328,7 +3328,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
           <div class="popular-badge">Most Popular</div>
           <div class="service-icon">DONE FOR YOU</div>
           <h3>Life Organization Calendar</h3>
-          <p class="service-price">$49.99</p>
+          <p class="service-price">$499.99</p>
           <p class="service-description">I'll create your personalized family organization calendar - meal planning, pickup schedules, household routines!</p>
           <ul class="service-features">
             <li>Custom family calendar creation</li>
@@ -3338,7 +3338,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
             <li>Ready-to-download file</li>
           </ul>
           <button class="service-button premium-button" onclick="handleStripePayment('life-calendar')">
-            Get My Life Calendar - $49.99
+            Get My Life Calendar - $499.99
           </button>
         </div>
         
@@ -3346,7 +3346,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
         <div class="service-block premium-service">
           <div class="service-icon">TRAINING</div>
           <h3>Life Organization Mastery</h3>
-          <p class="service-price">$149.99</p>
+          <p class="service-price">$199.99</p>
           <p class="service-description">Get your calendar created PLUS learn executive function strategies and organization systems!</p>
           <ul class="service-features">
             <li>60-minute training session</li>
@@ -3356,7 +3356,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
             <li>Family routine optimization</li>
           </ul>
           <button class="service-button premium-button" onclick="handleStripePayment('life-training')">
-            Book Life Mastery - $149.99
+            Book Life Mastery - $199.99
           </button>
         </div>
       </div>
@@ -3390,7 +3390,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
           <div class="popular-badge">Most Popular</div>
           <div class="service-icon">BUSINESS</div>
           <h3>Business Growth Calendar</h3>
-          <p class="service-price">$199.99</p>
+          <p class="service-price">$149.99</p>
           <p class="service-description">I'll create your personalized business planning calendar with revenue goals, marketing tasks, and growth strategies!</p>
           <ul class="service-features">
             <li>Custom business calendar creation</li>
@@ -3400,7 +3400,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
             <li>SEO content suggestions</li>
           </ul>
           <button class="service-button premium-button" onclick="handleStripePayment('business-calendar')">
-            Get My Business Calendar - $199.99
+            Get My Business Calendar - $149.99
           </button>
         </div>
         
@@ -3408,7 +3408,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
         <div class="service-block premium-service">
           <div class="service-icon">STRATEGY</div>
           <h3>Business Growth Mastery</h3>
-          <p class="service-price">$499.99</p>
+          <p class="service-price">$49.99</p>
           <p class="service-description">Complete business planning system + personal training to scale your mom business successfully!</p>
           <ul class="service-features">
             <li>90-minute strategy session</li>
@@ -3418,7 +3418,7 @@ Focus on practical solutions that work for busy moms with limited time and techn
             <li>Ongoing update training</li>
           </ul>
           <button class="service-button premium-button" onclick="handleStripePayment('business-training')">
-            Book Business Mastery - $499.99
+            Book Business Mastery - $49.99
           </button>
         </div>
       </div>
@@ -3656,22 +3656,22 @@ Focus on practical solutions that work for busy moms with limited time and techn
 <script>
 // Stripe Payment Integration with Calendly Redirect
 function handleStripePayment(serviceType) {
-  // Your actual Stripe Payment Links
+  // UPDATED: Stripe Payment Links with your new pricing structure
   const paymentData = {
     'life-calendar': {
-      stripeUrl: 'https://buy.stripe.com/fZubJ1ecga3O02Igq17Vm00',
+      stripeUrl: 'https://buy.stripe.com/fZubJ1ecga3O02Igq17Vm00', // $499.99 Life Organization Calendar
       calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/create-done-for-you-30-min-planning-call'
     },
     'life-training': {
-      stripeUrl: 'https://buy.stripe.com/7sY28r8RW6RCeXC3Df7Vm01',
+      stripeUrl: 'https://buy.stripe.com/7sY28r8RW6RCeXC3Df7Vm01', // $199.99 Life Organization Training
       calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/create-training-session-60-min'
     },
     'business-calendar': {
-      stripeUrl: 'https://buy.stripe.com/4gM5kD4BGcbW02I5Ln7Vm02',
+      stripeUrl: 'https://buy.stripe.com/4gM5kD4BGcbW02I5Ln7Vm02', // $149.99 Business Growth Calendar
       calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/create-done-for-you-30-min-planning-call'
     },
     'business-training': {
-      stripeUrl: 'https://buy.stripe.com/6oU7sL9W03FqeXC2zb7Vm03',
+      stripeUrl: 'https://buy.stripe.com/6oU7sL9W03FqeXC2zb7Vm03', // $49.99 Business Growth Training
       calendlyUrl: 'https://calendly.com/momsurvivaltoolkit/done-with-you-training-session-60-min'
     }
   };
