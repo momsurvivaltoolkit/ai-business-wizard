@@ -1156,6 +1156,521 @@
             margin: 0;
         }
 
+        /* Interactive Calendar System */
+        .interactive-calendar-container {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin: 32px 0;
+            box-shadow: 0 12px 40px rgba(44, 62, 80, 0.08);
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--light-sage);
+        }
+
+        .calendar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+        }
+
+        .overall-calendar-progress {
+            background: var(--light-sage);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .overall-progress-bar {
+            width: 100%;
+            height: 16px;
+            background: var(--warm-cream);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .overall-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sage-green), var(--deep-teal));
+            transition: width 0.8s ease;
+            border-radius: 8px;
+        }
+
+        .overall-progress-text {
+            text-align: center;
+            font-weight: 700;
+            color: var(--charcoal);
+            font-size: 1.1rem;
+        }
+
+        .calendar-day {
+            background: var(--warm-cream);
+            border-radius: 16px;
+            margin-bottom: 32px;
+            border: 2px solid var(--light-sage);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day.completed {
+            border-color: var(--sage-green);
+            background: var(--light-sage);
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 24px;
+            position: relative;
+        }
+
+        .day-header.completed {
+            background: linear-gradient(135deg, var(--deep-teal), var(--sage-green));
+        }
+
+        .day-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .day-progress-container {
+            margin-bottom: 12px;
+        }
+
+        .day-progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .day-progress-fill {
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+
+        .day-progress-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
+        .energy-check {
+            background: var(--teal-alpha);
+            border: 2px solid var(--deep-teal);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 24px;
+            text-align: center;
+        }
+
+        .energy-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .energy-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--deep-teal);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--deep-teal);
+        }
+
+        .energy-btn:hover, .energy-btn.selected {
+            background: var(--deep-teal);
+            color: white;
+        }
+
+        .task-container {
+            padding: 24px;
+        }
+
+        .task {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 2px solid var(--light-sage);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .task.completed {
+            border-color: var(--sage-green);
+            background: var(--light-sage);
+        }
+
+        .task-header {
+            padding: 20px;
+            background: var(--sage-alpha);
+            border-bottom: 1px solid var(--light-sage);
+        }
+
+        .task.completed .task-header {
+            background: var(--sage-green);
+            color: white;
+        }
+
+        .task-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--charcoal);
+        }
+
+        .task.completed .task-title {
+            color: white;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        .time-estimate, .cost-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: white;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .task.completed .time-estimate,
+        .task.completed .cost-info {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .cost-free {
+            background: var(--light-sage) !important;
+            color: var(--sage-green) !important;
+        }
+
+        .cost-paid {
+            background: var(--gold-alpha) !important;
+            color: var(--soft-gold) !important;
+        }
+
+        .task-steps {
+            padding: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-sage);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step:hover {
+            background: var(--sage-alpha);
+            border-radius: 8px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        .step-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--sage-green);
+            border-radius: 6px;
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step-checkbox.checked {
+            background: var(--sage-green);
+            border-color: var(--sage-green);
+        }
+
+        .step-checkbox.checked::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .step-text {
+            flex: 1;
+            line-height: 1.5;
+            color: var(--charcoal);
+        }
+
+        .step.completed .step-text {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+
+        .step-link {
+            color: var(--deep-teal);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .task-timer {
+            background: var(--gold-alpha);
+            border: 2px solid var(--soft-gold);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--soft-gold);
+            margin-bottom: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .timer-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--soft-gold);
+            background: white;
+            color: var(--soft-gold);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .timer-btn:hover, .timer-btn.active {
+            background: var(--soft-gold);
+            color: white;
+        }
+
+        .celebration-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 3px solid var(--sage-green);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(107, 142, 107, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .celebration-popup.show {
+            opacity: 1;
+            visibility: visible;
+            animation: celebrationBounce 0.6s ease;
+        }
+
+        @keyframes celebrationBounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            40%, 43% {
+                transform: translate(-50%, -50%) translateY(-20px);
+            }
+            70% {
+                transform: translate(-50%, -50%) translateY(-10px);
+            }
+            90% {
+                transform: translate(-50%, -50%) translateY(-5px);
+            }
+        }
+
+        .celebration-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .celebration-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .celebration-message {
+            color: var(--charcoal);
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .celebration-close {
+            padding: 12px 24px;
+            background: var(--sage-green);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .celebration-close:hover {
+            background: #5A7A5A;
+            transform: translateY(-2px);
+        }
+
+        .stuck-helper {
+            background: var(--teal-alpha);
+            border: 2px solid var(--deep-teal);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            display: none;
+        }
+
+        .stuck-helper.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 200px;
+            }
+        }
+
+        .stuck-helper h4 {
+            color: var(--deep-teal);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .stuck-helper ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stuck-helper li {
+            padding: 4px 0;
+            color: var(--charcoal);
+        }
+
+        .stuck-helper li::before {
+            content: "💡 ";
+            margin-right: 8px;
+        }
+
+        .feeling-stuck-btn {
+            background: var(--deep-teal);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feeling-stuck-btn:hover {
+            background: #1E3D47;
+        }
+
+        /* Phase 4A: Checkbox Group Styles */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--warm-cream);
+            border: 2px solid var(--light-sage);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--sage-green);
+            background: var(--light-sage);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--sage-green);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked {
+            background: var(--sage-green);
+            border-color: var(--sage-green);
+        }
+
+        .checkbox-item input[type="checkbox"]:checked::after {
+            content: "✓";
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .checkbox-item span {
+            color: var(--charcoal);
+            line-height: 1.4;
+        }
+
         /* Prompt Container */
         .prompt-container {
             background: var(--warm-cream);
@@ -1672,8 +2187,8 @@
                                 data-en-placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'" 
                                 data-es-placeholder="ej., 'Libre de 9-11am cuando el menor duerme siesta. Los niños se acuestan a las 8pm, así que tengo disponible de 8-10pm. Los fines de semana son tiempo familiar excepto los domingos por la mañana.'"
                                 placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'"
-                                maxlength="300" oninput="validateField(this); updateCharCount(this, 300)"></textarea>
-                            <div class="char-counter" id="daily-schedule-counter">300 characters remaining</div>
+                                maxlength="1500" oninput="validateField(this); updateCharCount(this, 1500)"></textarea>
+                            <div class="char-counter" id="daily-schedule-counter">1500 characters remaining</div>
                             <div class="field-error" id="daily-schedule-error">Please describe your daily schedule</div>
                         </div>
                         
@@ -1721,6 +2236,17 @@
                     <!-- Business Preferences & Constraints -->
                     <div class="form-section">
                         <h3 data-en="🚀 Business Preferences" data-es="🚀 Preferencias de Negocio">🚀 Business Preferences</h3>
+                        
+                        <div class="form-group">
+                            <label data-en="What type of income fits your life?" data-es="¿Qué tipo de ingreso se adapta a tu vida?">What type of income fits your life? <span class="required">*</span></label>
+                            <select id="income-type" class="form-control" required onchange="validateField(this)">
+                                <option value="" data-en="Select income type..." data-es="Selecciona tipo de ingreso...">Select income type...</option>
+                                <option value="active" data-en="Active income - I can dedicate specific hours to work directly" data-es="Ingreso activo - Puedo dedicar horas específicas para trabajar directamente">Active income - I can dedicate specific hours to work directly</option>
+                                <option value="passive" data-en="Passive income - I want something that earns while I sleep/focus on family" data-es="Ingreso pasivo - Quiero algo que genere mientras duermo/me enfoco en la familia">Passive income - I want something that earns while I sleep/focus on family</option>
+                                <option value="hybrid" data-en="Flexible mix - start hands-on, build toward automated income" data-es="Mezcla flexible - empezar práctico, construir hacia ingreso automatizado">Flexible mix - start hands-on, build toward automated income</option>
+                            </select>
+                            <div class="field-error" id="income-type-error">Please select your income type preference</div>
+                        </div>
                         
                         <div class="form-group">
                             <label data-en="Are you willing to learn a new skill to start your business?" data-es="¿Estás dispuesta a aprender una nueva habilidad para comenzar tu negocio?">Are you willing to learn a new skill to start your business? <span class="required">*</span></label>
@@ -1774,8 +2300,110 @@
                                 data-en-placeholder="e.g., 'Friends ask me to plan their events, organize their closets, help with their resumes, give parenting advice, etc.'" 
                                 data-es-placeholder="ej., 'Los amigos me piden que planifique sus eventos, organice sus armarios, ayude con sus currículos, dé consejos de crianza, etc.'"
                                 placeholder="e.g., 'Friends ask me to plan their events, organize their closets, help with their resumes, give parenting advice, etc.'"
-                                maxlength="200" oninput="updateCharCount(this, 200)"></textarea>
-                            <div class="char-counter" id="natural-strengths-counter">200 characters remaining</div>
+                                maxlength="400" oninput="updateCharCount(this, 400)"></textarea>
+                            <div class="char-counter" id="natural-strengths-counter">400 characters remaining</div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 4A: Learning Style & Customization -->
+                    <div class="form-section">
+                        <h3 data-en="🧠 Your Learning & Work Style" data-es="🧠 Tu Estilo de Aprendizaje y Trabajo">🧠 Your Learning & Work Style</h3>
+                        
+                        <div class="form-group">
+                            <label data-en="How do you learn and process information best?" data-es="¿Cómo aprendes y procesas mejor la información?">How do you learn and process information best? <span class="required">*</span></label>
+                            <select id="learning-style" class="form-control" required onchange="validateField(this)">
+                                <option value="" data-en="Select your learning style..." data-es="Selecciona tu estilo de aprendizaje...">Select your learning style...</option>
+                                <option value="detailed-reading" data-en="I need to read detailed instructions first" data-es="Necesito leer instrucciones detalladas primero">I need to read detailed instructions first</option>
+                                <option value="visual-video" data-en="I prefer video tutorials and visual examples" data-es="Prefiero tutoriales en video y ejemplos visuales">I prefer video tutorials and visual examples</option>
+                                <option value="audio-explanation" data-en="I learn better when someone explains it to me" data-es="Aprendo mejor cuando alguien me lo explica">I learn better when someone explains it to me</option>
+                                <option value="accountability-partner" data-en="I work best with accountability partner check-ins" data-es="Trabajo mejor con verificaciones de un compañero de responsabilidad">I work best with accountability partner check-ins</option>
+                                <option value="hands-on-trial" data-en="I like to try things and figure it out as I go" data-es="Me gusta probar cosas y descubrirlo sobre la marcha">I like to try things and figure it out as I go</option>
+                                <option value="step-by-step" data-en="I need written steps I can check off one by one" data-es="Necesito pasos escritos que pueda marcar uno por uno">I need written steps I can check off one by one</option>
+                            </select>
+                            <div class="field-error" id="learning-style-error">Please select your learning style</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-en="What pace works best for your life right now?" data-es="¿Qué ritmo funciona mejor para tu vida ahora?">What pace works best for your life right now? <span class="required">*</span></label>
+                            <select id="work-pace" class="form-control" required onchange="validateField(this)">
+                                <option value="" data-en="Select your preferred pace..." data-es="Selecciona tu ritmo preferido...">Select your preferred pace...</option>
+                                <option value="slow-steady" data-en="Slow and steady - I need gentle progress with lots of flexibility" data-es="Lento y constante - Necesito progreso suave con mucha flexibilidad">Slow and steady - I need gentle progress with lots of flexibility</option>
+                                <option value="moderate-pace" data-en="Moderate pace - I can handle consistent daily actions" data-es="Ritmo moderado - Puedo manejar acciones diarias consistentes">Moderate pace - I can handle consistent daily actions</option>
+                                <option value="intensive-fast" data-en="Intensive - I'm motivated and ready to move fast" data-es="Intensivo - Estoy motivada y lista para avanzar rápido">Intensive - I'm motivated and ready to move fast</option>
+                                <option value="variable-energy" data-en="Variable - some days I'm all-in, other days I need breaks" data-es="Variable - algunos días estoy completamente disponible, otros días necesito descansos">Variable - some days I'm all-in, other days I need breaks</option>
+                            </select>
+                            <div class="field-error" id="work-pace-error">Please select your preferred work pace</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-en="How many days per week can you realistically work on this?" data-es="¿Cuántos días a la semana puedes trabajar en esto de manera realista?">How many days per week can you realistically work on this? <span class="required">*</span></label>
+                            <select id="weekly-capacity" class="form-control" required onchange="validateField(this)">
+                                <option value="" data-en="Select realistic capacity..." data-es="Selecciona capacidad realista...">Select realistic capacity...</option>
+                                <option value="2-3-days" data-en="2-3 days per week (weekends only or very limited time)" data-es="2-3 días por semana (solo fines de semana o tiempo muy limitado)">2-3 days per week (weekends only or very limited time)</option>
+                                <option value="3-4-days" data-en="3-4 days per week (skip the busiest days)" data-es="3-4 días por semana (omitir los días más ocupados)">3-4 days per week (skip the busiest days)</option>
+                                <option value="5-6-days" data-en="5-6 days per week (consistent daily progress)" data-es="5-6 días por semana (progreso diario consistente)">5-6 days per week (consistent daily progress)</option>
+                                <option value="7-days" data-en="7 days per week (I'm all-in right now)" data-es="7 días por semana (estoy completamente comprometida ahora)">7 days per week (I'm all-in right now)</option>
+                            </select>
+                            <div class="field-error" id="weekly-capacity-error">Please select your weekly capacity</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-en="How comfortable are you with technology?" data-es="¿Qué tan cómoda te sientes con la tecnología?">How comfortable are you with technology? <span class="required">*</span></label>
+                            <select id="tech-comfort" class="form-control" required onchange="validateField(this)">
+                                <option value="" data-en="Select your tech comfort level..." data-es="Selecciona tu nivel de comodidad tecnológica...">Select your tech comfort level...</option>
+                                <option value="mobile-first" data-en="I live on my phone - apps and mobile-first please" data-es="Vivo en mi teléfono - aplicaciones y móvil primero por favor">I live on my phone - apps and mobile-first please</option>
+                                <option value="computer-comfortable" data-en="Comfortable with computers but prefer simple tools" data-es="Cómoda con computadoras pero prefiero herramientas simples">Comfortable with computers but prefer simple tools</option>
+                                <option value="basic-only" data-en="I stick to basic email and social media" data-es="Me quedo con email básico y redes sociales">I stick to basic email and social media</option>
+                                <option value="prefer-analog" data-en="I prefer pen and paper when possible" data-es="Prefiero lápiz y papel cuando es posible">I prefer pen and paper when possible</option>
+                                <option value="need-support" data-en="I need tech support and hand-holding" data-es="Necesito soporte técnico y que me guíen de la mano">I need tech support and hand-holding</option>
+                            </select>
+                            <div class="field-error" id="tech-comfort-error">Please select your technology comfort level</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-en="Which tools do you already use successfully?" data-es="¿Qué herramientas ya usas exitosamente?">Which tools do you already use successfully? (Select all that apply)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-calendar" value="calendar">
+                                    <span data-en="Google Calendar/Apple Calendar" data-es="Google Calendar/Apple Calendar">Google Calendar/Apple Calendar</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-instagram" value="instagram">
+                                    <span data-en="Instagram for personal use" data-es="Instagram para uso personal">Instagram for personal use</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-facebook" value="facebook">
+                                    <span data-en="Facebook and Facebook groups" data-es="Facebook y grupos de Facebook">Facebook and Facebook groups</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-messaging" value="messaging">
+                                    <span data-en="WhatsApp or text messaging" data-es="WhatsApp o mensajes de texto">WhatsApp or text messaging</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-email" value="email">
+                                    <span data-en="Email regularly" data-es="Email regularmente">Email regularly</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-video" value="video">
+                                    <span data-en="Zoom/video calls" data-es="Zoom/videollamadas">Zoom/video calls</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-photos" value="photos">
+                                    <span data-en="Basic photo editing" data-es="Edición básica de fotos">Basic photo editing</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-shopping" value="shopping">
+                                    <span data-en="Online shopping and payments" data-es="Compras en línea y pagos">Online shopping and payments</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-audio" value="audio">
+                                    <span data-en="Spotify/podcast apps" data-es="Spotify/aplicaciones de podcast">Spotify/podcast apps</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="tools-notes" value="notes">
+                                    <span data-en="Note-taking apps" data-es="Aplicaciones para tomar notas">Note-taking apps</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     
@@ -2086,7 +2714,7 @@
                 </div>
 
                 <!-- Step 3: Claude Calendar Prompt -->
-                <div id="step-3" class="step-content">
+        <div id="step-3" class="step-content">
                     <div class="step-description">
                         <h2 data-en="🟣 Step 4: Claude Interactive Calendar" data-es="🟣 Paso 4: Calendario Interactivo con Claude">🟣 Step 4: Claude Interactive Calendar</h2>
                         <p data-en="Use Claude to create your personalized interactive calendar with daily tasks, templates, and progress tracking." 
@@ -2115,12 +2743,37 @@
                     <div style="margin-top: 30px;">
                         <h4 data-en="📝 After Claude creates your calendar:" data-es="📝 Después de que Claude cree tu calendario:">📝 After Claude creates your calendar:</h4>
                         <div class="form-group">
-                            <label data-en="Calendar creation status:" data-es="Estado de creación del calendario:">Calendar creation status:</label>
-                            <textarea id="claude-response" class="form-control" rows="6" 
-                                data-en-placeholder="After Claude creates your calendar, paste a link or note about the calendar here..." 
-                                data-es-placeholder="Después de que Claude cree tu calendario, pega un enlace o nota sobre el calendario aquí..."
-                                placeholder="After Claude creates your calendar, paste a link or note about the calendar here..."></textarea>
+                            <label data-en="Paste Claude's calendar response here:" data-es="Pega la respuesta del calendario de Claude aquí:">Paste Claude's calendar response here:</label>
+                            <textarea id="claude-response" class="form-control" rows="8" 
+                                data-en-placeholder="Copy and paste Claude's complete calendar response here..." 
+                                data-es-placeholder="Copia y pega la respuesta completa del calendario de Claude aquí..."
+                                placeholder="Copy and paste Claude's complete calendar response here..."
+                                oninput="parseClaudeCalendar(this.value)"></textarea>
                         </div>
+
+                        <!-- Interactive Calendar Container -->
+                        <div id="interactive-calendar" class="interactive-calendar-container" style="display: none;">
+                            <div class="calendar-header">
+                                <h3 class="calendar-title" data-en="Your ADHD-Friendly Business Calendar" data-es="Tu Calendario de Negocio Amigable para TDAH">Your ADHD-Friendly Business Calendar</h3>
+                                <div class="overall-calendar-progress">
+                                    <div class="overall-progress-bar">
+                                        <div class="overall-progress-fill" id="overallProgressFill" style="width: 0%"></div>
+                                    </div>
+                                    <div class="overall-progress-text" id="overallProgressText">0 of 0 tasks complete</div>
+                                </div>
+                            </div>
+                            
+                            <div id="calendar-days-container">
+                                <!-- Calendar days will be populated here -->
+                            </div>
+
+                            <!-- Demo Interactive Calendar (remove when Claude integration works) -->
+                            <div style="opacity: 0.6; border: 2px dashed var(--sage-green); border-radius: 12px; padding: 20px; text-align: center; margin: 20px 0;">
+                                <p style="color: var(--charcoal); font-weight: 600; margin-bottom: 16px;" data-en="📋 Preview: Your calendar will appear here once you paste Claude's response above" data-es="📋 Vista previa: Tu calendario aparecerá aquí una vez que pegues la respuesta de Claude arriba">📋 Preview: Your calendar will appear here once you paste Claude's response above</p>
+                                <button onclick="showDemoCalendar()" class="btn btn-secondary" data-en="🎮 Show Demo Calendar" data-es="🎮 Mostrar Calendario de Demostración">🎮 Show Demo Calendar</button>
+                            </div>
+                        </div>
+
                         <button onclick="goToStep(4)" class="btn btn-next" data-en="✅ Continue to Optimization" data-es="✅ Continuar a Optimización">✅ Continue to Optimization</button>
                     </div>
                 </div>
@@ -2413,7 +3066,7 @@
 
         function validateCurrentStep() {
             const requiredFieldsByStep = {
-                0: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal'],
+                0: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal', 'income-type', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'learning-style', 'work-pace', 'weekly-capacity', 'tech-comfort'],
                 1: ['chatgpt-response'],
                 2: ['gemini-response'],
                 3: [],
@@ -2575,7 +3228,9 @@
         function collectFormData() {
             const formFields = [
                 'user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 
-                'skills', 'income-goal'
+                'skills', 'income-goal', 'income-type', 'learning-willingness', 'investment-level', 
+                'work-location', 'work-style', 'natural-strengths', 'learning-style', 'work-pace', 
+                'weekly-capacity', 'tech-comfort'
             ];
             
             const data = {};
@@ -2585,6 +3240,14 @@
                     data[fieldId] = element.value;
                 }
             });
+            
+            // Collect checkbox data for tools
+            const toolsUsed = [];
+            const toolCheckboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked');
+            toolCheckboxes.forEach(checkbox => {
+                toolsUsed.push(checkbox.value);
+            });
+            data['tools-used'] = toolsUsed.join(', ');
             
             return data;
         }
@@ -2596,6 +3259,80 @@
         }
 
         function generateChatGPTPrompt(data) {
+            // Phase 4A: Generate learning style specific instructions
+            let learningStyleInstructions = '';
+            switch(data['learning-style']) {
+                case 'detailed-reading':
+                    learningStyleInstructions = '\n**IMPORTANT**: Provide extremely detailed written instructions and comprehensive explanations for each business idea.';
+                    break;
+                case 'visual-video':
+                    learningStyleInstructions = '\n**IMPORTANT**: Include specific video tutorial recommendations, visual examples, and mention any platforms with good visual resources.';
+                    break;
+                case 'audio-explanation':
+                    learningStyleInstructions = '\n**IMPORTANT**: Recommend podcasts, audio courses, and mention opportunities for phone consultations or verbal guidance.';
+                    break;
+                case 'accountability-partner':
+                    learningStyleInstructions = '\n**IMPORTANT**: Suggest business ideas that include built-in accountability (coaching, partnerships) and recommend accountability strategies.';
+                    break;
+                case 'hands-on-trial':
+                    learningStyleInstructions = '\n**IMPORTANT**: Focus on business ideas with low-risk trial opportunities and minimal upfront commitment.';
+                    break;
+                case 'step-by-step':
+                    learningStyleInstructions = '\n**IMPORTANT**: Break everything into extremely detailed step-by-step checklists and numbered processes.';
+                    break;
+            }
+
+            // Phase 4A: Generate pace-specific timeline
+            let paceInstructions = '';
+            switch(data['work-pace']) {
+                case 'slow-steady':
+                    paceInstructions = '\n**PACE**: Design a gentle 16-20 week timeline with maximum flexibility. Focus on stress-free progress.';
+                    break;
+                case 'moderate-pace':
+                    paceInstructions = '\n**PACE**: Design a 12-16 week timeline with consistent daily actions but built-in buffer days.';
+                    break;
+                case 'intensive-fast':
+                    paceInstructions = '\n**PACE**: Design an ambitious 8-12 week timeline for motivated, fast-paced implementation.';
+                    break;
+                case 'variable-energy':
+                    paceInstructions = '\n**PACE**: Design a flexible timeline with high-energy and low-energy day alternatives (12-20 weeks adaptive).';
+                    break;
+            }
+
+            // Phase 4A: Generate tech-level appropriate suggestions
+            let techInstructions = '';
+            switch(data['tech-comfort']) {
+                case 'mobile-first':
+                    techInstructions = '\n**TECH LEVEL**: Prioritize mobile apps, phone-based tools, and businesses that can run entirely from a smartphone.';
+                    break;
+                case 'computer-comfortable':
+                    techInstructions = '\n**TECH LEVEL**: Suggest simple, user-friendly computer tools and platforms with good support documentation.';
+                    break;
+                case 'basic-only':
+                    techInstructions = '\n**TECH LEVEL**: Limit to basic email, social media, and very simple tools. Avoid complex platforms.';
+                    break;
+                case 'prefer-analog':
+                    techInstructions = '\n**TECH LEVEL**: Focus on businesses with minimal tech requirements. Suggest pen-and-paper alternatives where possible.';
+                    break;
+                case 'need-support':
+                    techInstructions = '\n**TECH LEVEL**: Only recommend tools with excellent customer support and hand-holding. Include tech support resources.';
+                    break;
+            }
+
+            // Phase 4A: Income type specific focus
+            let incomeTypeInstructions = '';
+            switch(data['income-type']) {
+                case 'active':
+                    incomeTypeInstructions = '\n**INCOME TYPE**: Focus on service-based businesses where time directly trades for money (coaching, consulting, VA services, tutoring).';
+                    break;
+                case 'passive':
+                    incomeTypeInstructions = '\n**INCOME TYPE**: Focus on passive income opportunities (digital products, courses, affiliate marketing, membership sites).';
+                    break;
+                case 'hybrid':
+                    incomeTypeInstructions = '\n**INCOME TYPE**: Suggest businesses that start with active income but can build toward passive streams (service + digital products).';
+                    break;
+            }
+
             const prompt = `I'm a busy mom looking to start a business that fits my real life situation. Here's my detailed information:
 
 **My Family & Schedule:**
@@ -2605,27 +3342,61 @@
 
 **My Skills & Experience:**
 - Professional background: ${data['skills']}
+- Natural strengths: ${data['natural-strengths'] || 'Not specified'}
 
 **My Business Goals:**
 - Monthly income goal: ${data['income-goal']}
+- Weekly capacity: ${data['weekly-capacity']}
+
+**My Learning & Work Style:**
+- Learning preference: ${data['learning-style']}
+- Work pace preference: ${data['work-pace']}
+- Technology comfort: ${data['tech-comfort']}
+- Tools I already use: ${data['tools-used']}
 
 **Language:** ${currentLanguage === 'es' ? 'Please respond in Spanish' : 'Please respond in English'}
+
+${incomeTypeInstructions}${learningStyleInstructions}${paceInstructions}${techInstructions}
 
 Based on this information, please suggest 3-5 specific business ideas that would realistically work for my situation. For each idea, include:
 
 1. **Business Model:** How exactly would this make money?
-2. **Time Requirements:** How does this fit my available schedule?
-3. **Skills Match:** How does this leverage my existing skills?
-4. **Income Potential:** Realistic timeline to reach my income goal
-5. **Mom-Friendly Factors:** Why this works specifically for moms
-6. **First Steps:** The exact first 3 things I should do this week
+2. **Time Requirements:** How does this fit my available schedule and weekly capacity?
+3. **Skills Match:** How does this leverage my existing skills and tools?
+4. **Income Potential:** Realistic timeline to reach my income goal given my pace preference
+5. **Mom-Friendly Factors:** Why this works specifically for my family situation
+6. **Learning Path:** Specific resources that match my learning style preference
+7. **First Steps:** The exact first 3 things I should do this week
 
-Focus on businesses that can start with minimal upfront costs, work around family schedules, and have real income potential. Be specific and practical!`;
+Focus on businesses that match my income type preference, work with my technology comfort level, and respect my learning style. Be specific and practical!`;
 
             document.getElementById('chatgpt-prompt').textContent = prompt;
         }
 
         function generateGeminiPrompt(data) {
+            // Phase 4A: Add learning style specific research requests
+            let researchFocus = '';
+            switch(data['learning-style']) {
+                case 'detailed-reading':
+                    researchFocus = '\n- Find comprehensive written resources, detailed case studies, and thorough documentation';
+                    break;
+                case 'visual-video':
+                    researchFocus = '\n- Research video courses, YouTube channels, visual tutorials, and platforms with strong visual learning resources';
+                    break;
+                case 'audio-explanation':
+                    researchFocus = '\n- Find relevant podcasts, audio courses, and phone-based consultation opportunities in this business area';
+                    break;
+                case 'accountability-partner':
+                    researchFocus = '\n- Research accountability programs, coaching networks, and partnership opportunities in this business space';
+                    break;
+                case 'hands-on-trial':
+                    researchFocus = '\n- Focus on low-risk trial opportunities, pilot programs, and minimal-commitment starting options';
+                    break;
+                case 'step-by-step':
+                    researchFocus = '\n- Find detailed step-by-step programs, checklists, and systematic approaches to this business type';
+                    break;
+            }
+
             const prompt = `I need you to do DEEP RESEARCH on validating a business idea for a busy mom. Here's my situation:
 
 **Background:**
@@ -2633,6 +3404,11 @@ Focus on businesses that can start with minimal upfront costs, work around famil
 - Available time: ${data['daily-schedule']}
 - Skills: ${data['skills']}
 - Income goal: ${data['income-goal']}
+- Income type preference: ${data['income-type']}
+- Weekly capacity: ${data['weekly-capacity']}
+- Learning style: ${data['learning-style']}
+- Technology comfort: ${data['tech-comfort']}
+- Work pace preference: ${data['work-pace']}
 
 **Business Idea to Validate:**
 [PASTE THE BUSINESS IDEA FROM CHATGPT THAT YOU WANT TO VALIDATE HERE]
@@ -2644,22 +3420,152 @@ Please use Deep Research mode to thoroughly investigate:
 
 2. **Competition Analysis:** Who are the top competitors? What are their pricing models? What gaps exist?
 
-3. **Financial Viability:** Realistic pricing ranges, startup costs, time to profitability analysis
+3. **Financial Viability:** Realistic pricing ranges, startup costs, time to profitability analysis for my income type (${data['income-type']})
 
-4. **Mom-Specific Considerations:** How do other mom entrepreneurs succeed in this space?
+4. **Mom-Specific Considerations:** How do other mom entrepreneurs succeed in this space? What challenges do they face?
 
-5. **MVP Strategy:** Minimum viable product definition, how to test with $100 or less
+5. **MVP Strategy:** Minimum viable product definition, how to test with $100 or less, considering my weekly capacity of ${data['weekly-capacity']}
 
-6. **Red Flags & Risks:** What could go wrong? Market saturation indicators?
+6. **Learning Resources:** Based on my learning style preference (${data['learning-style']}), what are the best resources to learn this business?${researchFocus}
+
+7. **Technology Requirements:** Given my comfort level (${data['tech-comfort']}), what tools and platforms are essential vs. optional?
+
+8. **Timeline Reality Check:** Based on my pace preference (${data['work-pace']}) and weekly capacity, what's a realistic timeline to profitability?
+
+9. **Red Flags & Risks:** What could go wrong? Market saturation indicators? Technology barriers for my comfort level?
 
 ${currentLanguage === 'es' ? 'Please conduct all research and respond in Spanish.' : 'Please conduct all research and respond in English.'}
 
-I want actionable insights, real numbers, and honest assessment of whether this business idea is worth pursuing.`;
+I want actionable insights, real numbers, and honest assessment of whether this business idea is worth pursuing given my specific learning style, tech comfort, and time capacity.`;
 
             document.getElementById('gemini-prompt').textContent = prompt;
         }
 
         function generateClaudePrompt(data) {
+            // Phase 4A: Generate pace-specific calendar structure
+            let calendarStructure = '';
+            switch(data['work-pace']) {
+                case 'slow-steady':
+                    calendarStructure = `
+**CALENDAR STRUCTURE for Slow & Steady Pace:**
+- Maximum 2-3 tasks per day, never more
+- 16-20 week timeline with built-in flexible weeks
+- Include "rest days" and "catch-up weeks"
+- Every 4th week is review/adjustment week`;
+                    break;
+                case 'moderate-pace':
+                    calendarStructure = `
+**CALENDAR STRUCTURE for Moderate Pace:**
+- Maximum 4 tasks per day
+- 12-16 week timeline with buffer days
+- Include 2 flexible days per week
+- Bi-weekly progress check-ins`;
+                    break;
+                case 'intensive-fast':
+                    calendarStructure = `
+**CALENDAR STRUCTURE for Intensive Pace:**
+- 4-5 tasks per day maximum
+- 8-12 week aggressive timeline
+- Daily progress tracking
+- Weekly milestone celebrations`;
+                    break;
+                case 'variable-energy':
+                    calendarStructure = `
+**CALENDAR STRUCTURE for Variable Energy:**
+- 2-5 tasks per day depending on energy level
+- Include high-energy and low-energy day alternatives
+- 12-20 week adaptive timeline
+- Energy level check-ins before each day`;
+                    break;
+            }
+
+            // Phase 4A: Generate learning style specific task formatting
+            let taskFormatting = '';
+            switch(data['learning-style']) {
+                case 'detailed-reading':
+                    taskFormatting = `
+**TASK FORMATTING for Detailed Reading Preference:**
+- Include comprehensive written instructions for each step
+- Add "Learn More" resources and detailed explanations
+- Provide background context for why each task matters`;
+                    break;
+                case 'visual-video':
+                    taskFormatting = `
+**TASK FORMATTING for Visual/Video Preference:**
+- Include specific video tutorial links for each major task
+- Add visual examples and screenshot descriptions
+- Mention visual platforms and image-based tools`;
+                    break;
+                case 'audio-explanation':
+                    taskFormatting = `
+**TASK FORMATTING for Audio Learning Preference:**
+- Include relevant podcast episodes and audio resources
+- Add phone call/consultation opportunities
+- Mention voice recording and audio note-taking options`;
+                    break;
+                case 'accountability-partner':
+                    taskFormatting = `
+**TASK FORMATTING for Accountability Preference:**
+- Include daily check-in prompts and sharing opportunities
+- Add accountability partner task suggestions
+- Build in progress sharing and celebration moments`;
+                    break;
+                case 'hands-on-trial':
+                    taskFormatting = `
+**TASK FORMATTING for Hands-On Trial Preference:**
+- Focus on action-first, learn-as-you-go approach
+- Include low-risk experimentation opportunities
+- Add "try this first" mini-tests before major commitments`;
+                    break;
+                case 'step-by-step':
+                    taskFormatting = `
+**TASK FORMATTING for Step-by-Step Preference:**
+- Break each task into extremely detailed micro-steps
+- Use numbered checklists and sequential processes
+- Include exact timing and order requirements`;
+                    break;
+            }
+
+            // Phase 4A: Generate tech-appropriate tool recommendations
+            let techRecommendations = '';
+            switch(data['tech-comfort']) {
+                case 'mobile-first':
+                    techRecommendations = `
+**TECHNOLOGY FOCUS for Mobile-First User:**
+- Prioritize mobile apps and phone-based tools
+- Include smartphone photography and mobile content creation
+- Focus on social media platforms with strong mobile presence`;
+                    break;
+                case 'computer-comfortable':
+                    techRecommendations = `
+**TECHNOLOGY FOCUS for Computer Comfortable User:**
+- Include simple, user-friendly computer tools and websites
+- Focus on platforms with good tutorials and support
+- Balance between computer and mobile solutions`;
+                    break;
+                case 'basic-only':
+                    techRecommendations = `
+**TECHNOLOGY FOCUS for Basic User:**
+- Limit to email, basic social media, and very simple tools
+- Include detailed tech support resources for each tool
+- Provide phone-based alternatives when possible`;
+                    break;
+                case 'prefer-analog':
+                    techRecommendations = `
+**TECHNOLOGY FOCUS for Analog Preference:**
+- Minimize tech requirements wherever possible
+- Include pen-and-paper alternatives and printable resources
+- Focus on in-person and offline business development`;
+                    break;
+                case 'need-support':
+                    techRecommendations = `
+**TECHNOLOGY FOCUS for Support-Needed User:**
+- Only recommend tools with excellent customer support
+- Include step-by-step tech setup guides
+- Add tech support contact information for each recommended tool`;
+                    break;
+            }
+
             const prompt = `Create an interactive HTML calendar for my mom business launch. Here are my details:
 
 **My Situation:**
@@ -2667,20 +3573,29 @@ I want actionable insights, real numbers, and honest assessment of whether this 
 - Family schedule: ${data['family-structure']}
 - Income goal: ${data['income-goal']}
 - Skills: ${data['skills']}
+- Weekly capacity: ${data['weekly-capacity']}
+- Work pace preference: ${data['work-pace']}
+- Learning style: ${data['learning-style']}
+- Technology comfort: ${data['tech-comfort']}
+- Tools I already use: ${data['tools-used']}
 
 **Business Information:**
 - Chosen business idea: [PASTE YOUR VALIDATED BUSINESS IDEA FROM GEMINI HERE]
 
 **CRITICAL: Design this calendar for ADHD, Autism, and Executive Function challenges**
 
+${calendarStructure}
+
 **DAILY STRUCTURE RULES:**
-- MAXIMUM 4 tasks per day (never exceed this number)
+- MAXIMUM 4 tasks per day (adjust based on pace preference above)
 - Each task must have 3-7 specific sub-steps
 - No vague instructions - be extremely detailed
-- Include exact links to platforms/tools needed
+- Include exact links to platforms/tools needed (matching tech comfort level)
 - Specify if account creation required (FREE vs PAID with exact costs)
 - Add time estimates including thinking/processing time
 - Build in 15-minute buffer between tasks
+
+${taskFormatting}
 
 **TASK FORMAT EXAMPLE:**
 ✅ Task 1: Create Instagram Business Account (FREE - 30 minutes)
@@ -2697,7 +3612,7 @@ Each step must be actionable without interpretation needed.
 Create a fully interactive HTML calendar that includes:
 
 1. **Daily Task Structure:**
-   - Specific tasks for each day (MAX 4 per day)
+   - Specific tasks for each day (respect weekly capacity: ${data['weekly-capacity']})
    - Time estimates for each task
    - Priority levels (High/Medium/Low)
    - Cost information (FREE/PAID with exact amounts)
@@ -2717,7 +3632,10 @@ Create a fully interactive HTML calendar that includes:
    - Built-in rest periods and buffers
    - Energy level considerations
 
+${techRecommendations}
+
 4. **Week-by-Week Goals:**
+   - Adapt timeline to my pace preference (${data['work-pace']})
    - Week 1-2: Foundation & Setup (focus on easy wins)
    - Week 3-4: Market Validation (building confidence)
    - Week 5-8: MVP Development (steady progress)
@@ -2735,13 +3653,13 @@ Create a fully interactive HTML calendar that includes:
 **Executive Function Support:**
 - Start each day with energy check-in
 - Provide alternatives for low-energy days
-- Include accountability check-ins
+- Include accountability check-ins (match my learning style: ${data['learning-style']})
 - Add reminders for breaks and self-care
 - Provide encouragement for setbacks
 
 ${currentLanguage === 'es' ? 'Please create everything in Spanish.' : 'Please create everything in English.'}
 
-Make this calendar my complete roadmap from zero to achieving my income goal. Be specific, actionable, and realistic about my time constraints and executive function needs as a mom.
+Make this calendar my complete roadmap from zero to achieving my income goal. Be specific, actionable, and realistic about my time constraints (${data['weekly-capacity']}), learning style (${data['learning-style']}), technology comfort (${data['tech-comfort']}), and executive function needs as a mom.
 
 IMPORTANT: Structure your response so that it can be easily parsed into an interactive calendar system. Use consistent formatting for tasks and steps that can be converted into checkboxes and progress tracking.`;
 
@@ -3368,6 +4286,539 @@ Your AI-Powered Business Planning Tool
                     counterElement.querySelector('span').textContent = countText;
                 }
             }, 5000);
+        }
+
+        // Interactive Calendar System - Phase 3
+        let calendarData = {
+            days: [],
+            totalTasks: 0,
+            completedTasks: 0
+        };
+        let activeTimers = {};
+
+        function parseClaudeCalendar(claudeResponse) {
+            if (!claudeResponse || claudeResponse.length < 100) {
+                return;
+            }
+            
+            showProcessingMessage('claude-response', 'Creating your interactive calendar...');
+            
+            setTimeout(() => {
+                try {
+                    const parsedCalendar = extractCalendarFromResponse(claudeResponse);
+                    if (parsedCalendar.days.length > 0) {
+                        calendarData = parsedCalendar;
+                        renderInteractiveCalendar();
+                        loadSavedProgress();
+                        document.getElementById('interactive-calendar').style.display = 'block';
+                        document.getElementById('interactive-calendar').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        showDemoCalendar();
+                    }
+                    hideProcessingMessage('claude-response');
+                } catch (error) {
+                    console.error('Error parsing Claude calendar:', error);
+                    hideProcessingMessage('claude-response');
+                    showDemoCalendar();
+                }
+            }, 1500);
+        }
+
+        function extractCalendarFromResponse(response) {
+            const calendar = { days: [], totalTasks: 0, completedTasks: 0 };
+            
+            // Try to extract structured calendar data from Claude's response
+            // This is a simplified parser - in reality Claude would provide more structured data
+            const lines = response.split('\n');
+            let currentDay = null;
+            let currentTask = null;
+            let dayCounter = 1;
+            
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                
+                // Look for day headers
+                if (trimmed.match(/day\s*\d+/i) || trimmed.includes('Day ') || trimmed.includes('Día ')) {
+                    if (currentDay) {
+                        calendar.days.push(currentDay);
+                    }
+                    currentDay = {
+                        id: dayCounter++,
+                        title: trimmed,
+                        tasks: [],
+                        completed: false,
+                        energy: null
+                    };
+                }
+                
+                // Look for tasks
+                if (trimmed.match(/task\s*\d+/i) || trimmed.includes('✅') || trimmed.includes('Task ')) {
+                    if (currentDay) {
+                        currentTask = {
+                            id: currentDay.tasks.length + 1,
+                            title: trimmed.replace(/✅|Task\s*\d+:?/gi, '').trim(),
+                            steps: [],
+                            completed: false,
+                            timeEstimate: extractTimeEstimate(trimmed),
+                            cost: extractCostInfo(trimmed)
+                        };
+                        currentDay.tasks.push(currentTask);
+                        calendar.totalTasks++;
+                    }
+                }
+                
+                // Look for steps
+                if ((trimmed.includes('□') || trimmed.includes('Step ') || trimmed.includes('Paso ')) && currentTask) {
+                    currentTask.steps.push({
+                        id: currentTask.steps.length + 1,
+                        text: trimmed.replace(/□|Step\s*\d+:?/gi, '').trim(),
+                        completed: false
+                    });
+                }
+            });
+            
+            // Add the last day
+            if (currentDay) {
+                calendar.days.push(currentDay);
+            }
+            
+            return calendar;
+        }
+
+        function extractTimeEstimate(text) {
+            const timeMatch = text.match(/(\d+)\s*(minutes?|mins?|hours?|hrs?)/i);
+            return timeMatch ? timeMatch[0] : '30 minutes';
+        }
+
+        function extractCostInfo(text) {
+            if (text.toLowerCase().includes('free')) {
+                return { type: 'free', amount: '$0' };
+            }
+            const costMatch = text.match(/\$(\d+)/);
+            return costMatch ? { type: 'paid', amount: costMatch[0] } : { type: 'free', amount: '$0' };
+        }
+
+        function renderInteractiveCalendar() {
+            const container = document.getElementById('calendar-days-container');
+            container.innerHTML = '';
+            
+            calendarData.days.forEach(day => {
+                const dayElement = createDayElement(day);
+                container.appendChild(dayElement);
+            });
+            
+            updateOverallProgress();
+        }
+
+        function createDayElement(day) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = `calendar-day ${day.completed ? 'completed' : ''}`;
+            dayDiv.setAttribute('data-day', day.id);
+            
+            dayDiv.innerHTML = `
+                <div class="day-header ${day.completed ? 'completed' : ''}">
+                    <h3 class="day-title">${day.title}</h3>
+                    <div class="day-progress-container">
+                        <div class="day-progress-bar">
+                            <div class="day-progress-fill" style="width: ${calculateDayProgress(day)}%"></div>
+                        </div>
+                        <div class="day-progress-text">${getCompletedTasksCount(day)} of ${day.tasks.length} tasks complete</div>
+                    </div>
+                </div>
+                
+                <div class="energy-check">
+                    <h4 data-en="How's your energy today?" data-es="¿Cómo está tu energía hoy?">How's your energy today?</h4>
+                    <div class="energy-buttons">
+                        <button class="energy-btn ${day.energy === 'high' ? 'selected' : ''}" onclick="setEnergyLevel(${day.id}, 'high')">
+                            <span data-en="🚀 High Energy" data-es="🚀 Energía Alta">🚀 High Energy</span>
+                        </button>
+                        <button class="energy-btn ${day.energy === 'medium' ? 'selected' : ''}" onclick="setEnergyLevel(${day.id}, 'medium')">
+                            <span data-en="⚡ Medium Energy" data-es="⚡ Energía Media">⚡ Medium Energy</span>
+                        </button>
+                        <button class="energy-btn ${day.energy === 'low' ? 'selected' : ''}" onclick="setEnergyLevel(${day.id}, 'low')">
+                            <span data-en="🌱 Low Energy" data-es="🌱 Energía Baja">🌱 Low Energy</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="task-container">
+                    ${day.tasks.map(task => createTaskElement(day.id, task)).join('')}
+                </div>
+            `;
+            
+            return dayDiv;
+        }
+
+        function createTaskElement(dayId, task) {
+            return `
+                <div class="task ${task.completed ? 'completed' : ''}" data-task="${task.id}">
+                    <div class="task-header">
+                        <h4 class="task-title">${task.title}</h4>
+                        <div class="task-meta">
+                            <span class="time-estimate">⏱️ ${task.timeEstimate}</span>
+                            <span class="cost-info ${task.cost.type === 'free' ? 'cost-free' : 'cost-paid'}">💰 ${task.cost.amount}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="task-timer" id="timer-${dayId}-${task.id}" style="display: none;">
+                        <div class="timer-display">25:00</div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" onclick="startTimer(${dayId}, ${task.id})">Start</button>
+                            <button class="timer-btn" onclick="pauseTimer(${dayId}, ${task.id})">Pause</button>
+                            <button class="timer-btn" onclick="resetTimer(${dayId}, ${task.id})">Reset</button>
+                        </div>
+                    </div>
+                    
+                    <div class="task-steps">
+                        ${task.steps.map(step => createStepElement(dayId, task.id, step)).join('')}
+                    </div>
+                    
+                    <button class="feeling-stuck-btn" onclick="toggleStuckHelper(${dayId}, ${task.id})">
+                        <span data-en="Feeling stuck? Get help!" data-es="¿Te sientes atascada? ¡Obtén ayuda!">Feeling stuck? Get help!</span>
+                    </button>
+                    
+                    <div class="stuck-helper" id="stuck-helper-${dayId}-${task.id}">
+                        <h4 data-en="Break it down even smaller:" data-es="Divídelo en partes aún más pequeñas:">Break it down even smaller:</h4>
+                        <ul>
+                            <li data-en="Take a 5-minute break and breathe" data-es="Toma un descanso de 5 minutos y respira">Take a 5-minute break and breathe</li>
+                            <li data-en="Ask for help in a mom group online" data-es="Pide ayuda en un grupo de madres en línea">Ask for help in a mom group online</li>
+                            <li data-en="Start with just the first step" data-es="Comienza solo con el primer paso">Start with just the first step</li>
+                            <li data-en="Come back to this when energy is higher" data-es="Vuelve a esto cuando tengas más energía">Come back to this when energy is higher</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="timer-btn" onclick="toggleTimer(${dayId}, ${task.id})" style="margin-top: 12px;">
+                        <span data-en="⏰ Use Timer" data-es="⏰ Usar Temporizador">⏰ Use Timer</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        function createStepElement(dayId, taskId, step) {
+            return `
+                <div class="step ${step.completed ? 'completed' : ''}" onclick="toggleStep(${dayId}, ${taskId}, ${step.id})">
+                    <div class="step-checkbox ${step.completed ? 'checked' : ''}" data-day="${dayId}" data-task="${taskId}" data-step="${step.id}"></div>
+                    <div class="step-text">${step.text}</div>
+                </div>
+            `;
+        }
+
+        function toggleStep(dayId, taskId, stepId) {
+            const day = calendarData.days.find(d => d.id === dayId);
+            const task = day.tasks.find(t => t.id === taskId);
+            const step = task.steps.find(s => s.id === stepId);
+            
+            step.completed = !step.completed;
+            
+            // Update task completion
+            task.completed = task.steps.every(s => s.completed);
+            
+            // Update day completion
+            day.completed = day.tasks.every(t => t.completed);
+            
+            // Update completion count
+            calendarData.completedTasks = calendarData.days.reduce((total, d) => 
+                total + d.tasks.filter(t => t.completed).length, 0
+            );
+            
+            // Save progress
+            saveProgress();
+            
+            // Re-render calendar
+            renderInteractiveCalendar();
+            
+            // Check for celebrations
+            if (step.completed) {
+                checkForCelebrations(dayId, taskId, stepId);
+            }
+        }
+
+        function setEnergyLevel(dayId, level) {
+            const day = calendarData.days.find(d => d.id === dayId);
+            day.energy = level;
+            saveProgress();
+            
+            // Update UI
+            const energyButtons = document.querySelectorAll(`[data-day="${dayId}"] .energy-btn`);
+            energyButtons.forEach(btn => btn.classList.remove('selected'));
+            
+            const selectedBtn = document.querySelector(`[data-day="${dayId}"] .energy-btn[onclick*="${level}"]`);
+            if (selectedBtn) {
+                selectedBtn.classList.add('selected');
+            }
+            
+            // Show energy-appropriate suggestions
+            if (level === 'low') {
+                showLowEnergyTips(dayId);
+            }
+        }
+
+        function showLowEnergyTips(dayId) {
+            const message = currentLanguage === 'es' ? 
+                '💚 Energía baja detectada. Considera hacer solo 1-2 tareas hoy y está bien tomar descansos extra.' :
+                '💚 Low energy detected. Consider doing only 1-2 tasks today and it\'s okay to take extra breaks.';
+            showSuccessToast(message);
+        }
+
+        function toggleTimer(dayId, taskId) {
+            const timerElement = document.getElementById(`timer-${dayId}-${taskId}`);
+            if (timerElement.style.display === 'none') {
+                timerElement.style.display = 'block';
+            } else {
+                timerElement.style.display = 'none';
+            }
+        }
+
+        function startTimer(dayId, taskId) {
+            const timerId = `${dayId}-${taskId}`;
+            if (activeTimers[timerId]) {
+                clearInterval(activeTimers[timerId].interval);
+            }
+            
+            activeTimers[timerId] = {
+                minutes: 25,
+                seconds: 0,
+                interval: setInterval(() => updateTimer(dayId, taskId), 1000)
+            };
+            
+            updateTimerDisplay(dayId, taskId);
+        }
+
+        function pauseTimer(dayId, taskId) {
+            const timerId = `${dayId}-${taskId}`;
+            if (activeTimers[timerId]) {
+                clearInterval(activeTimers[timerId].interval);
+                delete activeTimers[timerId].interval;
+            }
+        }
+
+        function resetTimer(dayId, taskId) {
+            const timerId = `${dayId}-${taskId}`;
+            if (activeTimers[timerId]) {
+                clearInterval(activeTimers[timerId].interval);
+                activeTimers[timerId] = { minutes: 25, seconds: 0 };
+            }
+            updateTimerDisplay(dayId, taskId);
+        }
+
+        function updateTimer(dayId, taskId) {
+            const timerId = `${dayId}-${taskId}`;
+            const timer = activeTimers[timerId];
+            
+            if (timer.seconds === 0) {
+                if (timer.minutes === 0) {
+                    // Timer finished
+                    clearInterval(timer.interval);
+                    delete activeTimers[timerId];
+                    showCelebration('timer', 'Time\'s up! Great focus! 🎉', 'Take a 5-minute break before continuing.');
+                    return;
+                }
+                timer.minutes--;
+                timer.seconds = 59;
+            } else {
+                timer.seconds--;
+            }
+            
+            updateTimerDisplay(dayId, taskId);
+        }
+
+        function updateTimerDisplay(dayId, taskId) {
+            const timerId = `${dayId}-${taskId}`;
+            const timer = activeTimers[timerId] || { minutes: 25, seconds: 0 };
+            const display = document.querySelector(`#timer-${dayId}-${taskId} .timer-display`);
+            if (display) {
+                display.textContent = `${timer.minutes.toString().padStart(2, '0')}:${timer.seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        function toggleStuckHelper(dayId, taskId) {
+            const helper = document.getElementById(`stuck-helper-${dayId}-${taskId}`);
+            if (helper.classList.contains('show')) {
+                helper.classList.remove('show');
+            } else {
+                helper.classList.add('show');
+            }
+        }
+
+        function checkForCelebrations(dayId, taskId, stepId) {
+            const day = calendarData.days.find(d => d.id === dayId);
+            const task = day.tasks.find(t => t.id === taskId);
+            
+            // Task completion celebration
+            if (task.completed && task.steps.every(s => s.completed)) {
+                showCelebration('task', 
+                    currentLanguage === 'es' ? '🎉 ¡Tarea Completada!' : '🎉 Task Complete!',
+                    currentLanguage === 'es' ? 
+                        `¡Excelente trabajo! ${day.tasks.filter(t => !t.completed).length} tareas más para completar el día.` :
+                        `Great job! ${day.tasks.filter(t => !t.completed).length} more tasks to complete the day.`
+                );
+            }
+            
+            // Day completion celebration
+            if (day.completed && day.tasks.every(t => t.completed)) {
+                showCelebration('day',
+                    currentLanguage === 'es' ? '🏆 ¡Día Completado!' : '🏆 Day Complete!',
+                    currentLanguage === 'es' ? 
+                        '¡Increíble! Has completado todas las tareas de hoy. Eres una súper mamá empresaria.' :
+                        'Amazing! You\'ve completed all tasks for today. You\'re a super mom entrepreneur!'
+                );
+            }
+        }
+
+        function showCelebration(type, title, message) {
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration-popup show';
+            celebration.innerHTML = `
+                <div class="celebration-icon">${type === 'day' ? '🏆' : type === 'task' ? '🎉' : '⏰'}</div>
+                <div class="celebration-title">${title}</div>
+                <div class="celebration-message">${message}</div>
+                <button class="celebration-close" onclick="this.parentElement.remove()">
+                    <span data-en="Continue" data-es="Continuar">Continue</span>
+                </button>
+            `;
+            
+            document.body.appendChild(celebration);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (celebration.parentNode) {
+                    celebration.parentNode.removeChild(celebration);
+                }
+            }, 5000);
+        }
+
+        function calculateDayProgress(day) {
+            if (day.tasks.length === 0) return 0;
+            const completedTasks = day.tasks.filter(t => t.completed).length;
+            return Math.round((completedTasks / day.tasks.length) * 100);
+        }
+
+        function getCompletedTasksCount(day) {
+            return day.tasks.filter(t => t.completed).length;
+        }
+
+        function updateOverallProgress() {
+            const progressFill = document.getElementById('overallProgressFill');
+            const progressText = document.getElementById('overallProgressText');
+            
+            if (progressFill && progressText) {
+                const percentage = calendarData.totalTasks > 0 ? 
+                    Math.round((calendarData.completedTasks / calendarData.totalTasks) * 100) : 0;
+                
+                progressFill.style.width = percentage + '%';
+                progressText.textContent = `${calendarData.completedTasks} of ${calendarData.totalTasks} tasks complete`;
+            }
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem('smartMomCalendar', JSON.stringify(calendarData));
+                localStorage.setItem('smartMomCalendarTimestamp', new Date().toISOString());
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        function loadSavedProgress() {
+            try {
+                const savedData = localStorage.getItem('smartMomCalendar');
+                if (savedData) {
+                    const parsed = JSON.parse(savedData);
+                    // Merge saved progress with current calendar structure
+                    mergeSavedProgress(parsed);
+                    
+                    // Show welcome back message
+                    const timestamp = localStorage.getItem('smartMomCalendarTimestamp');
+                    if (timestamp) {
+                        const lastVisit = new Date(timestamp);
+                        const message = currentLanguage === 'es' ? 
+                            `¡Bienvenida de vuelta! Continuando desde tu última visita el ${lastVisit.toLocaleDateString()}.` :
+                            `Welcome back! Continuing from your last visit on ${lastVisit.toLocaleDateString()}.`;
+                        showSuccessToast(message);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading progress:', error);
+            }
+        }
+
+        function mergeSavedProgress(savedData) {
+            // Merge saved progress with current calendar structure
+            savedData.days.forEach(savedDay => {
+                const currentDay = calendarData.days.find(d => d.id === savedDay.id);
+                if (currentDay) {
+                    currentDay.completed = savedDay.completed;
+                    currentDay.energy = savedDay.energy;
+                    
+                    savedDay.tasks.forEach(savedTask => {
+                        const currentTask = currentDay.tasks.find(t => t.id === savedTask.id);
+                        if (currentTask) {
+                            currentTask.completed = savedTask.completed;
+                            
+                            savedTask.steps.forEach(savedStep => {
+                                const currentStep = currentTask.steps.find(s => s.id === savedStep.id);
+                                if (currentStep) {
+                                    currentStep.completed = savedStep.completed;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            
+            // Recalculate completed tasks
+            calendarData.completedTasks = calendarData.days.reduce((total, d) => 
+                total + d.tasks.filter(t => t.completed).length, 0
+            );
+        }
+
+        function showDemoCalendar() {
+            // Show a demo interactive calendar for demonstration purposes
+            calendarData = {
+                days: [
+                    {
+                        id: 1,
+                        title: 'Day 1: Business Foundation',
+                        completed: false,
+                        energy: null,
+                        tasks: [
+                            {
+                                id: 1,
+                                title: 'Create Instagram Business Account',
+                                timeEstimate: '30 minutes',
+                                cost: { type: 'free', amount: '$0' },
+                                completed: false,
+                                steps: [
+                                    { id: 1, text: 'Go to instagram.com/business', completed: false },
+                                    { id: 2, text: 'Click "Create account" → Select "Business Account"', completed: false },
+                                    { id: 3, text: 'Choose username: [yourname] + "business" or "coaching"', completed: false },
+                                    { id: 4, text: 'Upload profile photo (phone selfie works perfectly)', completed: false },
+                                    { id: 5, text: 'Write bio: "I help [target audience] achieve [specific result]"', completed: false }
+                                ]
+                            },
+                            {
+                                id: 2,
+                                title: 'Set up Google Business Profile',
+                                timeEstimate: '20 minutes',
+                                cost: { type: 'free', amount: '$0' },
+                                completed: false,
+                                steps: [
+                                    { id: 1, text: 'Go to business.google.com', completed: false },
+                                    { id: 2, text: 'Click "Manage now" and sign in with Gmail', completed: false },
+                                    { id: 3, text: 'Add your business name and category', completed: false },
+                                    { id: 4, text: 'Add location (or select "I deliver to customers")', completed: false }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                totalTasks: 2,
+                completedTasks: 0
+            };
+            
+            renderInteractiveCalendar();
+            document.getElementById('interactive-calendar').style.display = 'block';
+            document.getElementById('interactive-calendar').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         // Initialize the application
