@@ -44,6 +44,155 @@
             padding: 0 20px;
         }
 
+        /* Authentication Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .auth-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-content {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .auth-modal.active .auth-content {
+            transform: translateY(0);
+        }
+
+        .auth-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--charcoal);
+            opacity: 0.7;
+        }
+
+        .auth-close:hover {
+            opacity: 1;
+        }
+
+        .auth-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--sage-green);
+            margin-bottom: 32px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--light-sage);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--sage-green);
+            box-shadow: 0 0 0 4px var(--sage-alpha);
+        }
+
+        .auth-button {
+            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.35);
+        }
+
+        .google-auth-button {
+            background: white;
+            border: 2px solid var(--light-sage);
+            color: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .google-auth-button:hover {
+            background: var(--light-sage);
+            transform: translateY(-2px);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--charcoal);
+            opacity: 0.8;
+        }
+
+        .auth-link {
+            color: var(--sage-green);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .auth-error {
+            background: #ffebee;
+            border: 1px solid #e57373;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .auth-success {
+            background: #e8f5e8;
+            border: 1px solid var(--sage-green);
+            color: var(--sage-green);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
         /* Welcome Modal */
         .welcome-modal {
             position: fixed;
@@ -144,6 +293,46 @@
             transform: translateY(-2px);
         }
 
+        /* User Status Bar */
+        .user-status-bar {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+        }
+
+        .user-status-bar.hidden {
+            display: none;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .user-welcome {
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         /* Language Selection */
         .language-selector {
             text-align: center;
@@ -203,6 +392,45 @@
         .language-btn small {
             margin-top: 8px;
             opacity: 0.9;
+        }
+
+        /* Learning Style Adaptation */
+        .visual-preference-calm {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 4px solid #6c757d;
+        }
+
+        .visual-preference-energetic {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border-left: 4px solid #fd7e14;
+        }
+
+        .visual-preference-minimal {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-left: 4px solid var(--sage-green);
+        }
+
+        .learning-style-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .adaptive-help {
+            background: var(--light-sage);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-section.adapted {
+            border-left: 6px solid var(--soft-gold);
         }
 
         /* Progress Container */
@@ -514,6 +742,25 @@
             background: white;
         }
 
+        .char-counter {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 12px;
+            color: var(--charcoal);
+            opacity: 0.6;
+        }
+
+        .validation-message {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #e57373;
+        }
+
+        .validation-message.success {
+            color: var(--sage-green);
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
             color: white;
@@ -530,6 +777,129 @@
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 32px rgba(107, 142, 107, 0.35);
+        }
+
+        /* Platform Buttons */
+        .platform-button {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin: 8px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .platform-button.chatgpt-button {
+            background: linear-gradient(135deg, #00a67e, #00c896);
+        }
+
+        .platform-button.gemini-button {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+        }
+
+        .platform-button.claude-button {
+            background: linear-gradient(135deg, #cc785c, #d97757);
+        }
+
+        .platform-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Business Idea Selector */
+        .business-idea-selector {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 32px 0;
+            border: 2px solid var(--light-sage);
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
+        }
+
+        .idea-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .idea-card {
+            background: var(--warm-cream);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .idea-card:hover,
+        .idea-card.selected {
+            border-color: var(--sage-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(107, 142, 107, 0.2);
+        }
+
+        /* Auto-populated prompts */
+        .auto-populated-prompt {
+            background: var(--light-sage);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            border-left: 4px solid var(--sage-green);
+        }
+
+        .auto-populate-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .auto-populate-status.ready {
+            background: var(--light-sage);
+            color: var(--sage-green);
+        }
+
+        /* Returning user status */
+        .returning-user-status {
+            background: linear-gradient(135deg, var(--gold-alpha), rgba(212, 165, 116, 0.15));
+            border: 2px solid var(--soft-gold);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* Celebration section */
+        .celebration-section {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 24px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .celebration-section::before {
+            content: '🎉';
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.1;
+            animation: celebrate 3s infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: rotate(-10deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.1); }
         }
 
         /* Services Section */
@@ -659,10 +1029,6 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .service-price::before {
-            content: '';
-        }
-
         .service-description {
             color: var(--charcoal);
             opacity: 0.8;
@@ -707,22 +1073,22 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .free-button {
+        .service-button.free-button {
             background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
             color: white;
         }
 
-        .free-button:hover {
+        .service-button.free-button:hover {
             background: linear-gradient(135deg, #5A7A5A, var(--sage-green));
             transform: translateY(-2px);
         }
 
-        .premium-button {
+        .service-button.premium-button {
             background: linear-gradient(135deg, var(--deep-teal), #1E3D47);
             color: white;
         }
 
-        .premium-button:hover {
+        .service-button.premium-button:hover {
             background: linear-gradient(135deg, #1E3D47, var(--deep-teal));
             transform: translateY(-2px);
         }
@@ -812,6 +1178,15 @@
                 font-size: 16px;
                 padding: 18px;
             }
+
+            .auth-content {
+                padding: 30px 20px;
+            }
+
+            .user-info {
+                flex-direction: column;
+                gap: 12px;
+            }
         }
 
         .hidden {
@@ -820,6 +1195,48 @@
     </style>
 </head>
 <body>
+    <!-- Authentication Modal -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-content">
+            <button class="auth-close" onclick="closeAuthModal()">&times;</button>
+            <h2 class="auth-title" id="authTitle">Create Your Account</h2>
+            
+            <div id="authError" class="auth-error hidden"></div>
+            <div id="authSuccess" class="auth-success hidden"></div>
+            
+            <form class="auth-form" id="authForm">
+                <input type="text" id="authName" class="auth-input" placeholder="Your Name" style="display: none;">
+                <input type="email" id="authEmail" class="auth-input" placeholder="Email Address" required>
+                <input type="password" id="authPassword" class="auth-input" placeholder="Password" required>
+                <input type="password" id="authConfirmPassword" class="auth-input" placeholder="Confirm Password" style="display: none;">
+                
+                <button type="submit" class="auth-button" id="authSubmitBtn">Create Account</button>
+                <button type="button" class="auth-button google-auth-button" onclick="signInWithGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 18 18">
+                        <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
+                        <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 0 1-7.18-2.53H1.83v2.07A8 8 0 0 0 8.98 17z"/>
+                        <path fill="#FBBC05" d="M4.5 10.49a4.8 4.8 0 0 1 0-3.07V5.35H1.83a8 8 0 0 0 0 7.28l2.67-2.14z"/>
+                        <path fill="#EA4335" d="M8.98 4.72c1.16 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.35L4.5 7.42a4.8 4.8 0 0 1 4.48-2.7z"/>
+                    </svg>
+                    Sign in with Google
+                </button>
+            </form>
+            
+            <div class="auth-switch">
+                <span id="authSwitchText">Already have an account?</span>
+                <span class="auth-link" id="authSwitchLink" onclick="toggleAuthMode()">Sign In</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Status Bar -->
+    <div id="userStatusBar" class="user-status-bar hidden">
+        <div class="user-info">
+            <span class="user-welcome" id="userWelcome"></span>
+            <button class="logout-btn" onclick="signOut()">Sign Out</button>
+        </div>
+    </div>
+
     <!-- Welcome Modal -->
     <div id="welcomeModal" class="welcome-modal">
         <div class="welcome-content">
@@ -935,27 +1352,33 @@
                     
                     <div class="form-group">
                         <label>Your Name: <span class="required">*</span></label>
-                        <input type="text" class="form-control" placeholder="Enter your name" />
+                        <input type="text" id="userName" class="form-control" placeholder="Enter your name" onchange="validateField(this)" />
+                        <div class="validation-message" id="userName-validation"></div>
                     </div>
 
                     <div class="form-group">
                         <label>Your Email: <span class="required">*</span></label>
-                        <input type="email" class="form-control" placeholder="your.email@example.com" />
+                        <input type="email" id="userEmail" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" />
+                        <div class="validation-message" id="userEmail-validation"></div>
                     </div>
                     
                     <div class="form-group">
                         <label>Family Structure & Ages: <span class="required">*</span></label>
-                        <textarea class="form-control" rows="3" placeholder="e.g., 'Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties.'"></textarea>
+                        <textarea id="familyStructure" class="form-control" rows="3" placeholder="e.g., 'Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                        <div class="char-counter">0/500</div>
+                        <div class="validation-message" id="familyStructure-validation"></div>
                     </div>
                     
                     <div class="form-group">
                         <label>Daily Schedule & Availability: <span class="required">*</span></label>
-                        <textarea class="form-control" rows="3" placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'"></textarea>
+                        <textarea id="dailySchedule" class="form-control" rows="3" placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                        <div class="char-counter">0/500</div>
+                        <div class="validation-message" id="dailySchedule-validation"></div>
                     </div>
                     
                     <div class="form-group">
                         <label>Current Work Status: <span class="required">*</span></label>
-                        <select class="form-control">
+                        <select id="workStatus" class="form-control" onchange="validateField(this)">
                             <option value="">Select your situation...</option>
                             <option value="stay-at-home">Stay-at-home super mom</option>
                             <option value="part-time">Working part-time</option>
@@ -963,6 +1386,7 @@
                             <option value="unemployed">Recently unemployed/looking</option>
                             <option value="student">Student/in school</option>
                         </select>
+                        <div class="validation-message" id="workStatus-validation"></div>
                     </div>
                 </div>
 
@@ -972,18 +1396,116 @@
                     
                     <div class="form-group">
                         <label>Professional Background: <span class="required">*</span></label>
-                        <textarea class="form-control" rows="3" placeholder="e.g., '10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events.'"></textarea>
+                        <textarea id="professionalBackground" class="form-control" rows="3" placeholder="e.g., '10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events.'" onchange="validateField(this)" oninput="updateCharCount(this, 750)"></textarea>
+                        <div class="char-counter">0/750</div>
+                        <div class="validation-message" id="professionalBackground-validation"></div>
                     </div>
                     
                     <div class="form-group">
                         <label>Monthly Income Goal: <span class="required">*</span></label>
-                        <textarea class="form-control" rows="2" placeholder="e.g., '$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom.'"></textarea>
+                        <textarea id="incomeGoal" class="form-control" rows="2" placeholder="e.g., '$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom.'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
+                        <div class="char-counter">0/300</div>
+                        <div class="validation-message" id="incomeGoal-validation"></div>
                     </div>
                 </div>
 
-                <button type="button" class="btn-primary" onclick="showServices()">
+                <button type="button" class="btn-primary" onclick="proceedToStepTwo()">
                     🚀 Create My Personalized Business Plan
                 </button>
+
+                <!-- Step 2: AI Platform Integration -->
+                <div id="step2Content" class="hidden">
+                    <div class="step-description">
+                        <h2>🤖 Step 2: Generate with ChatGPT</h2>
+                        <p>We've created a personalized prompt based on your information. Copy this prompt and paste it into ChatGPT to generate your first set of business ideas.</p>
+                    </div>
+
+                    <div class="auto-populated-prompt">
+                        <div class="auto-populate-status ready">✨ Prompt Ready</div>
+                        <h4>Your Personalized ChatGPT Prompt:</h4>
+                        <textarea id="chatgptPrompt" class="form-control" rows="8" readonly></textarea>
+                        <button class="btn-primary" onclick="copyToClipboard('chatgptPrompt')">📋 Copy Prompt</button>
+                        <a href="https://chat.openai.com" target="_blank" class="platform-button chatgpt-button">Open ChatGPT</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Paste ChatGPT Response Here:</label>
+                        <textarea id="chatgptResponse" class="form-control" rows="6" placeholder="Paste the complete response from ChatGPT here..." onchange="parseChatGPTResponse()"></textarea>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="proceedToGemini()">
+                        🚀 Continue to Gemini
+                    </button>
+                </div>
+
+                <!-- Step 3: Gemini Integration -->
+                <div id="step3Content" class="hidden">
+                    <div class="step-description">
+                        <h2>🔍 Step 3: Refine with Gemini</h2>
+                        <p>Now we'll use Gemini to refine and expand on your business ideas with market research and validation.</p>
+                    </div>
+
+                    <div class="auto-populated-prompt">
+                        <div class="auto-populate-status ready">✨ Prompt Ready</div>
+                        <h4>Your Personalized Gemini Prompt:</h4>
+                        <textarea id="geminiPrompt" class="form-control" rows="8" readonly></textarea>
+                        <button class="btn-primary" onclick="copyToClipboard('geminiPrompt')">📋 Copy Prompt</button>
+                        <a href="https://gemini.google.com" target="_blank" class="platform-button gemini-button">Open Gemini</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Paste Gemini Response Here:</label>
+                        <textarea id="geminiResponse" class="form-control" rows="6" placeholder="Paste the complete response from Gemini here..." onchange="parseGeminiResponse()"></textarea>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="proceedToClaude()">
+                        🚀 Continue to Claude
+                    </button>
+                </div>
+
+                <!-- Step 4: Claude Integration -->
+                <div id="step4Content" class="hidden">
+                    <div class="step-description">
+                        <h2>🎯 Step 4: Perfect with Claude</h2>
+                        <p>Finally, we'll use Claude to create your comprehensive business plan with actionable steps and timelines.</p>
+                    </div>
+
+                    <div class="auto-populated-prompt">
+                        <div class="auto-populate-status ready">✨ Prompt Ready</div>
+                        <h4>Your Personalized Claude Prompt:</h4>
+                        <textarea id="claudePrompt" class="form-control" rows="8" readonly></textarea>
+                        <button class="btn-primary" onclick="copyToClipboard('claudePrompt')">📋 Copy Prompt</button>
+                        <a href="https://claude.ai" target="_blank" class="platform-button claude-button">Open Claude</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Paste Claude Response Here:</label>
+                        <textarea id="claudeResponse" class="form-control" rows="6" placeholder="Paste the complete response from Claude here..." onchange="generateFinalPlan()"></textarea>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="completePlan()">
+                        🎉 Complete My Business Plan
+                    </button>
+                </div>
+
+                <!-- Final Plan -->
+                <div id="finalPlanContent" class="hidden">
+                    <div class="celebration-section">
+                        <h2>🎉 Congratulations! Your Business Plan is Ready!</h2>
+                        <p>You've successfully created a comprehensive business plan tailored specifically for your life as a busy mom!</p>
+                        <button class="btn-primary" onclick="downloadBusinessPlan()" style="background: white; color: var(--sage-green); margin-top: 24px;">
+                            📥 Download Your Business Plan
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Share Your Success Story (Optional):</label>
+                        <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your business plan? Your story could inspire other moms!"></textarea>
+                        <button type="button" class="btn-primary" onclick="submitTestimonial()">
+                            💬 Share Your Story
+                        </button>
+                    </div>
+                </div>
 
                 <!-- Services Section -->
                 <section class="services-section" id="servicesSection">
@@ -1009,7 +1531,7 @@
                                         <li>Organization quick wins</li>
                                         <li>Executive function strategies</li>
                                     </ul>
-                                    <button class="service-button free-button" onclick="alert('Opens Calendly: https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min')">
+                                    <button class="service-button free-button" onclick="openCalendly('https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min')">
                                         Book Free Support Call
                                     </button>
                                 </div>
@@ -1028,7 +1550,7 @@
                                         <li>School/activity coordination</li>
                                         <li>Ready-to-download file</li>
                                     </ul>
-                                    <button class="service-button premium-button" onclick="alert('Opens Stripe: https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07')">
+                                    <button class="service-button premium-button" onclick="handleStripePayment('life-calendar')">
                                         Get My Life Calendar $39
                                     </button>
                                 </div>
@@ -1046,7 +1568,7 @@
                                         <li>Future update training</li>
                                         <li>Family routine optimization</li>
                                     </ul>
-                                    <button class="service-button premium-button" onclick="alert('Opens Stripe: https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06')">
+                                    <button class="service-button premium-button" onclick="handleStripePayment('life-training')">
                                         Book AI Training $89
                                     </button>
                                 </div>
@@ -1071,7 +1593,7 @@
                                         <li>Revenue planning advice</li>
                                         <li>Mom entrepreneur tips</li>
                                     </ul>
-                                    <button class="service-button free-button" onclick="alert('Opens Calendly: https://calendly.com/momsurvivaltoolkit/30min')">
+                                    <button class="service-button free-button" onclick="openCalendly('https://calendly.com/momsurvivaltoolkit/30min')">
                                         Book Free Strategy Call
                                     </button>
                                 </div>
@@ -1090,7 +1612,7 @@
                                         <li>Client management system</li>
                                         <li>SEO content suggestions</li>
                                     </ul>
-                                    <button class="service-button premium-button" onclick="alert('Opens Stripe: https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05')">
+                                    <button class="service-button premium-button" onclick="handleStripePayment('business-calendar')">
                                         Get My Business Calendar $49
                                     </button>
                                 </div>
@@ -1108,7 +1630,7 @@
                                         <li>Marketing automation setup</li>
                                         <li>Ongoing update training</li>
                                     </ul>
-                                    <button class="service-button premium-button" onclick="alert('Opens Stripe: https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04')">
+                                    <button class="service-button premium-button" onclick="handleStripePayment('business-training')">
                                         Book AI Training $100
                                     </button>
                                 </div>
@@ -1121,8 +1643,12 @@
     </div>
 
     <script>
+        // Global Variables
         let currentLanguage = 'en';
         let currentUser = null;
+        let formData = {};
+        let currentStep = 1;
+        let authMode = 'signup';
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1140,26 +1666,686 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // MISSING FUNCTIONS - THESE MAKE THE BUTTONS WORK:
+        // Authentication Functions
         function showAuthModal(mode = 'signup') {
-            alert(`🔥 Firebase Authentication Ready!\n\nMode: ${mode}\nYour Firebase project is connected and ready for real user accounts!\n\nIn the full version:\n✅ Email/password registration\n✅ Google sign-in\n✅ Form data saves to Firestore\n✅ Cross-device sync`);
+            authMode = mode;
+            const modal = document.getElementById('authModal');
+            const title = document.getElementById('authTitle');
+            const nameField = document.getElementById('authName');
+            const confirmPasswordField = document.getElementById('authConfirmPassword');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const switchText = document.getElementById('authSwitchText');
+            const switchLink = document.getElementById('authSwitchLink');
+            
+            if (mode === 'signup') {
+                title.textContent = 'Create Your Account';
+                nameField.style.display = 'block';
+                confirmPasswordField.style.display = 'block';
+                submitBtn.textContent = 'Create Account';
+                switchText.textContent = 'Already have an account?';
+                switchLink.textContent = 'Sign In';
+            } else {
+                title.textContent = 'Welcome Back!';
+                nameField.style.display = 'none';
+                confirmPasswordField.style.display = 'none';
+                submitBtn.textContent = 'Sign In';
+                switchText.textContent = "Don't have an account?";
+                switchLink.textContent = 'Create Account';
+            }
+            
+            modal.classList.add('active');
+            clearAuthMessages();
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            clearAuthMessages();
+        }
+
+        function toggleAuthMode() {
+            authMode = authMode === 'signup' ? 'signin' : 'signup';
+            showAuthModal(authMode);
+        }
+
+        function clearAuthMessages() {
+            document.getElementById('authError').classList.add('hidden');
+            document.getElementById('authSuccess').classList.add('hidden');
+        }
+
+        function showAuthError(message) {
+            const errorDiv = document.getElementById('authError');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function showAuthSuccess(message) {
+            const successDiv = document.getElementById('authSuccess');
+            successDiv.textContent = message;
+            successDiv.classList.remove('hidden');
+        }
+
+        // Authentication Event Handlers
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            const name = document.getElementById('authName').value;
+            const confirmPassword = document.getElementById('authConfirmPassword').value;
+            
+            clearAuthMessages();
+            
+            try {
+                if (authMode === 'signup') {
+                    if (password !== confirmPassword) {
+                        showAuthError('Passwords do not match');
+                        return;
+                    }
+                    
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    await userCredential.user.updateProfile({ displayName: name });
+                    
+                    // Save user data to Firestore
+                    await db.collection('users').doc(userCredential.user.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        language: currentLanguage
+                    });
+                    
+                    showAuthSuccess('Account created successfully!');
+                } else {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    showAuthSuccess('Welcome back!');
+                }
+                
+                setTimeout(() => {
+                    closeAuthModal();
+                    startOnboarding();
+                }, 1500);
+                
+            } catch (error) {
+                showAuthError(error.message);
+            }
+        });
+
+        async function signInWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                const result = await auth.signInWithPopup(provider);
+                
+                // Save user data to Firestore if new user
+                const userRef = db.collection('users').doc(result.user.uid);
+                const userDoc = await userRef.get();
+                
+                if (!userDoc.exists) {
+                    await userRef.set({
+                        name: result.user.displayName,
+                        email: result.user.email,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        language: currentLanguage,
+                        provider: 'google'
+                    });
+                }
+                
+                showAuthSuccess('Welcome! Signed in with Google');
+                setTimeout(() => {
+                    closeAuthModal();
+                    startOnboarding();
+                }, 1500);
+                
+            } catch (error) {
+                showAuthError(error.message);
+            }
+        }
+
+        async function signOut() {
+            try {
+                await auth.signOut();
+                document.getElementById('userStatusBar').classList.add('hidden');
+                document.getElementById('welcomeModal').classList.remove('hidden');
+            } catch (error) {
+                console.error('Sign out error:', error);
+            }
+        }
+
+        // Auth State Observer
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
+                document.getElementById('userStatusBar').classList.remove('hidden');
+                
+                // Load user's saved progress
+                await loadUserProgress();
+            } else {
+                currentUser = null;
+                document.getElementById('userStatusBar').classList.add('hidden');
+            }
+        });
+
+        // User Progress Management
+        async function loadUserProgress() {
+            if (!currentUser) return;
+            
+            try {
+                const progressDoc = await db.collection('progress').doc(currentUser.uid).get();
+                if (progressDoc.exists) {
+                    const progress = progressDoc.data();
+                    
+                    // Restore form data
+                    Object.keys(progress.formData || {}).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = progress.formData[key];
+                        }
+                    });
+                    
+                    // Restore current step
+                    if (progress.currentStep) {
+                        currentStep = progress.currentStep;
+                        updateProgressDisplay();
+                    }
+                    
+                    // Show returning user status
+                    showReturningUserStatus(progress.lastSaved);
+                }
+            } catch (error) {
+                console.error('Error loading progress:', error);
+            }
+        }
+
+        async function saveFormProgress() {
+            if (!currentUser) {
+                // Save to localStorage for non-authenticated users
+                localStorage.setItem('smartMomWorkflowData', JSON.stringify({
+                    formData: collectFormData(),
+                    currentStep: currentStep,
+                    lastSaved: new Date().toISOString()
+                }));
+                return;
+            }
+            
+            try {
+                await db.collection('progress').doc(currentUser.uid).set({
+                    formData: collectFormData(),
+                    currentStep: currentStep,
+                    lastSaved: firebase.firestore.FieldValue.serverTimestamp(),
+                    language: currentLanguage
+                }, { merge: true });
+            } catch (error) {
+                console.error('Error saving progress:', error);
+            }
+        }
+
+        function showReturningUserStatus(lastSaved) {
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'returning-user-status';
+            statusDiv.innerHTML = `
+                <h4>🎉 Welcome Back!</h4>
+                <p>Your progress has been restored from ${lastSaved ? new Date(lastSaved.toDate()).toLocaleDateString() : 'your last session'}.</p>
+            `;
+            
+            const formSection = document.querySelector('.form-section');
+            formSection.parentNode.insertBefore(statusDiv, formSection);
+        }
+
+        // Form Management Functions
+        function collectFormData() {
+            return {
+                userName: document.getElementById('userName')?.value || '',
+                userEmail: document.getElementById('userEmail')?.value || '',
+                familyStructure: document.getElementById('familyStructure')?.value || '',
+                dailySchedule: document.getElementById('dailySchedule')?.value || '',
+                workStatus: document.getElementById('workStatus')?.value || '',
+                professionalBackground: document.getElementById('professionalBackground')?.value || '',
+                incomeGoal: document.getElementById('incomeGoal')?.value || '',
+                chatgptResponse: document.getElementById('chatgptResponse')?.value || '',
+                geminiResponse: document.getElementById('geminiResponse')?.value || '',
+                claudeResponse: document.getElementById('claudeResponse')?.value || ''
+            };
+        }
+
+        function validateField(field) {
+            const fieldId = field.id;
+            const value = field.value.trim();
+            const validationDiv = document.getElementById(`${fieldId}-validation`);
+            
+            let isValid = true;
+            let message = '';
+            
+            // Required field validation
+            if (field.hasAttribute('required') || field.classList.contains('required')) {
+                if (!value) {
+                    isValid = false;
+                    message = 'This field is required';
+                }
+            }
+            
+            // Email validation
+            if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    isValid = false;
+                    message = 'Please enter a valid email address';
+                }
+            }
+            
+            // Update validation message
+            if (validationDiv) {
+                validationDiv.textContent = message;
+                validationDiv.className = isValid ? 'validation-message success' : 'validation-message';
+            }
+            
+            // Auto-save if authenticated
+            if (isValid && currentUser) {
+                saveFormProgress();
+            }
+            
+            return isValid;
+        }
+
+        function validateCurrentStep() {
+            const requiredFields = [];
+            
+            if (currentStep === 1) {
+                requiredFields.push('userName', 'userEmail', 'familyStructure', 'dailySchedule', 'workStatus', 'professionalBackground', 'incomeGoal');
+            }
+            
+            let allValid = true;
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field && !validateField(field)) {
+                    allValid = false;
+                }
+            });
+            
+            return allValid;
+        }
+
+        function updateCharCount(textarea, maxLength) {
+            const counter = textarea.parentNode.querySelector('.char-counter');
+            if (counter) {
+                const currentLength = textarea.value.length;
+                counter.textContent = `${currentLength}/${maxLength}`;
+                
+                if (currentLength > maxLength) {
+                    counter.style.color = '#e57373';
+                } else {
+                    counter.style.color = '';
+                }
+            }
+        }
+
+        // Progress Management
+        function updateProgressDisplay() {
+            const progressFill = document.querySelector('.progress-fill');
+            const stepCounter = document.querySelector('.step-counter');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            
+            // Update progress bar
+            const progressPercentage = (currentStep / 6) * 100;
+            progressFill.style.width = `${progressPercentage}%`;
+            
+            // Update step counter
+            stepCounter.textContent = `Step ${currentStep} of 6`;
+            
+            // Update step indicators
+            progressSteps.forEach((step, index) => {
+                step.classList.remove('active', 'completed', 'next');
+                
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                } else if (index + 1 === currentStep + 1) {
+                    step.classList.add('next');
+                }
+            });
+        }
+
+        // AI Platform Integration
+        function generateChatGPTPrompt() {
+            const data = collectFormData();
+            
+            const prompt = `Create 3 personalized business ideas for a busy mom with this profile:
+
+**Personal Situation:**
+- Name: ${data.userName}
+- Family: ${data.familyStructure}
+- Daily Schedule: ${data.dailySchedule}
+- Work Status: ${data.workStatus}
+
+**Skills & Goals:**
+- Background: ${data.professionalBackground}
+- Income Goal: ${data.incomeGoal}
+- Language: ${currentLanguage === 'es' ? 'Spanish' : 'English'}
+
+Please provide:
+1. 3 specific business ideas that fit her schedule and skills
+2. Estimated startup costs for each
+3. Expected time to profitability
+4. Required weekly time commitment
+5. Specific first steps for each idea
+
+Focus on businesses that can be started with minimal upfront investment and can accommodate her family responsibilities.`;
+
+            return prompt;
+        }
+
+        function autoPopulateGeminiPrompt() {
+            const data = collectFormData();
+            const chatgptIdeas = data.chatgptResponse;
+            
+            const prompt = `Based on these business ideas generated for a busy mom: 
+
+${chatgptIdeas}
+
+Please provide:
+1. Market research and validation for each idea
+2. Target audience analysis
+3. Competition assessment
+4. Marketing strategies that work for busy moms
+5. Potential challenges and solutions
+6. Revenue projections for first year
+
+Focus on practical, actionable insights that a mom entrepreneur can implement while managing family responsibilities.`;
+
+            return prompt;
+        }
+
+        function autoPopulateClaudePrompt() {
+            const data = collectFormData();
+            const chatgptIdeas = data.chatgptResponse;
+            const geminiAnalysis = data.geminiResponse;
+            
+            const prompt = `Create a comprehensive business plan based on:
+
+**Original Business Ideas:**
+${chatgptIdeas}
+
+**Market Research & Analysis:**
+${geminiAnalysis}
+
+**Mom's Profile:**
+- Schedule: ${data.dailySchedule}
+- Skills: ${data.professionalBackground}
+- Goal: ${data.incomeGoal}
+
+Please create a detailed business plan including:
+1. Executive summary
+2. Step-by-step implementation timeline
+3. Weekly action items for first 90 days
+4. Resource requirements and budget
+5. Success metrics and milestones
+6. Risk management strategies
+7. Work-life balance considerations
+
+Make this actionable and realistic for a busy mom entrepreneur.`;
+
+            return prompt;
+        }
+
+        function parseChatGPTResponse() {
+            const response = document.getElementById('chatgptResponse').value;
+            if (response.trim()) {
+                // Auto-generate Gemini prompt
+                document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
+                
+                // Save progress
+                saveFormProgress();
+                
+                // Show business idea selector if multiple ideas
+                showBusinessIdeaSelector(response);
+            }
+        }
+
+        function parseGeminiResponse() {
+            const response = document.getElementById('geminiResponse').value;
+            if (response.trim()) {
+                // Auto-generate Claude prompt
+                document.getElementById('claudePrompt').value = autoPopulateClaudePrompt();
+                
+                // Save progress
+                saveFormProgress();
+            }
+        }
+
+        function showBusinessIdeaSelector(chatgptResponse) {
+            // This would create a visual selector for business ideas
+            // For now, we'll just continue the flow
+            console.log('Business ideas parsed:', chatgptResponse);
+        }
+
+        function confirmBusinessSelection() {
+            // Handle business idea selection
+            console.log('Business idea confirmed');
+        }
+
+        // Step Navigation
+        function proceedToStepTwo() {
+            if (!validateCurrentStep()) {
+                alert('Please fill in all required fields before continuing.');
+                return;
+            }
+            
+            currentStep = 2;
+            updateProgressDisplay();
+            
+            // Generate personalized prompt
+            document.getElementById('chatgptPrompt').value = generateChatGPTPrompt();
+            
+            // Show step 2 content
+            document.getElementById('step2Content').classList.remove('hidden');
+            document.getElementById('step2Content').scrollIntoView({ behavior: 'smooth' });
+            
+            // Save progress
+            saveFormProgress();
+        }
+
+        function proceedToGemini() {
+            if (!document.getElementById('chatgptResponse').value.trim()) {
+                alert('Please paste your ChatGPT response before continuing.');
+                return;
+            }
+            
+            currentStep = 3;
+            updateProgressDisplay();
+            
+            // Show step 3 content
+            document.getElementById('step3Content').classList.remove('hidden');
+            document.getElementById('step3Content').scrollIntoView({ behavior: 'smooth' });
+            
+            // Save progress
+            saveFormProgress();
+        }
+
+        function proceedToClaude() {
+            if (!document.getElementById('geminiResponse').value.trim()) {
+                alert('Please paste your Gemini response before continuing.');
+                return;
+            }
+            
+            currentStep = 4;
+            updateProgressDisplay();
+            
+            // Show step 4 content
+            document.getElementById('step4Content').classList.remove('hidden');
+            document.getElementById('step4Content').scrollIntoView({ behavior: 'smooth' });
+            
+            // Save progress
+            saveFormProgress();
+        }
+
+        function completePlan() {
+            if (!document.getElementById('claudeResponse').value.trim()) {
+                alert('Please paste your Claude response before completing.');
+                return;
+            }
+            
+            currentStep = 6;
+            updateProgressDisplay();
+            
+            generateFinalPlan();
+            
+            // Show final content
+            document.getElementById('finalPlanContent').classList.remove('hidden');
+            document.getElementById('finalPlanContent').scrollIntoView({ behavior: 'smooth' });
+            
+            // Save progress
+            saveFormProgress();
+        }
+
+        function generateFinalPlan() {
+            // Combine all AI responses into final plan
+            const data = collectFormData();
+            formData.finalPlan = {
+                chatgpt: data.chatgptResponse,
+                gemini: data.geminiResponse,
+                claude: data.claudeResponse,
+                generatedAt: new Date().toISOString()
+            };
+        }
+
+        // Utility Functions
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            document.execCommand('copy');
+            
+            // Show feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        function downloadBusinessPlan() {
+            const data = collectFormData();
+            const planContent = `
+SMART MOM METHOD - BUSINESS PLAN
+Generated: ${new Date().toLocaleDateString()}
+
+=== PERSONAL PROFILE ===
+Name: ${data.userName}
+Email: ${data.userEmail}
+Family Structure: ${data.familyStructure}
+Daily Schedule: ${data.dailySchedule}
+Work Status: ${data.workStatus}
+Professional Background: ${data.professionalBackground}
+Income Goal: ${data.incomeGoal}
+
+=== CHATGPT BUSINESS IDEAS ===
+${data.chatgptResponse}
+
+=== GEMINI MARKET ANALYSIS ===
+${data.geminiResponse}
+
+=== CLAUDE IMPLEMENTATION PLAN ===
+${data.claudeResponse}
+
+Generated with Smart Mom Method - smartmommethod.com
+            `;
+            
+            const blob = new Blob([planContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `smart-mom-business-plan-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        async function submitTestimonial() {
+            const testimonial = document.getElementById('testimonial').value.trim();
+            if (!testimonial) {
+                alert('Please write your testimonial before submitting.');
+                return;
+            }
+            
+            try {
+                if (currentUser) {
+                    await db.collection('testimonials').add({
+                        userId: currentUser.uid,
+                        userName: currentUser.displayName || 'Anonymous',
+                        testimonial: testimonial,
+                        submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+                
+                alert('Thank you for sharing your story! Your testimonial has been submitted.');
+                document.getElementById('testimonial').value = '';
+            } catch (error) {
+                console.error('Error submitting testimonial:', error);
+                alert('Thank you for your feedback! We appreciate your story.');
+            }
+        }
+
+        // Service Integration Functions
+        function handleStripePayment(service) {
+            const stripeUrls = {
+                'life-calendar': 'https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07',
+                'life-training': 'https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06',
+                'business-calendar': 'https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05',
+                'business-training': 'https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04'
+            };
+            
+            const url = stripeUrls[service];
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+
+        function openCalendly(url) {
+            window.open(url, '_blank');
+        }
+
+        // Learning Style Adaptation
+        function updateLearningStyleAdaptation() {
+            // This would implement adaptive learning styles based on user preferences
+            // For now, it's a placeholder for future enhancement
+            console.log('Learning style adaptation updated');
+        }
+
+        // Core Functions
+        function startOnboarding() {
+            document.getElementById('welcomeModal').classList.add('hidden');
         }
 
         function checkReturningUser() {
             // Check for saved data
             const savedData = localStorage.getItem('smartMomWorkflowData');
             
-            if (savedData) {
-                alert('🎉 Found saved data!\n\nIn the full version:\n✅ Would restore your form progress\n✅ Load your Firebase user account\n✅ Continue where you left off\n\nStarting fresh for now...');
-                startOnboarding();
+            if (savedData || currentUser) {
+                if (currentUser) {
+                    // User is authenticated, load their progress
+                    loadUserProgress();
+                    startOnboarding();
+                } else if (savedData) {
+                    // Load from localStorage
+                    const data = JSON.parse(savedData);
+                    Object.keys(data.formData || {}).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = data.formData[key];
+                        }
+                    });
+                    
+                    if (data.currentStep) {
+                        currentStep = data.currentStep;
+                        updateProgressDisplay();
+                    }
+                    
+                    showReturningUserStatus(data.lastSaved);
+                    startOnboarding();
+                }
             } else {
-                alert('💾 No saved data found.\n\nIn the full version:\n✅ Would show Firebase login form\n✅ Check for account with email\n✅ Restore cloud-saved progress\n\nStarting fresh for now...');
-                startOnboarding();
+                showAuthModal('signin');
             }
-        }
-
-        function startOnboarding() {
-            document.getElementById('welcomeModal').classList.add('hidden');
         }
 
         function changeLanguage(lang) {
@@ -1171,7 +2357,12 @@
             });
             document.getElementById(`lang-${lang}`).classList.add('active');
             
-            alert(`Language changed to ${lang === 'en' ? 'English' : 'Español'}`);
+            // Save language preference
+            if (currentUser) {
+                db.collection('users').doc(currentUser.uid).update({
+                    language: lang
+                }).catch(console.error);
+            }
         }
 
         function scrollToForm() {
@@ -1179,18 +2370,6 @@
             if (formSection) {
                 formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }
-
-        function showServices() {
-            const servicesSection = document.getElementById('servicesSection');
-            servicesSection.classList.remove('hidden');
-            servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
-            // Update progress
-            const progressFill = document.querySelector('.progress-fill');
-            progressFill.style.width = '33.33%';
-            
-            alert('🎉 Form completed! Services section revealed. In the full version, this would generate personalized AI prompts for ChatGPT, Gemini, and Claude.');
         }
 
         // Auto-animate user counter
@@ -1205,9 +2384,17 @@
             }, 5000);
         }
 
-        // Initialize animations
+        // Initialize app
         document.addEventListener('DOMContentLoaded', () => {
             animateUserCounter();
+            
+            // Auto-save form data as user types
+            document.addEventListener('input', (e) => {
+                if (e.target.classList.contains('form-control') && currentUser) {
+                    clearTimeout(window.autoSaveTimer);
+                    window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
+                }
+            });
         });
     </script>
 </body>
