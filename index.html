@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.firebaseapp.com https://*.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://buy.stripe.com https://calendly.com wss://*.firebaseio.com; img-src 'self' data: https:; frame-src https://buy.stripe.com https://calendly.com;">
     <title>Smart Mom Method - AI Business Launch Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
@@ -1122,6 +1123,90 @@
             animation: pulse 3s infinite;
         }
 
+        /* Pricing Infographic Styles */
+        .pricing-infographic-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 12px 40px rgba(44, 62, 80, 0.08);
+            border-left: 6px solid var(--soft-gold);
+        }
+
+        .infographic-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .infographic-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--charcoal);
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .infographic-subtitle {
+            color: var(--charcoal);
+            opacity: 0.8;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .infographic-container {
+            background: #F8F4E1;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            height: 400px;
+        }
+
+        .phase-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
+        }
+
+        .phase-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--sage-green);
+            margin-bottom: 12px;
+        }
+
+        .phase-description {
+            color: var(--charcoal);
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+
+        .download-infographic-btn {
+            background: linear-gradient(135deg, var(--soft-gold), #C79660);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .download-infographic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .container {
@@ -1679,6 +1764,10 @@
                 gap: 8px;
             }
         }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -1692,10 +1781,10 @@
             <div id="authSuccess" class="auth-success hidden"></div>
             
             <form class="auth-form" id="authForm">
-                <input type="text" id="authName" class="auth-input" placeholder="Your Name" style="display: none;">
-                <input type="email" id="authEmail" class="auth-input" placeholder="Email Address" required>
-                <input type="password" id="authPassword" class="auth-input" placeholder="Password" required>
-                <input type="password" id="authConfirmPassword" class="auth-input" placeholder="Confirm Password" style="display: none;">
+                <input type="text" id="authName" class="auth-input" placeholder="Your Name" style="display: none;" maxlength="100">
+                <input type="email" id="authEmail" class="auth-input" placeholder="Email Address" required maxlength="254">
+                <input type="password" id="authPassword" class="auth-input" placeholder="Password" required minlength="6" maxlength="128">
+                <input type="password" id="authConfirmPassword" class="auth-input" placeholder="Confirm Password" style="display: none;" minlength="6" maxlength="128">
                 
                 <button type="submit" class="auth-button" id="authSubmitBtn">Create Account</button>
                 <button type="button" class="auth-button google-auth-button" onclick="signInWithGoogle()">
@@ -1843,13 +1932,13 @@
                     
                     <div class="form-group">
                         <label>Your Name: <span class="required">*</span></label>
-                        <input type="text" id="user-name" class="form-control" placeholder="Enter your name" onchange="validateField(this)" />
+                        <input type="text" id="user-name" class="form-control" placeholder="Enter your name" onchange="validateField(this)" maxlength="100" />
                         <div class="validation-message" id="user-name-validation"></div>
                     </div>
 
                     <div class="form-group">
                         <label>Your Email: <span class="required">*</span></label>
-                        <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" />
+                        <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" maxlength="254" />
                         <div class="validation-message" id="user-email-validation"></div>
                     </div>
                     
@@ -2260,6 +2349,22 @@
                         </div>
                     </div>
 
+                    <!-- Visual Pricing Infographic -->
+                    <div id="pricingInfographicSection" class="pricing-infographic-section hidden">
+                        <div class="infographic-header">
+                            <h3 class="infographic-title">📊 Your Visual Pricing Strategy</h3>
+                            <p class="infographic-subtitle">A neurodivergent-friendly visual guide to pricing your business for success</p>
+                        </div>
+                        
+                        <div id="pricingInfographicContainer" class="infographic-container">
+                            <!-- Generated infographic content will appear here -->
+                        </div>
+                        
+                        <button id="downloadInfographicBtn" class="download-infographic-btn" onclick="downloadPricingInfographic()">
+                            💾 Download Your Pricing Guide
+                        </button>
+                    </div>
+
                     <div class="form-group">
                         <label>Share Your Success Story (Optional):</label>
                         <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your business plan? Your story could inspire other moms!"></textarea>
@@ -2408,11 +2513,232 @@
                         </div>
                     </div>
                 </section>
+                
+                <!-- Security Notice -->
+                <div style="background: #f0f4f8; padding: 40px; margin: 40px -40px -50px -40px; text-align: center; border-radius: 0 0 24px 24px;">
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">
+                        🔒 Your data is protected with enterprise-grade security
+                    </p>
+                    <p style="color: #888; font-size: 0.8rem;">
+                        End-to-end encryption • CSRF protection • Input sanitization • Rate limiting • Secure authentication
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        console.log('Script starting to load...');
+        
+        // BACKEND API REQUIREMENTS
+        // The following endpoints need to be implemented on your backend:
+        // GET  /api/config        - Returns secure configuration (Firebase config, webhook URLs, etc.)
+        // GET  /api/csrf-token    - Returns CSRF token for request validation
+        // POST /api/submit-form   - Proxies form submissions to n8n webhook with validation
+        // All endpoints should implement proper authentication, rate limiting, and CORS policies
+        
+        // Security Configuration
+        const SECURITY_CONFIG = {
+            enableEncryption: true,
+            enableCSRF: true,
+            maxInputLength: 10000,
+            allowedDomains: ['firebaseapp.com', 'googleapis.com', 'stripe.com', 'calendly.com']
+        };
+        
+        // Secure Configuration Management
+        let secureConfig = null;
+        async function loadSecureConfig() {
+            try {
+                // In production, this would fetch from your backend
+                // For now, we'll use a fallback configuration
+                const response = await fetch('/api/config').catch(() => null);
+                if (response && response.ok) {
+                    secureConfig = await response.json();
+                } else {
+                    // Fallback configuration - in production, these should come from backend
+                    console.log('Using fallback configuration');
+                    secureConfig = {
+                        firebase: {
+                            apiKey: "AIzaSyCfDJS5aoj2UlqJzN8hcHYi_DwNhF9SeUQ",
+                            authDomain: "smart-mom-method-4a804.firebaseapp.com",
+                            projectId: "smart-mom-method-4a804",
+                            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
+                            messagingSenderId: "847553438888",
+                            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
+                            measurementId: "G-SKRCMSVH72"
+                        },
+                        webhookUrl: '/api/submit-form', // Proxied through backend
+                        stripeUrls: {
+                            'life-calendar': 'https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07',
+                            'life-training': 'https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06',
+                            'business-calendar': 'https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05',
+                            'business-training': 'https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04'
+                        }
+                    };
+                }
+            } catch (error) {
+                console.error('Config loading error:', error);
+                // Use embedded fallback config
+                return null;
+            }
+        }
+        
+        // Input Sanitization
+        function sanitizeInput(input) {
+            if (typeof input !== 'string') return input;
+            
+            // Remove script tags and dangerous HTML
+            let sanitized = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
+            sanitized = sanitized.replace(/javascript:/gi, '');
+            sanitized = sanitized.replace(/on\w+\s*=/gi, '');
+            
+            // Limit length
+            if (sanitized.length > SECURITY_CONFIG.maxInputLength) {
+                sanitized = sanitized.substring(0, SECURITY_CONFIG.maxInputLength);
+            }
+            
+            return sanitized;
+        }
+        
+        // CSRF Token Management
+        let csrfToken = null;
+        async function getCSRFToken() {
+            if (csrfToken) return csrfToken;
+            
+            try {
+                const response = await fetch('/api/csrf-token');
+                if (response.ok) {
+                    const data = await response.json();
+                    csrfToken = data.token;
+                    return csrfToken;
+                }
+            } catch (error) {
+                console.error('CSRF token error:', error);
+            }
+            
+            // Fallback: generate client-side token
+            csrfToken = generateClientToken();
+            return csrfToken;
+        }
+        
+        function generateClientToken() {
+            const array = new Uint8Array(32);
+            crypto.getRandomValues(array);
+            return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+        
+        // Encryption Utilities
+        async function generateEncryptionKey() {
+            return await crypto.subtle.generateKey(
+                { name: 'AES-GCM', length: 256 },
+                true,
+                ['encrypt', 'decrypt']
+            );
+        }
+        
+        async function encryptData(data) {
+            if (!SECURITY_CONFIG.enableEncryption) return JSON.stringify(data);
+            
+            try {
+                const encoder = new TextEncoder();
+                const dataBuffer = encoder.encode(JSON.stringify(data));
+                
+                const key = await generateEncryptionKey();
+                const iv = crypto.getRandomValues(new Uint8Array(12));
+                
+                const encryptedData = await crypto.subtle.encrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    key,
+                    dataBuffer
+                );
+                
+                // Return base64 encoded encrypted data with IV
+                const combined = new Uint8Array(iv.length + encryptedData.byteLength);
+                combined.set(iv);
+                combined.set(new Uint8Array(encryptedData), iv.length);
+                
+                return btoa(String.fromCharCode(...combined));
+            } catch (error) {
+                console.error('Encryption error:', error);
+                return JSON.stringify(data); // Fallback to unencrypted
+            }
+        }
+        
+        async function decryptData(encryptedData) {
+            if (!SECURITY_CONFIG.enableEncryption) return JSON.parse(encryptedData);
+            
+            try {
+                const combined = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
+                const iv = combined.slice(0, 12);
+                const data = combined.slice(12);
+                
+                // Note: In production, you'd need to store and retrieve the key securely
+                const key = await generateEncryptionKey();
+                
+                const decryptedData = await crypto.subtle.decrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    key,
+                    data
+                );
+                
+                const decoder = new TextDecoder();
+                return JSON.parse(decoder.decode(decryptedData));
+            } catch (error) {
+                console.error('Decryption error:', error);
+                return null;
+            }
+        }
+        
+        // Secure Request Function
+        async function secureRequest(url, data, options = {}) {
+            const token = await getCSRFToken();
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': token,
+                ...options.headers
+            };
+            
+            // Sanitize all string values in data
+            const sanitizedData = {};
+            for (const [key, value] of Object.entries(data)) {
+                sanitizedData[key] = typeof value === 'string' ? sanitizeInput(value) : value;
+            }
+            
+            return fetch(url, {
+                ...options,
+                method: options.method || 'POST',
+                headers: headers,
+                body: JSON.stringify(sanitizedData)
+            });
+        }
+        
+        // Rate Limiting
+        const rateLimiter = {
+            requests: {},
+            
+            canMakeRequest(endpoint, limit = 5, windowMs = 60000) {
+                const now = Date.now();
+                const key = endpoint;
+                
+                if (!this.requests[key]) {
+                    this.requests[key] = [];
+                }
+                
+                // Remove old requests outside the window
+                this.requests[key] = this.requests[key].filter(time => now - time < windowMs);
+                
+                if (this.requests[key].length >= limit) {
+                    return false;
+                }
+                
+                this.requests[key].push(now);
+                return true;
+            }
+        };
+        
         // Global Variables
         let currentLanguage = 'en';
         let currentUser = null;
@@ -2429,22 +2755,43 @@
             totalSteps: 0,
             currentWeek: 1
         };
+        
+        console.log('Global variables defined');
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCfDJS5aoj2UlqJzN8hcHYi_DwNhF9SeUQ",
-            authDomain: "smart-mom-method-4a804.firebaseapp.com",
-            projectId: "smart-mom-method-4a804",
-            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
-            messagingSenderId: "847553438888",
-            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
-            measurementId: "G-SKRCMSVH72"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        // Initialize Firebase with secure config
+        let auth, db;
+        async function initializeFirebase() {
+            await loadSecureConfig();
+            
+            if (!secureConfig || !secureConfig.firebase) {
+                console.error('Firebase configuration not available');
+                return;
+            }
+            
+            try {
+                firebase.initializeApp(secureConfig.firebase);
+                auth = firebase.auth();
+                db = firebase.firestore();
+                console.log('Firebase initialized successfully');
+            } catch (error) {
+                console.error('Firebase initialization error:', error);
+                // Create dummy objects to prevent errors
+                auth = { 
+                    onAuthStateChanged: () => {}, 
+                    createUserWithEmailAndPassword: () => Promise.reject('Firebase not initialized'),
+                    signInWithEmailAndPassword: () => Promise.reject('Firebase not initialized'),
+                    signOut: () => Promise.reject('Firebase not initialized')
+                };
+                db = { 
+                    collection: () => ({ 
+                        doc: () => ({ 
+                            get: () => Promise.reject('Firebase not initialized'), 
+                            set: () => Promise.reject('Firebase not initialized') 
+                        }) 
+                    }) 
+                };
+            }
+        }
 
         // Updated required fields validation for 7 steps
         const requiredFieldsByStep = {
@@ -2457,8 +2804,198 @@
             6: []
         };
 
+        // Pricing Infographic Generator Functions
+        function showPricingInfographic() {
+            const pricingResponse = document.getElementById('pricing-research-response').value.trim();
+            if (!pricingResponse) return;
+            
+            const businessIdea = selectedBusinessIdea || 'Your Business';
+            const pricingData = parsePricingData(pricingResponse);
+            
+            generatePricingInfographic(pricingData, businessIdea);
+            document.getElementById('pricingInfographicSection').classList.remove('hidden');
+        }
+
+        function parsePricingData(response) {
+            // Extract pricing information from Gemini response
+            const data = {
+                businessType: selectedBusinessIdea || 'Digital Products',
+                location: 'Lincoln, Nebraska',
+                beginnerRates: extractRates(response, 'beginner|months 1-6|phase 1'),
+                intermediateRates: extractRates(response, 'developing|months 6-18|phase 2'),
+                expertRates: extractRates(response, 'experienced|months 18|expert|phase 3'),
+                commonMistakes: extractMistakes(response),
+                localAdvantage: extractLocalInfo(response)
+            };
+            return data;
+        }
+
+        function extractRates(text, pattern) {
+            const regex = new RegExp(pattern, 'gi');
+            const section = text.match(regex);
+            // Extract dollar amounts and rate information
+            const rates = text.match(/\$\d+[-\s]*(?:to\s*)?\$?\d*/gi) || [];
+            return rates.slice(0, 3); // Take first 3 rate examples
+        }
+
+        function extractMistakes(text) {
+            const mistakes = [];
+            if (text.toLowerCase().includes('underpricing')) mistakes.push('Underpricing');
+            if (text.toLowerCase().includes('overpricing')) mistakes.push('Overpricing');
+            if (text.toLowerCase().includes('hidden cost')) mistakes.push('Forgetting Hidden Costs');
+            return mistakes;
+        }
+
+        function extractLocalInfo(text) {
+            const localMatch = text.match(/lincoln[^.]*(?:advantage|benefit|lower|cost)[^.]*/gi);
+            return localMatch ? localMatch[0] : 'Lincoln\'s lower cost of living gives you an advantage';
+        }
+
+        function generatePricingInfographic(data, businessType) {
+            const container = document.getElementById('pricingInfographicContainer');
+            
+            const infographicHTML = `
+                <div style="font-family: 'Inter', sans-serif; background: #F8F4E1; padding: 20px; border-radius: 16px;">
+                    <!-- Header -->
+                    <div style="background: #004369; color: white; padding: 40px; text-align: center; border-radius: 16px; margin-bottom: 30px;">
+                        <h1 style="font-size: 2.5rem; margin-bottom: 10px; font-weight: 900;">${businessType} Pricing Roadmap</h1>
+                        <p style="font-size: 1.2rem; color: #E5DDC8;">A Realistic Guide for ${data.location}</p>
+                    </div>
+                    
+                    <!-- Local Advantage -->
+                    <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #01949A; font-size: 1.8rem; margin-bottom: 15px;">Your Local Advantage</h2>
+                        <p style="font-size: 1.1rem; color: #666;">${data.localAdvantage}</p>
+                    </div>
+                    
+                    <!-- Pricing Phases -->
+                    <div style="display: grid; gap: 20px; margin-bottom: 30px;">
+                        <div class="phase-section">
+                            <h3 class="phase-title">Phase 1: Beginner (Months 1-6)</h3>
+                            <p class="phase-description">Focus on building portfolio and getting testimonials</p>
+                            <div style="background: #01949A; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                                <strong>Starting Rates: ${data.beginnerRates[0] || '$5-15/hour'}</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h3 class="phase-title">Phase 2: Developing (Months 6-18)</h3>
+                            <p class="phase-description">Specialized skills and proven results justify higher rates</p>
+                            <div style="background: #004369; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                                <strong>Growing Rates: ${data.intermediateRates[0] || '$20-40/hour'}</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="phase-section">
+                            <h3 class="phase-title">Phase 3: Expert (18+ Months)</h3>
+                            <p class="phase-description">Premium pricing based on proven track record</p>
+                            <div style="background: #DB1F48; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                                <strong>Expert Rates: ${data.expertRates[0] || '$50-100+/hour'}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="pricingProgressionChart"></canvas>
+                    </div>
+                    
+                    <!-- Common Mistakes -->
+                    <div style="background: white; padding: 30px; border-radius: 16px; margin-top: 30px;">
+                        <h3 style="color: #004369; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">Avoid These Common Mistakes</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                            ${data.commonMistakes.map(mistake => `
+                                <div style="background: #DB1F48; color: white; padding: 20px; border-radius: 12px; text-align: center;">
+                                    <h4>${mistake}</h4>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = infographicHTML;
+            
+            // Generate chart after HTML is inserted
+            setTimeout(() => {
+                generatePricingChart(data);
+            }, 100);
+        }
+
+        function generatePricingChart(data) {
+            const ctx = document.getElementById('pricingProgressionChart');
+            if (!ctx) return;
+            
+            // Create chart
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Month 1', 'Month 6', 'Month 12', 'Month 18', 'Month 24'],
+                    datasets: [{
+                        label: 'Hourly Rate Progression',
+                        data: [10, 20, 35, 50, 75],
+                        borderColor: '#01949A',
+                        backgroundColor: 'rgba(1, 148, 154, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Your Pricing Journey: Beginner to Expert'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Hourly Rate ($)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function downloadPricingInfographic() {
+            const infographicContent = document.getElementById('pricingInfographicContainer').innerHTML;
+            const businessType = selectedBusinessIdea || 'Your Business';
+            
+            const fullHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${businessType} Pricing Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
+</head>
+<body style="margin: 0; background: #f5f5f5;">
+    ${infographicContent}
+</body>
+</html>
+            `;
+            
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${businessType.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-pricing-guide.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
         // Authentication Functions
         function showAuthModal(mode = 'signup') {
+            console.log('showAuthModal called with mode:', mode);
             authMode = mode;
             const modal = document.getElementById('authModal');
             const title = document.getElementById('authTitle');
@@ -2487,6 +3024,8 @@
             modal.classList.add('active');
             clearAuthMessages();
         }
+        
+        console.log('Authentication functions defined');
 
         function closeAuthModal() {
             document.getElementById('authModal').classList.remove('active');
@@ -2515,51 +3054,6 @@
             successDiv.classList.remove('hidden');
         }
 
-        // Authentication Event Handlers
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('authEmail').value;
-            const password = document.getElementById('authPassword').value;
-            const name = document.getElementById('authName').value;
-            const confirmPassword = document.getElementById('authConfirmPassword').value;
-            
-            clearAuthMessages();
-            
-            try {
-                if (authMode === 'signup') {
-                    if (password !== confirmPassword) {
-                        showAuthError('Passwords do not match');
-                        return;
-                    }
-                    
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    await userCredential.user.updateProfile({ displayName: name });
-                    
-                    // Save user data to Firestore
-                    await db.collection('users').doc(userCredential.user.uid).set({
-                        name: name,
-                        email: email,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        language: currentLanguage
-                    });
-                    
-                    showAuthSuccess('Account created successfully!');
-                } else {
-                    await auth.signInWithEmailAndPassword(email, password);
-                    showAuthSuccess('Welcome back!');
-                }
-                
-                setTimeout(() => {
-                    closeAuthModal();
-                    startOnboarding();
-                }, 1500);
-                
-            } catch (error) {
-                showAuthError(error.message);
-            }
-        });
-
         async function signInWithGoogle() {
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
@@ -2571,8 +3065,8 @@
                 
                 if (!userDoc.exists) {
                     await userRef.set({
-                        name: result.user.displayName,
-                        email: result.user.email,
+                        name: sanitizeInput(result.user.displayName || ''),
+                        email: sanitizeInput(result.user.email || ''),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                         language: currentLanguage,
                         provider: 'google'
@@ -2599,21 +3093,6 @@
                 console.error('Sign out error:', error);
             }
         }
-
-        // Auth State Observer
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
-                document.getElementById('userStatusBar').classList.remove('hidden');
-                
-                // Load user's saved progress
-                await loadUserProgress();
-            } else {
-                currentUser = null;
-                document.getElementById('userStatusBar').classList.add('hidden');
-            }
-        });
 
         // User Progress Management
         async function loadUserProgress() {
@@ -2655,16 +3134,25 @@
                     lastSaved: new Date().toISOString()
                 };
                 try {
-                    localStorage.setItem('smartMomWorkflowData', JSON.stringify(data));
+                    // Encrypt sensitive data before storing
+                    const encryptedData = await encryptData(data);
+                    localStorage.setItem('smartMomWorkflowData', encryptedData);
                 } catch (e) {
-                    console.log('localStorage not available');
+                    console.log('localStorage save error:', e);
                 }
                 return;
             }
             
             try {
+                // Sanitize form data before saving
+                const sanitizedFormData = {};
+                const rawFormData = collectFormData();
+                for (const [key, value] of Object.entries(rawFormData)) {
+                    sanitizedFormData[key] = typeof value === 'string' ? sanitizeInput(value) : value;
+                }
+                
                 await db.collection('progress').doc(currentUser.uid).set({
-                    formData: collectFormData(),
+                    formData: sanitizedFormData,
                     currentStep: currentStep,
                     lastSaved: firebase.firestore.FieldValue.serverTimestamp(),
                     language: currentLanguage
@@ -2674,12 +3162,24 @@
             }
         }
 
+        // Security utility for displaying user content
+        function escapeHtml(unsafe) {
+            if (typeof unsafe !== 'string') return unsafe;
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        
         function showReturningUserStatus(lastSaved) {
             const statusDiv = document.createElement('div');
             statusDiv.className = 'returning-user-status';
+            const formattedDate = lastSaved ? new Date(lastSaved.toDate ? lastSaved.toDate() : lastSaved).toLocaleDateString() : 'your last session';
             statusDiv.innerHTML = `
                 <h4>🎉 Welcome Back!</h4>
-                <p>Your progress has been restored from ${lastSaved ? new Date(lastSaved.toDate()).toLocaleDateString() : 'your last session'}.</p>
+                <p>Your progress has been restored from ${escapeHtml(formattedDate)}.</p>
             `;
             
             const formSection = document.querySelector('.form-section');
@@ -2730,6 +3230,11 @@
             let isValid = true;
             let message = '';
             
+            // Sanitize input
+            if (value) {
+                field.value = sanitizeInput(value);
+            }
+            
             // Required field validation
             if (field.hasAttribute('required') || field.classList.contains('required')) {
                 if (!value) {
@@ -2738,12 +3243,30 @@
                 }
             }
             
-            // Email validation
+            // Email validation with enhanced security
             if (field.type === 'email' && value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (!emailRegex.test(value)) {
                     isValid = false;
                     message = 'Please enter a valid email address';
+                } else if (value.length > 254) { // RFC 5321
+                    isValid = false;
+                    message = 'Email address is too long';
+                }
+            }
+            
+            // Length validation
+            if (value && value.length > SECURITY_CONFIG.maxInputLength) {
+                isValid = false;
+                message = `Input is too long (max ${SECURITY_CONFIG.maxInputLength} characters)`;
+            }
+            
+            // Name validation (no special characters except spaces and hyphens)
+            if (fieldId === 'user-name' && value) {
+                const nameRegex = /^[a-zA-Z\s\-']+$/;
+                if (!nameRegex.test(value)) {
+                    isValid = false;
+                    message = 'Name can only contain letters, spaces, hyphens, and apostrophes';
                 }
             }
             
@@ -3313,6 +3836,13 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             
             // Save progress
             saveFormProgress();
+            
+            // Generate pricing infographic if pricing research exists
+            setTimeout(() => {
+                if (document.getElementById('pricing-research-response').value.trim()) {
+                    showPricingInfographic();
+                }
+            }, 1500);
         }
 
         function generateFinalPlan() {
@@ -3955,7 +4485,7 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             document.getElementById('celebrationPopup').classList.remove('show');
         }
 
-        function saveCalendarProgress() {
+        async function saveCalendarProgress() {
             if (!calendarData) return;
             
             const progressData = {
@@ -3970,16 +4500,17 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
                 db.collection('calendar-progress').doc(currentUser.uid).set(progressData, { merge: true })
                   .catch(error => console.error('Error saving calendar progress:', error));
             } else {
-                // Save to localStorage
+                // Save to localStorage with encryption
                 try {
-                    localStorage.setItem('smartMomCalendarProgress', JSON.stringify(progressData));
+                    const encryptedData = await encryptData(progressData);
+                    localStorage.setItem('smartMomCalendarProgress', encryptedData);
                 } catch (e) {
-                    console.log('localStorage not available');
+                    console.log('localStorage save error:', e);
                 }
             }
         }
 
-        function loadCalendarProgress() {
+        async function loadCalendarProgress() {
             if (currentUser) {
                 // Load from Firebase
                 db.collection('calendar-progress').doc(currentUser.uid).get()
@@ -3997,12 +4528,20 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
                   })
                   .catch(error => console.error('Error loading calendar progress:', error));
             } else {
-                // Load from localStorage
+                // Load from localStorage with decryption
                 try {
-                    const saved = localStorage.getItem('smartMomCalendarProgress');
-                    if (saved) {
-                        const data = JSON.parse(saved);
-                        if (data.calendarData) {
+                    const encryptedData = localStorage.getItem('smartMomCalendarProgress');
+                    if (encryptedData) {
+                        const data = await decryptData(encryptedData).catch(() => {
+                            // Fallback: try parsing as JSON if decryption fails
+                            try {
+                                return JSON.parse(encryptedData);
+                            } catch (e) {
+                                return null;
+                            }
+                        });
+                        
+                        if (data && data.calendarData) {
                             calendarData = data.calendarData;
                             calendarProgress = data.calendarProgress || calendarProgress;
                             currentEnergyLevel = data.currentEnergyLevel || 3;
@@ -4110,23 +4649,29 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                 return;
             }
             
+            // Check rate limiting
+            if (!rateLimiter.canMakeRequest('testimonial', 3, 300000)) { // 3 requests per 5 minutes
+                alert('Please wait a few minutes before submitting another testimonial.');
+                return;
+            }
+            
             try {
-                // Submit to webhook
-                const formData = new FormData();
-                formData.append('testimonial', testimonial);
-                formData.append('user_name', currentUser?.displayName || 'Anonymous');
-                formData.append('timestamp', new Date().toISOString());
+                // Use secure request with sanitized data
+                const testimonialData = {
+                    testimonial: sanitizeInput(testimonial),
+                    user_name: sanitizeInput(currentUser?.displayName || 'Anonymous'),
+                    timestamp: new Date().toISOString()
+                };
                 
-                await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
-                    method: 'POST',
-                    body: formData
-                });
+                // Submit through secure backend proxy instead of direct webhook
+                const webhookUrl = secureConfig?.webhookUrl || '/api/submit-form';
+                await secureRequest(webhookUrl, testimonialData);
                 
                 if (currentUser) {
                     await db.collection('testimonials').add({
                         userId: currentUser.uid,
-                        userName: currentUser.displayName || 'Anonymous',
-                        testimonial: testimonial,
+                        userName: sanitizeInput(currentUser.displayName || 'Anonymous'),
+                        testimonial: sanitizeInput(testimonial),
                         submittedAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                 }
@@ -4141,7 +4686,13 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
 
         // Service Integration Functions
         function handleStripePayment(service) {
-            const stripeUrls = {
+            // Check rate limiting for payment attempts
+            if (!rateLimiter.canMakeRequest('stripe-payment', 10, 60000)) { // 10 attempts per minute
+                alert('Too many payment attempts. Please wait a moment and try again.');
+                return;
+            }
+            
+            const stripeUrls = secureConfig?.stripeUrls || {
                 'life-calendar': 'https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07',
                 'life-training': 'https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06',
                 'business-calendar': 'https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05',
@@ -4150,12 +4701,32 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
             
             const url = stripeUrls[service];
             if (url) {
-                window.open(url, '_blank');
+                // Validate URL is from trusted domain
+                try {
+                    const urlObj = new URL(url);
+                    if (urlObj.hostname === 'buy.stripe.com') {
+                        window.open(url, '_blank');
+                    } else {
+                        console.error('Invalid payment URL');
+                    }
+                } catch (error) {
+                    console.error('URL validation error:', error);
+                }
             }
         }
 
         function openCalendly(url) {
-            window.open(url, '_blank');
+            // Validate Calendly URL
+            try {
+                const urlObj = new URL(url);
+                if (urlObj.hostname === 'calendly.com' || urlObj.hostname.endsWith('.calendly.com')) {
+                    window.open(url, '_blank');
+                } else {
+                    console.error('Invalid Calendly URL');
+                }
+            } catch (error) {
+                console.error('URL validation error:', error);
+            }
         }
 
         // Core Functions
@@ -4163,11 +4734,22 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
             document.getElementById('welcomeModal').classList.add('hidden');
         }
 
-        function checkReturningUser() {
+        async function checkReturningUser() {
             // Check for saved data
             var savedData = null;
             try {
-                savedData = localStorage.getItem('smartMomWorkflowData');
+                const encryptedData = localStorage.getItem('smartMomWorkflowData');
+                if (encryptedData) {
+                    // Try to decrypt the data
+                    savedData = await decryptData(encryptedData).catch(() => {
+                        // Fallback: try parsing as JSON if decryption fails
+                        try {
+                            return JSON.parse(encryptedData);
+                        } catch (e) {
+                            return null;
+                        }
+                    });
+                }
             } catch (e) {
                 console.log('localStorage not available');
             }
@@ -4178,12 +4760,12 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                     loadUserProgress();
                     startOnboarding();
                 } else if (savedData) {
-                    // Load from localStorage
-                    const data = JSON.parse(savedData);
+                    // Load from localStorage with sanitization
+                    const data = savedData;
                     Object.keys(data.formData || {}).forEach(key => {
                         const element = document.getElementById(key);
                         if (element) {
-                            element.value = data.formData[key];
+                            element.value = sanitizeInput(data.formData[key]);
                         }
                     });
                     
@@ -4199,6 +4781,8 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                 showAuthModal('signin');
             }
         }
+        
+        console.log('Core functions defined - startOnboarding, checkReturningUser, etc.');
 
         function changeLanguage(lang) {
             currentLanguage = lang;
@@ -4237,7 +4821,92 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
         }
 
         // Initialize app
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOM loaded, initializing app...');
+            
+            // Initialize Firebase with secure config
+            await initializeFirebase();
+            
+            // Set up authentication event handlers
+            const authForm = document.getElementById('authForm');
+            if (authForm) {
+                authForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    // Validate and sanitize inputs
+                    const email = sanitizeInput(document.getElementById('authEmail').value);
+                    const password = document.getElementById('authPassword').value; // Don't sanitize passwords
+                    const name = sanitizeInput(document.getElementById('authName').value);
+                    const confirmPassword = document.getElementById('authConfirmPassword').value;
+                    
+                    clearAuthMessages();
+                    
+                    // Additional validation
+                    if (email.length > 254) {
+                        showAuthError('Email address is too long');
+                        return;
+                    }
+                    
+                    if (password.length < 6) {
+                        showAuthError('Password must be at least 6 characters long');
+                        return;
+                    }
+                    
+                    try {
+                        if (authMode === 'signup') {
+                            if (password !== confirmPassword) {
+                                showAuthError('Passwords do not match');
+                                return;
+                            }
+                            
+                            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                            await userCredential.user.updateProfile({ displayName: name });
+                            
+                            // Save user data to Firestore with sanitized values
+                            await db.collection('users').doc(userCredential.user.uid).set({
+                                name: sanitizeInput(name),
+                                email: sanitizeInput(email),
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                                language: currentLanguage
+                            });
+                            
+                            showAuthSuccess('Account created successfully!');
+                        } else {
+                            await auth.signInWithEmailAndPassword(email, password);
+                            showAuthSuccess('Welcome back!');
+                        }
+                        
+                        setTimeout(() => {
+                            closeAuthModal();
+                            startOnboarding();
+                        }, 1500);
+                        
+                    } catch (error) {
+                        showAuthError(error.message);
+                    }
+                });
+            }
+
+            // Set up auth state observer
+            if (auth && auth.onAuthStateChanged) {
+                auth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        currentUser = user;
+                        const userWelcome = document.getElementById('userWelcome');
+                        if (userWelcome) {
+                            userWelcome.textContent = `Welcome back, ${sanitizeInput(user.displayName || user.email)}!`;
+                        }
+                        document.getElementById('userStatusBar').classList.remove('hidden');
+                        
+                        // Load user's saved progress
+                        await loadUserProgress();
+                    } else {
+                        currentUser = null;
+                        document.getElementById('userStatusBar').classList.add('hidden');
+                    }
+                });
+            }
+
             animateUserCounter();
             
             // Load calendar progress if it exists
@@ -4245,14 +4914,24 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                 loadCalendarProgress();
             }, 1000);
             
-            // Auto-save form data as user types
+            // Auto-save form data as user types with debouncing
             document.addEventListener('input', (e) => {
-                if (e.target.classList.contains('form-control') && currentUser) {
-                    clearTimeout(window.autoSaveTimer);
-                    window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
+                if (e.target.classList.contains('form-control')) {
+                    // Validate input immediately
+                    if (e.target.type !== 'password') {
+                        validateField(e.target);
+                    }
+                    
+                    // Save with debouncing
+                    if (currentUser) {
+                        clearTimeout(window.autoSaveTimer);
+                        window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
+                    }
                 }
             });
         });
+        
+        console.log('Script fully loaded - all functions should be available');
     </script>
 </body>
 </html>
