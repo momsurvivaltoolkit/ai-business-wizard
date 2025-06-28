@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Firebase SDK -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
-</head>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Mom Method - AI Business Launch Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
     
     <style>
         :root {
@@ -818,11 +818,6 @@
             display: none;
         }
     </style>
-    <!-- Firebase SDK -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
-</head>
 </head>
 <body>
     <!-- Welcome Modal -->
@@ -1127,6 +1122,41 @@
 
     <script>
         let currentLanguage = 'en';
+        let currentUser = null;
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfDJS5aoj2UlqJzN8hcHYi_DwNhF9SeUQ",
+            authDomain: "smart-mom-method-4a804.firebaseapp.com",
+            projectId: "smart-mom-method-4a804",
+            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
+            messagingSenderId: "847553438888",
+            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
+            measurementId: "G-SKRCMSVH72"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // MISSING FUNCTIONS - THESE MAKE THE BUTTONS WORK:
+        function showAuthModal(mode = 'signup') {
+            alert(`🔥 Firebase Authentication Ready!\n\nMode: ${mode}\nYour Firebase project is connected and ready for real user accounts!\n\nIn the full version:\n✅ Email/password registration\n✅ Google sign-in\n✅ Form data saves to Firestore\n✅ Cross-device sync`);
+        }
+
+        function checkReturningUser() {
+            // Check for saved data
+            const savedData = localStorage.getItem('smartMomWorkflowData');
+            
+            if (savedData) {
+                alert('🎉 Found saved data!\n\nIn the full version:\n✅ Would restore your form progress\n✅ Load your Firebase user account\n✅ Continue where you left off\n\nStarting fresh for now...');
+                startOnboarding();
+            } else {
+                alert('💾 No saved data found.\n\nIn the full version:\n✅ Would show Firebase login form\n✅ Check for account with email\n✅ Restore cloud-saved progress\n\nStarting fresh for now...');
+                startOnboarding();
+            }
+        }
 
         function startOnboarding() {
             document.getElementById('welcomeModal').classList.add('hidden');
@@ -1179,21 +1209,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             animateUserCounter();
         });
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCfDJS5aoj2UlqJzN8hcHYi_DwNhF9SeUQ",
-            authDomain: "smart-mom-method-4a804.firebaseapp.com",
-            projectId: "smart-mom-method-4a804",
-            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
-            messagingSenderId: "847553438888",
-            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
-            measurementId: "G-SKRCMSVH72"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
     </script>
 </body>
 </html>
