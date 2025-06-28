@@ -813,6 +813,11 @@
             display: none;
         }
     </style>
+    <!-- Firebase SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+</head>
 </head>
 <body>
     <!-- Welcome Modal -->
@@ -1169,6 +1174,21 @@
         document.addEventListener('DOMContentLoaded', () => {
             animateUserCounter();
         });
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfDJS5aoj2UlqJzN8hcHYi_DwNhF9SeUQ",
+            authDomain: "smart-mom-method-4a804.firebaseapp.com",
+            projectId: "smart-mom-method-4a804",
+            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
+            messagingSenderId: "847553438888",
+            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
+            measurementId: "G-SKRCMSVH72"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
     </script>
 </body>
 </html>
