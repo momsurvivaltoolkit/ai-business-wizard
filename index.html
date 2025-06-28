@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.firebaseapp.com https://*.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://buy.stripe.com https://calendly.com wss://*.firebaseio.com; img-src 'self' data: https:; frame-src https://buy.stripe.com https://calendly.com;">
-    <title>Smart Mom Method - AI Business Launch Wizard</title>
+    <title>Smart Mom Method - AI Business & Life Launch Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Firebase SDK -->
@@ -43,6 +42,118 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Path Selection Modal */
+        .path-selector {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            margin: 32px 0;
+            box-shadow: 0 16px 48px rgba(44, 62, 80, 0.1);
+        }
+
+        .path-selector h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--charcoal);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .path-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .path-option {
+            background: var(--warm-cream);
+            border-radius: 16px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            text-align: center;
+        }
+
+        .path-option:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.2);
+        }
+
+        .path-option.selected {
+            border-color: var(--sage-green);
+            background: var(--light-sage);
+        }
+
+        .path-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .path-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+        }
+
+        .path-description {
+            color: var(--charcoal);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Calendar Integration Section */
+        .calendar-integration {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 48px;
+            border-radius: 24px;
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .calendar-integration h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 24px;
+        }
+
+        .calendar-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 24px 0;
+            text-align: left;
+        }
+
+        .calendar-instructions ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .calendar-instructions li {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .calendar-paste-area {
+            margin: 24px 0;
+        }
+
+        .calendar-paste-area textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--charcoal);
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
         }
 
         /* Authentication Modal */
@@ -1123,90 +1234,6 @@
             animation: pulse 3s infinite;
         }
 
-        /* Pricing Infographic Styles */
-        .pricing-infographic-section {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 12px 40px rgba(44, 62, 80, 0.08);
-            border-left: 6px solid var(--soft-gold);
-        }
-
-        .infographic-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .infographic-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--charcoal);
-            font-size: 2.2rem;
-            margin-bottom: 16px;
-        }
-
-        .infographic-subtitle {
-            color: var(--charcoal);
-            opacity: 0.8;
-            font-size: 1.1rem;
-            margin-bottom: 24px;
-        }
-
-        .infographic-container {
-            background: #F8F4E1;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            height: 400px;
-        }
-
-        .phase-section {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin: 20px 0;
-            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
-        }
-
-        .phase-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--sage-green);
-            margin-bottom: 12px;
-        }
-
-        .phase-description {
-            color: var(--charcoal);
-            margin-bottom: 16px;
-            opacity: 0.8;
-        }
-
-        .download-infographic-btn {
-            background: linear-gradient(135deg, var(--soft-gold), #C79660);
-            color: white;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 20px auto;
-            display: block;
-        }
-
-        .download-infographic-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
-        }
-
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .container {
@@ -1272,501 +1299,14 @@
                 flex-direction: column;
                 gap: 12px;
             }
-        }
 
-        /* Interactive Calendar Styles */
-        .interactive-calendar {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 12px 40px rgba(44, 62, 80, 0.08);
-            border-left: 6px solid var(--sage-green);
-        }
-
-        .calendar-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .calendar-title {
-            font-family: 'Playfair Display', serif;
-            color: var(--charcoal);
-            font-size: 2.2rem;
-            margin-bottom: 16px;
-        }
-
-        .calendar-subtitle {
-            color: var(--charcoal);
-            opacity: 0.8;
-            font-size: 1.1rem;
-            margin-bottom: 24px;
-        }
-
-        .calendar-progress {
-            background: var(--light-sage);
-            border-radius: 20px;
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 32px;
-        }
-
-        .progress-stats {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--sage-green);
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            opacity: 0.7;
-        }
-
-        .overall-calendar-progress {
-            width: 300px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .overall-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--sage-green), var(--deep-teal));
-            transition: width 0.5s ease;
-            border-radius: 6px;
-            width: 0%;
-        }
-
-        .week-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 32px;
-            justify-content: center;
-        }
-
-        .week-btn {
-            padding: 12px 20px;
-            border: 2px solid var(--light-sage);
-            background: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: var(--charcoal);
-        }
-
-        .week-btn.active {
-            background: var(--sage-green);
-            color: white;
-            border-color: var(--sage-green);
-        }
-
-        .week-btn.completed {
-            background: var(--deep-teal);
-            color: white;
-            border-color: var(--deep-teal);
-        }
-
-        .week-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(107, 142, 107, 0.2);
-        }
-
-        .calendar-content {
-            display: none;
-        }
-
-        .calendar-content.active {
-            display: block;
-        }
-
-        .week-view {
-            margin-bottom: 40px;
-        }
-
-        .week-header {
-            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
-            color: white;
-            padding: 20px 32px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .week-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .week-progress {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
-        }
-
-        .day-card {
-            background: var(--warm-cream);
-            border-radius: 16px;
-            padding: 24px;
-            border: 2px solid var(--light-sage);
-            transition: all 0.3s ease;
-        }
-
-        .day-card:hover {
-            border-color: var(--sage-green);
-            transform: translateY(-2px);
-        }
-
-        .day-card.completed {
-            background: linear-gradient(135deg, var(--light-sage), rgba(107, 142, 107, 0.1));
-            border-color: var(--sage-green);
-        }
-
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--light-sage);
-        }
-
-        .day-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--charcoal);
-        }
-
-        .day-progress {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .day-progress-bar {
-            width: 60px;
-            height: 8px;
-            background: rgba(107, 142, 107, 0.2);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .day-progress-fill {
-            height: 100%;
-            background: var(--sage-green);
-            transition: width 0.3s ease;
-            border-radius: 4px;
-        }
-
-        .day-percentage {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--sage-green);
-        }
-
-        .task-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .task-item {
-            margin-bottom: 24px;
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid var(--soft-gold);
-            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
-        }
-
-        .task-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .task-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--charcoal);
-            margin-bottom: 4px;
-        }
-
-        .task-meta {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .task-cost {
-            background: var(--sage-green);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .task-cost.free {
-            background: var(--deep-teal);
-        }
-
-        .task-time {
-            background: var(--soft-gold);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .task-progress {
-            text-align: right;
-        }
-
-        .task-progress-bar {
-            width: 80px;
-            height: 6px;
-            background: rgba(107, 142, 107, 0.2);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 4px;
-        }
-
-        .task-progress-fill {
-            height: 100%;
-            background: var(--sage-green);
-            transition: width 0.3s ease;
-            border-radius: 3px;
-        }
-
-        .task-percentage {
-            font-size: 0.7rem;
-            color: var(--sage-green);
-            font-weight: 600;
-        }
-
-        .step-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .step-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-            padding: 8px 0;
-        }
-
-        .step-checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--sage-green);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .step-checkbox.checked {
-            background: var(--sage-green);
-            color: white;
-        }
-
-        .step-checkbox:hover {
-            transform: scale(1.1);
-            box-shadow: 0 2px 8px rgba(107, 142, 107, 0.3);
-        }
-
-        .step-text {
-            color: var(--charcoal);
-            line-height: 1.5;
-            flex: 1;
-        }
-
-        .step-text.completed {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-
-        .step-link {
-            color: var(--sage-green);
-            text-decoration: underline;
-            font-weight: 600;
-        }
-
-        .step-link:hover {
-            color: var(--deep-teal);
-        }
-
-        .celebration-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(44, 62, 80, 0.3);
-            z-index: 10000;
-            text-align: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .celebration-popup.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .celebration-emoji {
-            font-size: 4rem;
-            margin-bottom: 16px;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .energy-tracker {
-            background: linear-gradient(135deg, var(--gold-alpha), rgba(212, 165, 116, 0.15));
-            border: 2px solid var(--soft-gold);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .energy-title {
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--charcoal);
-        }
-
-        .energy-levels {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .energy-level {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--soft-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
-
-        .energy-level.selected {
-            background: var(--soft-gold);
-            color: white;
-        }
-
-        .energy-level:hover {
-            transform: scale(1.1);
-        }
-
-        .rest-day-message {
-            background: linear-gradient(135deg, var(--teal-alpha), rgba(45, 91, 105, 0.15));
-            border: 2px solid var(--deep-teal);
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .rest-day-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--deep-teal);
-            margin-bottom: 12px;
-        }
-
-        .adaptive-suggestions {
-            background: var(--light-sage);
-            border-radius: 12px;
-            padding: 16px;
-            margin: 16px 0;
-        }
-
-        .adaptive-title {
-            font-weight: 600;
-            color: var(--sage-green);
-            margin-bottom: 8px;
-        }
-
-        .adaptive-text {
-            font-size: 0.9rem;
-            color: var(--charcoal);
-            opacity: 0.8;
-        }
-
-        @media (max-width: 768px) {
-            .days-grid {
+            .path-options {
                 grid-template-columns: 1fr;
-            }
-            
-            .week-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .progress-stats {
-                flex-direction: column;
-                gap: 16px;
-            }
-            
-            .overall-calendar-progress {
-                width: 100%;
-            }
-            
-            .task-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
             }
         }
 
         .hidden {
-            display: none !important;
+            display: none;
         }
     </style>
 </head>
@@ -1781,16 +1321,16 @@
             <div id="authSuccess" class="auth-success hidden"></div>
             
             <form class="auth-form" id="authForm">
-                <input type="text" id="authName" class="auth-input" placeholder="Your Name" style="display: none;" maxlength="100">
-                <input type="email" id="authEmail" class="auth-input" placeholder="Email Address" required maxlength="254">
-                <input type="password" id="authPassword" class="auth-input" placeholder="Password" required minlength="6" maxlength="128">
-                <input type="password" id="authConfirmPassword" class="auth-input" placeholder="Confirm Password" style="display: none;" minlength="6" maxlength="128">
+                <input type="text" id="authName" class="auth-input" placeholder="Your Name" style="display: none;">
+                <input type="email" id="authEmail" class="auth-input" placeholder="Email Address" required>
+                <input type="password" id="authPassword" class="auth-input" placeholder="Password" required>
+                <input type="password" id="authConfirmPassword" class="auth-input" placeholder="Confirm Password" style="display: none;">
                 
                 <button type="submit" class="auth-button" id="authSubmitBtn">Create Account</button>
                 <button type="button" class="auth-button google-auth-button" onclick="signInWithGoogle()">
                     <svg width="18" height="18" viewBox="0 0 18 18">
                         <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
-                        <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 0 1-7.18-2.53H1.83v2.07A8 8 0 0 0 8.98 17z"/>
+                        <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a-4.8 4.8 0 0 1-7.18-2.53H1.83v2.07A8 8 0 0 0 8.98 17z"/>
                         <path fill="#FBBC05" d="M4.5 10.49a4.8 4.8 0 0 1 0-3.07V5.35H1.83a8 8 0 0 0 0 7.28l2.67-2.14z"/>
                         <path fill="#EA4335" d="M8.98 4.72c1.16 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.35L4.5 7.42a4.8 4.8 0 0 1 4.48-2.7z"/>
                     </svg>
@@ -1817,7 +1357,7 @@
     <div id="welcomeModal" class="welcome-modal">
         <div class="welcome-content">
             <h2>Welcome to Smart Mom Method!</h2>
-            <p>Create your personalized business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive business plan tailored specifically for busy moms like you.</p>
+            <p>Create your personalized life organization or business plan in 7 simple steps. This brain-friendly process takes approximately 20-25 minutes and generates a comprehensive plan tailored specifically for busy moms like you.</p>
             <div class="welcome-buttons">
                 <button class="welcome-btn primary" onclick="startOnboarding()">
                     🚀 Get Started
@@ -1855,7 +1395,7 @@
             <div class="social-proof-header">
                 <h2 class="social-proof-title">Join 2,847+ Successful Mom Entrepreneurs!</h2>
                 <div class="user-counter">
-                    <span>🎉 2,847+ moms have launched their businesses!</span>
+                    <span>🎉 2,847+ moms have transformed their lives!</span>
                 </div>
             </div>
         </div>
@@ -1872,7 +1412,7 @@
             <div class="progress-bar">
                 <div class="progress-step active">
                     <span class="step-number">1</span>
-                    <span class="step-text">Collect Information</span>
+                    <span class="step-text">Basic Info</span>
                 </div>
                 <div class="progress-step next">
                     <span class="step-number">2</span>
@@ -1904,12 +1444,12 @@
         <div class="main-card">
             <div class="header">
                 <h1>Smart Mom Method</h1>
-                <p class="subtitle">AI-Powered Business Planning for Busy Moms</p>
+                <p class="subtitle">AI-Powered Life & Business Planning for Busy Moms</p>
                 <span class="badge">100% Free</span>
                 
                 <div class="cta-section">
                     <button class="btn-current" onclick="scrollToForm()">
-                        🚀 Start Your Free Business Plan Now
+                        🚀 Start Your Free Plan Now
                     </button>
                     <p style="margin-top: 16px; font-size: 0.95rem; opacity: 0.9;">No email required to browse • Full process takes 20-25 minutes</p>
                 </div>
@@ -1918,261 +1458,214 @@
             <div class="content">
                 <div class="step-description">
                     <h2>📋 Step 1: Tell Us About Yourself</h2>
-                    <p>The more specific you are, the better your personalized AI prompts will be. This information helps create business ideas that actually fit your real life.</p>
+                    <p>The more specific you are, the better your personalized AI prompts will be. This information helps create plans that actually fit your real life.</p>
                 </div>
 
                 <div class="empowerment-message">
                     <div class="empowerment-title">You're Already Successful! 🌟</div>
-                    <p class="empowerment-text">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR business!</p>
+                    <p class="empowerment-text">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR success!</p>
                 </div>
 
-                <!-- Personal & Family Situation -->
+                <!-- Basic Info Collection -->
                 <div class="form-section">
-                    <h3>👨‍👩‍👧‍👦 Personal & Family Situation</h3>
+                    <h3>👋 Let's Get Started</h3>
                     
                     <div class="form-group">
                         <label>Your Name: <span class="required">*</span></label>
-                        <input type="text" id="user-name" class="form-control" placeholder="Enter your name" onchange="validateField(this)" maxlength="100" />
+                        <input type="text" id="user-name" class="form-control" placeholder="Enter your name" onchange="validateField(this)" />
                         <div class="validation-message" id="user-name-validation"></div>
                     </div>
 
                     <div class="form-group">
                         <label>Your Email: <span class="required">*</span></label>
-                        <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" maxlength="254" />
+                        <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" />
                         <div class="validation-message" id="user-email-validation"></div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Family Structure & Ages: <span class="required">*</span></label>
-                        <textarea id="family-structure" class="form-control" rows="3" placeholder="e.g., 'Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties.'" onchange="validateField(this)" oninput="updateCharCount(this, 1000)"></textarea>
-                        <div class="char-counter">0/1000</div>
-                        <div class="validation-message" id="family-structure-validation"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Daily Schedule & Availability: <span class="required">*</span></label>
-                        <textarea id="daily-schedule" class="form-control" rows="3" placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'" onchange="validateField(this)" oninput="updateCharCount(this, 1000)"></textarea>
-                        <div class="char-counter">0/1000</div>
-                        <div class="validation-message" id="daily-schedule-validation"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Current Work Status: <span class="required">*</span></label>
-                        <select id="work-status" class="form-control" onchange="validateField(this)">
-                            <option value="">Select your situation...</option>
-                            <option value="stay-at-home">Stay-at-home super mom</option>
-                            <option value="part-time">Working part-time</option>
-                            <option value="full-time">Working full-time</option>
-                            <option value="unemployed">Recently unemployed/looking</option>
-                            <option value="student">Student/in school</option>
-                        </select>
-                        <div class="validation-message" id="work-status-validation"></div>
-                    </div>
                 </div>
 
-                <!-- Skills & Experience -->
-                <div class="form-section">
-                    <h3>🎯 Skills & Experience</h3>
+                <!-- Path Selection -->
+                <div id="pathSelection" class="path-selector hidden">
+                    <h3>What brings you here today? Choose your main focus:</h3>
                     
-                    <div class="form-group">
-                        <label>Professional Background: <span class="required">*</span></label>
-                        <textarea id="skills" class="form-control" rows="3" placeholder="e.g., '10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events.'" onchange="validateField(this)" oninput="updateCharCount(this, 750)"></textarea>
-                        <div class="char-counter">0/750</div>
-                        <div class="validation-message" id="skills-validation"></div>
+                    <div class="path-options">
+                        <div class="path-option" onclick="selectPath('life')">
+                            <div class="path-icon">🏠</div>
+                            <div class="path-title">Life Organization</div>
+                            <div class="path-description">I need help organizing my daily life, family schedules, and home systems</div>
+                        </div>
+                        
+                        <div class="path-option" onclick="selectPath('business')">
+                            <div class="path-icon">💼</div>
+                            <div class="path-title">Business Launch</div>
+                            <div class="path-description">I want to start a business or create passive income streams</div>
+                        </div>
+                        
+                        <div class="path-option" onclick="selectPath('integrated')">
+                            <div class="path-icon">🌟</div>
+                            <div class="path-title">Both Life & Business</div>
+                            <div class="path-description">I need life organization AND want to start a business</div>
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label>Monthly Income Goal: <span class="required">*</span></label>
-                        <textarea id="income-goal" class="form-control" rows="2" placeholder="e.g., '$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom.'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
-                        <div class="char-counter">0/300</div>
-                        <div class="validation-message" id="income-goal-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Learning Willingness: <span class="required">*</span></label>
-                        <select id="learning-willingness" class="form-control" onchange="validateField(this)">
-                            <option value="">Select your approach...</option>
-                            <option value="eager">Eager to learn new skills quickly</option>
-                            <option value="moderate">Willing to learn gradually</option>
-                            <option value="prefer-existing">Prefer using skills I already have</option>
-                            <option value="minimal">Minimal learning, maximum results</option>
-                        </select>
-                        <div class="validation-message" id="learning-willingness-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Investment Level: <span class="required">*</span></label>
-                        <select id="investment-level" class="form-control" onchange="validateField(this)">
-                            <option value="">Select investment comfort...</option>
-                            <option value="free-only">Free only - no money to invest</option>
-                            <option value="minimal">Up to $50 if absolutely necessary</option>
-                            <option value="moderate">$50-200 for the right opportunity</option>
-                            <option value="invest">$200-500 if it's promising</option>
-                            <option value="serious">$500+ ready to invest in my future</option>
-                        </select>
-                        <div class="validation-message" id="investment-level-validation"></div>
-                    </div>
+                    <button type="button" class="btn-primary" onclick="proceedWithPath()" style="margin-top: 32px;">
+                        Continue With Selected Path
+                    </button>
                 </div>
 
-                <!-- Business Preferences -->
-                <div class="form-section">
-                    <h3>💼 Business Preferences</h3>
-
-                    <div class="form-group">
-                        <label>Preferred Work Location: <span class="required">*</span></label>
-                        <select id="work-location" class="form-control" onchange="validateField(this)">
-                            <option value="">Select work location...</option>
-                            <option value="home-only">Home only - need to be with kids</option>
-                            <option value="home-flexible">Mostly home, occasional outings</option>
-                            <option value="local-community">Local community/neighborhood</option>
-                            <option value="hybrid">Mix of home and outside work</option>
-                            <option value="travel-okay">Comfortable traveling for business</option>
-                        </select>
-                        <div class="validation-message" id="work-location-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Work Style Preference: <span class="required">*</span></label>
-                        <select id="work-style" class="form-control" onchange="validateField(this)">
-                            <option value="">Select work style...</option>
-                            <option value="independent">Independent work - minimal client interaction</option>
-                            <option value="some-interaction">Some client calls/meetings</option>
-                            <option value="collaborative">Collaborative - enjoy working with people</option>
-                            <option value="teaching-mentoring">Teaching/mentoring others</option>
-                            <option value="creative-expressive">Creative and expressive work</option>
-                        </select>
-                        <div class="validation-message" id="work-style-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Are you comfortable being on camera/social media? <span class="required">*</span></label>
-                        <select id="camera-comfort" class="form-control" onchange="validateField(this)">
-                            <option value="">Select your comfort level...</option>
-                            <option value="love-it">Love it! I'm comfortable on camera</option>
-                            <option value="okay-with-it">Okay with it, can learn</option>
-                            <option value="prefer-behind-scenes">Prefer behind-the-scenes work</option>
-                            <option value="absolutely-not">Absolutely not comfortable</option>
-                        </select>
-                        <div class="validation-message" id="camera-comfort-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Timeline to first income: <span class="required">*</span></label>
-                        <select id="income-timeline" class="form-control" onchange="validateField(this)">
-                            <option value="">Select timeline...</option>
-                            <option value="immediate">Immediate need (within 1-2 months)</option>
-                            <option value="moderate">3-6 months is fine</option>
-                            <option value="patient">Can wait 6-12 months for good business</option>
-                            <option value="long-term">Building for long-term (1+ years)</option>
-                        </select>
-                        <div class="validation-message" id="income-timeline-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Maximum startup budget (total): <span class="required">*</span></label>
-                        <select id="total-budget" class="form-control" onchange="validateField(this)">
-                            <option value="">Select budget...</option>
-                            <option value="zero">$0 - Must be completely free</option>
-                            <option value="minimal">Under $50 total</option>
-                            <option value="moderate">$50-200 if necessary</option>
-                            <option value="invest">$200-500 for right opportunity</option>
-                            <option value="serious">$500+ ready to invest</option>
-                        </select>
-                        <div class="validation-message" id="total-budget-validation"></div>
-                    </div>
-                </div>
-
-                <!-- Learning Style Assessment -->
-                <div class="form-section">
-                    <h3>🧠 How You Learn Best</h3>
-                    
-                    <div class="form-group">
-                        <label>How do you process information best? <span class="required">*</span></label>
-                        <select id="learning-style" class="form-control" onchange="validateField(this)">
-                            <option value="">Select learning preference...</option>
-                            <option value="detailed-instructions">I need to read detailed instructions first</option>
-                            <option value="video-tutorials">I prefer video tutorials and visual examples</option>
-                            <option value="audio-explanations">I learn better when someone explains it to me</option>
-                            <option value="accountability-partner">I work best with accountability partner check-ins</option>
-                            <option value="trial-and-error">I like to try things and figure it out as I go</option>
-                            <option value="written-checklists">I need written steps I can check off one by one</option>
-                        </select>
-                        <div class="validation-message" id="learning-style-validation"></div>
-                    </div>
-                </div>
-
-                <!-- Pacing & Intensity -->
-                <div class="form-section">
-                    <h3>⏰ Your Ideal Pace</h3>
-                    
-                    <div class="form-group">
-                        <label>What pace works best for your life right now? <span class="required">*</span></label>
-                        <select id="work-pace" class="form-control" onchange="validateField(this)">
-                            <option value="">Select your pace...</option>
-                            <option value="slow-steady">Slow and steady - I need gentle progress with lots of flexibility</option>
-                            <option value="moderate">Moderate pace - I can handle consistent daily actions</option>
-                            <option value="intensive">Intensive - I'm motivated and ready to move fast</option>
-                            <option value="variable">Variable - some days I'm all-in, other days I need breaks</option>
-                        </select>
-                        <div class="validation-message" id="work-pace-validation"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>How many days per week can you realistically work on this? <span class="required">*</span></label>
-                        <select id="work-frequency" class="form-control" onchange="validateField(this)">
-                            <option value="">Select frequency...</option>
-                            <option value="2-3-days">2-3 days per week (weekends only)</option>
-                            <option value="3-4-days">3-4 days per week (skip busy days)</option>
-                            <option value="5-6-days">5-6 days per week (consistent daily progress)</option>
-                            <option value="7-days">7 days per week (I'm all-in right now)</option>
-                        </select>
-                        <div class="validation-message" id="work-frequency-validation"></div>
-                    </div>
-                </div>
-
-                <!-- Technology Comfort -->
-                <div class="form-section">
-                    <h3>💻 Technology Comfort</h3>
-                    
-                    <div class="form-group">
-                        <label>How comfortable are you with technology? <span class="required">*</span></label>
-                        <select id="tech-comfort" class="form-control" onchange="validateField(this)">
-                            <option value="">Select comfort level...</option>
-                            <option value="mobile-first">I live on my phone - apps and mobile-first please</option>
-                            <option value="computer-comfortable">Comfortable with computers but prefer simple tools</option>
-                            <option value="basic-only">I stick to basic email and social media</option>
-                            <option value="prefer-analog">I prefer pen and paper when possible</option>
-                            <option value="need-support">I need tech support and hand-holding</option>
-                        </select>
-                        <div class="validation-message" id="tech-comfort-validation"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>What tools do you already use successfully?</label>
-                        <div class="checkbox-group" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; margin-top: 12px;">
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-calendar" value="calendar"> Google Calendar/Apple Calendar</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-instagram" value="instagram"> Instagram for personal use</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-facebook" value="facebook"> Facebook and Facebook groups</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-messaging" value="messaging"> WhatsApp or text messaging</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-email" value="email"> Email regularly</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-video" value="video"> Zoom/video calls</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-photos" value="photos"> Basic photo editing</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-shopping" value="shopping"> Online shopping and payments</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-audio" value="audio"> Spotify/podcast apps</label>
-                            <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;"><input type="checkbox" id="tools-notes" value="notes"> Note-taking apps</label>
+                <!-- Life Organization Questions -->
+                <div id="lifeQuestions" class="hidden">
+                    <div class="form-section">
+                        <h3>👨‍👩‍👧‍👦 Family & Daily Life</h3>
+                        
+                        <div class="form-group">
+                            <label>Family Structure & Ages: <span class="required">*</span></label>
+                            <textarea id="family-structure" class="form-control" rows="3" placeholder="e.g., 'Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                            <div class="char-counter">0/500</div>
+                            <div class="validation-message" id="family-structure-validation"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Current Overwhelm Areas: <span class="required">*</span></label>
+                            <textarea id="overwhelm-areas" class="form-control" rows="3" placeholder="e.g., 'Morning routines are chaotic, meal planning is nonexistent, can't keep up with laundry, never have time for myself'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                            <div class="char-counter">0/500</div>
+                            <div class="validation-message" id="overwhelm-areas-validation"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Work-From-Home Needs: <span class="required">*</span></label>
+                            <textarea id="wfh-needs" class="form-control" rows="2" placeholder="e.g., 'Need quiet time for calls, dedicated workspace, balance work with kids at home'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
+                            <div class="char-counter">0/300</div>
+                            <div class="validation-message" id="wfh-needs-validation"></div>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" class="btn-primary" onclick="proceedToStepTwo()">
-                    🚀 Create My Personalized Business Plan
+                <!-- Business Questions -->
+                <div id="businessQuestions" class="hidden">
+                    <div class="form-section">
+                        <h3>💼 Business Goals & Skills</h3>
+                        
+                        <div class="form-group">
+                            <label>Daily Schedule & Availability: <span class="required">*</span></label>
+                            <textarea id="daily-schedule" class="form-control" rows="3" placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                            <div class="char-counter">0/500</div>
+                            <div class="validation-message" id="daily-schedule-validation"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Professional Background: <span class="required">*</span></label>
+                            <textarea id="skills" class="form-control" rows="3" placeholder="e.g., '10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events.'" onchange="validateField(this)" oninput="updateCharCount(this, 750)"></textarea>
+                            <div class="char-counter">0/750</div>
+                            <div class="validation-message" id="skills-validation"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Monthly Income Goal: <span class="required">*</span></label>
+                            <textarea id="income-goal" class="form-control" rows="2" placeholder="e.g., '$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom.'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
+                            <div class="char-counter">0/300</div>
+                            <div class="validation-message" id="income-goal-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Learning Willingness: <span class="required">*</span></label>
+                            <select id="learning-willingness" class="form-control" onchange="validateField(this)">
+                                <option value="">Select your approach...</option>
+                                <option value="eager">Eager to learn new skills quickly</option>
+                                <option value="moderate">Willing to learn gradually</option>
+                                <option value="prefer-existing">Prefer using skills I already have</option>
+                                <option value="minimal">Minimal learning, maximum results</option>
+                            </select>
+                            <div class="validation-message" id="learning-willingness-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Investment Level: <span class="required">*</span></label>
+                            <select id="investment-level" class="form-control" onchange="validateField(this)">
+                                <option value="">Select investment comfort...</option>
+                                <option value="free-only">Free only - no money to invest</option>
+                                <option value="minimal">Up to $50 if absolutely necessary</option>
+                                <option value="moderate">$50-200 for the right opportunity</option>
+                                <option value="invest">$200-500 if it's promising</option>
+                                <option value="serious">$500+ ready to invest in my future</option>
+                            </select>
+                            <div class="validation-message" id="investment-level-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Preferred Work Location: <span class="required">*</span></label>
+                            <select id="work-location" class="form-control" onchange="validateField(this)">
+                                <option value="">Select work location...</option>
+                                <option value="home-only">Home only - need to be with kids</option>
+                                <option value="home-flexible">Mostly home, occasional outings</option>
+                                <option value="local-community">Local community/neighborhood</option>
+                                <option value="hybrid">Mix of home and outside work</option>
+                                <option value="travel-okay">Comfortable traveling for business</option>
+                            </select>
+                            <div class="validation-message" id="work-location-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Work Style Preference: <span class="required">*</span></label>
+                            <select id="work-style" class="form-control" onchange="validateField(this)">
+                                <option value="">Select work style...</option>
+                                <option value="independent">Independent work - minimal client interaction</option>
+                                <option value="some-interaction">Some client calls/meetings</option>
+                                <option value="collaborative">Collaborative - enjoy working with people</option>
+                                <option value="teaching-mentoring">Teaching/mentoring others</option>
+                                <option value="creative-expressive">Creative and expressive work</option>
+                            </select>
+                            <div class="validation-message" id="work-style-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Are you comfortable being on camera/social media? <span class="required">*</span></label>
+                            <select id="camera-comfort" class="form-control" onchange="validateField(this)">
+                                <option value="">Select your comfort level...</option>
+                                <option value="love-it">Love it! I'm comfortable on camera</option>
+                                <option value="okay-with-it">Okay with it, can learn</option>
+                                <option value="prefer-behind-scenes">Prefer behind-the-scenes work</option>
+                                <option value="absolutely-not">Absolutely not comfortable</option>
+                            </select>
+                            <div class="validation-message" id="camera-comfort-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Timeline to first income: <span class="required">*</span></label>
+                            <select id="income-timeline" class="form-control" onchange="validateField(this)">
+                                <option value="">Select timeline...</option>
+                                <option value="immediate">Immediate need (within 1-2 months)</option>
+                                <option value="moderate">3-6 months is fine</option>
+                                <option value="patient">Can wait 6-12 months for good business</option>
+                                <option value="long-term">Building for long-term (1+ years)</option>
+                            </select>
+                            <div class="validation-message" id="income-timeline-validation"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Maximum startup budget (total): <span class="required">*</span></label>
+                            <select id="total-budget" class="form-control" onchange="validateField(this)">
+                                <option value="">Select budget...</option>
+                                <option value="zero">$0 - Must be completely free</option>
+                                <option value="minimal">Under $50 total</option>
+                                <option value="moderate">$50-200 if necessary</option>
+                                <option value="invest">$200-500 for right opportunity</option>
+                                <option value="serious">$500+ ready to invest</option>
+                            </select>
+                            <div class="validation-message" id="total-budget-validation"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continue button based on path -->
+                <button type="button" id="continueButton" class="btn-primary hidden" onclick="proceedToStepTwo()">
+                    🚀 Create My Personalized Plan
                 </button>
 
                 <!-- Step 2: AI Platform Integration -->
                 <div id="step2Content" class="hidden">
                     <div class="step-description">
                         <h2>🤖 Step 2: Generate with ChatGPT</h2>
-                        <p>We've created a personalized prompt based on your information. Copy this prompt and paste it into ChatGPT to generate your first set of business ideas.</p>
+                        <p>We've created a personalized prompt based on your information. Copy this prompt and paste it into ChatGPT to generate your first set of ideas.</p>
                     </div>
 
                     <div class="auto-populated-prompt">
@@ -2198,7 +1691,7 @@
                 <div id="step3Content" class="hidden">
                     <div class="step-description">
                         <h2>🔍 Step 3: Refine with Gemini</h2>
-                        <p>Now we'll use Gemini to refine and expand on your business ideas with market research and validation.</p>
+                        <p>Now we'll use Gemini to refine and expand on your ideas with research and validation.</p>
                     </div>
 
                     <div class="auto-populated-prompt">
@@ -2224,13 +1717,13 @@
                 <div id="step3_5Content" class="hidden">
                     <div class="step-description">
                         <h2>💰 Step 3.5: Realistic Pricing Research</h2>
-                        <p>Before finalizing your plan, let's research realistic pricing for your selected business idea. This crucial step ensures you set competitive rates that actually get you clients.</p>
+                        <p>Before finalizing your plan, let's research realistic pricing for your selected idea. This crucial step ensures you set competitive rates that actually work.</p>
                     </div>
 
                     <div class="business-idea-selector" id="businessIdeaSelection">
-                        <h4>📝 Your Selected Business Idea:</h4>
+                        <h4>📝 Your Selected Idea:</h4>
                         <div id="selectedBusinessIdea" style="background: var(--light-sage); padding: 20px; border-radius: 12px; margin: 16px 0; font-weight: 600; color: var(--charcoal);">
-                            Your business idea will appear here after ChatGPT analysis...
+                            Your idea will appear here after ChatGPT analysis...
                         </div>
                     </div>
 
@@ -2256,13 +1749,13 @@
                 <!-- Step 4: Claude Integration -->
                 <div id="step4Content" class="hidden">
                     <div class="step-description">
-                        <h2>🎯 Step 4: Perfect with Claude</h2>
-                        <p>Finally, we'll use Claude to create your comprehensive ADHD-friendly business plan with actionable steps and realistic timelines.</p>
+                        <h2>🎯 Step 4: Create Your Interactive Calendar</h2>
+                        <p>Finally, we'll use Claude to create your comprehensive brain-friendly plan with actionable steps and realistic timelines.</p>
                     </div>
 
                     <div class="auto-populated-prompt">
-                        <div class="auto-populate-status ready">✨ ADHD-Friendly Plan Prompt Ready</div>
-                        <h4>Your Personalized Claude Prompt (ADHD-Optimized):</h4>
+                        <div class="auto-populate-status ready">✨ Brain-Friendly Plan Prompt Ready</div>
+                        <h4>Your Personalized Claude Prompt (Optimized for Focus & Clarity):</h4>
                         <textarea id="claudePrompt" class="form-control" rows="12" readonly></textarea>
                         <button class="btn-primary" onclick="copyToClipboard('claudePrompt')">📋 Copy Prompt</button>
                         <a href="https://claude.ai" target="_blank" class="platform-button claude-button">Open Claude</a>
@@ -2275,111 +1768,60 @@
                     </div>
 
                     <button type="button" class="btn-primary" onclick="completePlan()">
-                        🎉 Complete My Business Plan
+                        🎉 Generate My Interactive Calendar
                     </button>
                 </div>
 
                 <!-- Final Plan -->
                 <div id="finalPlanContent" class="hidden">
                     <div class="celebration-section">
-                        <h2>🎉 Congratulations! Your Business Plan is Ready!</h2>
-                        <p>You've successfully created a comprehensive, ADHD-friendly business plan tailored specifically for your life as a busy mom!</p>
-                        <button class="btn-primary" onclick="downloadBusinessPlan()" style="background: white; color: var(--sage-green); margin-top: 24px;">
-                            📥 Download Your Business Plan
-                        </button>
+                        <h2>🎉 Congratulations! Your Plan is Ready!</h2>
+                        <p>You've successfully created a comprehensive, brain-friendly plan tailored specifically for your life as a busy mom!</p>
                     </div>
 
-                    <!-- Interactive ADHD-Friendly Calendar -->
-                    <div id="interactiveCalendar" class="interactive-calendar hidden">
-                        <div class="calendar-header">
-                            <h2 class="calendar-title">🗓️ Your 12-Week ADHD-Friendly Business Calendar</h2>
-                            <p class="calendar-subtitle">Maximum 4 tasks per day • Step-by-step checkboxes • Built for neurodivergent minds</p>
-                            
-                            <div class="calendar-progress">
-                                <div class="progress-stats">
-                                    <div class="stat-item">
-                                        <span class="stat-number" id="completedTasks">0</span>
-                                        <span class="stat-label">Tasks Done</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number" id="totalTasks">0</span>
-                                        <span class="stat-label">Total Tasks</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-number" id="currentWeek">1</span>
-                                        <span class="stat-label">Current Week</span>
-                                    </div>
-                                </div>
-                                <div class="overall-calendar-progress">
-                                    <div class="overall-progress-fill" id="overallProgressFill"></div>
-                                </div>
-                            </div>
-
-                            <!-- Energy Tracker for Spoon Theory -->
-                            <div class="energy-tracker">
-                                <div class="energy-title">🥄 Today's Energy Level (Spoon Theory)</div>
-                                <div class="energy-levels">
-                                    <div class="energy-level" data-energy="1" onclick="setEnergyLevel(1)">🔋</div>
-                                    <div class="energy-level" data-energy="2" onclick="setEnergyLevel(2)">🔋</div>
-                                    <div class="energy-level" data-energy="3" onclick="setEnergyLevel(3)">🔋</div>
-                                    <div class="energy-level" data-energy="4" onclick="setEnergyLevel(4)">🔋</div>
-                                    <div class="energy-level" data-energy="5" onclick="setEnergyLevel(5)">🔋</div>
-                                </div>
-                            </div>
-
-                            <div class="week-selector" id="weekSelector">
-                                <!-- Week buttons will be generated dynamically -->
-                            </div>
-                        </div>
-
-                        <div id="calendarWeeks">
-                            <!-- Calendar weeks will be generated dynamically -->
-                        </div>
-
-                        <!-- Rest Day Message -->
-                        <div id="restDayMessage" class="rest-day-message hidden">
-                            <div class="rest-day-title">🛌 Rest Day Activated</div>
-                            <p>Your energy is low today. That's perfectly okay! Rest is productive too. Come back when you're ready. 💙</p>
-                        </div>
-
-                        <!-- Adaptive Suggestions -->
-                        <div id="adaptiveSuggestions" class="adaptive-suggestions hidden">
-                            <div class="adaptive-title">💡 Gentle Suggestion</div>
-                            <div class="adaptive-text" id="adaptiveText"></div>
-                        </div>
-                    </div>
-
-                    <!-- Visual Pricing Infographic -->
-                    <div id="pricingInfographicSection" class="pricing-infographic-section hidden">
-                        <div class="infographic-header">
-                            <h3 class="infographic-title">📊 Your Visual Pricing Strategy</h3>
-                            <p class="infographic-subtitle">A neurodivergent-friendly visual guide to pricing your business for success</p>
+                    <div class="calendar-integration">
+                        <h3>📅 Activate Your Interactive Calendar</h3>
+                        <div class="calendar-instructions">
+                            <p><strong>Follow these simple steps to see your interactive calendar:</strong></p>
+                            <ol>
+                                <li>Copy the code that Claude generated for you</li>
+                                <li>Paste it in the box below</li>
+                                <li>Click "Generate Interactive Calendar"</li>
+                                <li>Your personalized calendar will appear with:
+                                    <ul style="margin-top: 8px; padding-left: 20px;">
+                                        <li>✅ Daily tasks (max 4 per day)</li>
+                                        <li>✅ Step-by-step checkboxes</li>
+                                        <li>✅ Progress tracking</li>
+                                        <li>✅ Energy level management</li>
+                                    </ul>
+                                </li>
+                            </ol>
                         </div>
                         
-                        <div id="pricingInfographicContainer" class="infographic-container">
-                            <!-- Generated infographic content will appear here -->
+                        <div class="calendar-paste-area">
+                            <label><strong>Paste Claude's Calendar Code Here:</strong></label>
+                            <textarea id="calendar-code" class="form-control" placeholder="Paste the entire code from Claude here..."></textarea>
+                            <button class="btn-primary" onclick="generateInteractiveCalendar()" style="margin-top: 16px;">
+                                🗓️ Generate Interactive Calendar
+                            </button>
                         </div>
-                        
-                        <button id="downloadInfographicBtn" class="download-infographic-btn" onclick="downloadPricingInfographic()">
-                            💾 Download Your Pricing Guide
-                        </button>
                     </div>
+
+                    <div id="interactiveCalendarContainer" class="hidden">
+                        <!-- Interactive calendar will be inserted here -->
+                    </div>
+
+                    <button class="btn-primary" onclick="downloadCompletePlan()" style="margin: 32px auto; display: block;">
+                        📥 Download Complete Plan & Calendar
+                    </button>
 
                     <div class="form-group">
                         <label>Share Your Success Story (Optional):</label>
-                        <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your business plan? Your story could inspire other moms!"></textarea>
+                        <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your plan? Your story could inspire other moms!"></textarea>
                         <button type="button" class="btn-primary" onclick="submitTestimonial()">
                             💬 Share Your Story
                         </button>
                     </div>
-                </div>
-
-                <!-- Celebration Popup -->
-                <div id="celebrationPopup" class="celebration-popup">
-                    <div class="celebration-emoji">🎉</div>
-                    <h3 id="celebrationTitle">Amazing Work!</h3>
-                    <p id="celebrationMessage">You completed a task!</p>
-                    <button class="btn-primary" onclick="closeCelebration()" style="margin-top: 20px;">Continue ✨</button>
                 </div>
 
                 <!-- Services Section -->
@@ -2439,7 +1881,7 @@
                                     <ul class="service-features">
                                         <li>60-minute training session</li>
                                         <li>Custom calendar creation</li>
-                                        <li>ADHD-friendly organization tips</li>
+                                        <li>Brain-friendly organization tips</li>
                                         <li>Future update training</li>
                                         <li>Family routine optimization</li>
                                     </ul>
@@ -2513,232 +1955,11 @@
                         </div>
                     </div>
                 </section>
-                
-                <!-- Security Notice -->
-                <div style="background: #f0f4f8; padding: 40px; margin: 40px -40px -50px -40px; text-align: center; border-radius: 0 0 24px 24px;">
-                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">
-                        🔒 Your data is protected with enterprise-grade security
-                    </p>
-                    <p style="color: #888; font-size: 0.8rem;">
-                        End-to-end encryption • CSRF protection • Input sanitization • Rate limiting • Secure authentication
-                    </p>
-                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        console.log('Script starting to load...');
-        
-        // BACKEND API REQUIREMENTS
-        // The following endpoints need to be implemented on your backend:
-        // GET  /api/config        - Returns secure configuration (Firebase config, webhook URLs, etc.)
-        // GET  /api/csrf-token    - Returns CSRF token for request validation
-        // POST /api/submit-form   - Proxies form submissions to n8n webhook with validation
-        // All endpoints should implement proper authentication, rate limiting, and CORS policies
-        
-        // Security Configuration
-        const SECURITY_CONFIG = {
-            enableEncryption: true,
-            enableCSRF: true,
-            maxInputLength: 10000,
-            allowedDomains: ['firebaseapp.com', 'googleapis.com', 'stripe.com', 'calendly.com']
-        };
-        
-        // Secure Configuration Management
-        let secureConfig = null;
-        async function loadSecureConfig() {
-            try {
-                // In production, this would fetch from your backend
-                // For now, we'll use a fallback configuration
-                const response = await fetch('/api/config').catch(() => null);
-                if (response && response.ok) {
-                    secureConfig = await response.json();
-                } else {
-                    // Fallback configuration - in production, these should come from backend
-                    console.log('Using fallback configuration');
-                    secureConfig = {
-                        firebase: {
-                            apiKey: "AIzaSyDdnTzAePUyhp_ZCBy-kV6ApwUUbfKSMYg",
-                            authDomain: "smart-mom-method-4a804.firebaseapp.com",
-                            projectId: "smart-mom-method-4a804",
-                            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
-                            messagingSenderId: "847553438888",
-                            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
-                            measurementId: "G-SKRCMSVH72"
-                        },
-                        webhookUrl: '/api/submit-form', // Proxied through backend
-                        stripeUrls: {
-                            'life-calendar': 'https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07',
-                            'life-training': 'https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06',
-                            'business-calendar': 'https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05',
-                            'business-training': 'https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04'
-                        }
-                    };
-                }
-            } catch (error) {
-                console.error('Config loading error:', error);
-                // Use embedded fallback config
-                return null;
-            }
-        }
-        
-        // Input Sanitization
-        function sanitizeInput(input) {
-            if (typeof input !== 'string') return input;
-            
-            // Remove script tags and dangerous HTML
-            let sanitized = input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-            sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-            sanitized = sanitized.replace(/javascript:/gi, '');
-            sanitized = sanitized.replace(/on\w+\s*=/gi, '');
-            
-            // Limit length
-            if (sanitized.length > SECURITY_CONFIG.maxInputLength) {
-                sanitized = sanitized.substring(0, SECURITY_CONFIG.maxInputLength);
-            }
-            
-            return sanitized;
-        }
-        
-        // CSRF Token Management
-        let csrfToken = null;
-        async function getCSRFToken() {
-            if (csrfToken) return csrfToken;
-            
-            try {
-                const response = await fetch('/api/csrf-token');
-                if (response.ok) {
-                    const data = await response.json();
-                    csrfToken = data.token;
-                    return csrfToken;
-                }
-            } catch (error) {
-                console.error('CSRF token error:', error);
-            }
-            
-            // Fallback: generate client-side token
-            csrfToken = generateClientToken();
-            return csrfToken;
-        }
-        
-        function generateClientToken() {
-            const array = new Uint8Array(32);
-            crypto.getRandomValues(array);
-            return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
-        }
-        
-        // Encryption Utilities
-        async function generateEncryptionKey() {
-            return await crypto.subtle.generateKey(
-                { name: 'AES-GCM', length: 256 },
-                true,
-                ['encrypt', 'decrypt']
-            );
-        }
-        
-        async function encryptData(data) {
-            if (!SECURITY_CONFIG.enableEncryption) return JSON.stringify(data);
-            
-            try {
-                const encoder = new TextEncoder();
-                const dataBuffer = encoder.encode(JSON.stringify(data));
-                
-                const key = await generateEncryptionKey();
-                const iv = crypto.getRandomValues(new Uint8Array(12));
-                
-                const encryptedData = await crypto.subtle.encrypt(
-                    { name: 'AES-GCM', iv: iv },
-                    key,
-                    dataBuffer
-                );
-                
-                // Return base64 encoded encrypted data with IV
-                const combined = new Uint8Array(iv.length + encryptedData.byteLength);
-                combined.set(iv);
-                combined.set(new Uint8Array(encryptedData), iv.length);
-                
-                return btoa(String.fromCharCode(...combined));
-            } catch (error) {
-                console.error('Encryption error:', error);
-                return JSON.stringify(data); // Fallback to unencrypted
-            }
-        }
-        
-        async function decryptData(encryptedData) {
-            if (!SECURITY_CONFIG.enableEncryption) return JSON.parse(encryptedData);
-            
-            try {
-                const combined = Uint8Array.from(atob(encryptedData), c => c.charCodeAt(0));
-                const iv = combined.slice(0, 12);
-                const data = combined.slice(12);
-                
-                // Note: In production, you'd need to store and retrieve the key securely
-                const key = await generateEncryptionKey();
-                
-                const decryptedData = await crypto.subtle.decrypt(
-                    { name: 'AES-GCM', iv: iv },
-                    key,
-                    data
-                );
-                
-                const decoder = new TextDecoder();
-                return JSON.parse(decoder.decode(decryptedData));
-            } catch (error) {
-                console.error('Decryption error:', error);
-                return null;
-            }
-        }
-        
-        // Secure Request Function
-        async function secureRequest(url, data, options = {}) {
-            const token = await getCSRFToken();
-            
-            const headers = {
-                'Content-Type': 'application/json',
-                'X-CSRF-Token': token,
-                ...options.headers
-            };
-            
-            // Sanitize all string values in data
-            const sanitizedData = {};
-            for (const [key, value] of Object.entries(data)) {
-                sanitizedData[key] = typeof value === 'string' ? sanitizeInput(value) : value;
-            }
-            
-            return fetch(url, {
-                ...options,
-                method: options.method || 'POST',
-                headers: headers,
-                body: JSON.stringify(sanitizedData)
-            });
-        }
-        
-        // Rate Limiting
-        const rateLimiter = {
-            requests: {},
-            
-            canMakeRequest(endpoint, limit = 5, windowMs = 60000) {
-                const now = Date.now();
-                const key = endpoint;
-                
-                if (!this.requests[key]) {
-                    this.requests[key] = [];
-                }
-                
-                // Remove old requests outside the window
-                this.requests[key] = this.requests[key].filter(time => now - time < windowMs);
-                
-                if (this.requests[key].length >= limit) {
-                    return false;
-                }
-                
-                this.requests[key].push(now);
-                return true;
-            }
-        };
-        
         // Global Variables
         let currentLanguage = 'en';
         let currentUser = null;
@@ -2746,256 +1967,102 @@
         let currentStep = 1;
         let authMode = 'signup';
         let selectedBusinessIdea = '';
-        let calendarData = null;
-        let currentEnergyLevel = 3;
-        let calendarProgress = {
-            completedTasks: 0,
-            totalTasks: 0,
-            completedSteps: 0,
-            totalSteps: 0,
-            currentWeek: 1
-        };
-        
-        console.log('Global variables defined');
+        let selectedPath = '';
 
-        // Initialize Firebase with secure config
-        let auth, db;
-        async function initializeFirebase() {
-            await loadSecureConfig();
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfDJS5aoj2UlqJzN8hcHYi_DwNhF9SeUQ",
+            authDomain: "smart-mom-method-4a804.firebaseapp.com",
+            projectId: "smart-mom-method-4a804",
+            storageBucket: "smart-mom-method-4a804.firebasestorage.app",
+            messagingSenderId: "847553438888",
+            appId: "1:847553438888:web:3275de458a4e4c0235ce9d",
+            measurementId: "G-SKRCMSVH72"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Path Selection Functions
+        function selectPath(path) {
+            selectedPath = path;
             
-            if (!secureConfig || !secureConfig.firebase) {
-                console.error('Firebase configuration not available');
+            // Update UI
+            document.querySelectorAll('.path-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.closest('.path-option').classList.add('selected');
+        }
+
+        function proceedWithPath() {
+            if (!selectedPath) {
+                alert('Please select a path before continuing.');
                 return;
             }
             
-            try {
-                firebase.initializeApp(secureConfig.firebase);
-                auth = firebase.auth();
-                db = firebase.firestore();
-                console.log('Firebase initialized successfully');
-            } catch (error) {
-                console.error('Firebase initialization error:', error);
-                // Create dummy objects to prevent errors
-                auth = { 
-                    onAuthStateChanged: () => {}, 
-                    createUserWithEmailAndPassword: () => Promise.reject('Firebase not initialized'),
-                    signInWithEmailAndPassword: () => Promise.reject('Firebase not initialized'),
-                    signOut: () => Promise.reject('Firebase not initialized')
+            // Hide path selection
+            document.getElementById('pathSelection').classList.add('hidden');
+            
+            // Show appropriate questions
+            if (selectedPath === 'life') {
+                document.getElementById('lifeQuestions').classList.remove('hidden');
+                document.getElementById('businessQuestions').classList.add('hidden');
+            } else if (selectedPath === 'business') {
+                document.getElementById('lifeQuestions').classList.add('hidden');
+                document.getElementById('businessQuestions').classList.remove('hidden');
+            } else if (selectedPath === 'integrated') {
+                document.getElementById('lifeQuestions').classList.remove('hidden');
+                document.getElementById('businessQuestions').classList.remove('hidden');
+            }
+            
+            // Show continue button
+            document.getElementById('continueButton').classList.remove('hidden');
+            
+            // Save progress
+            saveFormProgress();
+        }
+
+        // Updated required fields validation for paths
+        function getRequiredFieldsByPath() {
+            const baseFields = ['user-name', 'user-email'];
+            
+            if (selectedPath === 'life') {
+                return {
+                    0: [...baseFields, 'family-structure', 'overwhelm-areas', 'wfh-needs'],
+                    1: ['chatgpt-response'],
+                    2: ['gemini-response'],
+                    3: ['pricing-research-response'],
+                    4: ['claude-response'],
+                    5: [],
+                    6: []
                 };
-                db = { 
-                    collection: () => ({ 
-                        doc: () => ({ 
-                            get: () => Promise.reject('Firebase not initialized'), 
-                            set: () => Promise.reject('Firebase not initialized') 
-                        }) 
-                    }) 
+            } else if (selectedPath === 'business') {
+                return {
+                    0: [...baseFields, 'daily-schedule', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
+                    1: ['chatgpt-response'],
+                    2: ['gemini-response'],
+                    3: ['pricing-research-response'],
+                    4: ['claude-response'],
+                    5: [],
+                    6: []
+                };
+            } else {
+                return {
+                    0: [...baseFields, 'family-structure', 'overwhelm-areas', 'wfh-needs', 'daily-schedule', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
+                    1: ['chatgpt-response'],
+                    2: ['gemini-response'],
+                    3: ['pricing-research-response'],
+                    4: ['claude-response'],
+                    5: [],
+                    6: []
                 };
             }
-        }
-
-        // Updated required fields validation for 7 steps
-        const requiredFieldsByStep = {
-            0: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget', 'learning-style', 'work-pace', 'work-frequency', 'tech-comfort'],
-            1: ['chatgpt-response'],
-            2: ['gemini-response'],
-            3: ['pricing-research-response'], // NEW STEP 3.5
-            4: ['claude-response'],
-            5: [],
-            6: []
-        };
-
-        // Pricing Infographic Generator Functions
-        function showPricingInfographic() {
-            const pricingResponse = document.getElementById('pricing-research-response').value.trim();
-            if (!pricingResponse) return;
-            
-            const businessIdea = selectedBusinessIdea || 'Your Business';
-            const pricingData = parsePricingData(pricingResponse);
-            
-            generatePricingInfographic(pricingData, businessIdea);
-            document.getElementById('pricingInfographicSection').classList.remove('hidden');
-        }
-
-        function parsePricingData(response) {
-            // Extract pricing information from Gemini response
-            const data = {
-                businessType: selectedBusinessIdea || 'Digital Products',
-                location: 'Lincoln, Nebraska',
-                beginnerRates: extractRates(response, 'beginner|months 1-6|phase 1'),
-                intermediateRates: extractRates(response, 'developing|months 6-18|phase 2'),
-                expertRates: extractRates(response, 'experienced|months 18|expert|phase 3'),
-                commonMistakes: extractMistakes(response),
-                localAdvantage: extractLocalInfo(response)
-            };
-            return data;
-        }
-
-        function extractRates(text, pattern) {
-            const regex = new RegExp(pattern, 'gi');
-            const section = text.match(regex);
-            // Extract dollar amounts and rate information
-            const rates = text.match(/\$\d+[-\s]*(?:to\s*)?\$?\d*/gi) || [];
-            return rates.slice(0, 3); // Take first 3 rate examples
-        }
-
-        function extractMistakes(text) {
-            const mistakes = [];
-            if (text.toLowerCase().includes('underpricing')) mistakes.push('Underpricing');
-            if (text.toLowerCase().includes('overpricing')) mistakes.push('Overpricing');
-            if (text.toLowerCase().includes('hidden cost')) mistakes.push('Forgetting Hidden Costs');
-            return mistakes;
-        }
-
-        function extractLocalInfo(text) {
-            const localMatch = text.match(/lincoln[^.]*(?:advantage|benefit|lower|cost)[^.]*/gi);
-            return localMatch ? localMatch[0] : 'Lincoln\'s lower cost of living gives you an advantage';
-        }
-
-        function generatePricingInfographic(data, businessType) {
-            const container = document.getElementById('pricingInfographicContainer');
-            
-            const infographicHTML = `
-                <div style="font-family: 'Inter', sans-serif; background: #F8F4E1; padding: 20px; border-radius: 16px;">
-                    <!-- Header -->
-                    <div style="background: #004369; color: white; padding: 40px; text-align: center; border-radius: 16px; margin-bottom: 30px;">
-                        <h1 style="font-size: 2.5rem; margin-bottom: 10px; font-weight: 900;">${businessType} Pricing Roadmap</h1>
-                        <p style="font-size: 1.2rem; color: #E5DDC8;">A Realistic Guide for ${data.location}</p>
-                    </div>
-                    
-                    <!-- Local Advantage -->
-                    <div style="background: white; padding: 30px; border-radius: 16px; text-align: center; margin-bottom: 30px;">
-                        <h2 style="color: #01949A; font-size: 1.8rem; margin-bottom: 15px;">Your Local Advantage</h2>
-                        <p style="font-size: 1.1rem; color: #666;">${data.localAdvantage}</p>
-                    </div>
-                    
-                    <!-- Pricing Phases -->
-                    <div style="display: grid; gap: 20px; margin-bottom: 30px;">
-                        <div class="phase-section">
-                            <h3 class="phase-title">Phase 1: Beginner (Months 1-6)</h3>
-                            <p class="phase-description">Focus on building portfolio and getting testimonials</p>
-                            <div style="background: #01949A; color: white; padding: 15px; border-radius: 8px; text-align: center;">
-                                <strong>Starting Rates: ${data.beginnerRates[0] || '$5-15/hour'}</strong>
-                            </div>
-                        </div>
-                        
-                        <div class="phase-section">
-                            <h3 class="phase-title">Phase 2: Developing (Months 6-18)</h3>
-                            <p class="phase-description">Specialized skills and proven results justify higher rates</p>
-                            <div style="background: #004369; color: white; padding: 15px; border-radius: 8px; text-align: center;">
-                                <strong>Growing Rates: ${data.intermediateRates[0] || '$20-40/hour'}</strong>
-                            </div>
-                        </div>
-                        
-                        <div class="phase-section">
-                            <h3 class="phase-title">Phase 3: Expert (18+ Months)</h3>
-                            <p class="phase-description">Premium pricing based on proven track record</p>
-                            <div style="background: #DB1F48; color: white; padding: 15px; border-radius: 8px; text-align: center;">
-                                <strong>Expert Rates: ${data.expertRates[0] || '$50-100+/hour'}</strong>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Chart Container -->
-                    <div class="chart-container">
-                        <canvas id="pricingProgressionChart"></canvas>
-                    </div>
-                    
-                    <!-- Common Mistakes -->
-                    <div style="background: white; padding: 30px; border-radius: 16px; margin-top: 30px;">
-                        <h3 style="color: #004369; font-size: 1.5rem; margin-bottom: 20px; text-align: center;">Avoid These Common Mistakes</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                            ${data.commonMistakes.map(mistake => `
-                                <div style="background: #DB1F48; color: white; padding: 20px; border-radius: 12px; text-align: center;">
-                                    <h4>${mistake}</h4>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            container.innerHTML = infographicHTML;
-            
-            // Generate chart after HTML is inserted
-            setTimeout(() => {
-                generatePricingChart(data);
-            }, 100);
-        }
-
-        function generatePricingChart(data) {
-            const ctx = document.getElementById('pricingProgressionChart');
-            if (!ctx) return;
-            
-            // Create chart
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Month 1', 'Month 6', 'Month 12', 'Month 18', 'Month 24'],
-                    datasets: [{
-                        label: 'Hourly Rate Progression',
-                        data: [10, 20, 35, 50, 75],
-                        borderColor: '#01949A',
-                        backgroundColor: 'rgba(1, 148, 154, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Your Pricing Journey: Beginner to Expert'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Hourly Rate ($)'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function downloadPricingInfographic() {
-            const infographicContent = document.getElementById('pricingInfographicContainer').innerHTML;
-            const businessType = selectedBusinessIdea || 'Your Business';
-            
-            const fullHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${businessType} Pricing Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
-</head>
-<body style="margin: 0; background: #f5f5f5;">
-    ${infographicContent}
-</body>
-</html>
-            `;
-            
-            const blob = new Blob([fullHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${businessType.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-pricing-guide.html`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         }
 
         // Authentication Functions
         function showAuthModal(mode = 'signup') {
-            console.log('showAuthModal called with mode:', mode);
             authMode = mode;
             const modal = document.getElementById('authModal');
             const title = document.getElementById('authTitle');
@@ -3024,8 +2091,6 @@
             modal.classList.add('active');
             clearAuthMessages();
         }
-        
-        console.log('Authentication functions defined');
 
         function closeAuthModal() {
             document.getElementById('authModal').classList.remove('active');
@@ -3054,6 +2119,51 @@
             successDiv.classList.remove('hidden');
         }
 
+        // Authentication Event Handlers
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            const name = document.getElementById('authName').value;
+            const confirmPassword = document.getElementById('authConfirmPassword').value;
+            
+            clearAuthMessages();
+            
+            try {
+                if (authMode === 'signup') {
+                    if (password !== confirmPassword) {
+                        showAuthError('Passwords do not match');
+                        return;
+                    }
+                    
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    await userCredential.user.updateProfile({ displayName: name });
+                    
+                    // Save user data to Firestore
+                    await db.collection('users').doc(userCredential.user.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        language: currentLanguage
+                    });
+                    
+                    showAuthSuccess('Account created successfully!');
+                } else {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    showAuthSuccess('Welcome back!');
+                }
+                
+                setTimeout(() => {
+                    closeAuthModal();
+                    startOnboarding();
+                }, 1500);
+                
+            } catch (error) {
+                showAuthError(error.message);
+            }
+        });
+
         async function signInWithGoogle() {
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
@@ -3065,8 +2175,8 @@
                 
                 if (!userDoc.exists) {
                     await userRef.set({
-                        name: sanitizeInput(result.user.displayName || ''),
-                        email: sanitizeInput(result.user.email || ''),
+                        name: result.user.displayName,
+                        email: result.user.email,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                         language: currentLanguage,
                         provider: 'google'
@@ -3094,6 +2204,21 @@
             }
         }
 
+        // Auth State Observer
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
+                document.getElementById('userStatusBar').classList.remove('hidden');
+                
+                // Load user's saved progress
+                await loadUserProgress();
+            } else {
+                currentUser = null;
+                document.getElementById('userStatusBar').classList.add('hidden');
+            }
+        });
+
         // User Progress Management
         async function loadUserProgress() {
             if (!currentUser) return;
@@ -3117,6 +2242,11 @@
                         updateProgressDisplay();
                     }
                     
+                    // Restore selected path
+                    if (progress.selectedPath) {
+                        selectedPath = progress.selectedPath;
+                    }
+                    
                     // Show returning user status
                     showReturningUserStatus(progress.lastSaved);
                 }
@@ -3128,32 +2258,20 @@
         async function saveFormProgress() {
             if (!currentUser) {
                 // Save to localStorage for non-authenticated users
-                var data = {
+                localStorage.setItem('smartMomWorkflowData', JSON.stringify({
                     formData: collectFormData(),
                     currentStep: currentStep,
+                    selectedPath: selectedPath,
                     lastSaved: new Date().toISOString()
-                };
-                try {
-                    // Encrypt sensitive data before storing
-                    const encryptedData = await encryptData(data);
-                    localStorage.setItem('smartMomWorkflowData', encryptedData);
-                } catch (e) {
-                    console.log('localStorage save error:', e);
-                }
+                }));
                 return;
             }
             
             try {
-                // Sanitize form data before saving
-                const sanitizedFormData = {};
-                const rawFormData = collectFormData();
-                for (const [key, value] of Object.entries(rawFormData)) {
-                    sanitizedFormData[key] = typeof value === 'string' ? sanitizeInput(value) : value;
-                }
-                
                 await db.collection('progress').doc(currentUser.uid).set({
-                    formData: sanitizedFormData,
+                    formData: collectFormData(),
                     currentStep: currentStep,
+                    selectedPath: selectedPath,
                     lastSaved: firebase.firestore.FieldValue.serverTimestamp(),
                     language: currentLanguage
                 }, { merge: true });
@@ -3162,24 +2280,12 @@
             }
         }
 
-        // Security utility for displaying user content
-        function escapeHtml(unsafe) {
-            if (typeof unsafe !== 'string') return unsafe;
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-        
         function showReturningUserStatus(lastSaved) {
             const statusDiv = document.createElement('div');
             statusDiv.className = 'returning-user-status';
-            const formattedDate = lastSaved ? new Date(lastSaved.toDate ? lastSaved.toDate() : lastSaved).toLocaleDateString() : 'your last session';
             statusDiv.innerHTML = `
                 <h4>🎉 Welcome Back!</h4>
-                <p>Your progress has been restored from ${escapeHtml(formattedDate)}.</p>
+                <p>Your progress has been restored from ${lastSaved ? new Date(lastSaved.toDate()).toLocaleDateString() : 'your last session'}.</p>
             `;
             
             const formSection = document.querySelector('.form-section');
@@ -3203,23 +2309,13 @@
                 'camera-comfort': document.getElementById('camera-comfort')?.value || '',
                 'income-timeline': document.getElementById('income-timeline')?.value || '',
                 'total-budget': document.getElementById('total-budget')?.value || '',
-                'learning-style': document.getElementById('learning-style')?.value || '',
-                'work-pace': document.getElementById('work-pace')?.value || '',
-                'work-frequency': document.getElementById('work-frequency')?.value || '',
-                'tech-comfort': document.getElementById('tech-comfort')?.value || '',
-                'tech-tools': collectSelectedTools(),
+                'overwhelm-areas': document.getElementById('overwhelm-areas')?.value || '',
+                'wfh-needs': document.getElementById('wfh-needs')?.value || '',
                 'chatgpt-response': document.getElementById('chatgpt-response')?.value || '',
                 'gemini-response': document.getElementById('gemini-response')?.value || '',
                 'pricing-research-response': document.getElementById('pricing-research-response')?.value || '',
                 'claude-response': document.getElementById('claude-response')?.value || ''
             };
-        }
-
-        function collectSelectedTools() {
-            const tools = [];
-            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked');
-            checkboxes.forEach(cb => tools.push(cb.value));
-            return tools;
         }
 
         function validateField(field) {
@@ -3230,11 +2326,6 @@
             let isValid = true;
             let message = '';
             
-            // Sanitize input
-            if (value) {
-                field.value = sanitizeInput(value);
-            }
-            
             // Required field validation
             if (field.hasAttribute('required') || field.classList.contains('required')) {
                 if (!value) {
@@ -3243,30 +2334,12 @@
                 }
             }
             
-            // Email validation with enhanced security
+            // Email validation
             if (field.type === 'email' && value) {
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(value)) {
                     isValid = false;
                     message = 'Please enter a valid email address';
-                } else if (value.length > 254) { // RFC 5321
-                    isValid = false;
-                    message = 'Email address is too long';
-                }
-            }
-            
-            // Length validation
-            if (value && value.length > SECURITY_CONFIG.maxInputLength) {
-                isValid = false;
-                message = `Input is too long (max ${SECURITY_CONFIG.maxInputLength} characters)`;
-            }
-            
-            // Name validation (no special characters except spaces and hyphens)
-            if (fieldId === 'user-name' && value) {
-                const nameRegex = /^[a-zA-Z\s\-']+$/;
-                if (!nameRegex.test(value)) {
-                    isValid = false;
-                    message = 'Name can only contain letters, spaces, hyphens, and apostrophes';
                 }
             }
             
@@ -3281,11 +2354,19 @@
                 saveFormProgress();
             }
             
+            // Check if we need to show path selection
+            const userName = document.getElementById('user-name').value.trim();
+            const userEmail = document.getElementById('user-email').value.trim();
+            
+            if (userName && userEmail && !selectedPath) {
+                document.getElementById('pathSelection').classList.remove('hidden');
+            }
+            
             return isValid;
         }
 
         function validateCurrentStep() {
-            const requiredFields = requiredFieldsByStep[currentStep - 1] || [];
+            const requiredFields = getRequiredFieldsByPath()[currentStep - 1] || [];
             
             let allValid = true;
             requiredFields.forEach(fieldId => {
@@ -3339,7 +2420,7 @@
             });
         }
 
-        // AI Platform Integration with Enhanced Prompts
+        // AI Platform Integration with Path-Specific Prompts
         function generateChatGPTPrompt() {
             const data = collectFormData();
             
@@ -3347,32 +2428,42 @@
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
+- Don't suggest solutions requiring experience they don't have
 - Focus on DOWN-TO-EARTH, practical solutions only
 - Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away
-
-**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
-- Businesses requiring 40+ hours/week
-- High-skill services they've never done
-- Anything requiring significant upfront investment (if they said free)
-- Complex businesses with steep learning curves
+- Respect their budget constraints completely
 
 Focus on what's ACTUALLY doable for their situation.`;
             
-            const prompt = `${realismInstructions}
+            if (selectedPath === 'life') {
+                return `${realismInstructions}
 
-Create 3 personalized business ideas for a busy mom with this profile:
+Create a comprehensive life organization system for a busy mom:
 
 **Personal Situation:**
 - Name: ${data['user-name']}
 - Family: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-- Work Status: ${data['work-status']}
+- Current Overwhelm Areas: ${data['overwhelm-areas']}
+- Work-From-Home Needs: ${data['wfh-needs']}
 
-**Skills & Goals:**
-- Background: ${data.skills}
+Please provide:
+1. Daily routine optimization (morning, afternoon, evening)
+2. Weekly household management system
+3. Meal planning strategies
+4. School/activity coordination
+5. Self-care integration
+6. Crisis management protocols
+
+Focus on simple, sustainable systems that reduce overwhelm and create calm.`;
+            } else if (selectedPath === 'business') {
+                return `${realismInstructions}
+
+Create 3 personalized business ideas for a busy mom:
+
+**Personal Situation:**
+- Name: ${data['user-name']}
+- Daily Schedule: ${data['daily-schedule']}
+- Skills: ${data.skills}
 - Income Goal: ${data['income-goal']}
 - Learning Willingness: ${data['learning-willingness']}
 - Investment Level: ${data['investment-level']}
@@ -3381,53 +2472,40 @@ Create 3 personalized business ideas for a busy mom with this profile:
 - Camera Comfort: ${data['camera-comfort']}
 - Income Timeline: ${data['income-timeline']}
 - Total Budget: ${data['total-budget']}
-- Language: ${currentLanguage === 'es' ? 'Spanish' : 'English'}
-
-**Learning & Work Preferences:**
-- Learning Style: ${data['learning-style']}
-- Work Pace: ${data['work-pace']}
-- Work Frequency: ${data['work-frequency']}
-- Tech Comfort: ${data['tech-comfort']}
-- Current Tech Tools: ${data['tech-tools'].join(', ') || 'None specified'}
 
 Please provide:
 1. 3 specific business ideas that fit her schedule and skills
-2. Estimated startup costs for each (respecting her budget constraints)
-3. Expected time to profitability (realistic expectations)
-4. Required weekly time commitment (fitting her availability)
+2. Estimated startup costs for each
+3. Expected time to profitability
+4. Required weekly time commitment
 5. Specific first steps for each idea
 
-Focus on businesses that can be started with her stated investment level and can accommodate her family responsibilities. Be HONEST about challenges and timeframes.`;
+Focus on businesses that can be started with minimal investment and time.`;
+            } else {
+                return `${realismInstructions}
 
-            // ADD customization based on Phase 4A data:
-            let customizations = '\n\n**CUSTOMIZATION REQUIREMENTS:**\n';
-            
-            // Learning style customization
-            if (data['learning-style'] === 'video-tutorials') {
-                customizations += '- Include video tutorial recommendations and visual examples\n';
-            } else if (data['learning-style'] === 'detailed-instructions') {
-                customizations += '- Provide extremely detailed, step-by-step written instructions\n';
-            } else if (data['learning-style'] === 'audio-explanations') {
-                customizations += '- Recommend podcast resources and audio-based learning\n';
-            } else if (data['learning-style'] === 'written-checklists') {
-                customizations += '- Format everything as actionable checklists\n';
+Create an integrated life organization AND business launch plan for a busy mom:
+
+**Personal Situation:**
+- Name: ${data['user-name']}
+- Family: ${data['family-structure']}
+- Overwhelm Areas: ${data['overwhelm-areas']}
+- Skills: ${data.skills}
+- Income Goal: ${data['income-goal']}
+
+Please provide:
+PHASE 1 - Life Foundation (Weeks 1-4):
+1. Daily routine optimization
+2. Household management systems
+3. Family schedule coordination
+
+PHASE 2 - Business Preparation (Weeks 5-8):
+1. 3 business ideas that fit around family life
+2. Time carving strategies
+3. Family integration planning
+
+Focus on stabilizing life FIRST, then building business on solid foundation.`;
             }
-            
-            // Pacing customization
-            if (data['work-pace'] === 'slow-steady') {
-                customizations += '- Focus on very gentle, flexible timelines with lots of grace periods\n';
-            } else if (data['work-pace'] === 'intensive') {
-                customizations += '- Provide aggressive timelines for motivated, fast-moving implementation\n';
-            }
-            
-            // Tech comfort customization
-            if (data['tech-comfort'] === 'basic-only') {
-                customizations += '- Recommend only the simplest, most user-friendly tools (email, Facebook, basic apps)\n';
-            } else if (data['tech-comfort'] === 'mobile-first') {
-                customizations += '- Prioritize mobile apps and phone-based solutions over computer work\n';
-            }
-            
-            return prompt + customizations;
         }
 
         function autoPopulateGeminiPrompt() {
@@ -3438,112 +2516,94 @@ Focus on businesses that can be started with her stated investment level and can
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away`;
+- Focus on DOWN-TO-EARTH, practical solutions only`;
             
-            const prompt = `${realismInstructions}
+            if (selectedPath === 'life') {
+                return `${realismInstructions}
+
+Based on this life organization plan for a busy mom: 
+
+${chatgptIdeas}
+
+Please provide:
+1. Potential obstacles and realistic solutions
+2. Energy management strategies
+3. Family buy-in techniques
+4. Simplified versions for overwhelming days
+5. Progress tracking methods
+6. Maintenance strategies
+
+Focus on making the systems sustainable and flexible for real mom life.`;
+            } else {
+                return `${realismInstructions}
 
 Based on these business ideas generated for a busy mom: 
 
 ${chatgptIdeas}
 
-**Learning & Work Preferences to Consider:**
-- Learning Style: ${data['learning-style']}
-- Work Pace: ${data['work-pace']}
-- Work Frequency: ${data['work-frequency']}
-- Tech Comfort: ${data['tech-comfort']}
-- Current Tech Tools: ${data['tech-tools'].join(', ') || 'None specified'}
-
 Please provide:
-1. Market research and validation for each idea
-2. Target audience analysis (who will actually pay for this?)
-3. Competition assessment (realistic view of what she's up against)
-4. Marketing strategies that work for busy moms (simple, effective)
-5. Potential challenges and realistic solutions
-6. Revenue projections for first year (conservative estimates)
+1. Market research and validation
+2. Target audience analysis
+3. Competition assessment
+4. Marketing strategies for busy moms
+5. Potential challenges and solutions
+6. Revenue projections (conservative)
 
-Focus on practical, actionable insights that a mom entrepreneur can implement while managing family responsibilities. Be honest about what's actually achievable.`;
-
-            // ADD customization based on Phase 4A data:
-            let customizations = '\n\n**CUSTOMIZATION REQUIREMENTS:**\n';
-            
-            // Learning style customization
-            if (data['learning-style'] === 'video-tutorials') {
-                customizations += '- Include video tutorial recommendations and visual examples\n';
-            } else if (data['learning-style'] === 'detailed-instructions') {
-                customizations += '- Provide extremely detailed, step-by-step written instructions\n';
-            } else if (data['learning-style'] === 'audio-explanations') {
-                customizations += '- Recommend podcast resources and audio-based learning\n';
-            } else if (data['learning-style'] === 'written-checklists') {
-                customizations += '- Format everything as actionable checklists\n';
+Focus on practical insights that a mom can implement while managing family.`;
             }
-            
-            // Pacing customization
-            if (data['work-pace'] === 'slow-steady') {
-                customizations += '- Focus on very gentle, flexible timelines with lots of grace periods\n';
-            } else if (data['work-pace'] === 'intensive') {
-                customizations += '- Provide aggressive timelines for motivated, fast-moving implementation\n';
-            }
-            
-            // Tech comfort customization
-            if (data['tech-comfort'] === 'basic-only') {
-                customizations += '- Recommend only the simplest, most user-friendly tools (email, Facebook, basic apps)\n';
-            } else if (data['tech-comfort'] === 'mobile-first') {
-                customizations += '- Prioritize mobile apps and phone-based solutions over computer work\n';
-            }
-            
-            return prompt + customizations;
         }
 
         function generatePricingResearchPrompt() {
             const data = collectFormData();
-            const selectedIdea = selectedBusinessIdea || 'the selected business idea';
-            const userLocation = 'Lincoln, Nebraska'; // Default location
+            const selectedIdea = selectedBusinessIdea || 'the selected idea';
+            const userLocation = 'Lincoln, Nebraska';
             
-            const prompt = `Research realistic pricing for ${selectedIdea} specifically for someone just starting:
+            if (selectedPath === 'life') {
+                return `Research realistic pricing for life organization services/products:
+
+**Service Context:**
+- Type: Life organization support for busy moms
+- Location: ${userLocation}
+
+**PRICING RESEARCH NEEDED:**
+
+1. **Life Coaching/Organization Services:**
+   - Beginner rates for new organizers
+   - Experienced professional rates
+   - Package vs hourly pricing
+
+2. **Digital Products (Planners, Systems):**
+   - Single product pricing
+   - Bundle pricing strategies
+   - Subscription models
+
+3. **Local Market Analysis:**
+   - What do moms actually pay for organization help?
+   - Competition pricing
+   - Value perception
+
+BE REALISTIC about what busy moms will actually pay for help.`;
+            } else {
+                return `Research realistic pricing for ${selectedIdea} specifically for someone just starting:
 
 **Personal Context:**
 - Complete beginner with no business experience
 - Daily Schedule: ${data['daily-schedule']}
-- Investment Level: ${data['investment-level']}
-- Income Timeline: ${data['income-timeline']}
+- Investment Level: ${data['investment-level'] || 'minimal'}
+- Income Timeline: ${data['income-timeline'] || 'flexible'}
 - Location: ${userLocation}
 
 **PRICING RESEARCH NEEDED:**
 
 1. **Beginner Pricing (Month 1-6):** What should someone with no experience charge?
-   - Specific dollar amounts, not ranges
-   - What makes pricing competitive vs. too low/high
-   - How to price when you have no portfolio
-
-2. **Developing Skills (Month 6-18):** Pricing as competency grows
-   - When and how much to raise prices
-   - What achievements justify price increases
-
-3. **Experienced Rates (18+ months):** What experts charge
-   - Market ceiling for this service
-   - Premium pricing strategies
-
+2. **Developing Skills (Month 6-18):** When to raise prices
+3. **Experienced Rates (18+ months):** Expert pricing
 4. **Geographic Considerations:** Market rates for ${userLocation}
-   - Local market analysis
-   - Online vs. local pricing differences
-
 5. **Common Pricing Mistakes:** What kills new businesses
-   - Pricing too low (and why)
-   - Pricing too high (and consequences)
-   - Hidden costs beginners forget
+6. **Competition Analysis:** Real competitor pricing
 
-6. **Competition Analysis:** What others actually charge vs advertise
-   - Real competitor pricing research
-   - How to position against competition
-
-**BE BRUTALLY HONEST about realistic expectations for beginners.** 
-Include specific examples and dollar amounts. Don't sugarcoat - give the real data that will help her succeed.`;
-
-            return prompt;
+BE BRUTALLY HONEST about realistic expectations for beginners.`;
+            }
         }
 
         function autoPopulateClaudePrompt() {
@@ -3554,141 +2614,119 @@ Include specific examples and dollar amounts. Don't sugarcoat - give the real da
             
             const realismInstructions = `
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away`;
+- This person is dealing with real life challenges
+- Be honest about timelines and expectations
+- Focus on sustainable, practical solutions
+- Consider energy levels and family interruptions`;
 
-            const adhdInstructions = `
-**CRITICAL: Design this calendar for ADHD, Autism, and Executive Function challenges**
+            const brainFriendlyInstructions = `
+**CRITICAL: Design this calendar for optimal focus and clarity**
 
 DAILY STRUCTURE RULES:
-- MAXIMUM 4 tasks per day (never exceed this number)
+- MAXIMUM 4 tasks per day (never exceed)
 - Each task broken into 3-7 specific sub-steps
-- No vague instructions - be extremely detailed
-- Include exact links to platforms/tools needed
-- Specify if account creation required (FREE vs PAID with exact costs)
-- Add time estimates including thinking/processing time
-- Build in 15-minute buffer between tasks
+- Clear, detailed instructions
+- Include exact links/resources needed
+- Add time estimates with buffer time
+- Build in flexibility for life happening
 
 TASK FORMAT EXAMPLE:
-✅ Task 1: Create Instagram Business Account (FREE - 30 minutes)
-  □ Step 1: Go to instagram.com/business (click this exact link)
-  □ Step 2: Click "Create account" → Select "Business Account"  
-  □ Step 3: Choose username: [yourname] + "business" or "coaching"
-  □ Step 4: Upload profile photo (phone selfie works perfectly)
-  □ Step 5: Write bio: "I help [your target audience] achieve [specific result]"
-  □ Step 6: Add contact info: your email and phone
-
-**SOCIAL MEDIA BUSINESS REQUIREMENTS:**
-If this is a social media business, include:
-- SEO-optimized title ideas (10 options)
-- Current viral hashtags for the niche
-- 30-day content calendar with post ideas
-- Platform-specific posting schedules
-- Engagement strategies for each platform
-
-**PLATFORM INTEGRATION REQUIREMENTS:**
-For each platform/tool mentioned:
-- Direct clickable links
-- Step-by-step account creation (with screenshots description)
-- Exact costs (FREE vs $X/month)
-- What to look for on each page
-- Common troubleshooting tips
-
-**12-WEEK DETAILED BREAKDOWN:**
-Format each day EXACTLY like this for parsing:
-
-WEEK 1 - DAY 1:
-Task 1: [Task Title] ([FREE/PAID $X] - [X minutes])
-- Step 1: [Exact instruction with link if needed]
-- Step 2: [Exact instruction with link if needed]
-- Step 3: [Exact instruction with link if needed]
-
-Task 2: [Task Title] ([FREE/PAID $X] - [X minutes])
-- Step 1: [Exact instruction with link if needed]
-- Step 2: [Exact instruction with link if needed]
-
-[Continue for all 84 days total]
-
-**CRITICAL:** Use this EXACT format for every single day so the calendar system can parse it correctly.
-
-Generate the COMPLETE 12-week calendar with daily actionable tasks.`;
+✅ Task 1: [Clear Task Name] (Time: 30 minutes)
+  □ Step 1: [Specific action with details]
+  □ Step 2: [Next specific action]
+  □ Step 3: [Final action to complete task]`;
             
-            const prompt = `${realismInstructions}
+            let prompt = `${realismInstructions}
 
-${adhdInstructions}
+${brainFriendlyInstructions}
 
-Create a comprehensive ADHD-friendly business plan based on:
+Create a comprehensive brain-friendly implementation plan based on:`;
 
-**Original Business Ideas:**
+            if (selectedPath === 'life') {
+                prompt += `
+
+**Life Organization Plan:**
 ${chatgptIdeas}
 
-**Market Research & Analysis:**
+**Challenges & Solutions:**
 ${geminiAnalysis}
 
-**Realistic Pricing Research:**
+**Service Pricing Research:**
+${pricingResearch}
+
+**Mom's Profile:**
+- Family: ${data['family-structure']}
+- Overwhelm Areas: ${data['overwhelm-areas']}
+- Work-From-Home Needs: ${data['wfh-needs']}
+
+Please create a 12-week life organization calendar including:
+1. Week-by-week implementation plan
+2. Daily routines with specific times
+3. System setup tasks (max 4/day)
+4. Family integration strategies
+5. Progress milestones
+6. Maintenance protocols
+
+Format as an interactive calendar with daily tasks and checkboxes.`;
+            } else if (selectedPath === 'business') {
+                prompt += `
+
+**Business Ideas:**
+${chatgptIdeas}
+
+**Market Analysis:**
+${geminiAnalysis}
+
+**Pricing Research:**
 ${pricingResearch}
 
 **Mom's Profile:**
 - Schedule: ${data['daily-schedule']}
 - Skills: ${data.skills}
 - Goal: ${data['income-goal']}
-- Camera Comfort: ${data['camera-comfort']}
-- Work Style: ${data['work-style']}
-- Budget: ${data['total-budget']}
-- Timeline: ${data['income-timeline']}
 
-**Learning & Work Preferences:**
-- Learning Style: ${data['learning-style']}
-- Work Pace: ${data['work-pace']}
-- Work Frequency: ${data['work-frequency']}
-- Tech Comfort: ${data['tech-comfort']}
-- Current Tech Tools: ${data['tech-tools'].join(', ') || 'None specified'}
+Please create a 12-week business launch calendar including:
+1. Week-by-week business building tasks
+2. Daily action items (max 4/day)
+3. Skill development schedule
+4. Marketing implementation
+5. Revenue milestones
+6. Work-life balance integration
 
-Please create a detailed business plan including:
-1. Executive summary
-2. ADHD-optimized step-by-step implementation timeline
-3. Daily action items for first 12 weeks (following ADHD rules above)
-4. Resource requirements and realistic budget
-5. Success metrics and achievable milestones
-6. Risk management strategies
-7. Work-life balance considerations specific to moms
+Format as an interactive calendar with checkable tasks.`;
+            } else {
+                prompt += `
 
-Make this actionable and realistic for a busy mom entrepreneur with executive function challenges. Use the pricing research to set realistic expectations.`;
+**Integrated Plan:**
+${chatgptIdeas}
 
-            // ADD customization based on Phase 4A data:
-            let customizations = '\n\n**CUSTOMIZATION REQUIREMENTS:**\n';
-            
-            // Learning style customization
-            if (data['learning-style'] === 'video-tutorials') {
-                customizations += '- Include video tutorial recommendations and visual examples\n';
-            } else if (data['learning-style'] === 'detailed-instructions') {
-                customizations += '- Provide extremely detailed, step-by-step written instructions\n';
-            } else if (data['learning-style'] === 'audio-explanations') {
-                customizations += '- Recommend podcast resources and audio-based learning\n';
-            } else if (data['learning-style'] === 'written-checklists') {
-                customizations += '- Format everything as actionable checklists\n';
+**Analysis:**
+${geminiAnalysis}
+
+**Pricing Research:**
+${pricingResearch}
+
+Create a phased 12-week calendar:
+
+WEEKS 1-4: Life Foundation
+- Stabilize daily routines
+- Create household systems
+- Establish family schedules
+
+WEEKS 5-8: Business Preparation
+- Market research tasks
+- Skill building
+- Business setup
+
+WEEKS 9-12: Business Launch
+- Marketing implementation
+- First client acquisition
+- System optimization
+
+Format with daily tasks, clear timelines, and family-friendly scheduling.`;
             }
-            
-            // Pacing customization
-            if (data['work-pace'] === 'slow-steady') {
-                customizations += '- Focus on very gentle, flexible timelines with lots of grace periods\n';
-            } else if (data['work-pace'] === 'intensive') {
-                customizations += '- Provide aggressive timelines for motivated, fast-moving implementation\n';
-            }
-            
-            // Tech comfort customization
-            if (data['tech-comfort'] === 'basic-only') {
-                customizations += '- Recommend only the simplest, most user-friendly tools (email, Facebook, basic apps)\n';
-            } else if (data['tech-comfort'] === 'mobile-first') {
-                customizations += '- Prioritize mobile apps and phone-based solutions over computer work\n';
-            }
-            
-            return prompt + customizations;
+
+            return prompt;
         }
 
         function parseChatGPTResponse() {
@@ -3698,7 +2736,9 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
                 document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
                 
                 // Extract business idea for pricing research
-                extractBusinessIdea(response);
+                if (selectedPath !== 'life') {
+                    extractBusinessIdea(response);
+                }
                 
                 // Save progress
                 saveFormProgress();
@@ -3737,21 +2777,26 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             // Update UI
             const businessIdeaDiv = document.getElementById('selectedBusinessIdea');
             if (businessIdeaDiv) {
-                businessIdeaDiv.textContent = selectedBusinessIdea || 'Selected business idea from ChatGPT response';
+                businessIdeaDiv.textContent = selectedBusinessIdea || 'Selected idea from ChatGPT response';
             }
         }
 
-        // Step Navigation - Updated for 7 steps
+        // Step Navigation - Updated for paths
         function proceedToStepTwo() {
             if (!validateCurrentStep()) {
                 alert('Please fill in all required fields before continuing.');
                 return;
             }
             
+            if (!selectedPath) {
+                alert('Please select your path first.');
+                return;
+            }
+            
             currentStep = 2;
             updateProgressDisplay();
             
-            // Generate personalized prompt
+            // Generate personalized prompt based on path
             document.getElementById('chatgptPrompt').value = generateChatGPTPrompt();
             
             // Show step 2 content
@@ -3836,13 +2881,6 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             
             // Save progress
             saveFormProgress();
-            
-            // Generate pricing infographic if pricing research exists
-            setTimeout(() => {
-                if (document.getElementById('pricing-research-response').value.trim()) {
-                    showPricingInfographic();
-                }
-            }, 1500);
         }
 
         function generateFinalPlan() {
@@ -3855,712 +2893,33 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
                 claude: data['claude-response'],
                 generatedAt: new Date().toISOString()
             };
-            
-            // Parse Claude response and generate interactive calendar
-            parseClaudeResponseToCalendar(data['claude-response']);
         }
 
-        // Interactive Calendar System
-        function parseClaudeResponseToCalendar(claudeResponse) {
-            if (!claudeResponse || claudeResponse.trim() === '') {
-                console.log('No Claude response to parse');
+        // Interactive Calendar Generation
+        function generateInteractiveCalendar() {
+            const calendarCode = document.getElementById('calendar-code').value.trim();
+            
+            if (!calendarCode) {
+                alert('Please paste the calendar code from Claude first.');
                 return;
             }
-
-            try {
-                calendarData = parseCalendarStructure(claudeResponse);
-                if (calendarData && calendarData.weeks && calendarData.weeks.length > 0) {
-                    generateInteractiveCalendar();
-                    document.getElementById('interactiveCalendar').classList.remove('hidden');
-                } else {
-                    console.log('Could not parse calendar structure');
-                }
-            } catch (error) {
-                console.error('Error parsing calendar:', error);
-            }
-        }
-
-        function parseCalendarStructure(response) {
-            const calendar = {
-                weeks: [],
-                businessType: '',
-                socialMediaContent: null
-            };
-
-            // Detect if it's a social media business
-            const isSocialMediaBusiness = response.toLowerCase().includes('instagram') || 
-                                        response.toLowerCase().includes('facebook') || 
-                                        response.toLowerCase().includes('tiktok') ||
-                                        response.toLowerCase().includes('social media');
-
-            if (isSocialMediaBusiness) {
-                calendar.businessType = 'social-media';
-                calendar.socialMediaContent = extractSocialMediaContent(response);
-            }
-
-            // Parse week by week
-            const weekMatches = response.match(/WEEK\s*(\d+)[^\n]*\n([\s\S]*?)(?=WEEK\s*\d+|$)/gi);
             
-            if (weekMatches) {
-                weekMatches.forEach((weekText, weekIndex) => {
-                    const weekNumber = weekIndex + 1;
-                    const week = {
-                        number: weekNumber,
-                        title: `Week ${weekNumber}`,
-                        days: []
-                    };
-
-                    // Parse days within the week
-                    const dayMatches = weekText.match(/DAY\s*(\d+):([\s\S]*?)(?=DAY\s*\d+|WEEK\s*\d+|$)/gi);
-                    
-                    if (dayMatches) {
-                        dayMatches.forEach((dayText, dayIndex) => {
-                            const dayNumber = dayIndex + 1;
-                            const day = {
-                                number: dayNumber,
-                                title: `Day ${dayNumber}`,
-                                tasks: []
-                            };
-
-                            // Parse tasks within the day
-                            const taskMatches = dayText.match(/Task\s*(\d+):\s*([^\n]*)\s*\(([^)]*)\)\s*\n([\s\S]*?)(?=Task\s*\d+|DAY\s*\d+|$)/gi);
-                            
-                            if (taskMatches) {
-                                taskMatches.forEach(taskText => {
-                                    const task = parseTaskFromText(taskText);
-                                    if (task) {
-                                        day.tasks.push(task);
-                                    }
-                                });
-                            }
-
-                            if (day.tasks.length > 0) {
-                                week.days.push(day);
-                            }
-                        });
-                    }
-
-                    if (week.days.length > 0) {
-                        calendar.weeks.push(week);
-                    }
-                });
-            }
-
-            return calendar;
-        }
-
-        function parseTaskFromText(taskText) {
-            try {
-                const lines = taskText.split('\n').filter(line => line.trim());
-                if (lines.length === 0) return null;
-
-                const firstLine = lines[0];
-                const taskMatch = firstLine.match(/Task\s*\d+:\s*([^(]*)\s*\(([^)]*)\)/);
-                
-                if (!taskMatch) return null;
-
-                const title = taskMatch[1].trim();
-                const meta = taskMatch[2].trim();
-                
-                // Parse cost and time from meta
-                const isFree = meta.toLowerCase().includes('free');
-                const costMatch = meta.match(/\$(\d+)/);
-                const timeMatch = meta.match(/(\d+)\s*min/);
-                
-                const task = {
-                    title: title,
-                    cost: isFree ? 'FREE' : (costMatch ? `${costMatch[1]}` : 'FREE'),
-                    time: timeMatch ? `${timeMatch[1]} min` : '30 min',
-                    steps: [],
-                    completed: false,
-                    id: generateTaskId()
-                };
-
-                // Parse steps
-                for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (line.startsWith('- Step') || line.startsWith('Step')) {
-                        const stepText = line.replace(/^-?\s*Step\s*\d+:\s*/, '');
-                        if (stepText) {
-                            const step = {
-                                text: stepText,
-                                completed: false,
-                                id: generateStepId(),
-                                hasLink: stepText.includes('http') || stepText.includes('.com')
-                            };
-                            task.steps.push(step);
-                        }
-                    }
-                }
-
-                return task;
-            } catch (error) {
-                console.error('Error parsing task:', error);
-                return null;
-            }
-        }
-
-        function extractSocialMediaContent(response) {
-            const content = {
-                seoTitles: [],
-                hashtags: [],
-                contentIdeas: []
-            };
-
-            // Extract SEO titles
-            const seoSection = response.match(/SEO[^:]*:[\s\S]*?(?=\n\n|\n[A-Z])/i);
-            if (seoSection) {
-                const titles = seoSection[0].match(/\d+\.\s*[^\n]+/g);
-                if (titles) {
-                    content.seoTitles = titles.map(title => title.replace(/^\d+\.\s*/, '').trim());
-                }
-            }
-
-            // Extract hashtags
-            const hashtagSection = response.match(/#\w+/g);
-            if (hashtagSection) {
-                content.hashtags = [...new Set(hashtagSection)].slice(0, 20);
-            }
-
-            // Extract content ideas
-            const contentSection = response.match(/content[^:]*:[\s\S]*?(?=\n\n|\n[A-Z])/i);
-            if (contentSection) {
-                const ideas = contentSection[0].match(/\d+\.\s*[^\n]+/g);
-                if (ideas) {
-                    content.contentIdeas = ideas.map(idea => idea.replace(/^\d+\.\s*/, '').trim());
-                }
-            }
-
-            return content;
-        }
-
-        function generateInteractiveCalendar() {
-            if (!calendarData || !calendarData.weeks) return;
-
-            generateWeekSelector();
-            generateCalendarWeeks();
-            updateCalendarStats();
-            loadCalendarProgress();
-            showWeek(1);
-        }
-
-        function generateWeekSelector() {
-            const selector = document.getElementById('weekSelector');
-            selector.innerHTML = '';
-
-            calendarData.weeks.forEach(week => {
-                const button = document.createElement('button');
-                button.className = 'week-btn';
-                button.textContent = `Week ${week.number}`;
-                button.onclick = () => showWeek(week.number);
-                button.id = `week-btn-${week.number}`;
-                selector.appendChild(button);
-            });
-        }
-
-        function generateCalendarWeeks() {
-            const container = document.getElementById('calendarWeeks');
-            container.innerHTML = '';
-
-            calendarData.weeks.forEach(week => {
-                const weekDiv = document.createElement('div');
-                weekDiv.className = 'calendar-content';
-                weekDiv.id = `week-${week.number}`;
-                
-                weekDiv.innerHTML = `
-                    <div class="week-view">
-                        <div class="week-header">
-                            <div class="week-title">${week.title}</div>
-                            <div class="week-progress">Progress: <span id="week-${week.number}-progress">0%</span></div>
-                        </div>
-                        <div class="days-grid" id="days-${week.number}">
-                            ${generateDaysHTML(week)}
-                        </div>
-                    </div>
-                `;
-                
-                container.appendChild(weekDiv);
-            });
-        }
-
-        function generateDaysHTML(week) {
-            return week.days.map(day => `
-                <div class="day-card" id="day-${week.number}-${day.number}">
-                    <div class="day-header">
-                        <div class="day-title">Day ${day.number}</div>
-                        <div class="day-progress">
-                            <div class="day-progress-bar">
-                                <div class="day-progress-fill" id="day-progress-${week.number}-${day.number}"></div>
-                            </div>
-                            <span class="day-percentage" id="day-percentage-${week.number}-${day.number}">0%</span>
-                        </div>
-                    </div>
-                    <ul class="task-list">
-                        ${generateTasksHTML(day.tasks, week.number, day.number)}
-                    </ul>
+            // Here you would parse the Claude response and generate the interactive calendar
+            // For now, show a placeholder message
+            const container = document.getElementById('interactiveCalendarContainer');
+            container.innerHTML = `
+                <div style="background: var(--light-sage); padding: 40px; border-radius: 20px; text-align: center; margin: 32px 0;">
+                    <h3 style="color: var(--sage-green); margin-bottom: 16px;">🗓️ Interactive Calendar Generated!</h3>
+                    <p>Your personalized ${selectedPath === 'life' ? 'life organization' : selectedPath === 'business' ? 'business launch' : 'integrated'} calendar is ready.</p>
+                    <p style="margin-top: 16px;">The interactive features will be fully activated in the next update.</p>
                 </div>
-            `).join('');
-        }
-
-        function generateTasksHTML(tasks, weekNumber, dayNumber) {
-            return tasks.map(task => `
-                <li class="task-item" id="task-${task.id}">
-                    <div class="task-header">
-                        <div>
-                            <div class="task-title">${task.title}</div>
-                            <div class="task-meta">
-                                <span class="task-cost ${task.cost === 'FREE' ? 'free' : ''}">${task.cost}</span>
-                                <span class="task-time">${task.time}</span>
-                            </div>
-                        </div>
-                        <div class="task-progress">
-                            <div class="task-progress-bar">
-                                <div class="task-progress-fill" id="task-progress-${task.id}"></div>
-                            </div>
-                            <span class="task-percentage" id="task-percentage-${task.id}">0%</span>
-                        </div>
-                    </div>
-                    <ul class="step-list">
-                        ${generateStepsHTML(task.steps)}
-                    </ul>
-                </li>
-            `).join('');
-        }
-
-        function generateStepsHTML(steps) {
-            return steps.map(step => `
-                <li class="step-item" id="step-${step.id}">
-                    <div class="step-checkbox" onclick="toggleStep('${step.id}')">
-                        <span class="step-check" id="check-${step.id}">✓</span>
-                    </div>
-                    <div class="step-text" id="text-${step.id}">
-                        ${formatStepText(step.text)}
-                    </div>
-                </li>
-            `).join('');
-        }
-
-        function formatStepText(text) {
-            // Convert URLs to clickable links
-            return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="step-link">$1</a>');
-        }
-
-        function showWeek(weekNumber) {
-            // Hide all weeks
-            document.querySelectorAll('.calendar-content').forEach(week => {
-                week.classList.remove('active');
-            });
+            `;
             
-            // Show selected week
-            const weekElement = document.getElementById(`week-${weekNumber}`);
-            if (weekElement) {
-                weekElement.classList.add('active');
-            }
+            container.classList.remove('hidden');
             
-            // Update week button states
-            document.querySelectorAll('.week-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            const activeBtn = document.getElementById(`week-btn-${weekNumber}`);
-            if (activeBtn) {
-                activeBtn.classList.add('active');
-            }
-            
-            calendarProgress.currentWeek = weekNumber;
-            updateCalendarStats();
-        }
-
-        function toggleStep(stepId) {
-            const step = findStepById(stepId);
-            if (!step) return;
-
-            step.completed = !step.completed;
-            
-            const checkbox = document.getElementById(`check-${stepId}`);
-            const stepElement = document.getElementById(`step-${stepId}`);
-            const textElement = document.getElementById(`text-${stepId}`);
-            
-            if (step.completed) {
-                stepElement.querySelector('.step-checkbox').classList.add('checked');
-                textElement.classList.add('completed');
-                showCelebration('Step completed! 🎉', 'You\'re making amazing progress!');
-            } else {
-                stepElement.querySelector('.step-checkbox').classList.remove('checked');
-                textElement.classList.remove('completed');
-            }
-            
-            updateTaskProgress(stepId);
-            updateDayProgress(stepId);
-            updateWeekProgress();
-            updateCalendarStats();
-            saveCalendarProgress();
-            
-            // Check for adaptive suggestions
-            checkAdaptiveSuggestions();
-        }
-
-        function findStepById(stepId) {
-            for (const week of calendarData.weeks) {
-                for (const day of week.days) {
-                    for (const task of day.tasks) {
-                        const step = task.steps.find(s => s.id === stepId);
-                        if (step) return step;
-                    }
-                }
-            }
-            return null;
-        }
-
-        function findTaskByStepId(stepId) {
-            for (const week of calendarData.weeks) {
-                for (const day of week.days) {
-                    for (const task of day.tasks) {
-                        if (task.steps.find(s => s.id === stepId)) {
-                            return task;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        function updateTaskProgress(stepId) {
-            const task = findTaskByStepId(stepId);
-            if (!task) return;
-
-            const completedSteps = task.steps.filter(s => s.completed).length;
-            const totalSteps = task.steps.length;
-            const percentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
-            
-            const progressBar = document.getElementById(`task-progress-${task.id}`);
-            const progressText = document.getElementById(`task-percentage-${task.id}`);
-            
-            if (progressBar) progressBar.style.width = `${percentage}%`;
-            if (progressText) progressText.textContent = `${Math.round(percentage)}%`;
-            
-            // Mark task as completed if all steps are done
-            const wasCompleted = task.completed;
-            task.completed = completedSteps === totalSteps;
-            
-            if (task.completed && !wasCompleted) {
-                showCelebration('Task completed! 🚀', 'You\'re crushing your business goals!');
-            }
-        }
-
-        function updateDayProgress(stepId) {
-            const week = findWeekByStepId(stepId);
-            const day = findDayByStepId(stepId);
-            if (!week || !day) return;
-
-            let completedSteps = 0;
-            let totalSteps = 0;
-            
-            day.tasks.forEach(task => {
-                task.steps.forEach(step => {
-                    totalSteps++;
-                    if (step.completed) completedSteps++;
-                });
-            });
-            
-            const percentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
-            
-            const progressBar = document.getElementById(`day-progress-${week.number}-${day.number}`);
-            const progressText = document.getElementById(`day-percentage-${week.number}-${day.number}`);
-            const dayCard = document.getElementById(`day-${week.number}-${day.number}`);
-            
-            if (progressBar) progressBar.style.width = `${percentage}%`;
-            if (progressText) progressText.textContent = `${Math.round(percentage)}%`;
-            
-            if (percentage === 100 && dayCard) {
-                dayCard.classList.add('completed');
-                showCelebration('Day completed! 🌟', 'You\'ve finished all tasks for today!');
-            } else if (dayCard) {
-                dayCard.classList.remove('completed');
-            }
-        }
-
-        function findWeekByStepId(stepId) {
-            for (const week of calendarData.weeks) {
-                for (const day of week.days) {
-                    for (const task of day.tasks) {
-                        if (task.steps.find(s => s.id === stepId)) {
-                            return week;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        function findDayByStepId(stepId) {
-            for (const week of calendarData.weeks) {
-                for (const day of week.days) {
-                    for (const task of day.tasks) {
-                        if (task.steps.find(s => s.id === stepId)) {
-                            return day;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        function updateWeekProgress() {
-            calendarData.weeks.forEach(week => {
-                let completedSteps = 0;
-                let totalSteps = 0;
-                
-                week.days.forEach(day => {
-                    day.tasks.forEach(task => {
-                        task.steps.forEach(step => {
-                            totalSteps++;
-                            if (step.completed) completedSteps++;
-                        });
-                    });
-                });
-                
-                const percentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
-                const progressElement = document.getElementById(`week-${week.number}-progress`);
-                if (progressElement) {
-                    progressElement.textContent = `${Math.round(percentage)}%`;
-                }
-                
-                // Update week button state
-                const weekBtn = document.getElementById(`week-btn-${week.number}`);
-                if (weekBtn) {
-                    if (percentage === 100) {
-                        weekBtn.classList.add('completed');
-                    } else {
-                        weekBtn.classList.remove('completed');
-                    }
-                }
-            });
-        }
-
-        function updateCalendarStats() {
-            let completedTasks = 0;
-            let totalTasks = 0;
-            let completedSteps = 0;
-            let totalSteps = 0;
-            
-            calendarData.weeks.forEach(week => {
-                week.days.forEach(day => {
-                    day.tasks.forEach(task => {
-                        totalTasks++;
-                        if (task.completed) completedTasks++;
-                        
-                        task.steps.forEach(step => {
-                            totalSteps++;
-                            if (step.completed) completedSteps++;
-                        });
-                    });
-                });
-            });
-            
-            calendarProgress.completedTasks = completedTasks;
-            calendarProgress.totalTasks = totalTasks;
-            calendarProgress.completedSteps = completedSteps;
-            calendarProgress.totalSteps = totalSteps;
-            
-            // Update UI
-            document.getElementById('completedTasks').textContent = completedTasks;
-            document.getElementById('totalTasks').textContent = totalTasks;
-            document.getElementById('currentWeek').textContent = calendarProgress.currentWeek;
-            
-            const overallPercentage = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
-            document.getElementById('overallProgressFill').style.width = `${overallPercentage}%`;
-        }
-
-        function setEnergyLevel(level) {
-            currentEnergyLevel = level;
-            
-            // Update UI
-            document.querySelectorAll('.energy-level').forEach(el => {
-                el.classList.remove('selected');
-            });
-            
-            for (let i = 1; i <= level; i++) {
-                const energyEl = document.querySelector(`[data-energy="${i}"]`);
-                if (energyEl) energyEl.classList.add('selected');
-            }
-            
-            // Show adaptive suggestions based on energy level
-            showEnergyBasedSuggestions(level);
-            
-            // Save energy level
-            saveCalendarProgress();
-        }
-
-        function showEnergyBasedSuggestions(level) {
-            const suggestions = document.getElementById('adaptiveSuggestions');
-            const text = document.getElementById('adaptiveText');
-            const restMessage = document.getElementById('restDayMessage');
-            
-            if (level <= 2) {
-                restMessage.classList.remove('hidden');
-                suggestions.classList.add('hidden');
-            } else {
-                restMessage.classList.add('hidden');
-                suggestions.classList.remove('hidden');
-                
-                const suggestionTexts = {
-                    3: "You're at medium energy today. Focus on 1-2 easier tasks and take breaks between them.",
-                    4: "Good energy level! You can tackle most tasks today, but don't overdo it.",
-                    5: "High energy day! Perfect time to tackle challenging tasks, but remember to take breaks."
-                };
-                
-                text.textContent = suggestionTexts[level] || suggestionTexts[3];
-            }
-        }
-
-        function checkAdaptiveSuggestions() {
-            // Check if user is hyperfocusing (too many tasks completed quickly)
-            const recentCompletions = getRecentCompletions();
-            if (recentCompletions > 5) {
-                showAdaptiveSuggestion("🧠 Hyperfocus Alert", "You've been working intensely! Consider taking a 15-minute break to recharge.");
-            }
-            
-            // Check for overwhelm patterns
-            if (calendarProgress.currentWeek > 1 && getWeekCompletion(calendarProgress.currentWeek - 1) < 30) {
-                showAdaptiveSuggestion("💙 Gentle Reminder", "Last week was challenging. That's totally normal! Focus on just one small step today.");
-            }
-        }
-
-        function showAdaptiveSuggestion(title, message) {
-            const suggestions = document.getElementById('adaptiveSuggestions');
-            const titleEl = suggestions.querySelector('.adaptive-title');
-            const textEl = suggestions.querySelector('.adaptive-text');
-            
-            titleEl.textContent = title;
-            textEl.textContent = message;
-            suggestions.classList.remove('hidden');
-            
-            // Auto-hide after 10 seconds
-            setTimeout(() => {
-                suggestions.classList.add('hidden');
-            }, 10000);
-        }
-
-        function getRecentCompletions() {
-            // Simple implementation - count completions in current session
-            return calendarProgress.completedSteps % 10;
-        }
-
-        function getWeekCompletion(weekNumber) {
-            const week = calendarData.weeks.find(w => w.number === weekNumber);
-            if (!week) return 0;
-            
-            let completed = 0;
-            let total = 0;
-            
-            week.days.forEach(day => {
-                day.tasks.forEach(task => {
-                    task.steps.forEach(step => {
-                        total++;
-                        if (step.completed) completed++;
-                    });
-                });
-            });
-            
-            return total > 0 ? (completed / total) * 100 : 0;
-        }
-
-        function showCelebration(title, message) {
-            const popup = document.getElementById('celebrationPopup');
-            const titleEl = document.getElementById('celebrationTitle');
-            const messageEl = document.getElementById('celebrationMessage');
-            
-            titleEl.textContent = title;
-            messageEl.textContent = message;
-            popup.classList.add('show');
-            
-            // Auto-close after 3 seconds
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 3000);
-        }
-
-        function closeCelebration() {
-            document.getElementById('celebrationPopup').classList.remove('show');
-        }
-
-        async function saveCalendarProgress() {
-            if (!calendarData) return;
-            
-            const progressData = {
-                calendarData: calendarData,
-                calendarProgress: calendarProgress,
-                currentEnergyLevel: currentEnergyLevel,
-                lastSaved: new Date().toISOString()
-            };
-            
-            if (currentUser) {
-                // Save to Firebase
-                db.collection('calendar-progress').doc(currentUser.uid).set(progressData, { merge: true })
-                  .catch(error => console.error('Error saving calendar progress:', error));
-            } else {
-                // Save to localStorage with encryption
-                try {
-                    const encryptedData = await encryptData(progressData);
-                    localStorage.setItem('smartMomCalendarProgress', encryptedData);
-                } catch (e) {
-                    console.log('localStorage save error:', e);
-                }
-            }
-        }
-
-        async function loadCalendarProgress() {
-            if (currentUser) {
-                // Load from Firebase
-                db.collection('calendar-progress').doc(currentUser.uid).get()
-                  .then(doc => {
-                      if (doc.exists) {
-                          const data = doc.data();
-                          if (data.calendarData) {
-                              calendarData = data.calendarData;
-                              calendarProgress = data.calendarProgress || calendarProgress;
-                              currentEnergyLevel = data.currentEnergyLevel || 3;
-                              setEnergyLevel(currentEnergyLevel);
-                              updateCalendarStats();
-                          }
-                      }
-                  })
-                  .catch(error => console.error('Error loading calendar progress:', error));
-            } else {
-                // Load from localStorage with decryption
-                try {
-                    const encryptedData = localStorage.getItem('smartMomCalendarProgress');
-                    if (encryptedData) {
-                        const data = await decryptData(encryptedData).catch(() => {
-                            // Fallback: try parsing as JSON if decryption fails
-                            try {
-                                return JSON.parse(encryptedData);
-                            } catch (e) {
-                                return null;
-                            }
-                        });
-                        
-                        if (data && data.calendarData) {
-                            calendarData = data.calendarData;
-                            calendarProgress = data.calendarProgress || calendarProgress;
-                            currentEnergyLevel = data.currentEnergyLevel || 3;
-                            setEnergyLevel(currentEnergyLevel);
-                            updateCalendarStats();
-                        }
-                    }
-                } catch (e) {
-                    console.log('Error loading from localStorage');
-                }
-            }
-        }
-
-        function generateTaskId() {
-            return 'task_' + Math.random().toString(36).substr(2, 9);
-        }
-
-        function generateStepId() {
-            return 'step_' + Math.random().toString(36).substr(2, 9);
+            // Save calendar data
+            formData.interactiveCalendar = calendarCode;
+            saveFormProgress();
         }
 
         // Utility Functions
@@ -4578,64 +2937,50 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             }, 2000);
         }
 
-        function downloadBusinessPlan() {
+        function downloadCompletePlan() {
             const data = collectFormData();
+            const planType = selectedPath === 'life' ? 'LIFE ORGANIZATION' : 
+                           selectedPath === 'business' ? 'BUSINESS LAUNCH' : 
+                           'INTEGRATED LIFE & BUSINESS';
+            
             const planContent = `
-SMART MOM METHOD - BUSINESS PLAN
+SMART MOM METHOD - ${planType} PLAN
 Generated: ${new Date().toLocaleDateString()}
 
 === PERSONAL PROFILE ===
 Name: ${data['user-name']}
 Email: ${data['user-email']}
-Family Structure: ${data['family-structure']}
-Daily Schedule: ${data['daily-schedule']}
-Work Status: ${data['work-status']}
-Professional Background: ${data.skills}
-Income Goal: ${data['income-goal']}
-Learning Willingness: ${data['learning-willingness']}
-Investment Level: ${data['investment-level']}
-Work Location: ${data['work-location']}
-Work Style: ${data['work-style']}
-Camera Comfort: ${data['camera-comfort']}
-Income Timeline: ${data['income-timeline']}
-Total Budget: ${data['total-budget']}
+Path Selected: ${selectedPath}
+${selectedPath !== 'business' ? `Family Structure: ${data['family-structure']}` : ''}
+${selectedPath !== 'business' ? `Overwhelm Areas: ${data['overwhelm-areas']}` : ''}
+${selectedPath !== 'life' ? `Skills: ${data.skills}` : ''}
+${selectedPath !== 'life' ? `Income Goal: ${data['income-goal']}` : ''}
 
-=== PHASE 4A ENHANCEMENTS ===
-Learning Style: ${data['learning-style']}
-Work Pace: ${data['work-pace']}
-Work Frequency: ${data['work-frequency']}
-Tech Comfort: ${data['tech-comfort']}
-Tech Tools: ${data['tech-tools'].join(', ') || 'None specified'}
+=== AI-GENERATED CONTENT ===
 
-=== CHATGPT BUSINESS IDEAS ===
+CHATGPT RESPONSE:
 ${data['chatgpt-response']}
 
-=== GEMINI MARKET ANALYSIS ===
+GEMINI ANALYSIS:
 ${data['gemini-response']}
 
-=== REALISTIC PRICING RESEARCH ===
+PRICING RESEARCH:
 ${data['pricing-research-response']}
 
-=== CLAUDE ADHD-FRIENDLY IMPLEMENTATION PLAN ===
+CLAUDE IMPLEMENTATION PLAN:
 ${data['claude-response']}
 
-=== INTERACTIVE CALENDAR PROGRESS ===
-${calendarProgress ? `
-Completed Tasks: ${calendarProgress.completedTasks}/${calendarProgress.totalTasks}
-Completed Steps: ${calendarProgress.completedSteps}/${calendarProgress.totalSteps}
-Current Week: ${calendarProgress.currentWeek}
-Overall Progress: ${calendarProgress.totalSteps > 0 ? Math.round((calendarProgress.completedSteps / calendarProgress.totalSteps) * 100) : 0}%
-` : 'Calendar not yet generated'}
+=== INTERACTIVE CALENDAR ===
+${formData.interactiveCalendar || 'Calendar code not yet generated'}
 
 Generated with Smart Mom Method - smartmommethod.com
-Interactive ADHD-Friendly Calendar included for step-by-step implementation
             `;
             
             const blob = new Blob([planContent], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `smart-mom-business-plan-${new Date().toISOString().split('T')[0]}.txt`;
+            a.download = `smart-mom-${selectedPath}-plan-${new Date().toISOString().split('T')[0]}.txt`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -4649,29 +2994,25 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                 return;
             }
             
-            // Check rate limiting
-            if (!rateLimiter.canMakeRequest('testimonial', 3, 300000)) { // 3 requests per 5 minutes
-                alert('Please wait a few minutes before submitting another testimonial.');
-                return;
-            }
-            
             try {
-                // Use secure request with sanitized data
-                const testimonialData = {
-                    testimonial: sanitizeInput(testimonial),
-                    user_name: sanitizeInput(currentUser?.displayName || 'Anonymous'),
-                    timestamp: new Date().toISOString()
-                };
+                // Submit to webhook
+                const formData = new FormData();
+                formData.append('testimonial', testimonial);
+                formData.append('user_name', currentUser?.displayName || 'Anonymous');
+                formData.append('selected_path', selectedPath);
+                formData.append('timestamp', new Date().toISOString());
                 
-                // Submit through secure backend proxy instead of direct webhook
-                const webhookUrl = secureConfig?.webhookUrl || '/api/submit-form';
-                await secureRequest(webhookUrl, testimonialData);
+                await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
+                    method: 'POST',
+                    body: formData
+                });
                 
                 if (currentUser) {
                     await db.collection('testimonials').add({
                         userId: currentUser.uid,
-                        userName: sanitizeInput(currentUser.displayName || 'Anonymous'),
-                        testimonial: sanitizeInput(testimonial),
+                        userName: currentUser.displayName || 'Anonymous',
+                        testimonial: testimonial,
+                        selectedPath: selectedPath,
                         submittedAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                 }
@@ -4686,13 +3027,7 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
 
         // Service Integration Functions
         function handleStripePayment(service) {
-            // Check rate limiting for payment attempts
-            if (!rateLimiter.canMakeRequest('stripe-payment', 10, 60000)) { // 10 attempts per minute
-                alert('Too many payment attempts. Please wait a moment and try again.');
-                return;
-            }
-            
-            const stripeUrls = secureConfig?.stripeUrls || {
+            const stripeUrls = {
                 'life-calendar': 'https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07',
                 'life-training': 'https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06',
                 'business-calendar': 'https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05',
@@ -4701,32 +3036,12 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
             
             const url = stripeUrls[service];
             if (url) {
-                // Validate URL is from trusted domain
-                try {
-                    const urlObj = new URL(url);
-                    if (urlObj.hostname === 'buy.stripe.com') {
-                        window.open(url, '_blank');
-                    } else {
-                        console.error('Invalid payment URL');
-                    }
-                } catch (error) {
-                    console.error('URL validation error:', error);
-                }
+                window.open(url, '_blank');
             }
         }
 
         function openCalendly(url) {
-            // Validate Calendly URL
-            try {
-                const urlObj = new URL(url);
-                if (urlObj.hostname === 'calendly.com' || urlObj.hostname.endsWith('.calendly.com')) {
-                    window.open(url, '_blank');
-                } else {
-                    console.error('Invalid Calendly URL');
-                }
-            } catch (error) {
-                console.error('URL validation error:', error);
-            }
+            window.open(url, '_blank');
         }
 
         // Core Functions
@@ -4734,25 +3049,9 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
             document.getElementById('welcomeModal').classList.add('hidden');
         }
 
-        async function checkReturningUser() {
+        function checkReturningUser() {
             // Check for saved data
-            var savedData = null;
-            try {
-                const encryptedData = localStorage.getItem('smartMomWorkflowData');
-                if (encryptedData) {
-                    // Try to decrypt the data
-                    savedData = await decryptData(encryptedData).catch(() => {
-                        // Fallback: try parsing as JSON if decryption fails
-                        try {
-                            return JSON.parse(encryptedData);
-                        } catch (e) {
-                            return null;
-                        }
-                    });
-                }
-            } catch (e) {
-                console.log('localStorage not available');
-            }
+            const savedData = localStorage.getItem('smartMomWorkflowData');
             
             if (savedData || currentUser) {
                 if (currentUser) {
@@ -4760,18 +3059,22 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                     loadUserProgress();
                     startOnboarding();
                 } else if (savedData) {
-                    // Load from localStorage with sanitization
-                    const data = savedData;
+                    // Load from localStorage
+                    const data = JSON.parse(savedData);
                     Object.keys(data.formData || {}).forEach(key => {
                         const element = document.getElementById(key);
                         if (element) {
-                            element.value = sanitizeInput(data.formData[key]);
+                            element.value = data.formData[key];
                         }
                     });
                     
                     if (data.currentStep) {
                         currentStep = data.currentStep;
                         updateProgressDisplay();
+                    }
+                    
+                    if (data.selectedPath) {
+                        selectedPath = data.selectedPath;
                     }
                     
                     showReturningUserStatus(data.lastSaved);
@@ -4781,8 +3084,6 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                 showAuthModal('signin');
             }
         }
-        
-        console.log('Core functions defined - startOnboarding, checkReturningUser, etc.');
 
         function changeLanguage(lang) {
             currentLanguage = lang;
@@ -4815,123 +3116,23 @@ Interactive ADHD-Friendly Calendar included for step-by-step implementation
                 userCount += Math.floor(Math.random() * 3);
                 const counterElement = document.querySelector('.user-counter span');
                 if (counterElement) {
-                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
+                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have transformed their lives!`;
                 }
             }, 5000);
         }
 
         // Initialize app
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('DOM loaded, initializing app...');
-            
-            // Initialize Firebase with secure config
-            await initializeFirebase();
-            
-            // Set up authentication event handlers
-            const authForm = document.getElementById('authForm');
-            if (authForm) {
-                authForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    
-                    // Validate and sanitize inputs
-                    const email = sanitizeInput(document.getElementById('authEmail').value);
-                    const password = document.getElementById('authPassword').value; // Don't sanitize passwords
-                    const name = sanitizeInput(document.getElementById('authName').value);
-                    const confirmPassword = document.getElementById('authConfirmPassword').value;
-                    
-                    clearAuthMessages();
-                    
-                    // Additional validation
-                    if (email.length > 254) {
-                        showAuthError('Email address is too long');
-                        return;
-                    }
-                    
-                    if (password.length < 6) {
-                        showAuthError('Password must be at least 6 characters long');
-                        return;
-                    }
-                    
-                    try {
-                        if (authMode === 'signup') {
-                            if (password !== confirmPassword) {
-                                showAuthError('Passwords do not match');
-                                return;
-                            }
-                            
-                            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                            await userCredential.user.updateProfile({ displayName: name });
-                            
-                            // Save user data to Firestore with sanitized values
-                            await db.collection('users').doc(userCredential.user.uid).set({
-                                name: sanitizeInput(name),
-                                email: sanitizeInput(email),
-                                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                                language: currentLanguage
-                            });
-                            
-                            showAuthSuccess('Account created successfully!');
-                        } else {
-                            await auth.signInWithEmailAndPassword(email, password);
-                            showAuthSuccess('Welcome back!');
-                        }
-                        
-                        setTimeout(() => {
-                            closeAuthModal();
-                            startOnboarding();
-                        }, 1500);
-                        
-                    } catch (error) {
-                        showAuthError(error.message);
-                    }
-                });
-            }
-
-            // Set up auth state observer
-            if (auth && auth.onAuthStateChanged) {
-                auth.onAuthStateChanged(async (user) => {
-                    if (user) {
-                        currentUser = user;
-                        const userWelcome = document.getElementById('userWelcome');
-                        if (userWelcome) {
-                            userWelcome.textContent = `Welcome back, ${sanitizeInput(user.displayName || user.email)}!`;
-                        }
-                        document.getElementById('userStatusBar').classList.remove('hidden');
-                        
-                        // Load user's saved progress
-                        await loadUserProgress();
-                    } else {
-                        currentUser = null;
-                        document.getElementById('userStatusBar').classList.add('hidden');
-                    }
-                });
-            }
-
+        document.addEventListener('DOMContentLoaded', () => {
             animateUserCounter();
             
-            // Load calendar progress if it exists
-            setTimeout(() => {
-                loadCalendarProgress();
-            }, 1000);
-            
-            // Auto-save form data as user types with debouncing
+            // Auto-save form data as user types
             document.addEventListener('input', (e) => {
-                if (e.target.classList.contains('form-control')) {
-                    // Validate input immediately
-                    if (e.target.type !== 'password') {
-                        validateField(e.target);
-                    }
-                    
-                    // Save with debouncing
-                    if (currentUser) {
-                        clearTimeout(window.autoSaveTimer);
-                        window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
-                    }
+                if (e.target.classList.contains('form-control') && currentUser) {
+                    clearTimeout(window.autoSaveTimer);
+                    window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
                 }
             });
         });
-        
-        console.log('Script fully loaded - all functions should be available');
     </script>
 </body>
 </html>
