@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Firebase SDK -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-firestore-compat.min.js"></script>
     
     <style>
         :root {
@@ -1738,6 +1738,7 @@
         let authMode = 'signup';
         let selectedBusinessIdea = '';
         let selectedPath = '';
+        let auth, db; // Declare Firebase variables globally
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1751,9 +1752,15 @@
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+        try {
+            firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
+            console.log('Firebase initialized successfully');
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+            alert('Firebase configuration error. Please check console for details.');
+        }
 
         // Path-specific form fields
         const pathFieldMappings = {
@@ -1952,6 +1959,19 @@
                 ]
             }
         };
+
+        // Auto-animate user counter
+        let userCount = 2847;
+        
+        function animateUserCounter() {
+            setInterval(() => {
+                userCount += Math.floor(Math.random() * 3);
+                const counterElement = document.querySelector('.user-counter span');
+                if (counterElement) {
+                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
+                }
+            }, 5000);
+        }
 
         // Watch for name and email completion
         document.addEventListener('DOMContentLoaded', () => {
@@ -2310,6 +2330,7 @@ Focus on how life organization can enable business success and vice versa.`;
             const confirmPassword = document.getElementById('authConfirmPassword').value;
             
             clearAuthMessages();
+            console.log('Auth form submitted, mode:', authMode);
             
             try {
                 if (authMode === 'signup') {
@@ -2318,7 +2339,10 @@ Focus on how life organization can enable business success and vice versa.`;
                         return;
                     }
                     
+                    console.log('Creating user account...');
                     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    console.log('User created:', userCredential.user.uid);
+                    
                     await userCredential.user.updateProfile({ displayName: name });
                     
                     // Save user data to Firestore
@@ -2332,18 +2356,19 @@ Focus on how life organization can enable business success and vice versa.`;
                     showAuthSuccess('Account created successfully!');
                     setTimeout(() => {
                         closeAuthModal();
-                        // Don't call startOnboarding here, let auth state observer handle it
                     }, 1500);
                 } else {
+                    console.log('Signing in user...');
                     await auth.signInWithEmailAndPassword(email, password);
+                    console.log('User signed in successfully');
                     showAuthSuccess('Welcome back!');
                     setTimeout(() => {
                         closeAuthModal();
-                        // Don't call startOnboarding here, let auth state observer handle it
                     }, 1500);
                 }
                 
             } catch (error) {
+                console.error('Authentication error:', error);
                 showAuthError(error.message);
             }
         });
@@ -3217,18 +3242,6 @@ Generated with Smart Mom Method - smartmommethod.com
             if (initialStep) {
                 initialStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        }
-
-        // Auto-animate user counter
-        let userCount = 2847;
-        function animateUserCounter() {
-            setInterval(() => {
-                userCount += Math.floor(Math.random() * 3);
-                const counterElement = document.querySelector('.user-counter span');
-                if (counterElement) {
-                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
-                }
-            }, 5000);
         }
     </script>
 </body>
