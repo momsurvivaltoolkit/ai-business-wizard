@@ -2186,8 +2186,8 @@ Please provide:
 Focus on businesses that can be started with her stated investment level and can accommodate her family responsibilities. Be HONEST about challenges and timeframes.`;
         }
 
-       function generateCombinedPrompt(data) {
-    const realismInstructions = `
+        function generateCombinedPrompt(data) {
+            const realismInstructions = `
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
@@ -2205,40 +2205,9 @@ Focus on businesses that can be started with her stated investment level and can
 
 Focus on what's ACTUALLY doable for their situation.`;
 
-    return `${realismInstructions}
+            return `${realismInstructions}
 
 Create a comprehensive life organization AND business plan for a busy mom:
-
-**Personal Situation:**
-- Name: ${data['user-name']}
-- Family: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-- Work Status: ${data['work-status']}
-
-**Life Organization Needs:**
-- Household Challenges: ${data['household-challenges']}
-- Organization Goals: ${data['organization-goals']}
-
-**Business Goals:**
-- Background: ${data.skills}
-- Income Goal: ${data['income-goal']}
-- Learning Willingness: ${data['learning-willingness']}
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-
-Please provide:
-1. Home organization systems that support business goals
-2. Time management strategies for family + business
-3. 2-3 business ideas that complement her organization needs
-4. Daily routines that integrate both family and business
-5. Realistic implementation timeline for both goals
-
-Focus on how life organization can enable business success and vice versa.`;
-}
 
 **Personal Situation:**
 - Name: ${data['user-name']}
@@ -2628,8 +2597,8 @@ Focus on practical, actionable insights that a mom entrepreneur can implement wh
             return prompt;
         }
 
-       function generatePricingResearchPrompt() {
-    const realismInstructions = `
+        function generatePricingResearchPrompt() {
+            const realismInstructions = `
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
@@ -2647,54 +2616,13 @@ Focus on practical, actionable insights that a mom entrepreneur can implement wh
 
 Focus on what's ACTUALLY doable for their situation.`;
 
-    const data = collectFormData();
-    const selectedIdea = selectedBusinessIdea || 'the selected business idea';
-    const userLocation = 'Lincoln, Nebraska';
-    
-    const prompt = `${realismInstructions}
+            const data = collectFormData();
+            const selectedIdea = selectedBusinessIdea || 'the selected business idea';
+            const userLocation = 'Lincoln, Nebraska';
+            
+            const prompt = `${realismInstructions}
 
 Research realistic pricing for ${selectedIdea} specifically for someone just starting:
-
-**Personal Context:**
-- Complete beginner with no business experience
-- Daily Schedule: ${data['daily-schedule']}
-- Investment Level: ${data['investment-level']}
-- Income Timeline: ${data['income-timeline']}
-- Location: ${userLocation}
-
-**PRICING RESEARCH NEEDED:**
-
-1. **Beginner Pricing (Month 1-6):** What should someone with no experience charge?
-   - Specific dollar amounts, not ranges
-   - What makes pricing competitive vs. too low/high
-   - How to price when you have no portfolio
-
-2. **Developing Skills (Month 6-18):** Pricing as competency grows
-   - When and how much to raise prices
-   - What achievements justify price increases
-
-3. **Experienced Rates (18+ months):** What experts charge
-   - Market ceiling for this service
-   - Premium pricing strategies
-
-4. **Geographic Considerations:** Market rates for ${userLocation}
-   - Local market analysis
-   - Online vs. local pricing differences
-
-5. **Common Pricing Mistakes:** What kills new businesses
-   - Pricing too low (and why)
-   - Pricing too high (and consequences)
-   - Hidden costs beginners forget
-
-6. **Competition Analysis:** What others actually charge vs advertise
-   - Real competitor pricing research
-   - How to position against competition
-
-**BE BRUTALLY HONEST about realistic expectations for beginners.** 
-Include specific examples and dollar amounts. Don't sugarcoat - give the real data that will help her succeed.`;
-
-    return prompt;
-}
 
 **Personal Context:**
 - Complete beginner with no business experience
