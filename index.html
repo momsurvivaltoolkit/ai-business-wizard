@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Mom Method - AI Business & Life Launch Wizard</title>
+    <title>Smart Mom Method - AI Business Launch Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Firebase SDK -->
@@ -42,118 +42,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        /* Path Selection Modal */
-        .path-selector {
-            background: white;
-            border-radius: 24px;
-            padding: 48px;
-            margin: 32px 0;
-            box-shadow: 0 16px 48px rgba(44, 62, 80, 0.1);
-        }
-
-        .path-selector h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--charcoal);
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .path-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .path-option {
-            background: var(--warm-cream);
-            border-radius: 16px;
-            padding: 32px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            text-align: center;
-        }
-
-        .path-option:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.2);
-        }
-
-        .path-option.selected {
-            border-color: var(--sage-green);
-            background: var(--light-sage);
-        }
-
-        .path-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-
-        .path-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            margin-bottom: 12px;
-        }
-
-        .path-description {
-            color: var(--charcoal);
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        /* Calendar Integration Section */
-        .calendar-integration {
-            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
-            color: white;
-            padding: 48px;
-            border-radius: 24px;
-            margin: 32px 0;
-            text-align: center;
-        }
-
-        .calendar-integration h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            margin-bottom: 24px;
-        }
-
-        .calendar-instructions {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 32px;
-            margin: 24px 0;
-            text-align: left;
-        }
-
-        .calendar-instructions ol {
-            margin: 16px 0;
-            padding-left: 24px;
-        }
-
-        .calendar-instructions li {
-            margin: 12px 0;
-            line-height: 1.6;
-        }
-
-        .calendar-paste-area {
-            margin: 24px 0;
-        }
-
-        .calendar-paste-area textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--charcoal);
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 14px;
         }
 
         /* Authentication Modal */
@@ -1299,10 +1187,6 @@
                 flex-direction: column;
                 gap: 12px;
             }
-
-            .path-options {
-                grid-template-columns: 1fr;
-            }
         }
 
         .hidden {
@@ -1330,7 +1214,7 @@
                 <button type="button" class="auth-button google-auth-button" onclick="signInWithGoogle()">
                     <svg width="18" height="18" viewBox="0 0 18 18">
                         <path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z"/>
-                        <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a-4.8 4.8 0 0 1-7.18-2.53H1.83v2.07A8 8 0 0 0 8.98 17z"/>
+                        <path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 0 1-7.18-2.53H1.83v2.07A8 8 0 0 0 8.98 17z"/>
                         <path fill="#FBBC05" d="M4.5 10.49a4.8 4.8 0 0 1 0-3.07V5.35H1.83a8 8 0 0 0 0 7.28l2.67-2.14z"/>
                         <path fill="#EA4335" d="M8.98 4.72c1.16 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.35L4.5 7.42a4.8 4.8 0 0 1 4.48-2.7z"/>
                     </svg>
@@ -1357,7 +1241,7 @@
     <div id="welcomeModal" class="welcome-modal">
         <div class="welcome-content">
             <h2>Welcome to Smart Mom Method!</h2>
-            <p>Create your personalized life organization or business plan in 7 simple steps. This brain-friendly process takes approximately 20-25 minutes and generates a comprehensive plan tailored specifically for busy moms like you.</p>
+            <p>Create your personalized business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive business plan tailored specifically for busy moms like you.</p>
             <div class="welcome-buttons">
                 <button class="welcome-btn primary" onclick="startOnboarding()">
                     🚀 Get Started
@@ -1395,7 +1279,7 @@
             <div class="social-proof-header">
                 <h2 class="social-proof-title">Join 2,847+ Successful Mom Entrepreneurs!</h2>
                 <div class="user-counter">
-                    <span>🎉 2,847+ moms have transformed their lives!</span>
+                    <span>🎉 2,847+ moms have launched their businesses!</span>
                 </div>
             </div>
         </div>
@@ -1412,7 +1296,7 @@
             <div class="progress-bar">
                 <div class="progress-step active">
                     <span class="step-number">1</span>
-                    <span class="step-text">Basic Info</span>
+                    <span class="step-text">Collect Information</span>
                 </div>
                 <div class="progress-step next">
                     <span class="step-number">2</span>
@@ -1444,12 +1328,12 @@
         <div class="main-card">
             <div class="header">
                 <h1>Smart Mom Method</h1>
-                <p class="subtitle">AI-Powered Life & Business Planning for Busy Moms</p>
+                <p class="subtitle">AI-Powered Business Planning for Busy Moms</p>
                 <span class="badge">100% Free</span>
                 
                 <div class="cta-section">
                     <button class="btn-current" onclick="scrollToForm()">
-                        🚀 Start Your Free Plan Now
+                        🚀 Start Your Free Business Plan Now
                     </button>
                     <p style="margin-top: 16px; font-size: 0.95rem; opacity: 0.9;">No email required to browse • Full process takes 20-25 minutes</p>
                 </div>
@@ -1458,17 +1342,17 @@
             <div class="content">
                 <div class="step-description">
                     <h2>📋 Step 1: Tell Us About Yourself</h2>
-                    <p>The more specific you are, the better your personalized AI prompts will be. This information helps create plans that actually fit your real life.</p>
+                    <p>The more specific you are, the better your personalized AI prompts will be. This information helps create business ideas that actually fit your real life.</p>
                 </div>
 
                 <div class="empowerment-message">
                     <div class="empowerment-title">You're Already Successful! 🌟</div>
-                    <p class="empowerment-text">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR success!</p>
+                    <p class="empowerment-text">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR business!</p>
                 </div>
 
-                <!-- Basic Info Collection -->
+                <!-- Personal & Family Situation -->
                 <div class="form-section">
-                    <h3>👋 Let's Get Started</h3>
+                    <h3>👨‍👩‍👧‍👦 Personal & Family Situation</h3>
                     
                     <div class="form-group">
                         <label>Your Name: <span class="required">*</span></label>
@@ -1481,191 +1365,156 @@
                         <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" />
                         <div class="validation-message" id="user-email-validation"></div>
                     </div>
-                </div>
-
-                <!-- Path Selection -->
-                <div id="pathSelection" class="path-selector hidden">
-                    <h3>What brings you here today? Choose your main focus:</h3>
                     
-                    <div class="path-options">
-                        <div class="path-option" onclick="selectPath('life')">
-                            <div class="path-icon">🏠</div>
-                            <div class="path-title">Life Organization</div>
-                            <div class="path-description">I need help organizing my daily life, family schedules, and home systems</div>
-                        </div>
-                        
-                        <div class="path-option" onclick="selectPath('business')">
-                            <div class="path-icon">💼</div>
-                            <div class="path-title">Business Launch</div>
-                            <div class="path-description">I want to start a business or create passive income streams</div>
-                        </div>
-                        
-                        <div class="path-option" onclick="selectPath('integrated')">
-                            <div class="path-icon">🌟</div>
-                            <div class="path-title">Both Life & Business</div>
-                            <div class="path-description">I need life organization AND want to start a business</div>
-                        </div>
+                    <div class="form-group">
+                        <label>Family Structure & Ages: <span class="required">*</span></label>
+                        <textarea id="family-structure" class="form-control" rows="3" placeholder="e.g., 'Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                        <div class="char-counter">0/500</div>
+                        <div class="validation-message" id="family-structure-validation"></div>
                     </div>
                     
-                    <button type="button" class="btn-primary" onclick="proceedWithPath()" style="margin-top: 32px;">
-                        Continue With Selected Path
-                    </button>
-                </div>
-
-                <!-- Life Organization Questions -->
-                <div id="lifeQuestions" class="hidden">
-                    <div class="form-section">
-                        <h3>👨‍👩‍👧‍👦 Family & Daily Life</h3>
-                        
-                        <div class="form-group">
-                            <label>Family Structure & Ages: <span class="required">*</span></label>
-                            <textarea id="family-structure" class="form-control" rows="3" placeholder="e.g., 'Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
-                            <div class="char-counter">0/500</div>
-                            <div class="validation-message" id="family-structure-validation"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Current Overwhelm Areas: <span class="required">*</span></label>
-                            <textarea id="overwhelm-areas" class="form-control" rows="3" placeholder="e.g., 'Morning routines are chaotic, meal planning is nonexistent, can't keep up with laundry, never have time for myself'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
-                            <div class="char-counter">0/500</div>
-                            <div class="validation-message" id="overwhelm-areas-validation"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Work-From-Home Needs: <span class="required">*</span></label>
-                            <textarea id="wfh-needs" class="form-control" rows="2" placeholder="e.g., 'Need quiet time for calls, dedicated workspace, balance work with kids at home'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
-                            <div class="char-counter">0/300</div>
-                            <div class="validation-message" id="wfh-needs-validation"></div>
-                        </div>
+                    <div class="form-group">
+                        <label>Daily Schedule & Availability: <span class="required">*</span></label>
+                        <textarea id="daily-schedule" class="form-control" rows="3" placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
+                        <div class="char-counter">0/500</div>
+                        <div class="validation-message" id="daily-schedule-validation"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Current Work Status: <span class="required">*</span></label>
+                        <select id="work-status" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your situation...</option>
+                            <option value="stay-at-home">Stay-at-home super mom</option>
+                            <option value="part-time">Working part-time</option>
+                            <option value="full-time">Working full-time</option>
+                            <option value="unemployed">Recently unemployed/looking</option>
+                            <option value="student">Student/in school</option>
+                        </select>
+                        <div class="validation-message" id="work-status-validation"></div>
                     </div>
                 </div>
 
-                <!-- Business Questions -->
-                <div id="businessQuestions" class="hidden">
-                    <div class="form-section">
-                        <h3>💼 Business Goals & Skills</h3>
-                        
-                        <div class="form-group">
-                            <label>Daily Schedule & Availability: <span class="required">*</span></label>
-                            <textarea id="daily-schedule" class="form-control" rows="3" placeholder="e.g., 'Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings.'" onchange="validateField(this)" oninput="updateCharCount(this, 500)"></textarea>
-                            <div class="char-counter">0/500</div>
-                            <div class="validation-message" id="daily-schedule-validation"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Professional Background: <span class="required">*</span></label>
-                            <textarea id="skills" class="form-control" rows="3" placeholder="e.g., '10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events.'" onchange="validateField(this)" oninput="updateCharCount(this, 750)"></textarea>
-                            <div class="char-counter">0/750</div>
-                            <div class="validation-message" id="skills-validation"></div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Monthly Income Goal: <span class="required">*</span></label>
-                            <textarea id="income-goal" class="form-control" rows="2" placeholder="e.g., '$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom.'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
-                            <div class="char-counter">0/300</div>
-                            <div class="validation-message" id="income-goal-validation"></div>
-                        </div>
+                <!-- Skills & Experience -->
+                <div class="form-section">
+                    <h3>🎯 Skills & Experience</h3>
+                    
+                    <div class="form-group">
+                        <label>Professional Background: <span class="required">*</span></label>
+                        <textarea id="skills" class="form-control" rows="3" placeholder="e.g., '10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events.'" onchange="validateField(this)" oninput="updateCharCount(this, 750)"></textarea>
+                        <div class="char-counter">0/750</div>
+                        <div class="validation-message" id="skills-validation"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Monthly Income Goal: <span class="required">*</span></label>
+                        <textarea id="income-goal" class="form-control" rows="2" placeholder="e.g., '$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom.'" onchange="validateField(this)" oninput="updateCharCount(this, 300)"></textarea>
+                        <div class="char-counter">0/300</div>
+                        <div class="validation-message" id="income-goal-validation"></div>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Learning Willingness: <span class="required">*</span></label>
-                            <select id="learning-willingness" class="form-control" onchange="validateField(this)">
-                                <option value="">Select your approach...</option>
-                                <option value="eager">Eager to learn new skills quickly</option>
-                                <option value="moderate">Willing to learn gradually</option>
-                                <option value="prefer-existing">Prefer using skills I already have</option>
-                                <option value="minimal">Minimal learning, maximum results</option>
-                            </select>
-                            <div class="validation-message" id="learning-willingness-validation"></div>
-                        </div>
+                    <div class="form-group">
+                        <label>Learning Willingness: <span class="required">*</span></label>
+                        <select id="learning-willingness" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your approach...</option>
+                            <option value="eager">Eager to learn new skills quickly</option>
+                            <option value="moderate">Willing to learn gradually</option>
+                            <option value="prefer-existing">Prefer using skills I already have</option>
+                            <option value="minimal">Minimal learning, maximum results</option>
+                        </select>
+                        <div class="validation-message" id="learning-willingness-validation"></div>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Investment Level: <span class="required">*</span></label>
-                            <select id="investment-level" class="form-control" onchange="validateField(this)">
-                                <option value="">Select investment comfort...</option>
-                                <option value="free-only">Free only - no money to invest</option>
-                                <option value="minimal">Up to $50 if absolutely necessary</option>
-                                <option value="moderate">$50-200 for the right opportunity</option>
-                                <option value="invest">$200-500 if it's promising</option>
-                                <option value="serious">$500+ ready to invest in my future</option>
-                            </select>
-                            <div class="validation-message" id="investment-level-validation"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Preferred Work Location: <span class="required">*</span></label>
-                            <select id="work-location" class="form-control" onchange="validateField(this)">
-                                <option value="">Select work location...</option>
-                                <option value="home-only">Home only - need to be with kids</option>
-                                <option value="home-flexible">Mostly home, occasional outings</option>
-                                <option value="local-community">Local community/neighborhood</option>
-                                <option value="hybrid">Mix of home and outside work</option>
-                                <option value="travel-okay">Comfortable traveling for business</option>
-                            </select>
-                            <div class="validation-message" id="work-location-validation"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Work Style Preference: <span class="required">*</span></label>
-                            <select id="work-style" class="form-control" onchange="validateField(this)">
-                                <option value="">Select work style...</option>
-                                <option value="independent">Independent work - minimal client interaction</option>
-                                <option value="some-interaction">Some client calls/meetings</option>
-                                <option value="collaborative">Collaborative - enjoy working with people</option>
-                                <option value="teaching-mentoring">Teaching/mentoring others</option>
-                                <option value="creative-expressive">Creative and expressive work</option>
-                            </select>
-                            <div class="validation-message" id="work-style-validation"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Are you comfortable being on camera/social media? <span class="required">*</span></label>
-                            <select id="camera-comfort" class="form-control" onchange="validateField(this)">
-                                <option value="">Select your comfort level...</option>
-                                <option value="love-it">Love it! I'm comfortable on camera</option>
-                                <option value="okay-with-it">Okay with it, can learn</option>
-                                <option value="prefer-behind-scenes">Prefer behind-the-scenes work</option>
-                                <option value="absolutely-not">Absolutely not comfortable</option>
-                            </select>
-                            <div class="validation-message" id="camera-comfort-validation"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Timeline to first income: <span class="required">*</span></label>
-                            <select id="income-timeline" class="form-control" onchange="validateField(this)">
-                                <option value="">Select timeline...</option>
-                                <option value="immediate">Immediate need (within 1-2 months)</option>
-                                <option value="moderate">3-6 months is fine</option>
-                                <option value="patient">Can wait 6-12 months for good business</option>
-                                <option value="long-term">Building for long-term (1+ years)</option>
-                            </select>
-                            <div class="validation-message" id="income-timeline-validation"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Maximum startup budget (total): <span class="required">*</span></label>
-                            <select id="total-budget" class="form-control" onchange="validateField(this)">
-                                <option value="">Select budget...</option>
-                                <option value="zero">$0 - Must be completely free</option>
-                                <option value="minimal">Under $50 total</option>
-                                <option value="moderate">$50-200 if necessary</option>
-                                <option value="invest">$200-500 for right opportunity</option>
-                                <option value="serious">$500+ ready to invest</option>
-                            </select>
-                            <div class="validation-message" id="total-budget-validation"></div>
-                        </div>
+                    <div class="form-group">
+                        <label>Investment Level: <span class="required">*</span></label>
+                        <select id="investment-level" class="form-control" onchange="validateField(this)">
+                            <option value="">Select investment comfort...</option>
+                            <option value="free-only">Free only - no money to invest</option>
+                            <option value="minimal">Up to $50 if absolutely necessary</option>
+                            <option value="moderate">$50-200 for the right opportunity</option>
+                            <option value="invest">$200-500 if it's promising</option>
+                            <option value="serious">$500+ ready to invest in my future</option>
+                        </select>
+                        <div class="validation-message" id="investment-level-validation"></div>
                     </div>
                 </div>
 
-                <!-- Continue button based on path -->
-                <button type="button" id="continueButton" class="btn-primary hidden" onclick="proceedToStepTwo()">
-                    🚀 Create My Personalized Plan
+                <!-- Business Preferences -->
+                <div class="form-section">
+                    <h3>💼 Business Preferences</h3>
+
+                    <div class="form-group">
+                        <label>Preferred Work Location: <span class="required">*</span></label>
+                        <select id="work-location" class="form-control" onchange="validateField(this)">
+                            <option value="">Select work location...</option>
+                            <option value="home-only">Home only - need to be with kids</option>
+                            <option value="home-flexible">Mostly home, occasional outings</option>
+                            <option value="local-community">Local community/neighborhood</option>
+                            <option value="hybrid">Mix of home and outside work</option>
+                            <option value="travel-okay">Comfortable traveling for business</option>
+                        </select>
+                        <div class="validation-message" id="work-location-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Work Style Preference: <span class="required">*</span></label>
+                        <select id="work-style" class="form-control" onchange="validateField(this)">
+                            <option value="">Select work style...</option>
+                            <option value="independent">Independent work - minimal client interaction</option>
+                            <option value="some-interaction">Some client calls/meetings</option>
+                            <option value="collaborative">Collaborative - enjoy working with people</option>
+                            <option value="teaching-mentoring">Teaching/mentoring others</option>
+                            <option value="creative-expressive">Creative and expressive work</option>
+                        </select>
+                        <div class="validation-message" id="work-style-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Are you comfortable being on camera/social media? <span class="required">*</span></label>
+                        <select id="camera-comfort" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your comfort level...</option>
+                            <option value="love-it">Love it! I'm comfortable on camera</option>
+                            <option value="okay-with-it">Okay with it, can learn</option>
+                            <option value="prefer-behind-scenes">Prefer behind-the-scenes work</option>
+                            <option value="absolutely-not">Absolutely not comfortable</option>
+                        </select>
+                        <div class="validation-message" id="camera-comfort-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Timeline to first income: <span class="required">*</span></label>
+                        <select id="income-timeline" class="form-control" onchange="validateField(this)">
+                            <option value="">Select timeline...</option>
+                            <option value="immediate">Immediate need (within 1-2 months)</option>
+                            <option value="moderate">3-6 months is fine</option>
+                            <option value="patient">Can wait 6-12 months for good business</option>
+                            <option value="long-term">Building for long-term (1+ years)</option>
+                        </select>
+                        <div class="validation-message" id="income-timeline-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Maximum startup budget (total): <span class="required">*</span></label>
+                        <select id="total-budget" class="form-control" onchange="validateField(this)">
+                            <option value="">Select budget...</option>
+                            <option value="zero">$0 - Must be completely free</option>
+                            <option value="minimal">Under $50 total</option>
+                            <option value="moderate">$50-200 if necessary</option>
+                            <option value="invest">$200-500 for right opportunity</option>
+                            <option value="serious">$500+ ready to invest</option>
+                        </select>
+                        <div class="validation-message" id="total-budget-validation"></div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="proceedToStepTwo()">
+                    🚀 Create My Personalized Business Plan
                 </button>
 
                 <!-- Step 2: AI Platform Integration -->
                 <div id="step2Content" class="hidden">
                     <div class="step-description">
                         <h2>🤖 Step 2: Generate with ChatGPT</h2>
-                        <p>We've created a personalized prompt based on your information. Copy this prompt and paste it into ChatGPT to generate your first set of ideas.</p>
+                        <p>We've created a personalized prompt based on your information. Copy this prompt and paste it into ChatGPT to generate your first set of business ideas.</p>
                     </div>
 
                     <div class="auto-populated-prompt">
@@ -1691,7 +1540,7 @@
                 <div id="step3Content" class="hidden">
                     <div class="step-description">
                         <h2>🔍 Step 3: Refine with Gemini</h2>
-                        <p>Now we'll use Gemini to refine and expand on your ideas with research and validation.</p>
+                        <p>Now we'll use Gemini to refine and expand on your business ideas with market research and validation.</p>
                     </div>
 
                     <div class="auto-populated-prompt">
@@ -1717,13 +1566,13 @@
                 <div id="step3_5Content" class="hidden">
                     <div class="step-description">
                         <h2>💰 Step 3.5: Realistic Pricing Research</h2>
-                        <p>Before finalizing your plan, let's research realistic pricing for your selected idea. This crucial step ensures you set competitive rates that actually work.</p>
+                        <p>Before finalizing your plan, let's research realistic pricing for your selected business idea. This crucial step ensures you set competitive rates that actually get you clients.</p>
                     </div>
 
                     <div class="business-idea-selector" id="businessIdeaSelection">
-                        <h4>📝 Your Selected Idea:</h4>
+                        <h4>📝 Your Selected Business Idea:</h4>
                         <div id="selectedBusinessIdea" style="background: var(--light-sage); padding: 20px; border-radius: 12px; margin: 16px 0; font-weight: 600; color: var(--charcoal);">
-                            Your idea will appear here after ChatGPT analysis...
+                            Your business idea will appear here after ChatGPT analysis...
                         </div>
                     </div>
 
@@ -1749,13 +1598,13 @@
                 <!-- Step 4: Claude Integration -->
                 <div id="step4Content" class="hidden">
                     <div class="step-description">
-                        <h2>🎯 Step 4: Create Your Interactive Calendar</h2>
-                        <p>Finally, we'll use Claude to create your comprehensive brain-friendly plan with actionable steps and realistic timelines.</p>
+                        <h2>🎯 Step 4: Perfect with Claude</h2>
+                        <p>Finally, we'll use Claude to create your comprehensive ADHD-friendly business plan with actionable steps and realistic timelines.</p>
                     </div>
 
                     <div class="auto-populated-prompt">
-                        <div class="auto-populate-status ready">✨ Brain-Friendly Plan Prompt Ready</div>
-                        <h4>Your Personalized Claude Prompt (Optimized for Focus & Clarity):</h4>
+                        <div class="auto-populate-status ready">✨ ADHD-Friendly Plan Prompt Ready</div>
+                        <h4>Your Personalized Claude Prompt (ADHD-Optimized):</h4>
                         <textarea id="claudePrompt" class="form-control" rows="12" readonly></textarea>
                         <button class="btn-primary" onclick="copyToClipboard('claudePrompt')">📋 Copy Prompt</button>
                         <a href="https://claude.ai" target="_blank" class="platform-button claude-button">Open Claude</a>
@@ -1768,56 +1617,23 @@
                     </div>
 
                     <button type="button" class="btn-primary" onclick="completePlan()">
-                        🎉 Generate My Interactive Calendar
+                        🎉 Complete My Business Plan
                     </button>
                 </div>
 
                 <!-- Final Plan -->
                 <div id="finalPlanContent" class="hidden">
                     <div class="celebration-section">
-                        <h2>🎉 Congratulations! Your Plan is Ready!</h2>
-                        <p>You've successfully created a comprehensive, brain-friendly plan tailored specifically for your life as a busy mom!</p>
+                        <h2>🎉 Congratulations! Your Business Plan is Ready!</h2>
+                        <p>You've successfully created a comprehensive, ADHD-friendly business plan tailored specifically for your life as a busy mom!</p>
+                        <button class="btn-primary" onclick="downloadBusinessPlan()" style="background: white; color: var(--sage-green); margin-top: 24px;">
+                            📥 Download Your Business Plan
+                        </button>
                     </div>
-
-                    <div class="calendar-integration">
-                        <h3>📅 Activate Your Interactive Calendar</h3>
-                        <div class="calendar-instructions">
-                            <p><strong>Follow these simple steps to see your interactive calendar:</strong></p>
-                            <ol>
-                                <li>Copy the code that Claude generated for you</li>
-                                <li>Paste it in the box below</li>
-                                <li>Click "Generate Interactive Calendar"</li>
-                                <li>Your personalized calendar will appear with:
-                                    <ul style="margin-top: 8px; padding-left: 20px;">
-                                        <li>✅ Daily tasks (max 4 per day)</li>
-                                        <li>✅ Step-by-step checkboxes</li>
-                                        <li>✅ Progress tracking</li>
-                                        <li>✅ Energy level management</li>
-                                    </ul>
-                                </li>
-                            </ol>
-                        </div>
-                        
-                        <div class="calendar-paste-area">
-                            <label><strong>Paste Claude's Calendar Code Here:</strong></label>
-                            <textarea id="calendar-code" class="form-control" placeholder="Paste the entire code from Claude here..."></textarea>
-                            <button class="btn-primary" onclick="generateInteractiveCalendar()" style="margin-top: 16px;">
-                                🗓️ Generate Interactive Calendar
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="interactiveCalendarContainer" class="hidden">
-                        <!-- Interactive calendar will be inserted here -->
-                    </div>
-
-                    <button class="btn-primary" onclick="downloadCompletePlan()" style="margin: 32px auto; display: block;">
-                        📥 Download Complete Plan & Calendar
-                    </button>
 
                     <div class="form-group">
                         <label>Share Your Success Story (Optional):</label>
-                        <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your plan? Your story could inspire other moms!"></textarea>
+                        <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your business plan? Your story could inspire other moms!"></textarea>
                         <button type="button" class="btn-primary" onclick="submitTestimonial()">
                             💬 Share Your Story
                         </button>
@@ -1881,7 +1697,7 @@
                                     <ul class="service-features">
                                         <li>60-minute training session</li>
                                         <li>Custom calendar creation</li>
-                                        <li>Brain-friendly organization tips</li>
+                                        <li>ADHD-friendly organization tips</li>
                                         <li>Future update training</li>
                                         <li>Family routine optimization</li>
                                     </ul>
@@ -1967,7 +1783,6 @@
         let currentStep = 1;
         let authMode = 'signup';
         let selectedBusinessIdea = '';
-        let selectedPath = '';
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1985,81 +1800,16 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Path Selection Functions
-        function selectPath(path) {
-            selectedPath = path;
-            
-            // Update UI
-            document.querySelectorAll('.path-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            event.target.closest('.path-option').classList.add('selected');
-        }
-
-        function proceedWithPath() {
-            if (!selectedPath) {
-                alert('Please select a path before continuing.');
-                return;
-            }
-            
-            // Hide path selection
-            document.getElementById('pathSelection').classList.add('hidden');
-            
-            // Show appropriate questions
-            if (selectedPath === 'life') {
-                document.getElementById('lifeQuestions').classList.remove('hidden');
-                document.getElementById('businessQuestions').classList.add('hidden');
-            } else if (selectedPath === 'business') {
-                document.getElementById('lifeQuestions').classList.add('hidden');
-                document.getElementById('businessQuestions').classList.remove('hidden');
-            } else if (selectedPath === 'integrated') {
-                document.getElementById('lifeQuestions').classList.remove('hidden');
-                document.getElementById('businessQuestions').classList.remove('hidden');
-            }
-            
-            // Show continue button
-            document.getElementById('continueButton').classList.remove('hidden');
-            
-            // Save progress
-            saveFormProgress();
-        }
-
-        // Updated required fields validation for paths
-        function getRequiredFieldsByPath() {
-            const baseFields = ['user-name', 'user-email'];
-            
-            if (selectedPath === 'life') {
-                return {
-                    0: [...baseFields, 'family-structure', 'overwhelm-areas', 'wfh-needs'],
-                    1: ['chatgpt-response'],
-                    2: ['gemini-response'],
-                    3: ['pricing-research-response'],
-                    4: ['claude-response'],
-                    5: [],
-                    6: []
-                };
-            } else if (selectedPath === 'business') {
-                return {
-                    0: [...baseFields, 'daily-schedule', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
-                    1: ['chatgpt-response'],
-                    2: ['gemini-response'],
-                    3: ['pricing-research-response'],
-                    4: ['claude-response'],
-                    5: [],
-                    6: []
-                };
-            } else {
-                return {
-                    0: [...baseFields, 'family-structure', 'overwhelm-areas', 'wfh-needs', 'daily-schedule', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
-                    1: ['chatgpt-response'],
-                    2: ['gemini-response'],
-                    3: ['pricing-research-response'],
-                    4: ['claude-response'],
-                    5: [],
-                    6: []
-                };
-            }
-        }
+        // Updated required fields validation for 7 steps
+        const requiredFieldsByStep = {
+            0: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
+            1: ['chatgpt-response'],
+            2: ['gemini-response'],
+            3: ['pricing-research-response'], // NEW STEP 3.5
+            4: ['claude-response'],
+            5: [],
+            6: []
+        };
 
         // Authentication Functions
         function showAuthModal(mode = 'signup') {
@@ -2242,11 +1992,6 @@
                         updateProgressDisplay();
                     }
                     
-                    // Restore selected path
-                    if (progress.selectedPath) {
-                        selectedPath = progress.selectedPath;
-                    }
-                    
                     // Show returning user status
                     showReturningUserStatus(progress.lastSaved);
                 }
@@ -2261,7 +2006,6 @@
                 localStorage.setItem('smartMomWorkflowData', JSON.stringify({
                     formData: collectFormData(),
                     currentStep: currentStep,
-                    selectedPath: selectedPath,
                     lastSaved: new Date().toISOString()
                 }));
                 return;
@@ -2271,7 +2015,6 @@
                 await db.collection('progress').doc(currentUser.uid).set({
                     formData: collectFormData(),
                     currentStep: currentStep,
-                    selectedPath: selectedPath,
                     lastSaved: firebase.firestore.FieldValue.serverTimestamp(),
                     language: currentLanguage
                 }, { merge: true });
@@ -2309,8 +2052,6 @@
                 'camera-comfort': document.getElementById('camera-comfort')?.value || '',
                 'income-timeline': document.getElementById('income-timeline')?.value || '',
                 'total-budget': document.getElementById('total-budget')?.value || '',
-                'overwhelm-areas': document.getElementById('overwhelm-areas')?.value || '',
-                'wfh-needs': document.getElementById('wfh-needs')?.value || '',
                 'chatgpt-response': document.getElementById('chatgpt-response')?.value || '',
                 'gemini-response': document.getElementById('gemini-response')?.value || '',
                 'pricing-research-response': document.getElementById('pricing-research-response')?.value || '',
@@ -2354,19 +2095,11 @@
                 saveFormProgress();
             }
             
-            // Check if we need to show path selection
-            const userName = document.getElementById('user-name').value.trim();
-            const userEmail = document.getElementById('user-email').value.trim();
-            
-            if (userName && userEmail && !selectedPath) {
-                document.getElementById('pathSelection').classList.remove('hidden');
-            }
-            
             return isValid;
         }
 
         function validateCurrentStep() {
-            const requiredFields = getRequiredFieldsByPath()[currentStep - 1] || [];
+            const requiredFields = requiredFieldsByStep[currentStep - 1] || [];
             
             let allValid = true;
             requiredFields.forEach(fieldId => {
@@ -2420,7 +2153,7 @@
             });
         }
 
-        // AI Platform Integration with Path-Specific Prompts
+        // AI Platform Integration with Enhanced Prompts
         function generateChatGPTPrompt() {
             const data = collectFormData();
             
@@ -2428,42 +2161,32 @@
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
-- Don't suggest solutions requiring experience they don't have
+- Don't suggest businesses requiring experience they don't have
 - Focus on DOWN-TO-EARTH, practical solutions only
 - Consider their family constraints and available time
-- Respect their budget constraints completely
+- If they said "free only," respect that completely
+- Suggest pricing that will actually get clients, not scare them away
+
+**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
+- Businesses requiring 40+ hours/week
+- High-skill services they've never done
+- Anything requiring significant upfront investment (if they said free)
+- Complex businesses with steep learning curves
 
 Focus on what's ACTUALLY doable for their situation.`;
             
-            if (selectedPath === 'life') {
-                return `${realismInstructions}
+            const prompt = `${realismInstructions}
 
-Create a comprehensive life organization system for a busy mom:
+Create 3 personalized business ideas for a busy mom with this profile:
 
 **Personal Situation:**
 - Name: ${data['user-name']}
 - Family: ${data['family-structure']}
-- Current Overwhelm Areas: ${data['overwhelm-areas']}
-- Work-From-Home Needs: ${data['wfh-needs']}
-
-Please provide:
-1. Daily routine optimization (morning, afternoon, evening)
-2. Weekly household management system
-3. Meal planning strategies
-4. School/activity coordination
-5. Self-care integration
-6. Crisis management protocols
-
-Focus on simple, sustainable systems that reduce overwhelm and create calm.`;
-            } else if (selectedPath === 'business') {
-                return `${realismInstructions}
-
-Create 3 personalized business ideas for a busy mom:
-
-**Personal Situation:**
-- Name: ${data['user-name']}
 - Daily Schedule: ${data['daily-schedule']}
-- Skills: ${data.skills}
+- Work Status: ${data['work-status']}
+
+**Skills & Goals:**
+- Background: ${data.skills}
 - Income Goal: ${data['income-goal']}
 - Learning Willingness: ${data['learning-willingness']}
 - Investment Level: ${data['investment-level']}
@@ -2472,40 +2195,18 @@ Create 3 personalized business ideas for a busy mom:
 - Camera Comfort: ${data['camera-comfort']}
 - Income Timeline: ${data['income-timeline']}
 - Total Budget: ${data['total-budget']}
+- Language: ${currentLanguage === 'es' ? 'Spanish' : 'English'}
 
 Please provide:
 1. 3 specific business ideas that fit her schedule and skills
-2. Estimated startup costs for each
-3. Expected time to profitability
-4. Required weekly time commitment
+2. Estimated startup costs for each (respecting her budget constraints)
+3. Expected time to profitability (realistic expectations)
+4. Required weekly time commitment (fitting her availability)
 5. Specific first steps for each idea
 
-Focus on businesses that can be started with minimal investment and time.`;
-            } else {
-                return `${realismInstructions}
+Focus on businesses that can be started with her stated investment level and can accommodate her family responsibilities. Be HONEST about challenges and timeframes.`;
 
-Create an integrated life organization AND business launch plan for a busy mom:
-
-**Personal Situation:**
-- Name: ${data['user-name']}
-- Family: ${data['family-structure']}
-- Overwhelm Areas: ${data['overwhelm-areas']}
-- Skills: ${data.skills}
-- Income Goal: ${data['income-goal']}
-
-Please provide:
-PHASE 1 - Life Foundation (Weeks 1-4):
-1. Daily routine optimization
-2. Household management systems
-3. Family schedule coordination
-
-PHASE 2 - Business Preparation (Weeks 5-8):
-1. 3 business ideas that fit around family life
-2. Time carving strategies
-3. Family integration planning
-
-Focus on stabilizing life FIRST, then building business on solid foundation.`;
-            }
+            return prompt;
         }
 
         function autoPopulateGeminiPrompt() {
@@ -2516,94 +2217,77 @@ Focus on stabilizing life FIRST, then building business on solid foundation.`;
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
-- Focus on DOWN-TO-EARTH, practical solutions only`;
+- Don't suggest businesses requiring experience they don't have
+- Focus on DOWN-TO-EARTH, practical solutions only
+- Consider their family constraints and available time
+- If they said "free only," respect that completely
+- Suggest pricing that will actually get clients, not scare them away`;
             
-            if (selectedPath === 'life') {
-                return `${realismInstructions}
-
-Based on this life organization plan for a busy mom: 
-
-${chatgptIdeas}
-
-Please provide:
-1. Potential obstacles and realistic solutions
-2. Energy management strategies
-3. Family buy-in techniques
-4. Simplified versions for overwhelming days
-5. Progress tracking methods
-6. Maintenance strategies
-
-Focus on making the systems sustainable and flexible for real mom life.`;
-            } else {
-                return `${realismInstructions}
+            const prompt = `${realismInstructions}
 
 Based on these business ideas generated for a busy mom: 
 
 ${chatgptIdeas}
 
 Please provide:
-1. Market research and validation
-2. Target audience analysis
-3. Competition assessment
-4. Marketing strategies for busy moms
-5. Potential challenges and solutions
-6. Revenue projections (conservative)
+1. Market research and validation for each idea
+2. Target audience analysis (who will actually pay for this?)
+3. Competition assessment (realistic view of what she's up against)
+4. Marketing strategies that work for busy moms (simple, effective)
+5. Potential challenges and realistic solutions
+6. Revenue projections for first year (conservative estimates)
 
-Focus on practical insights that a mom can implement while managing family.`;
-            }
+Focus on practical, actionable insights that a mom entrepreneur can implement while managing family responsibilities. Be honest about what's actually achievable.`;
+
+            return prompt;
         }
 
         function generatePricingResearchPrompt() {
             const data = collectFormData();
-            const selectedIdea = selectedBusinessIdea || 'the selected idea';
-            const userLocation = 'Lincoln, Nebraska';
+            const selectedIdea = selectedBusinessIdea || 'the selected business idea';
+            const userLocation = 'Lincoln, Nebraska'; // Default location
             
-            if (selectedPath === 'life') {
-                return `Research realistic pricing for life organization services/products:
-
-**Service Context:**
-- Type: Life organization support for busy moms
-- Location: ${userLocation}
-
-**PRICING RESEARCH NEEDED:**
-
-1. **Life Coaching/Organization Services:**
-   - Beginner rates for new organizers
-   - Experienced professional rates
-   - Package vs hourly pricing
-
-2. **Digital Products (Planners, Systems):**
-   - Single product pricing
-   - Bundle pricing strategies
-   - Subscription models
-
-3. **Local Market Analysis:**
-   - What do moms actually pay for organization help?
-   - Competition pricing
-   - Value perception
-
-BE REALISTIC about what busy moms will actually pay for help.`;
-            } else {
-                return `Research realistic pricing for ${selectedIdea} specifically for someone just starting:
+            const prompt = `Research realistic pricing for ${selectedIdea} specifically for someone just starting:
 
 **Personal Context:**
 - Complete beginner with no business experience
 - Daily Schedule: ${data['daily-schedule']}
-- Investment Level: ${data['investment-level'] || 'minimal'}
-- Income Timeline: ${data['income-timeline'] || 'flexible'}
+- Investment Level: ${data['investment-level']}
+- Income Timeline: ${data['income-timeline']}
 - Location: ${userLocation}
 
 **PRICING RESEARCH NEEDED:**
 
 1. **Beginner Pricing (Month 1-6):** What should someone with no experience charge?
-2. **Developing Skills (Month 6-18):** When to raise prices
-3. **Experienced Rates (18+ months):** Expert pricing
-4. **Geographic Considerations:** Market rates for ${userLocation}
-5. **Common Pricing Mistakes:** What kills new businesses
-6. **Competition Analysis:** Real competitor pricing
+   - Specific dollar amounts, not ranges
+   - What makes pricing competitive vs. too low/high
+   - How to price when you have no portfolio
 
-BE BRUTALLY HONEST about realistic expectations for beginners.`;
-            }
+2. **Developing Skills (Month 6-18):** Pricing as competency grows
+   - When and how much to raise prices
+   - What achievements justify price increases
+
+3. **Experienced Rates (18+ months):** What experts charge
+   - Market ceiling for this service
+   - Premium pricing strategies
+
+4. **Geographic Considerations:** Market rates for ${userLocation}
+   - Local market analysis
+   - Online vs. local pricing differences
+
+5. **Common Pricing Mistakes:** What kills new businesses
+   - Pricing too low (and why)
+   - Pricing too high (and consequences)
+   - Hidden costs beginners forget
+
+6. **Competition Analysis:** What others actually charge vs advertise
+   - Real competitor pricing research
+   - How to position against competition
+
+**BE BRUTALLY HONEST about realistic expectations for beginners.** 
+Include specific examples and dollar amounts. Don't sugarcoat - give the real data that will help her succeed.`;
+
+            return prompt;
         }
 
         function autoPopulateClaudePrompt() {
@@ -2614,117 +2298,83 @@ BE BRUTALLY HONEST about realistic expectations for beginners.`;
             
             const realismInstructions = `
 **CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is dealing with real life challenges
-- Be honest about timelines and expectations
-- Focus on sustainable, practical solutions
-- Consider energy levels and family interruptions`;
+- This person is a BEGINNER, not an expert
+- Be brutally honest about challenges and timelines  
+- Don't suggest businesses requiring experience they don't have
+- Focus on DOWN-TO-EARTH, practical solutions only
+- Consider their family constraints and available time
+- If they said "free only," respect that completely
+- Suggest pricing that will actually get clients, not scare them away`;
 
-            const brainFriendlyInstructions = `
-**CRITICAL: Design this calendar for optimal focus and clarity**
+            const adhdInstructions = `
+**CRITICAL: Design this calendar for ADHD, Autism, and Executive Function challenges**
 
 DAILY STRUCTURE RULES:
-- MAXIMUM 4 tasks per day (never exceed)
+- MAXIMUM 4 tasks per day (never exceed this number)
 - Each task broken into 3-7 specific sub-steps
-- Clear, detailed instructions
-- Include exact links/resources needed
-- Add time estimates with buffer time
-- Build in flexibility for life happening
+- No vague instructions - be extremely detailed
+- Include exact links to platforms/tools needed
+- Specify if account creation required (FREE vs PAID with exact costs)
+- Add time estimates including thinking/processing time
+- Build in 15-minute buffer between tasks
 
 TASK FORMAT EXAMPLE:
-✅ Task 1: [Clear Task Name] (Time: 30 minutes)
-  □ Step 1: [Specific action with details]
-  □ Step 2: [Next specific action]
-  □ Step 3: [Final action to complete task]`;
+✅ Task 1: Create Instagram Business Account (FREE - 30 minutes)
+  □ Step 1: Go to instagram.com/business (click this exact link)
+  □ Step 2: Click "Create account" → Select "Business Account"  
+  □ Step 3: Choose username: [yourname] + "business" or "coaching"
+  □ Step 4: Upload profile photo (phone selfie works perfectly)
+  □ Step 5: Write bio: "I help [your target audience] achieve [specific result]"
+  □ Step 6: Add contact info: your email and phone
+
+**12-WEEK DETAILED BREAKDOWN:**
+- Week 1-2: Foundation & Legal Setup (14 days of specific tasks)
+- Week 3-4: Market Research & Validation (14 days of tasks)  
+- Week 5-8: Skill Building & MVP Creation (28 days of tasks)
+- Week 9-12: Launch, Marketing & Scale (28 days of tasks)
+
+For EACH week, provide:
+- 5-7 specific daily tasks (max 4 per day)
+- Time estimates for each task
+- What to do if behind schedule
+- Weekly milestones to hit
+
+Generate the COMPLETE 12-week calendar with daily actionable tasks.`;
             
-            let prompt = `${realismInstructions}
+            const prompt = `${realismInstructions}
 
-${brainFriendlyInstructions}
+${adhdInstructions}
 
-Create a comprehensive brain-friendly implementation plan based on:`;
+Create a comprehensive ADHD-friendly business plan based on:
 
-            if (selectedPath === 'life') {
-                prompt += `
-
-**Life Organization Plan:**
+**Original Business Ideas:**
 ${chatgptIdeas}
 
-**Challenges & Solutions:**
+**Market Research & Analysis:**
 ${geminiAnalysis}
 
-**Service Pricing Research:**
-${pricingResearch}
-
-**Mom's Profile:**
-- Family: ${data['family-structure']}
-- Overwhelm Areas: ${data['overwhelm-areas']}
-- Work-From-Home Needs: ${data['wfh-needs']}
-
-Please create a 12-week life organization calendar including:
-1. Week-by-week implementation plan
-2. Daily routines with specific times
-3. System setup tasks (max 4/day)
-4. Family integration strategies
-5. Progress milestones
-6. Maintenance protocols
-
-Format as an interactive calendar with daily tasks and checkboxes.`;
-            } else if (selectedPath === 'business') {
-                prompt += `
-
-**Business Ideas:**
-${chatgptIdeas}
-
-**Market Analysis:**
-${geminiAnalysis}
-
-**Pricing Research:**
+**Realistic Pricing Research:**
 ${pricingResearch}
 
 **Mom's Profile:**
 - Schedule: ${data['daily-schedule']}
 - Skills: ${data.skills}
 - Goal: ${data['income-goal']}
+- Camera Comfort: ${data['camera-comfort']}
+- Work Style: ${data['work-style']}
+- Budget: ${data['total-budget']}
+- Timeline: ${data['income-timeline']}
 
-Please create a 12-week business launch calendar including:
-1. Week-by-week business building tasks
-2. Daily action items (max 4/day)
-3. Skill development schedule
-4. Marketing implementation
-5. Revenue milestones
-6. Work-life balance integration
+Please create a detailed business plan including:
+1. Executive summary
+2. ADHD-optimized step-by-step implementation timeline
+3. Daily action items for first 12 weeks (following ADHD rules above)
+4. Resource requirements and realistic budget
+5. Success metrics and achievable milestones
+6. Risk management strategies
+7. Work-life balance considerations specific to moms
 
-Format as an interactive calendar with checkable tasks.`;
-            } else {
-                prompt += `
-
-**Integrated Plan:**
-${chatgptIdeas}
-
-**Analysis:**
-${geminiAnalysis}
-
-**Pricing Research:**
-${pricingResearch}
-
-Create a phased 12-week calendar:
-
-WEEKS 1-4: Life Foundation
-- Stabilize daily routines
-- Create household systems
-- Establish family schedules
-
-WEEKS 5-8: Business Preparation
-- Market research tasks
-- Skill building
-- Business setup
-
-WEEKS 9-12: Business Launch
-- Marketing implementation
-- First client acquisition
-- System optimization
-
-Format with daily tasks, clear timelines, and family-friendly scheduling.`;
-            }
+Make this actionable and realistic for a busy mom entrepreneur with executive function challenges. Use the pricing research to set realistic expectations.`;
 
             return prompt;
         }
@@ -2736,9 +2386,7 @@ Format with daily tasks, clear timelines, and family-friendly scheduling.`;
                 document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
                 
                 // Extract business idea for pricing research
-                if (selectedPath !== 'life') {
-                    extractBusinessIdea(response);
-                }
+                extractBusinessIdea(response);
                 
                 // Save progress
                 saveFormProgress();
@@ -2777,26 +2425,21 @@ Format with daily tasks, clear timelines, and family-friendly scheduling.`;
             // Update UI
             const businessIdeaDiv = document.getElementById('selectedBusinessIdea');
             if (businessIdeaDiv) {
-                businessIdeaDiv.textContent = selectedBusinessIdea || 'Selected idea from ChatGPT response';
+                businessIdeaDiv.textContent = selectedBusinessIdea || 'Selected business idea from ChatGPT response';
             }
         }
 
-        // Step Navigation - Updated for paths
+        // Step Navigation - Updated for 7 steps
         function proceedToStepTwo() {
             if (!validateCurrentStep()) {
                 alert('Please fill in all required fields before continuing.');
                 return;
             }
             
-            if (!selectedPath) {
-                alert('Please select your path first.');
-                return;
-            }
-            
             currentStep = 2;
             updateProgressDisplay();
             
-            // Generate personalized prompt based on path
+            // Generate personalized prompt
             document.getElementById('chatgptPrompt').value = generateChatGPTPrompt();
             
             // Show step 2 content
@@ -2895,33 +2538,6 @@ Format with daily tasks, clear timelines, and family-friendly scheduling.`;
             };
         }
 
-        // Interactive Calendar Generation
-        function generateInteractiveCalendar() {
-            const calendarCode = document.getElementById('calendar-code').value.trim();
-            
-            if (!calendarCode) {
-                alert('Please paste the calendar code from Claude first.');
-                return;
-            }
-            
-            // Here you would parse the Claude response and generate the interactive calendar
-            // For now, show a placeholder message
-            const container = document.getElementById('interactiveCalendarContainer');
-            container.innerHTML = `
-                <div style="background: var(--light-sage); padding: 40px; border-radius: 20px; text-align: center; margin: 32px 0;">
-                    <h3 style="color: var(--sage-green); margin-bottom: 16px;">🗓️ Interactive Calendar Generated!</h3>
-                    <p>Your personalized ${selectedPath === 'life' ? 'life organization' : selectedPath === 'business' ? 'business launch' : 'integrated'} calendar is ready.</p>
-                    <p style="margin-top: 16px;">The interactive features will be fully activated in the next update.</p>
-                </div>
-            `;
-            
-            container.classList.remove('hidden');
-            
-            // Save calendar data
-            formData.interactiveCalendar = calendarCode;
-            saveFormProgress();
-        }
-
         // Utility Functions
         function copyToClipboard(elementId) {
             const element = document.getElementById(elementId);
@@ -2937,41 +2553,39 @@ Format with daily tasks, clear timelines, and family-friendly scheduling.`;
             }, 2000);
         }
 
-        function downloadCompletePlan() {
+        function downloadBusinessPlan() {
             const data = collectFormData();
-            const planType = selectedPath === 'life' ? 'LIFE ORGANIZATION' : 
-                           selectedPath === 'business' ? 'BUSINESS LAUNCH' : 
-                           'INTEGRATED LIFE & BUSINESS';
-            
             const planContent = `
-SMART MOM METHOD - ${planType} PLAN
+SMART MOM METHOD - BUSINESS PLAN
 Generated: ${new Date().toLocaleDateString()}
 
 === PERSONAL PROFILE ===
 Name: ${data['user-name']}
 Email: ${data['user-email']}
-Path Selected: ${selectedPath}
-${selectedPath !== 'business' ? `Family Structure: ${data['family-structure']}` : ''}
-${selectedPath !== 'business' ? `Overwhelm Areas: ${data['overwhelm-areas']}` : ''}
-${selectedPath !== 'life' ? `Skills: ${data.skills}` : ''}
-${selectedPath !== 'life' ? `Income Goal: ${data['income-goal']}` : ''}
+Family Structure: ${data['family-structure']}
+Daily Schedule: ${data['daily-schedule']}
+Work Status: ${data['work-status']}
+Professional Background: ${data.skills}
+Income Goal: ${data['income-goal']}
+Learning Willingness: ${data['learning-willingness']}
+Investment Level: ${data['investment-level']}
+Work Location: ${data['work-location']}
+Work Style: ${data['work-style']}
+Camera Comfort: ${data['camera-comfort']}
+Income Timeline: ${data['income-timeline']}
+Total Budget: ${data['total-budget']}
 
-=== AI-GENERATED CONTENT ===
-
-CHATGPT RESPONSE:
+=== CHATGPT BUSINESS IDEAS ===
 ${data['chatgpt-response']}
 
-GEMINI ANALYSIS:
+=== GEMINI MARKET ANALYSIS ===
 ${data['gemini-response']}
 
-PRICING RESEARCH:
+=== REALISTIC PRICING RESEARCH ===
 ${data['pricing-research-response']}
 
-CLAUDE IMPLEMENTATION PLAN:
+=== CLAUDE ADHD-FRIENDLY IMPLEMENTATION PLAN ===
 ${data['claude-response']}
-
-=== INTERACTIVE CALENDAR ===
-${formData.interactiveCalendar || 'Calendar code not yet generated'}
 
 Generated with Smart Mom Method - smartmommethod.com
             `;
@@ -2980,7 +2594,7 @@ Generated with Smart Mom Method - smartmommethod.com
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `smart-mom-${selectedPath}-plan-${new Date().toISOString().split('T')[0]}.txt`;
+            a.download = `smart-mom-business-plan-${new Date().toISOString().split('T')[0]}.txt`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -2999,7 +2613,6 @@ Generated with Smart Mom Method - smartmommethod.com
                 const formData = new FormData();
                 formData.append('testimonial', testimonial);
                 formData.append('user_name', currentUser?.displayName || 'Anonymous');
-                formData.append('selected_path', selectedPath);
                 formData.append('timestamp', new Date().toISOString());
                 
                 await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
@@ -3012,7 +2625,6 @@ Generated with Smart Mom Method - smartmommethod.com
                         userId: currentUser.uid,
                         userName: currentUser.displayName || 'Anonymous',
                         testimonial: testimonial,
-                        selectedPath: selectedPath,
                         submittedAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
                 }
@@ -3073,10 +2685,6 @@ Generated with Smart Mom Method - smartmommethod.com
                         updateProgressDisplay();
                     }
                     
-                    if (data.selectedPath) {
-                        selectedPath = data.selectedPath;
-                    }
-                    
                     showReturningUserStatus(data.lastSaved);
                     startOnboarding();
                 }
@@ -3116,7 +2724,7 @@ Generated with Smart Mom Method - smartmommethod.com
                 userCount += Math.floor(Math.random() * 3);
                 const counterElement = document.querySelector('.user-counter span');
                 if (counterElement) {
-                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have transformed their lives!`;
+                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
                 }
             }, 5000);
         }
