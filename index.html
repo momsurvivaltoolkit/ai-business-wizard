@@ -1309,7 +1309,7 @@
                 <button class="welcome-btn auth" onclick="showAuthModal('signup')">
                     💾 Create Account & Save Progress
                 </button>
-                <button class="welcome-btn secondary" onclick="checkReturningUser()">
+                <button class="welcome-btn secondary" onclick="handleReturningUser()">
                     I'm a returning user
                 </button>
             </div>
@@ -1963,7 +1963,9 @@
                 const email = emailField.value.trim();
                 const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 
-                if (name && email && emailValid) {
+                // Only show path selection if no returning user status is displayed
+                const returningUserStatus = document.querySelector('.returning-user-status');
+                if (name && email && emailValid && (!returningUserStatus || returningUserStatus.style.display === 'none')) {
                     document.getElementById('pathSelection').style.display = 'block';
                     document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
                 }
@@ -2328,15 +2330,18 @@ Focus on how life organization can enable business success and vice versa.`;
                     });
                     
                     showAuthSuccess('Account created successfully!');
+                    setTimeout(() => {
+                        closeAuthModal();
+                        // Don't call startOnboarding here, let auth state observer handle it
+                    }, 1500);
                 } else {
                     await auth.signInWithEmailAndPassword(email, password);
                     showAuthSuccess('Welcome back!');
+                    setTimeout(() => {
+                        closeAuthModal();
+                        // Don't call startOnboarding here, let auth state observer handle it
+                    }, 1500);
                 }
-                
-                setTimeout(() => {
-                    closeAuthModal();
-                    startOnboarding();
-                }, 1500);
                 
             } catch (error) {
                 showAuthError(error.message);
@@ -2365,7 +2370,7 @@ Focus on how life organization can enable business success and vice versa.`;
                 showAuthSuccess('Welcome! Signed in with Google');
                 setTimeout(() => {
                     closeAuthModal();
-                    startOnboarding();
+                    // Don't call startOnboarding here, let auth state observer handle it
                 }, 1500);
                 
             } catch (error) {
@@ -2390,8 +2395,17 @@ Focus on how life organization can enable business success and vice versa.`;
                 document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
                 document.getElementById('userStatusBar').classList.remove('hidden');
                 
+                // Close any open auth modals
+                closeAuthModal();
+                
                 // Load user's saved progress
                 await loadUserProgress();
+                
+                // If they came from "returning user" flow, automatically continue
+                const welcomeModal = document.getElementById('welcomeModal');
+                if (!welcomeModal.classList.contains('hidden')) {
+                    welcomeModal.classList.add('hidden');
+                }
             } else {
                 currentUser = null;
                 document.getElementById('userStatusBar').classList.add('hidden');
@@ -2425,7 +2439,7 @@ Focus on how life organization can enable business success and vice versa.`;
                         selectedPath = progress.selectedPath;
                     }
                     
-                    // Show returning user status
+                    // Show returning user status with full functionality
                     showReturningUserStatus(progress.lastSaved);
                 }
             } catch (error) {
@@ -2464,6 +2478,17 @@ Focus on how life organization can enable business success and vice versa.`;
             statusDiv.innerHTML = `
                 <h4>🎉 Welcome Back!</h4>
                 <p>Your progress has been restored from ${lastSaved ? new Date(lastSaved.toDate()).toLocaleDateString() : 'your last session'}.</p>
+                <div style="margin-top: 20px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-primary" onclick="continueFromSavedProgress()" style="background: var(--sage-green);">
+                        🚀 Continue Where I Left Off (Step ${currentStep})
+                    </button>
+                    <button class="btn-primary" onclick="startFresh()" style="background: var(--deep-teal);">
+                        🔄 Start Fresh
+                    </button>
+                    ${!currentUser ? `<button class="btn-primary" onclick="showAuthModal('signin')" style="background: var(--soft-gold);">
+                        🔑 Login to Access Full History
+                    </button>` : ''}
+                </div>
             `;
             
             const initialStep = document.querySelector('.initial-step');
@@ -3034,40 +3059,140 @@ Generated with Smart Mom Method - smartmommethod.com
             document.getElementById('welcomeModal').classList.add('hidden');
         }
 
+        function handleReturningUser() {
+            console.log('Returning user button clicked!'); // Debug log
+            
+            // First close the welcome modal
+            document.getElementById('welcomeModal').classList.add('hidden');
+            
+            // Then check for returning user data
+            checkReturningUser();
+        }
+
         function checkReturningUser() {
+            console.log('Checking returning user...'); // Debug log
+            
             // Check for saved data
             const savedData = localStorage.getItem('smartMomWorkflowData');
             
-            if (savedData || currentUser) {
-                if (currentUser) {
-                    // User is authenticated, load their progress
-                    loadUserProgress();
-                    startOnboarding();
-                } else if (savedData) {
-                    // Load from localStorage
-                    const data = JSON.parse(savedData);
-                    Object.keys(data.formData || {}).forEach(key => {
-                        const element = document.getElementById(key);
-                        if (element) {
-                            element.value = data.formData[key];
-                        }
-                    });
-                    
-                    if (data.currentStep) {
-                        currentStep = data.currentStep;
-                        updateProgressDisplay();
+            if (currentUser) {
+                // User is already logged in, load their progress
+                console.log('User already logged in, loading progress...');
+                loadUserProgress();
+            } else if (savedData) {
+                // Load from localStorage
+                console.log('Found saved data, restoring...');
+                const data = JSON.parse(savedData);
+                Object.keys(data.formData || {}).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.value = data.formData[key];
                     }
-                    
-                    if (data.selectedPath) {
-                        selectedPath = data.selectedPath;
-                    }
-                    
-                    showReturningUserStatus(data.lastSaved);
-                    startOnboarding();
+                });
+                
+                if (data.currentStep) {
+                    currentStep = data.currentStep;
+                    updateProgressDisplay();
                 }
+                
+                if (data.selectedPath) {
+                    selectedPath = data.selectedPath;
+                }
+                
+                showReturningUserStatus(data.lastSaved);
             } else {
+                // No saved data found - show login modal
+                console.log('No saved data found, showing login...');
                 showAuthModal('signin');
             }
+        }
+
+        function continueFromSavedProgress() {
+            // Hide returning user status
+            const statusDiv = document.querySelector('.returning-user-status');
+            if (statusDiv) {
+                statusDiv.style.display = 'none';
+            }
+            
+            // Continue based on current step and selected path
+            if (currentStep === 1 && selectedPath) {
+                // Show path selection or generate form sections
+                if (selectedPath) {
+                    generateFormSections(selectedPath);
+                    document.getElementById('pathSelection').style.display = 'none';
+                    document.getElementById('dynamicFormSections').classList.remove('hidden');
+                    document.getElementById('dynamicFormSections').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    document.getElementById('pathSelection').style.display = 'block';
+                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (currentStep >= 2) {
+                // Show AI steps
+                document.getElementById('aiSteps').classList.remove('hidden');
+                
+                // Show appropriate step content
+                if (currentStep === 2) {
+                    document.getElementById('chatgptPrompt').value = generatePathSpecificPrompt();
+                    document.getElementById('step2Content').classList.remove('hidden');
+                    document.getElementById('step2Content').scrollIntoView({ behavior: 'smooth' });
+                } else if (currentStep === 3) {
+                    document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
+                    document.getElementById('step3Content').classList.remove('hidden');
+                    document.getElementById('step3Content').scrollIntoView({ behavior: 'smooth' });
+                } else if (currentStep === 4) {
+                    document.getElementById('pricingResearchPrompt').value = generatePricingResearchPrompt();
+                    document.getElementById('step3_5Content').classList.remove('hidden');
+                    document.getElementById('step3_5Content').scrollIntoView({ behavior: 'smooth' });
+                } else if (currentStep === 5) {
+                    document.getElementById('claudePrompt').value = autoPopulateClaudePrompt();
+                    document.getElementById('step4Content').classList.remove('hidden');
+                    document.getElementById('step4Content').scrollIntoView({ behavior: 'smooth' });
+                } else if (currentStep >= 6) {
+                    document.getElementById('finalPlanContent').classList.remove('hidden');
+                    document.getElementById('finalPlanContent').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        function startFresh() {
+            // Clear all saved data
+            localStorage.removeItem('smartMomWorkflowData');
+            
+            // Reset all form fields
+            document.querySelectorAll('.form-control').forEach(field => {
+                field.value = '';
+            });
+            
+            // Reset variables
+            currentStep = 1;
+            selectedPath = '';
+            selectedBusinessIdea = '';
+            
+            // Update progress display
+            updateProgressDisplay();
+            
+            // Hide returning user status
+            const statusDiv = document.querySelector('.returning-user-status');
+            if (statusDiv) {
+                statusDiv.style.display = 'none';
+            }
+            
+            // Reset UI to initial state
+            document.getElementById('pathSelection').style.display = 'none';
+            document.getElementById('dynamicFormSections').classList.add('hidden');
+            document.getElementById('aiSteps').classList.add('hidden');
+            
+            // Hide all step content
+            document.getElementById('step2Content').classList.add('hidden');
+            document.getElementById('step3Content').classList.add('hidden');
+            document.getElementById('step3_5Content').classList.add('hidden');
+            document.getElementById('step4Content').classList.add('hidden');
+            document.getElementById('finalPlanContent').classList.add('hidden');
+            
+            // Scroll to top
+            document.querySelector('.initial-step').scrollIntoView({ behavior: 'smooth' });
+            
+            alert('Starting fresh! All previous data has been cleared.');
         }
 
         function changeLanguage(lang) {
