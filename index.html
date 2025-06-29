@@ -6,10 +6,10 @@
     <title>Smart Mom Method - AI Business Launch Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Firebase SDK - Stable version -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-app-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-auth-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-firestore-compat.min.js"></script>
+    <!-- Firebase SDK - v9 Compatibility Mode (FIXED) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     
     <style>
         :root {
@@ -1738,6 +1738,8 @@
         let authMode = 'signup';
         let selectedBusinessIdea = '';
         let selectedPath = '';
+        let auth, db; // Declare Firebase services globally
+        let userCount = 2847; // Declare userCount here to fix hoisting issue
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1750,13 +1752,63 @@
             measurementId: "G-SKRCMSVH72"
         };
 
-        // Initialize Firebase
-        try {
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
-            const db = firebase.firestore();
-        } catch (error) {
-            console.error('Firebase initialization error:', error);
+        // IMPROVED FIREBASE INITIALIZATION WITH PROPER LOADING DETECTION
+        function waitForFirebase() {
+            return new Promise((resolve) => {
+                // Check if Firebase is already loaded
+                if (typeof firebase !== 'undefined') {
+                    resolve();
+                    return;
+                }
+                
+                // Poll for Firebase availability
+                const checkFirebase = () => {
+                    if (typeof firebase !== 'undefined') {
+                        resolve();
+                    } else {
+                        setTimeout(checkFirebase, 50);
+                    }
+                };
+                
+                setTimeout(checkFirebase, 100);
+            });
+        }
+
+        // Enhanced Firebase initialization
+        async function initializeFirebase() {
+            try {
+                // Wait for Firebase to be available
+                await waitForFirebase();
+                
+                console.log('Firebase SDK detected, initializing...');
+                
+                firebase.initializeApp(firebaseConfig);
+                auth = firebase.auth();
+                db = firebase.firestore();
+                
+                console.log('Firebase initialized successfully');
+                
+                // Set up auth state observer after initialization
+                auth.onAuthStateChanged(async (user) => {
+                    if (user) {
+                        currentUser = user;
+                        document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
+                        document.getElementById('userStatusBar').classList.remove('hidden');
+                        
+                        // Load user's saved progress
+                        await loadUserProgress();
+                    } else {
+                        currentUser = null;
+                        document.getElementById('userStatusBar').classList.add('hidden');
+                    }
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('Firebase initialization error:', error);
+                console.log('Continuing without Firebase - localStorage will be used');
+                return false;
+            }
         }
 
         // Path-specific form fields
@@ -1957,24 +2009,32 @@
             }
         };
 
-        // Watch for name and email completion
-        document.addEventListener('DOMContentLoaded', () => {
+        // UPDATED DOMContentLoaded EVENT WITH IMPROVED FIREBASE INITIALIZATION
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOM loaded, initializing Firebase...');
+            
+            // Initialize Firebase with proper waiting
+            await initializeFirebase();
+            
             const nameField = document.getElementById('user-name');
             const emailField = document.getElementById('user-email');
             
             function checkInitialFields() {
-                const name = nameField.value.trim();
-                const email = emailField.value.trim();
+                const name = nameField?.value.trim() || '';
+                const email = emailField?.value.trim() || '';
                 const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 
                 if (name && email && emailValid) {
-                    document.getElementById('pathSelection').style.display = 'block';
-                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+                    const pathSelection = document.getElementById('pathSelection');
+                    if (pathSelection) {
+                        pathSelection.style.display = 'block';
+                        pathSelection.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
             }
             
-            nameField.addEventListener('input', checkInitialFields);
-            emailField.addEventListener('input', checkInitialFields);
+            if (nameField) nameField.addEventListener('input', checkInitialFields);
+            if (emailField) emailField.addEventListener('input', checkInitialFields);
             
             animateUserCounter();
             
@@ -1985,6 +2045,12 @@
                     window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
                 }
             });
+            
+            // Add auth form event listener
+            const authForm = document.getElementById('authForm');
+            if (authForm) {
+                authForm.addEventListener('submit', handleAuthFormSubmit);
+            }
         });
 
         // Path Selection Functions
@@ -2091,7 +2157,10 @@
             updateProgressDisplay();
             
             // Generate appropriate prompt based on path
-            document.getElementById('chatgptPrompt').value = generatePathSpecificPrompt();
+            const chatgptPromptElement = document.getElementById('chatgptPrompt');
+            if (chatgptPromptElement) {
+                chatgptPromptElement.value = generatePathSpecificPrompt();
+            }
             
             // Show AI steps
             document.getElementById('aiSteps').classList.remove('hidden');
@@ -2169,7 +2238,7 @@ Create 3 personalized business ideas for a busy mom with this profile:
 - Work Status: ${data['work-status']}
 
 **Skills & Goals:**
-- Background: ${data.skills}
+- Background: ${data['skills'] || ''}
 - Income Goal: ${data['income-goal']}
 - Learning Willingness: ${data['learning-willingness']}
 - Investment Level: ${data['investment-level']}
@@ -2224,7 +2293,7 @@ Create a comprehensive life organization AND business plan for a busy mom:
 - Organization Goals: ${data['organization-goals']}
 
 **Business Goals:**
-- Background: ${data.skills}
+- Background: ${data['skills'] || ''}
 - Income Goal: ${data['income-goal']}
 - Learning Willingness: ${data['learning-willingness']}
 - Investment Level: ${data['investment-level']}
@@ -2302,9 +2371,14 @@ Focus on how life organization can enable business success and vice versa.`;
             successDiv.classList.remove('hidden');
         }
 
-        // Authentication Event Handlers
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
+        // Authentication Event Handler
+        async function handleAuthFormSubmit(e) {
             e.preventDefault();
+            
+            if (!auth) {
+                showAuthError('Authentication service is not available. Please try again later.');
+                return;
+            }
             
             const email = document.getElementById('authEmail').value;
             const password = document.getElementById('authPassword').value;
@@ -2320,20 +2394,22 @@ Focus on how life organization can enable business success and vice versa.`;
                         return;
                     }
                     
-                    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                     await userCredential.user.updateProfile({ displayName: name });
                     
                     // Save user data to Firestore
-                    await firebase.firestore().collection('users').doc(userCredential.user.uid).set({
-                        name: name,
-                        email: email,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        language: currentLanguage
-                    });
+                    if (db) {
+                        await db.collection('users').doc(userCredential.user.uid).set({
+                            name: name,
+                            email: email,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            language: currentLanguage
+                        });
+                    }
                     
                     showAuthSuccess('Account created successfully!');
                 } else {
-                    await firebase.auth().signInWithEmailAndPassword(email, password);
+                    await auth.signInWithEmailAndPassword(email, password);
                     showAuthSuccess('Welcome back!');
                 }
                 
@@ -2345,25 +2421,32 @@ Focus on how life organization can enable business success and vice versa.`;
             } catch (error) {
                 showAuthError(error.message);
             }
-        });
+        }
 
         async function signInWithGoogle() {
+            if (!auth) {
+                showAuthError('Authentication service is not available. Please try again later.');
+                return;
+            }
+            
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
-                const result = await firebase.auth().signInWithPopup(provider);
+                const result = await auth.signInWithPopup(provider);
                 
                 // Save user data to Firestore if new user
-                const userRef = firebase.firestore().collection('users').doc(result.user.uid);
-                const userDoc = await userRef.get();
-                
-                if (!userDoc.exists) {
-                    await userRef.set({
-                        name: result.user.displayName,
-                        email: result.user.email,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        language: currentLanguage,
-                        provider: 'google'
-                    });
+                if (db) {
+                    const userRef = db.collection('users').doc(result.user.uid);
+                    const userDoc = await userRef.get();
+                    
+                    if (!userDoc.exists) {
+                        await userRef.set({
+                            name: result.user.displayName,
+                            email: result.user.email,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            language: currentLanguage,
+                            provider: 'google'
+                        });
+                    }
                 }
                 
                 showAuthSuccess('Welcome! Signed in with Google');
@@ -2378,8 +2461,14 @@ Focus on how life organization can enable business success and vice versa.`;
         }
 
         async function signOut() {
+            if (!auth) {
+                document.getElementById('userStatusBar').classList.add('hidden');
+                document.getElementById('welcomeModal').classList.remove('hidden');
+                return;
+            }
+            
             try {
-                await firebase.auth().signOut();
+                await auth.signOut();
                 document.getElementById('userStatusBar').classList.add('hidden');
                 document.getElementById('welcomeModal').classList.remove('hidden');
             } catch (error) {
@@ -2387,27 +2476,12 @@ Focus on how life organization can enable business success and vice versa.`;
             }
         }
 
-        // Auth State Observer
-        firebase.auth().onAuthStateChanged(async (user) => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
-                document.getElementById('userStatusBar').classList.remove('hidden');
-                
-                // Load user's saved progress
-                await loadUserProgress();
-            } else {
-                currentUser = null;
-                document.getElementById('userStatusBar').classList.add('hidden');
-            }
-        });
-
         // User Progress Management
         async function loadUserProgress() {
-            if (!currentUser) return;
+            if (!currentUser || !db) return;
             
             try {
-                const progressDoc = await firebase.firestore().collection('progress').doc(currentUser.uid).get();
+                const progressDoc = await db.collection('progress').doc(currentUser.uid).get();
                 if (progressDoc.exists) {
                     const progress = progressDoc.data();
                     
@@ -2438,8 +2512,8 @@ Focus on how life organization can enable business success and vice versa.`;
         }
 
         async function saveFormProgress() {
-            if (!currentUser) {
-                // Save to localStorage for non-authenticated users
+            if (!currentUser || !db) {
+                // Save to localStorage for non-authenticated users or when Firebase is unavailable
                 try {
                     localStorage.setItem('smartMomWorkflowData', JSON.stringify({
                         formData: collectFormData(),
@@ -2454,7 +2528,7 @@ Focus on how life organization can enable business success and vice versa.`;
             }
             
             try {
-                await firebase.firestore().collection('progress').doc(currentUser.uid).set({
+                await db.collection('progress').doc(currentUser.uid).set({
                     formData: collectFormData(),
                     currentStep: currentStep,
                     selectedPath: selectedPath,
@@ -2469,9 +2543,21 @@ Focus on how life organization can enable business success and vice versa.`;
         function showReturningUserStatus(lastSaved) {
             const statusDiv = document.createElement('div');
             statusDiv.className = 'returning-user-status';
+            
+            let lastSavedText = 'your last session';
+            if (lastSaved) {
+                if (lastSaved.toDate) {
+                    // Firebase timestamp
+                    lastSavedText = new Date(lastSaved.toDate()).toLocaleDateString();
+                } else if (typeof lastSaved === 'string') {
+                    // ISO string from localStorage
+                    lastSavedText = new Date(lastSaved).toLocaleDateString();
+                }
+            }
+            
             statusDiv.innerHTML = `
                 <h4>🎉 Welcome Back!</h4>
-                <p>Your progress has been restored from ${lastSaved ? new Date(lastSaved.toDate()).toLocaleDateString() : 'your last session'}.</p>
+                <p>Your progress has been restored from ${lastSavedText}.</p>
                 <div style="margin-top: 20px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn-primary" onclick="continueFromSavedProgress()" style="background: var(--sage-green);">
                         🚀 Continue Where I Left Off (Step ${currentStep})
@@ -2510,12 +2596,10 @@ Focus on how life organization can enable business success and vice versa.`;
             let isValid = true;
             let message = '';
             
-            // Required field validation
-            if (field.hasAttribute('required') || field.classList.contains('required')) {
-                if (!value) {
-                    isValid = false;
-                    message = 'This field is required';
-                }
+            // Required field validation - all form fields are required
+            if (!value) {
+                isValid = false;
+                message = 'This field is required';
             }
             
             // Email validation
@@ -2752,7 +2836,7 @@ ${pricingResearch}
 
 **Mom's Profile:**
 - Schedule: ${data['daily-schedule']}
-- Skills: ${data.skills}
+- Skills: ${data['skills'] || ''}
 - Goal: ${data['income-goal']}
 - Camera Comfort: ${data['camera-comfort']}
 - Work Style: ${data['work-style']}
@@ -2777,7 +2861,10 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             const response = document.getElementById('chatgpt-response').value;
             if (response.trim()) {
                 // Auto-generate Gemini prompt
-                document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
+                const geminiPromptElement = document.getElementById('geminiPrompt');
+                if (geminiPromptElement) {
+                    geminiPromptElement.value = autoPopulateGeminiPrompt();
+                }
                 
                 // Extract business idea for pricing research
                 extractBusinessIdea(response);
@@ -2851,7 +2938,10 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             updateProgressDisplay();
             
             // Generate pricing research prompt
-            document.getElementById('pricingResearchPrompt').value = generatePricingResearchPrompt();
+            const pricingPromptElement = document.getElementById('pricingResearchPrompt');
+            if (pricingPromptElement) {
+                pricingPromptElement.value = generatePricingResearchPrompt();
+            }
             
             // Show step 3.5 content
             document.getElementById('step3_5Content').classList.remove('hidden');
@@ -2871,7 +2961,10 @@ Make this actionable and realistic for a busy mom entrepreneur with executive fu
             updateProgressDisplay();
             
             // Auto-generate Claude prompt
-            document.getElementById('claudePrompt').value = autoPopulateClaudePrompt();
+            const claudePromptElement = document.getElementById('claudePrompt');
+            if (claudePromptElement) {
+                claudePromptElement.value = autoPopulateClaudePrompt();
+            }
             
             // Show step 4 content
             document.getElementById('step4Content').classList.remove('hidden');
@@ -2944,7 +3037,7 @@ Work Status: ${data['work-status']}
 
 ${selectedPath.includes('business') ? `
 === BUSINESS PROFILE ===
-Professional Background: ${data.skills}
+Professional Background: ${data['skills'] || ''}
 Income Goal: ${data['income-goal']}
 Learning Willingness: ${data['learning-willingness']}
 Investment Level: ${data['investment-level']}
@@ -3011,8 +3104,8 @@ Generated with Smart Mom Method - smartmommethod.com
                     body: formData
                 });
                 
-                if (currentUser) {
-                    await firebase.firestore().collection('testimonials').add({
+                if (currentUser && db) {
+                    await db.collection('testimonials').add({
                         userId: currentUser.uid,
                         userName: currentUser.displayName || 'Anonymous',
                         testimonial: testimonial,
@@ -3072,25 +3165,30 @@ Generated with Smart Mom Method - smartmommethod.com
                     startOnboarding();
                 } else if (savedData) {
                     // Load from localStorage
-                    const data = JSON.parse(savedData);
-                    Object.keys(data.formData || {}).forEach(key => {
-                        const element = document.getElementById(key);
-                        if (element) {
-                            element.value = data.formData[key];
+                    try {
+                        const data = JSON.parse(savedData);
+                        Object.keys(data.formData || {}).forEach(key => {
+                            const element = document.getElementById(key);
+                            if (element) {
+                                element.value = data.formData[key];
+                            }
+                        });
+                        
+                        if (data.currentStep) {
+                            currentStep = data.currentStep;
+                            updateProgressDisplay();
                         }
-                    });
-                    
-                    if (data.currentStep) {
-                        currentStep = data.currentStep;
-                        updateProgressDisplay();
+                        
+                        if (data.selectedPath) {
+                            selectedPath = data.selectedPath;
+                        }
+                        
+                        showReturningUserStatus(data.lastSaved);
+                        startOnboarding();
+                    } catch (error) {
+                        console.error('Error loading saved data:', error);
+                        showAuthModal('signin');
                     }
-                    
-                    if (data.selectedPath) {
-                        selectedPath = data.selectedPath;
-                    }
-                    
-                    showReturningUserStatus(data.lastSaved);
-                    startOnboarding();
                 }
             } else {
                 showAuthModal('signin');
@@ -3122,19 +3220,31 @@ Generated with Smart Mom Method - smartmommethod.com
                 
                 // Show appropriate step content
                 if (currentStep === 2) {
-                    document.getElementById('chatgptPrompt').value = generatePathSpecificPrompt();
+                    const chatgptPromptElement = document.getElementById('chatgptPrompt');
+                    if (chatgptPromptElement) {
+                        chatgptPromptElement.value = generatePathSpecificPrompt();
+                    }
                     document.getElementById('step2Content').classList.remove('hidden');
                     document.getElementById('step2Content').scrollIntoView({ behavior: 'smooth' });
                 } else if (currentStep === 3) {
-                    document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
+                    const geminiPromptElement = document.getElementById('geminiPrompt');
+                    if (geminiPromptElement) {
+                        geminiPromptElement.value = autoPopulateGeminiPrompt();
+                    }
                     document.getElementById('step3Content').classList.remove('hidden');
                     document.getElementById('step3Content').scrollIntoView({ behavior: 'smooth' });
                 } else if (currentStep === 4) {
-                    document.getElementById('pricingResearchPrompt').value = generatePricingResearchPrompt();
+                    const pricingPromptElement = document.getElementById('pricingResearchPrompt');
+                    if (pricingPromptElement) {
+                        pricingPromptElement.value = generatePricingResearchPrompt();
+                    }
                     document.getElementById('step3_5Content').classList.remove('hidden');
                     document.getElementById('step3_5Content').scrollIntoView({ behavior: 'smooth' });
                 } else if (currentStep === 5) {
-                    document.getElementById('claudePrompt').value = autoPopulateClaudePrompt();
+                    const claudePromptElement = document.getElementById('claudePrompt');
+                    if (claudePromptElement) {
+                        claudePromptElement.value = autoPopulateClaudePrompt();
+                    }
                     document.getElementById('step4Content').classList.remove('hidden');
                     document.getElementById('step4Content').scrollIntoView({ behavior: 'smooth' });
                 } else if (currentStep >= 6) {
@@ -3195,8 +3305,8 @@ Generated with Smart Mom Method - smartmommethod.com
             document.getElementById(`lang-${lang}`).classList.add('active');
             
             // Save language preference
-            if (currentUser) {
-                firebase.firestore().collection('users').doc(currentUser.uid).update({
+            if (currentUser && db) {
+                db.collection('users').doc(currentUser.uid).update({
                     language: lang
                 }).catch(console.error);
             }
@@ -3210,7 +3320,6 @@ Generated with Smart Mom Method - smartmommethod.com
         }
 
         // Auto-animate user counter
-        let userCount = 2847;
         function animateUserCounter() {
             setInterval(() => {
                 userCount += Math.floor(Math.random() * 3);
