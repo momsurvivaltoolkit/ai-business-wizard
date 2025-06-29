@@ -1741,9 +1741,9 @@
         let auth, db; // Declare Firebase services globally
         let userCount = 2847; // Declare userCount here to fix hoisting issue
 
-        // Firebase Configuration
+        // Firebase Configuration - CORRECT API key from Firebase Console
         const firebaseConfig = {
-            apiKey: "AIzaSyDdnTzAePUyhp_ZCBy-kV6ApwUUbfKSMYg",
+            apiKey: "AIzaSycfDJSSaoj2U1qJzN8hcHYi_DwNhF9SeUQ",
             authDomain: "smart-mom-method-4a804.firebaseapp.com",
             projectId: "smart-mom-method-4a804",
             storageBucket: "smart-mom-method-4a804.firebasestorage.app",
@@ -1774,7 +1774,7 @@
             });
         }
 
-        // Enhanced Firebase initialization
+        // Enhanced Firebase initialization with better error handling
         async function initializeFirebase() {
             try {
                 // Wait for Firebase to be available
@@ -1782,11 +1782,25 @@
                 
                 console.log('Firebase SDK detected, initializing...');
                 
+                // Validate config before initialization
+                if (!firebaseConfig.apiKey || !firebaseConfig.apiKey.startsWith('AIza')) {
+                    throw new Error('Invalid Firebase API key');
+                }
+                
+                if (!firebaseConfig.authDomain || !firebaseConfig.authDomain.includes('.firebaseapp.com')) {
+                    throw new Error('Invalid Firebase auth domain');
+                }
+                
                 firebase.initializeApp(firebaseConfig);
                 auth = firebase.auth();
                 db = firebase.firestore();
                 
                 console.log('Firebase initialized successfully');
+                
+                // Test authentication readiness
+                auth.onAuthStateChanged((user) => {
+                    console.log('Auth state:', user ? `Signed in as ${user.email}` : 'Signed out');
+                });
                 
                 // Set up auth state observer after initialization
                 auth.onAuthStateChanged(async (user) => {
@@ -1801,11 +1815,24 @@
                         currentUser = null;
                         document.getElementById('userStatusBar').classList.add('hidden');
                     }
+                }, (error) => {
+                    console.error('Auth state change error:', error.code, error.message);
                 });
                 
                 return true;
             } catch (error) {
-                console.error('Firebase initialization error:', error);
+                console.error('Firebase initialization error:');
+                console.error('Code:', error.code);
+                console.error('Message:', error.message);
+                
+                if (error.code === 'auth/configuration-not-found') {
+                    console.error('❌ Fix: Check your Firebase configuration in Firebase Console');
+                } else if (error.code === 'auth/api-key-not-valid') {
+                    console.error('❌ Fix: Update your API key from Firebase Console');
+                } else if (error.message.includes('CORS')) {
+                    console.error('❌ Fix: Add claude.ai to authorized domains in Firebase Console');
+                }
+                
                 console.log('Continuing without Firebase - localStorage will be used');
                 return false;
             }
@@ -2419,7 +2446,26 @@ Focus on how life organization can enable business success and vice versa.`;
                 }, 1500);
                 
             } catch (error) {
-                showAuthError(error.message);
+                console.error('Authentication error:', error.code, error.message);
+                
+                // Provide specific error messages
+                if (error.code === 'auth/configuration-not-found') {
+                    showAuthError('Firebase configuration error. Please check the setup.');
+                } else if (error.code === 'auth/api-key-not-valid') {
+                    showAuthError('Invalid Firebase API key. Please check configuration.');
+                } else if (error.code === 'auth/invalid-email') {
+                    showAuthError('Please enter a valid email address.');
+                } else if (error.code === 'auth/user-not-found') {
+                    showAuthError('No account found with this email address.');
+                } else if (error.code === 'auth/wrong-password') {
+                    showAuthError('Incorrect password. Please try again.');
+                } else if (error.code === 'auth/weak-password') {
+                    showAuthError('Password should be at least 6 characters long.');
+                } else if (error.code === 'auth/email-already-in-use') {
+                    showAuthError('An account with this email already exists.');
+                } else {
+                    showAuthError(error.message || 'Authentication failed. Please try again.');
+                }
             }
         }
 
@@ -2456,7 +2502,19 @@ Focus on how life organization can enable business success and vice versa.`;
                 }, 1500);
                 
             } catch (error) {
-                showAuthError(error.message);
+                console.error('Google sign-in error:', error.code, error.message);
+                
+                if (error.code === 'auth/configuration-not-found') {
+                    showAuthError('Google sign-in not configured. Please use email/password instead.');
+                } else if (error.code === 'auth/popup-blocked') {
+                    showAuthError('Popup blocked. Please allow popups and try again.');
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    showAuthError('Sign-in cancelled. Please try again.');
+                } else if (error.code === 'auth/unauthorized-domain') {
+                    showAuthError('This domain is not authorized for Google sign-in.');
+                } else {
+                    showAuthError(error.message || 'Google sign-in failed. Please try email/password instead.');
+                }
             }
         }
 
