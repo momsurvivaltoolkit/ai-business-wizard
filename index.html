@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Firebase SDK -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-app-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-auth-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-firestore-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
     
     <style>
         :root {
@@ -1738,7 +1738,6 @@
         let authMode = 'signup';
         let selectedBusinessIdea = '';
         let selectedPath = '';
-        let auth, db; // Declare Firebase variables globally
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -1752,15 +1751,9 @@
         };
 
         // Initialize Firebase
-        try {
-            firebase.initializeApp(firebaseConfig);
-            auth = firebase.auth();
-            db = firebase.firestore();
-            console.log('Firebase initialized successfully');
-        } catch (error) {
-            console.error('Firebase initialization error:', error);
-            alert('Firebase configuration error. Please check console for details.');
-        }
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
         // Path-specific form fields
         const pathFieldMappings = {
@@ -1960,19 +1953,6 @@
             }
         };
 
-        // Auto-animate user counter
-        let userCount = 2847;
-        
-        function animateUserCounter() {
-            setInterval(() => {
-                userCount += Math.floor(Math.random() * 3);
-                const counterElement = document.querySelector('.user-counter span');
-                if (counterElement) {
-                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
-                }
-            }, 5000);
-        }
-
         // Watch for name and email completion
         document.addEventListener('DOMContentLoaded', () => {
             const nameField = document.getElementById('user-name');
@@ -1983,9 +1963,7 @@
                 const email = emailField.value.trim();
                 const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 
-                // Only show path selection if no returning user status is displayed
-                const returningUserStatus = document.querySelector('.returning-user-status');
-                if (name && email && emailValid && (!returningUserStatus || returningUserStatus.style.display === 'none')) {
+                if (name && email && emailValid) {
                     document.getElementById('pathSelection').style.display = 'block';
                     document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
                 }
@@ -2330,7 +2308,6 @@ Focus on how life organization can enable business success and vice versa.`;
             const confirmPassword = document.getElementById('authConfirmPassword').value;
             
             clearAuthMessages();
-            console.log('Auth form submitted, mode:', authMode);
             
             try {
                 if (authMode === 'signup') {
@@ -2339,10 +2316,7 @@ Focus on how life organization can enable business success and vice versa.`;
                         return;
                     }
                     
-                    console.log('Creating user account...');
                     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    console.log('User created:', userCredential.user.uid);
-                    
                     await userCredential.user.updateProfile({ displayName: name });
                     
                     // Save user data to Firestore
@@ -2354,21 +2328,17 @@ Focus on how life organization can enable business success and vice versa.`;
                     });
                     
                     showAuthSuccess('Account created successfully!');
-                    setTimeout(() => {
-                        closeAuthModal();
-                    }, 1500);
                 } else {
-                    console.log('Signing in user...');
                     await auth.signInWithEmailAndPassword(email, password);
-                    console.log('User signed in successfully');
                     showAuthSuccess('Welcome back!');
-                    setTimeout(() => {
-                        closeAuthModal();
-                    }, 1500);
                 }
                 
+                setTimeout(() => {
+                    closeAuthModal();
+                    startOnboarding();
+                }, 1500);
+                
             } catch (error) {
-                console.error('Authentication error:', error);
                 showAuthError(error.message);
             }
         });
@@ -2395,7 +2365,7 @@ Focus on how life organization can enable business success and vice versa.`;
                 showAuthSuccess('Welcome! Signed in with Google');
                 setTimeout(() => {
                     closeAuthModal();
-                    // Don't call startOnboarding here, let auth state observer handle it
+                    startOnboarding();
                 }, 1500);
                 
             } catch (error) {
@@ -2420,17 +2390,8 @@ Focus on how life organization can enable business success and vice versa.`;
                 document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
                 document.getElementById('userStatusBar').classList.remove('hidden');
                 
-                // Close any open auth modals
-                closeAuthModal();
-                
                 // Load user's saved progress
                 await loadUserProgress();
-                
-                // If they came from "returning user" flow, automatically continue
-                const welcomeModal = document.getElementById('welcomeModal');
-                if (!welcomeModal.classList.contains('hidden')) {
-                    welcomeModal.classList.add('hidden');
-                }
             } else {
                 currentUser = null;
                 document.getElementById('userStatusBar').classList.add('hidden');
@@ -2464,7 +2425,7 @@ Focus on how life organization can enable business success and vice versa.`;
                         selectedPath = progress.selectedPath;
                     }
                     
-                    // Show returning user status with full functionality
+                    // Show returning user status
                     showReturningUserStatus(progress.lastSaved);
                 }
             } catch (error) {
@@ -3085,8 +3046,6 @@ Generated with Smart Mom Method - smartmommethod.com
         }
 
         function handleReturningUser() {
-            console.log('Returning user button clicked!'); // Debug log
-            
             // First close the welcome modal
             document.getElementById('welcomeModal').classList.add('hidden');
             
@@ -3095,39 +3054,37 @@ Generated with Smart Mom Method - smartmommethod.com
         }
 
         function checkReturningUser() {
-            console.log('Checking returning user...'); // Debug log
-            
             // Check for saved data
             const savedData = localStorage.getItem('smartMomWorkflowData');
             
-            if (currentUser) {
-                // User is already logged in, load their progress
-                console.log('User already logged in, loading progress...');
-                loadUserProgress();
-            } else if (savedData) {
-                // Load from localStorage
-                console.log('Found saved data, restoring...');
-                const data = JSON.parse(savedData);
-                Object.keys(data.formData || {}).forEach(key => {
-                    const element = document.getElementById(key);
-                    if (element) {
-                        element.value = data.formData[key];
+            if (savedData || currentUser) {
+                if (currentUser) {
+                    // User is authenticated, load their progress
+                    loadUserProgress();
+                    startOnboarding();
+                } else if (savedData) {
+                    // Load from localStorage
+                    const data = JSON.parse(savedData);
+                    Object.keys(data.formData || {}).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = data.formData[key];
+                        }
+                    });
+                    
+                    if (data.currentStep) {
+                        currentStep = data.currentStep;
+                        updateProgressDisplay();
                     }
-                });
-                
-                if (data.currentStep) {
-                    currentStep = data.currentStep;
-                    updateProgressDisplay();
+                    
+                    if (data.selectedPath) {
+                        selectedPath = data.selectedPath;
+                    }
+                    
+                    showReturningUserStatus(data.lastSaved);
+                    startOnboarding();
                 }
-                
-                if (data.selectedPath) {
-                    selectedPath = data.selectedPath;
-                }
-                
-                showReturningUserStatus(data.lastSaved);
             } else {
-                // No saved data found - show login modal
-                console.log('No saved data found, showing login...');
                 showAuthModal('signin');
             }
         }
@@ -3242,6 +3199,18 @@ Generated with Smart Mom Method - smartmommethod.com
             if (initialStep) {
                 initialStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
+        }
+
+        // Auto-animate user counter
+        let userCount = 2847;
+        function animateUserCounter() {
+            setInterval(() => {
+                userCount += Math.floor(Math.random() * 3);
+                const counterElement = document.querySelector('.user-counter span');
+                if (counterElement) {
+                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
+                }
+            }, 5000);
         }
     </script>
 </body>
