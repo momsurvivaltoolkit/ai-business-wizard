@@ -6,10 +6,10 @@
     <title>Smart Mom Method - AI Business Launch Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Firebase SDK -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-auth-compat.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-firestore-compat.min.js"></script>
+    <!-- Firebase SDK - Updated to more stable version -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-auth-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-firestore-compat.min.js"></script>
     
     <style>
         :root {
@@ -137,11 +137,34 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        .auth-button:hover {
+        .auth-button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 12px 32px rgba(107, 142, 107, 0.35);
+        }
+
+        .auth-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .auth-button.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            margin: auto;
+            border: 2px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s ease infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .google-auth-button {
@@ -155,7 +178,7 @@
             margin-top: 16px;
         }
 
-        .google-auth-button:hover {
+        .google-auth-button:hover:not(:disabled) {
             background: var(--light-sage);
             transform: translateY(-2px);
         }
@@ -191,6 +214,42 @@
             border-radius: 8px;
             margin-bottom: 16px;
             font-size: 14px;
+        }
+
+        /* Debug Panel */
+        .debug-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 10000;
+            display: none;
+        }
+
+        .debug-panel.show {
+            display: block;
+        }
+
+        .debug-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--sage-green);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 10001;
         }
 
         /* Welcome Modal */
@@ -394,128 +453,13 @@
             opacity: 0.9;
         }
 
-        /* Progress Container */
-        .progress-container {
-            background: white;
-            border-radius: 20px;
-            padding: 32px;
-            margin-bottom: 32px;
-            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .step-counter {
-            font-weight: 700;
-            color: var(--sage-green);
-            font-size: 1.3rem;
-        }
-
-        .time-estimate {
-            background: var(--soft-gold);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .overall-progress {
-            width: 100%;
-            height: 12px;
-            background: var(--light-sage);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 32px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--sage-green), var(--deep-teal));
-            transition: width 0.5s ease;
-            border-radius: 6px;
-            width: 14.29%;
-        }
-
-        .progress-bar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 16px;
-            margin-bottom: 0;
-        }
-
-        .progress-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 16px;
-            border-radius: 16px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: var(--sage-alpha);
-        }
-        
-        .progress-step:hover {
-            background: var(--teal-alpha);
-            transform: translateY(-2px);
-        }
-
-        .progress-step.active {
-            background: var(--sage-green);
-            color: white;
-        }
-
-        .progress-step.completed {
-            background: var(--deep-teal);
-            color: white;
-        }
-
-        .progress-step.next {
-            background: var(--soft-gold);
-            color: white;
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin-bottom: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .progress-step.active .step-number {
-            background: rgba(255, 255, 255, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .step-text {
-            font-size: 0.9rem;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        /* Main Card */
+        /* Basic styling for the rest of the form */
         .main-card {
             background: white;
             border-radius: 24px;
             box-shadow: 0 16px 48px rgba(44, 62, 80, 0.1);
             overflow: hidden;
+            margin-top: 40px;
         }
 
         .header {
@@ -525,22 +469,6 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shimmer 8s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(180deg); }
         }
 
         .header h1 {
@@ -573,604 +501,38 @@
             z-index: 1;
         }
 
-        .header .cta-section {
-            margin-top: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-current {
-            background: linear-gradient(135deg, var(--soft-gold), #C79660);
-            color: white;
-            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
-            font-size: 1.2rem;
-            padding: 20px 40px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-current:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(212, 165, 116, 0.4);
-        }
-
         .content {
             padding: 50px 40px;
         }
 
-        .step-description {
+        .test-section {
             background: var(--light-sage);
-            padding: 32px;
             border-radius: 16px;
-            margin-bottom: 40px;
-            border-left: 6px solid var(--sage-green);
-        }
-
-        .step-description h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--charcoal);
-            margin-bottom: 16px;
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
-        .step-description p {
-            color: var(--charcoal);
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-
-        .empowerment-message {
-            background: linear-gradient(135deg, var(--gold-alpha), rgba(212, 165, 116, 0.15));
-            border: 2px solid var(--soft-gold);
-            border-radius: 20px;
             padding: 32px;
             margin: 32px 0;
             text-align: center;
         }
 
-        .empowerment-title {
-            color: var(--charcoal);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .empowerment-text {
-            color: var(--charcoal);
-            line-height: 1.7;
-            opacity: 0.9;
-        }
-
-        /* Initial Step */
-        .initial-step {
-            margin-bottom: 40px;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            border: 2px solid var(--light-sage);
-            box-shadow: 0 4px 16px rgba(107, 142, 107, 0.08);
-        }
-
-        .initial-step h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--charcoal);
-            margin-bottom: 32px;
-            font-size: 1.8rem;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 28px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: var(--charcoal);
-            font-size: 1rem;
-        }
-
-        .required {
-            color: var(--soft-gold);
-            margin-left: 4px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid var(--light-sage);
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            background: var(--warm-cream);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--sage-green);
-            box-shadow: 0 0 0 4px var(--sage-alpha);
-            background: white;
-        }
-
-        .validation-message {
-            margin-top: 8px;
-            font-size: 14px;
-            color: #e57373;
-        }
-
-        .validation-message.success {
-            color: var(--sage-green);
-        }
-
-        /* Path Selection */
-        .path-selection {
-            margin: 50px 0;
-            text-align: center;
-        }
-
-        .path-selection h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--charcoal);
-            margin-bottom: 40px;
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-
-        .path-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .path-option {
-            background: var(--warm-cream);
-            border-radius: 20px;
-            padding: 40px 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            position: relative;
-            text-align: center;
-        }
-
-        .path-option:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(107, 142, 107, 0.2);
-            border-color: var(--sage-green);
-        }
-
-        .path-option.selected {
-            border-color: var(--soft-gold);
-            background: white;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 36px rgba(212, 165, 116, 0.25);
-        }
-
-        .path-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .path-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--charcoal);
-            margin-bottom: 16px;
-        }
-
-        .path-description {
-            color: var(--charcoal);
-            opacity: 0.8;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .continue-btn {
-            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
+        .test-button {
+            background: var(--sage-green);
             color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 30px;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-        }
-
-        .continue-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: all;
-        }
-
-        .continue-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(107, 142, 107, 0.3);
-        }
-
-        /* Form Section */
-        .form-section {
-            margin-bottom: 40px;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            border: 2px solid var(--light-sage);
-            box-shadow: 0 4px 16px rgba(107, 142, 107, 0.08);
-            position: relative;
-        }
-
-        .form-section h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--charcoal);
-            margin-bottom: 32px;
-            font-size: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .char-counter {
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 12px;
-            color: var(--charcoal);
-            opacity: 0.6;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
-            color: white;
-            box-shadow: 0 8px 24px rgba(107, 142, 107, 0.25);
-            padding: 18px 36px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.35);
-        }
-
-        /* Platform Buttons */
-        .platform-button {
-            display: inline-block;
             padding: 16px 32px;
+            border: none;
             border-radius: 12px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
             font-size: 16px;
-            transition: all 0.3s ease;
-            margin: 8px;
+            font-weight: 600;
             cursor: pointer;
-            border: none;
-        }
-
-        .platform-button.chatgpt-button {
-            background: linear-gradient(135deg, #00a67e, #00c896);
-        }
-
-        .platform-button.gemini-button {
-            background: linear-gradient(135deg, #4285f4, #34a853);
-        }
-
-        .platform-button.claude-button {
-            background: linear-gradient(135deg, #cc785c, #d97757);
-        }
-
-        .platform-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Auto-populated prompts */
-        .auto-populated-prompt {
-            background: var(--light-sage);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 16px 0;
-            border-left: 4px solid var(--sage-green);
-        }
-
-        .auto-populate-status {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .auto-populate-status.ready {
-            background: var(--light-sage);
-            color: var(--sage-green);
-        }
-
-        /* Business Idea Selector */
-        .business-idea-selector {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 32px 0;
-            border: 2px solid var(--light-sage);
-            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
-        }
-
-        /* Returning user status */
-        .returning-user-status {
-            background: linear-gradient(135deg, var(--gold-alpha), rgba(212, 165, 116, 0.15));
-            border: 2px solid var(--soft-gold);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        /* Celebration section */
-        .celebration-section {
-            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-            border-radius: 24px;
-            margin: 40px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .celebration-section::before {
-            content: '🎉';
-            position: absolute;
-            font-size: 6rem;
-            opacity: 0.1;
-            animation: celebrate 3s infinite;
-        }
-
-        @keyframes celebrate {
-            0%, 100% { transform: rotate(-10deg) scale(1); }
-            50% { transform: rotate(10deg) scale(1.1); }
-        }
-
-        /* Services Section */
-        .services-section {
-            background: var(--warm-cream);
-            padding: 80px 20px;
-            margin: 50px -40px -50px -40px;
-            border-radius: 0;
-        }
-
-        .services-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .services-title {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: 2.8rem;
-            color: var(--charcoal);
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-
-        .services-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            color: var(--charcoal);
-            opacity: 0.8;
-            margin-bottom: 60px;
-        }
-
-        .track-section {
-            margin-bottom: 80px;
-            padding: 50px;
-            background: white;
-            border-radius: 24px;
-            border-left: 8px solid var(--sage-green);
-            box-shadow: 0 12px 40px rgba(44, 62, 80, 0.08);
-        }
-
-        .track-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--charcoal);
-            margin-bottom: 16px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .track-subtitle {
-            font-size: 1.2rem;
-            color: var(--charcoal);
-            opacity: 0.8;
-            text-align: center;
-            margin-bottom: 50px;
-            line-height: 1.6;
-        }
-
-        .service-blocks {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .service-block {
-            background: var(--warm-cream);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 12px 32px rgba(44, 62, 80, 0.08);
-            text-align: center;
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .service-block:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 48px rgba(44, 62, 80, 0.12);
-            border-color: var(--sage-green);
-        }
-
-        .popular-service {
-            border: 3px solid var(--soft-gold);
-            transform: scale(1.02);
-            background: white;
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--soft-gold);
-            color: white;
-            padding: 8px 24px;
-            border-radius: 24px;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .service-icon {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--sage-green);
-            background: var(--light-sage);
-            padding: 12px 20px;
-            border-radius: 24px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .service-block h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--charcoal);
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-
-        .service-price {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--sage-green);
-            margin-bottom: 20px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .service-description {
-            color: var(--charcoal);
-            opacity: 0.8;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .service-features {
-            list-style: none;
-            padding: 0;
-            margin: 24px 0;
-            text-align: left;
-        }
-
-        .service-features li {
-            padding: 8px 0;
-            color: var(--charcoal);
-            font-size: 0.95rem;
-            position: relative;
-            padding-left: 24px;
-        }
-
-        .service-features li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--sage-green);
-            font-weight: 700;
-        }
-
-        .service-button {
-            width: 100%;
-            padding: 18px 32px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
+            margin: 10px;
             transition: all 0.3s ease;
-            margin-top: 24px;
-            font-family: 'Inter', sans-serif;
         }
 
-        .service-button.free-button {
-            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
-            color: white;
-        }
-
-        .service-button.free-button:hover {
-            background: linear-gradient(135deg, #5A7A5A, var(--sage-green));
+        .test-button:hover {
+            background: #5A7A5A;
             transform: translateY(-2px);
         }
 
-        .service-button.premium-button {
-            background: linear-gradient(135deg, var(--deep-teal), #1E3D47);
-            color: white;
-        }
-
-        .service-button.premium-button:hover {
-            background: linear-gradient(135deg, #1E3D47, var(--deep-teal));
-            transform: translateY(-2px);
-        }
-
-        /* Social Proof Section */
-        .social-proof-section {
-            background: linear-gradient(135deg, var(--teal-alpha), rgba(45, 91, 105, 0.08));
-            padding: 80px 20px;
-            margin: 50px 0;
-            border-radius: 24px;
-        }
-
-        .social-proof-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: var(--charcoal);
-            margin-bottom: 20px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .user-counter {
-            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
-            color: white;
-            padding: 18px 36px;
-            border-radius: 40px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            display: inline-block;
-            margin: 24px 0;
-            animation: pulse 3s infinite;
+        .hidden {
+            display: none;
         }
 
         /* Mobile Responsiveness */
@@ -1191,23 +553,6 @@
                 padding: 30px 20px;
             }
             
-            .form-section, .initial-step {
-                padding: 24px;
-            }
-            
-            .progress-bar {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-            }
-
-            .progress-step {
-                padding: 12px 8px;
-            }
-
-            .step-text {
-                font-size: 0.7rem;
-            }
-
             .language-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -1225,11 +570,6 @@
                 flex-direction: column;
             }
 
-            .form-control {
-                font-size: 16px;
-                padding: 18px;
-            }
-
             .auth-content {
                 padding: 30px 20px;
             }
@@ -1238,23 +578,19 @@
                 flex-direction: column;
                 gap: 12px;
             }
-
-            .path-options {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .path-option {
-                padding: 30px 20px;
-            }
-        }
-
-        .hidden {
-            display: none;
         }
     </style>
 </head>
 <body>
+    <!-- Debug Toggle -->
+    <button class="debug-toggle" onclick="toggleDebug()">Toggle Debug</button>
+    
+    <!-- Debug Panel -->
+    <div id="debugPanel" class="debug-panel">
+        <div><strong>Firebase Debug Log:</strong></div>
+        <div id="debugLog"></div>
+    </div>
+
     <!-- Authentication Modal -->
     <div id="authModal" class="auth-modal">
         <div class="auth-content">
@@ -1334,397 +670,28 @@
             </div>
         </div>
 
-        <!-- Social Proof Section -->
-        <div class="social-proof-section">
-            <div class="social-proof-header">
-                <h2 class="social-proof-title">Join 2,847+ Successful Mom Entrepreneurs!</h2>
-                <div class="user-counter">
-                    <span>🎉 2,847+ moms have launched their businesses!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Progress Container -->
-        <div class="progress-container">
-            <div class="progress-header">
-                <div class="step-counter">Step 1 of 7</div>
-                <div class="time-estimate">⏱️ Estimated: 5 min</div>
-            </div>
-            <div class="overall-progress">
-                <div class="progress-fill"></div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-step active">
-                    <span class="step-number">1</span>
-                    <span class="step-text">Collect Information</span>
-                </div>
-                <div class="progress-step next">
-                    <span class="step-number">2</span>
-                    <span class="step-text">ChatGPT</span>
-                </div>
-                <div class="progress-step">
-                    <span class="step-number">3</span>
-                    <span class="step-text">Gemini</span>
-                </div>
-                <div class="progress-step">
-                    <span class="step-number">3.5</span>
-                    <span class="step-text">Pricing Research</span>
-                </div>
-                <div class="progress-step">
-                    <span class="step-number">4</span>
-                    <span class="step-text">Claude</span>
-                </div>
-                <div class="progress-step">
-                    <span class="step-number">5</span>
-                    <span class="step-text">Optimize</span>
-                </div>
-                <div class="progress-step">
-                    <span class="step-number">6</span>
-                    <span class="step-text">Complete</span>
-                </div>
-            </div>
-        </div>
-
         <div class="main-card">
             <div class="header">
                 <h1>Smart Mom Method</h1>
                 <p class="subtitle">AI-Powered Business Planning for Busy Moms</p>
                 <span class="badge">100% Free</span>
-                
-                <div class="cta-section">
-                    <button class="btn-current" onclick="scrollToForm()">
-                        🚀 Start Your Free Business Plan Now
-                    </button>
-                    <p style="margin-top: 16px; font-size: 0.95rem; opacity: 0.9;">No email required to browse • Full process takes 20-25 minutes</p>
-                </div>
             </div>
 
             <div class="content">
-                <div class="step-description">
-                    <h2>👋 Let's Get Started</h2>
-                    <p>First, let's get to know you better so we can create the perfect plan for your unique situation.</p>
-                </div>
-
-                <div class="empowerment-message">
-                    <div class="empowerment-title">You're Already Successful! 🌟</div>
-                    <p class="empowerment-text">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR business!</p>
-                </div>
-
-                <!-- Initial Step: Name & Email -->
-                <div class="initial-step" id="initialStep">
-                    <h2>👋 Let's Get Started</h2>
+                <div class="test-section">
+                    <h3>🔧 Firebase Authentication Test</h3>
+                    <p>Use these buttons to test the authentication system and debug any issues.</p>
                     
-                    <div class="form-group">
-                        <label>Your Name: <span class="required">*</span></label>
-                        <input type="text" id="user-name" class="form-control" placeholder="Enter your name" onchange="validateField(this)" />
-                        <div class="validation-message" id="user-name-validation"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Your Email: <span class="required">*</span></label>
-                        <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" />
-                        <div class="validation-message" id="user-email-validation"></div>
-                    </div>
-                </div>
-
-                <!-- Path Selection -->
-                <div class="path-selection" id="pathSelection" style="display: none;">
-                    <h2>What brings you here today? Choose your main focus:</h2>
-                    
-                    <div class="path-options">
-                        <div class="path-option" data-path="life-organization" onclick="selectPath('life-organization')">
-                            <span class="path-icon">🏠</span>
-                            <h3 class="path-title">Life Organization</h3>
-                            <p class="path-description">I need help organizing my daily life, family schedules, and home systems</p>
-                        </div>
-                        
-                        <div class="path-option" data-path="business-launch" onclick="selectPath('business-launch')">
-                            <span class="path-icon">💼</span>
-                            <h3 class="path-title">Business Launch</h3>
-                            <p class="path-description">I want to start a business or create passive income streams</p>
-                        </div>
-                        
-                        <div class="path-option" data-path="both" onclick="selectPath('both')">
-                            <span class="path-icon">☀️</span>
-                            <h3 class="path-title">Both Life & Business</h3>
-                            <p class="path-description">I need life organization AND want to start a business</p>
-                        </div>
+                    <div>
+                        <button class="test-button" onclick="testFirebaseConnection()">Test Firebase Connection</button>
+                        <button class="test-button" onclick="showAuthModal('signup')">Test Sign Up Modal</button>
+                        <button class="test-button" onclick="showAuthModal('signin')">Test Sign In Modal</button>
+                        <button class="test-button" onclick="testEmailAuth()">Test Email Auth</button>
+                        <button class="test-button" onclick="regenerateFirebaseConfig()">Try Alternative Config</button>
                     </div>
                     
-                    <button class="continue-btn" id="continueBtn" onclick="proceedWithSelectedPath()">
-                        Continue With Selected Path
-                    </button>
+                    <div id="testResults" style="margin-top: 20px; text-align: left; background: white; padding: 20px; border-radius: 8px; font-family: monospace; white-space: pre-wrap;"></div>
                 </div>
-
-                <!-- Dynamic Form Sections (will be populated based on path) -->
-                <div id="dynamicFormSections" class="hidden">
-                    <!-- Content will be populated by JavaScript based on selected path -->
-                </div>
-
-                <!-- AI Steps (will be shown after form completion) -->
-                <div id="aiSteps" class="hidden">
-                    <!-- Step 2: AI Platform Integration -->
-                    <div id="step2Content" class="hidden">
-                        <div class="step-description">
-                            <h2>🤖 Step 2: Generate with ChatGPT</h2>
-                            <p>We've created a personalized prompt based on your information. Copy this prompt and paste it into ChatGPT to generate your first set of business ideas.</p>
-                        </div>
-
-                        <div class="auto-populated-prompt">
-                            <div class="auto-populate-status ready">✨ Prompt Ready</div>
-                            <h4>Your Personalized ChatGPT Prompt:</h4>
-                            <textarea id="chatgptPrompt" class="form-control" rows="8" readonly></textarea>
-                            <button class="btn-primary" onclick="copyToClipboard('chatgptPrompt')">📋 Copy Prompt</button>
-                            <a href="https://chat.openai.com" target="_blank" class="platform-button chatgpt-button">Open ChatGPT</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Paste ChatGPT Response Here: <span class="required">*</span></label>
-                            <textarea id="chatgpt-response" class="form-control" rows="6" placeholder="Paste the complete response from ChatGPT here..." onchange="parseChatGPTResponse()"></textarea>
-                            <div class="validation-message" id="chatgpt-response-validation"></div>
-                        </div>
-
-                        <button type="button" class="btn-primary" onclick="proceedToGemini()">
-                            🚀 Continue to Gemini
-                        </button>
-                    </div>
-
-                    <!-- Step 3: Gemini Integration -->
-                    <div id="step3Content" class="hidden">
-                        <div class="step-description">
-                            <h2>🔍 Step 3: Refine with Gemini</h2>
-                            <p>Now we'll use Gemini to refine and expand on your business ideas with market research and validation.</p>
-                        </div>
-
-                        <div class="auto-populated-prompt">
-                            <div class="auto-populate-status ready">✨ Prompt Ready</div>
-                            <h4>Your Personalized Gemini Prompt:</h4>
-                            <textarea id="geminiPrompt" class="form-control" rows="8" readonly></textarea>
-                            <button class="btn-primary" onclick="copyToClipboard('geminiPrompt')">📋 Copy Prompt</button>
-                            <a href="https://gemini.google.com" target="_blank" class="platform-button gemini-button">Open Gemini</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Paste Gemini Response Here: <span class="required">*</span></label>
-                            <textarea id="gemini-response" class="form-control" rows="6" placeholder="Paste the complete response from Gemini here..." onchange="parseGeminiResponse()"></textarea>
-                            <div class="validation-message" id="gemini-response-validation"></div>
-                        </div>
-
-                        <button type="button" class="btn-primary" onclick="proceedToPricingResearch()">
-                            🚀 Continue to Pricing Research
-                        </button>
-                    </div>
-
-                    <!-- Step 3.5: Realistic Pricing Research -->
-                    <div id="step3_5Content" class="hidden">
-                        <div class="step-description">
-                            <h2>💰 Step 3.5: Realistic Pricing Research</h2>
-                            <p>Before finalizing your plan, let's research realistic pricing for your selected business idea. This crucial step ensures you set competitive rates that actually get you clients.</p>
-                        </div>
-
-                        <div class="business-idea-selector" id="businessIdeaSelection">
-                            <h4>📝 Your Selected Business Idea:</h4>
-                            <div id="selectedBusinessIdea" style="background: var(--light-sage); padding: 20px; border-radius: 12px; margin: 16px 0; font-weight: 600; color: var(--charcoal);">
-                                Your business idea will appear here after ChatGPT analysis...
-                            </div>
-                        </div>
-
-                        <div class="auto-populated-prompt">
-                            <div class="auto-populate-status ready">✨ Pricing Research Prompt Ready</div>
-                            <h4>Your Personalized Gemini Deep Research Prompt:</h4>
-                            <textarea id="pricingResearchPrompt" class="form-control" rows="10" readonly></textarea>
-                            <button class="btn-primary" onclick="copyToClipboard('pricingResearchPrompt')">📋 Copy Pricing Research Prompt</button>
-                            <a href="https://gemini.google.com" target="_blank" class="platform-button gemini-button">Open Gemini for Pricing Research</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Paste Pricing Research Response Here: <span class="required">*</span></label>
-                            <textarea id="pricing-research-response" class="form-control" rows="6" placeholder="Paste the complete pricing research response from Gemini here..." onchange="validateField(this)"></textarea>
-                            <div class="validation-message" id="pricing-research-response-validation"></div>
-                        </div>
-
-                        <button type="button" class="btn-primary" onclick="proceedToClaude()">
-                            🚀 Continue to Claude
-                        </button>
-                    </div>
-
-                    <!-- Step 4: Claude Integration -->
-                    <div id="step4Content" class="hidden">
-                        <div class="step-description">
-                            <h2>🎯 Step 4: Perfect with Claude</h2>
-                            <p>Finally, we'll use Claude to create your comprehensive ADHD-friendly business plan with actionable steps and realistic timelines.</p>
-                        </div>
-
-                        <div class="auto-populated-prompt">
-                            <div class="auto-populate-status ready">✨ ADHD-Friendly Plan Prompt Ready</div>
-                            <h4>Your Personalized Claude Prompt (ADHD-Optimized):</h4>
-                            <textarea id="claudePrompt" class="form-control" rows="12" readonly></textarea>
-                            <button class="btn-primary" onclick="copyToClipboard('claudePrompt')">📋 Copy Prompt</button>
-                            <a href="https://claude.ai" target="_blank" class="platform-button claude-button">Open Claude</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Paste Claude Response Here: <span class="required">*</span></label>
-                            <textarea id="claude-response" class="form-control" rows="6" placeholder="Paste the complete response from Claude here..." onchange="generateFinalPlan()"></textarea>
-                            <div class="validation-message" id="claude-response-validation"></div>
-                        </div>
-
-                        <button type="button" class="btn-primary" onclick="completePlan()">
-                            🎉 Complete My Business Plan
-                        </button>
-                    </div>
-
-                    <!-- Final Plan -->
-                    <div id="finalPlanContent" class="hidden">
-                        <div class="celebration-section">
-                            <h2>🎉 Congratulations! Your Business Plan is Ready!</h2>
-                            <p>You've successfully created a comprehensive, ADHD-friendly business plan tailored specifically for your life as a busy mom!</p>
-                            <button class="btn-primary" onclick="downloadBusinessPlan()" style="background: white; color: var(--sage-green); margin-top: 24px;">
-                                📥 Download Your Business Plan
-                            </button>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Share Your Success Story (Optional):</label>
-                            <textarea id="testimonial" class="form-control" rows="4" placeholder="How was your experience creating your business plan? Your story could inspire other moms!"></textarea>
-                            <button type="button" class="btn-primary" onclick="submitTestimonial()">
-                                💬 Share Your Story
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Services Section -->
-                <section class="services-section" id="servicesSection">
-                    <div class="services-container">
-                        <h2 class="services-title">Choose Your Smart Mom Support Level</h2>
-                        <p class="services-subtitle">Two specialized tracks designed for your specific needs:</p>
-                        
-                        <!-- Life Organization Track -->
-                        <div class="track-section">
-                            <h3 class="track-title">Life Organization Track</h3>
-                            <p class="track-subtitle">Perfect for busy moms who want to organize daily life, family schedules, and household management</p>
-                            
-                            <div class="service-blocks">
-                                <!-- Free Support -->
-                                <div class="service-block">
-                                    <div class="service-icon">FREE</div>
-                                    <h3>Life Organization Support</h3>
-                                    <p class="service-price">$0</p>
-                                    <p class="service-description">Struggling with daily chaos? Let's troubleshoot your family organization challenges together!</p>
-                                    <ul class="service-features">
-                                        <li>30-minute support call</li>
-                                        <li>Family schedule troubleshooting</li>
-                                        <li>Organization quick wins</li>
-                                        <li>Executive function strategies</li>
-                                    </ul>
-                                    <button class="service-button free-button" onclick="openCalendly('https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min')">
-                                        Book Free Support Call
-                                    </button>
-                                </div>
-                                
-                                <!-- Done-For-You Life Calendar -->
-                                <div class="service-block popular-service">
-                                    <div class="popular-badge">Most Popular</div>
-                                    <div class="service-icon">DONE FOR YOU</div>
-                                    <h3>Life Organization Calendar</h3>
-                                    <p class="service-price">$39</p>
-                                    <p class="service-description">I'll create your personalized family organization calendar - meal planning, pickup schedules, household routines!</p>
-                                    <ul class="service-features">
-                                        <li>Custom family calendar creation</li>
-                                        <li>Daily routines & schedules</li>
-                                        <li>Meal planning integration</li>
-                                        <li>School/activity coordination</li>
-                                        <li>Ready-to-download file</li>
-                                    </ul>
-                                    <button class="service-button premium-button" onclick="handleStripePayment('life-calendar')">
-                                        Get My Life Calendar $39
-                                    </button>
-                                </div>
-                                
-                                <!-- Life Organization Training -->
-                                <div class="service-block">
-                                    <div class="service-icon">AI TRAINING</div>
-                                    <h3>Life Organization AI Training</h3>
-                                    <p class="service-price">$89</p>
-                                    <p class="service-description">Get your calendar created PLUS learn executive function strategies and organization systems!</p>
-                                    <ul class="service-features">
-                                        <li>60-minute training session</li>
-                                        <li>Custom calendar creation</li>
-                                        <li>ADHD-friendly organization tips</li>
-                                        <li>Future update training</li>
-                                        <li>Family routine optimization</li>
-                                    </ul>
-                                    <button class="service-button premium-button" onclick="handleStripePayment('life-training')">
-                                        Book AI Training $89
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Business Growth Track -->
-                        <div class="track-section">
-                            <h3 class="track-title">Business Growth Track</h3>
-                            <p class="track-subtitle">For mom entrepreneurs who want to build and scale their business while managing family life</p>
-                            
-                            <div class="service-blocks">
-                                <!-- Free Business Support -->
-                                <div class="service-block">
-                                    <div class="service-icon">FREE</div>
-                                    <h3>Business Planning Support</h3>
-                                    <p class="service-price">$0</p>
-                                    <p class="service-description">Stuck with your business calendar? Let's troubleshoot your entrepreneurial challenges together!</p>
-                                    <ul class="service-features">
-                                        <li>30-minute strategy call</li>
-                                        <li>Business calendar troubleshooting</li>
-                                        <li>Revenue planning advice</li>
-                                        <li>Mom entrepreneur tips</li>
-                                    </ul>
-                                    <button class="service-button free-button" onclick="openCalendly('https://calendly.com/momsurvivaltoolkit/30min')">
-                                        Book Free Strategy Call
-                                    </button>
-                                </div>
-                                
-                                <!-- Done-For-You Business Calendar -->
-                                <div class="service-block popular-service">
-                                    <div class="popular-badge">Most Popular</div>
-                                    <div class="service-icon">BUSINESS</div>
-                                    <h3>Business Growth Calendar</h3>
-                                    <p class="service-price">$49</p>
-                                    <p class="service-description">I'll create your personalized business planning calendar with revenue goals, marketing tasks, and growth strategies!</p>
-                                    <ul class="service-features">
-                                        <li>Custom business calendar creation</li>
-                                        <li>Revenue goal planning</li>
-                                        <li>Marketing task scheduling</li>
-                                        <li>Client management system</li>
-                                        <li>SEO content suggestions</li>
-                                    </ul>
-                                    <button class="service-button premium-button" onclick="handleStripePayment('business-calendar')">
-                                        Get My Business Calendar $49
-                                    </button>
-                                </div>
-                                
-                                <!-- Business Training -->
-                                <div class="service-block">
-                                    <div class="service-icon">AI TRAINING</div>
-                                    <h3>Business Growth AI Training</h3>
-                                    <p class="service-price">$100</p>
-                                    <p class="service-description">Complete business planning system + personal training to scale your mom business successfully!</p>
-                                    <ul class="service-features">
-                                        <li>90-minute strategy session</li>
-                                        <li>Custom business calendar</li>
-                                        <li>Revenue optimization training</li>
-                                        <li>Marketing automation setup</li>
-                                        <li>Ongoing update training</li>
-                                    </ul>
-                                    <button class="service-button premium-button" onclick="handleStripePayment('business-training')">
-                                        Book AI Training $100
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
     </div>
@@ -1733,13 +700,39 @@
         // Global Variables
         let currentLanguage = 'en';
         let currentUser = null;
-        let formData = {};
-        let currentStep = 1;
         let authMode = 'signup';
-        let selectedBusinessIdea = '';
-        let selectedPath = '';
+        let auth = null;
+        let db = null;
+        let debugLogs = [];
 
-        // Firebase Configuration
+        // Debug Functions
+        function debugLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            debugLogs.push(logEntry);
+            
+            console.log(logEntry);
+            
+            const debugElement = document.getElementById('debugLog');
+            if (debugElement) {
+                debugElement.innerHTML = debugLogs.slice(-20).join('\n');
+                debugElement.scrollTop = debugElement.scrollHeight;
+            }
+        }
+
+        function toggleDebug() {
+            const panel = document.getElementById('debugPanel');
+            panel.classList.toggle('show');
+        }
+
+        function showTestResult(message, isError = false) {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.style.color = isError ? '#e53e3e' : '#38a169';
+            resultsDiv.textContent = message;
+            debugLog(message, isError ? 'error' : 'success');
+        }
+
+        // Primary Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDdnTzAePUyhp_ZCBy-kV6ApwUUbfKSMYg",
             authDomain: "smart-mom-method-4a804.firebaseapp.com",
@@ -1750,498 +743,119 @@
             measurementId: "G-SKRCMSVH72"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Path-specific form fields
-        const pathFieldMappings = {
-            'life-organization': {
-                required: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'household-challenges', 'organization-goals', 'time-available', 'current-systems'],
-                sections: [
-                    {
-                        title: '👨‍👩‍👧‍👦 Family & Home Situation',
-                        fields: [
-                            { id: 'family-structure', label: 'Family Structure & Ages', type: 'textarea', placeholder: 'e.g., "Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties."', maxLength: 1000 },
-                            { id: 'daily-schedule', label: 'Daily Schedule & Availability', type: 'textarea', placeholder: 'e.g., "Mornings are hectic with school dropoff. Free from 9-11am when youngest naps. Kids in bed by 8pm."', maxLength: 1000 },
-                            { id: 'work-status', label: 'Current Work Status', type: 'select', options: [
-                                { value: 'stay-at-home', text: 'Stay-at-home super mom' },
-                                { value: 'part-time', text: 'Working part-time' },
-                                { value: 'full-time', text: 'Working full-time' },
-                                { value: 'unemployed', text: 'Recently unemployed/looking' },
-                                { value: 'student', text: 'Student/in school' }
-                            ]}
-                        ]
-                    },
-                    {
-                        title: '🏠 Organization Challenges',
-                        fields: [
-                            { id: 'household-challenges', label: 'Biggest Household Management Challenges', type: 'textarea', placeholder: 'e.g., "Always running late, can\'t find things, meal planning chaos, kids\' activities scheduling nightmare"', maxLength: 750 },
-                            { id: 'organization-goals', label: 'Organization Goals', type: 'textarea', placeholder: 'e.g., "Want peaceful mornings, organized kitchen, better family routines, less overwhelm"', maxLength: 500 },
-                            { id: 'time-available', label: 'Time Available for Organization', type: 'select', options: [
-                                { value: 'very-limited', text: '15-30 minutes per day' },
-                                { value: 'moderate', text: '30-60 minutes per day' },
-                                { value: 'good', text: '1-2 hours per day' },
-                                { value: 'flexible', text: 'Flexible schedule' }
-                            ]},
-                            { id: 'current-systems', label: 'Current Organization Systems', type: 'textarea', placeholder: 'e.g., "Use phone calendar, some paper lists, tried apps but didn\'t stick with them"', maxLength: 500 }
-                        ]
-                    }
-                ]
-            },
-            'business-launch': {
-                required: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
-                sections: [
-                    {
-                        title: '👨‍👩‍👧‍👦 Personal & Family Situation',
-                        fields: [
-                            { id: 'family-structure', label: 'Family Structure & Ages', type: 'textarea', placeholder: 'e.g., "Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties."', maxLength: 1000 },
-                            { id: 'daily-schedule', label: 'Daily Schedule & Availability', type: 'textarea', placeholder: 'e.g., "Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings."', maxLength: 1000 },
-                            { id: 'work-status', label: 'Current Work Status', type: 'select', options: [
-                                { value: 'stay-at-home', text: 'Stay-at-home super mom' },
-                                { value: 'part-time', text: 'Working part-time' },
-                                { value: 'full-time', text: 'Working full-time' },
-                                { value: 'unemployed', text: 'Recently unemployed/looking' },
-                                { value: 'student', text: 'Student/in school' }
-                            ]}
-                        ]
-                    },
-                    {
-                        title: '🎯 Skills & Business Goals',
-                        fields: [
-                            { id: 'skills', label: 'Professional Background', type: 'textarea', placeholder: 'e.g., "10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events."', maxLength: 750 },
-                            { id: 'income-goal', label: 'Monthly Income Goal', type: 'textarea', placeholder: 'e.g., "$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom."', maxLength: 300 },
-                            { id: 'learning-willingness', label: 'Learning Willingness', type: 'select', options: [
-                                { value: 'eager', text: 'Eager to learn new skills quickly' },
-                                { value: 'moderate', text: 'Willing to learn gradually' },
-                                { value: 'prefer-existing', text: 'Prefer using skills I already have' },
-                                { value: 'minimal', text: 'Minimal learning, maximum results' }
-                            ]},
-                            { id: 'investment-level', label: 'Investment Level', type: 'select', options: [
-                                { value: 'free-only', text: 'Free only - no money to invest' },
-                                { value: 'minimal', text: 'Up to $50 if absolutely necessary' },
-                                { value: 'moderate', text: '$50-200 for the right opportunity' },
-                                { value: 'invest', text: '$200-500 if it\'s promising' },
-                                { value: 'serious', text: '$500+ ready to invest in my future' }
-                            ]}
-                        ]
-                    },
-                    {
-                        title: '💼 Business Preferences',
-                        fields: [
-                            { id: 'work-location', label: 'Preferred Work Location', type: 'select', options: [
-                                { value: 'home-only', text: 'Home only - need to be with kids' },
-                                { value: 'home-flexible', text: 'Mostly home, occasional outings' },
-                                { value: 'local-community', text: 'Local community/neighborhood' },
-                                { value: 'hybrid', text: 'Mix of home and outside work' },
-                                { value: 'travel-okay', text: 'Comfortable traveling for business' }
-                            ]},
-                            { id: 'work-style', label: 'Work Style Preference', type: 'select', options: [
-                                { value: 'independent', text: 'Independent work - minimal client interaction' },
-                                { value: 'some-interaction', text: 'Some client calls/meetings' },
-                                { value: 'collaborative', text: 'Collaborative - enjoy working with people' },
-                                { value: 'teaching-mentoring', text: 'Teaching/mentoring others' },
-                                { value: 'creative-expressive', text: 'Creative and expressive work' }
-                            ]},
-                            { id: 'camera-comfort', label: 'Are you comfortable being on camera/social media?', type: 'select', options: [
-                                { value: 'love-it', text: 'Love it! I\'m comfortable on camera' },
-                                { value: 'okay-with-it', text: 'Okay with it, can learn' },
-                                { value: 'prefer-behind-scenes', text: 'Prefer behind-the-scenes work' },
-                                { value: 'absolutely-not', text: 'Absolutely not comfortable' }
-                            ]},
-                            { id: 'income-timeline', label: 'Timeline to first income', type: 'select', options: [
-                                { value: 'immediate', text: 'Immediate need (within 1-2 months)' },
-                                { value: 'moderate', text: '3-6 months is fine' },
-                                { value: 'patient', text: 'Can wait 6-12 months for good business' },
-                                { value: 'long-term', text: 'Building for long-term (1+ years)' }
-                            ]},
-                            { id: 'total-budget', label: 'Maximum startup budget (total)', type: 'select', options: [
-                                { value: 'zero', text: '$0 - Must be completely free' },
-                                { value: 'minimal', text: 'Under $50 total' },
-                                { value: 'moderate', text: '$50-200 if necessary' },
-                                { value: 'invest', text: '$200-500 for right opportunity' },
-                                { value: 'serious', text: '$500+ ready to invest' }
-                            ]}
-                        ]
-                    }
-                ]
-            },
-            'both': {
-                required: ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal', 'household-challenges', 'organization-goals', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget'],
-                sections: [
-                    {
-                        title: '👨‍👩‍👧‍👦 Personal & Family Situation',
-                        fields: [
-                            { id: 'family-structure', label: 'Family Structure & Ages', type: 'textarea', placeholder: 'e.g., "Married with 5-year-old in kindergarten and 2-year-old at home. Husband works full-time. I handle most childcare and household duties."', maxLength: 1000 },
-                            { id: 'daily-schedule', label: 'Daily Schedule & Availability', type: 'textarea', placeholder: 'e.g., "Free from 9-11am when youngest naps. Kids in bed by 8pm, so I have 8-10pm available. Weekends are family time except Sunday mornings."', maxLength: 1000 },
-                            { id: 'work-status', label: 'Current Work Status', type: 'select', options: [
-                                { value: 'stay-at-home', text: 'Stay-at-home super mom' },
-                                { value: 'part-time', text: 'Working part-time' },
-                                { value: 'full-time', text: 'Working full-time' },
-                                { value: 'unemployed', text: 'Recently unemployed/looking' },
-                                { value: 'student', text: 'Student/in school' }
-                            ]}
-                        ]
-                    },
-                    {
-                        title: '🏠 Life Organization Needs',
-                        fields: [
-                            { id: 'household-challenges', label: 'Biggest Household Management Challenges', type: 'textarea', placeholder: 'e.g., "Always running late, can\'t find things, meal planning chaos, kids\' activities scheduling nightmare"', maxLength: 750 },
-                            { id: 'organization-goals', label: 'Organization Goals', type: 'textarea', placeholder: 'e.g., "Want peaceful mornings, organized kitchen, better family routines, less overwhelm"', maxLength: 500 }
-                        ]
-                    },
-                    {
-                        title: '🎯 Business & Income Goals',
-                        fields: [
-                            { id: 'skills', label: 'Professional Background', type: 'textarea', placeholder: 'e.g., "10 years in marketing, project management experience, good with Excel and presentations, former teacher, always been the organized one who plans family events."', maxLength: 750 },
-                            { id: 'income-goal', label: 'Monthly Income Goal', type: 'textarea', placeholder: 'e.g., "$1,500/month to cover grocery budget, $3,000/month to replace part-time job, $5,000/month for family financial freedom."', maxLength: 300 },
-                            { id: 'learning-willingness', label: 'Learning Willingness', type: 'select', options: [
-                                { value: 'eager', text: 'Eager to learn new skills quickly' },
-                                { value: 'moderate', text: 'Willing to learn gradually' },
-                                { value: 'prefer-existing', text: 'Prefer using skills I already have' },
-                                { value: 'minimal', text: 'Minimal learning, maximum results' }
-                            ]},
-                            { id: 'investment-level', label: 'Investment Level', type: 'select', options: [
-                                { value: 'free-only', text: 'Free only - no money to invest' },
-                                { value: 'minimal', text: 'Up to $50 if absolutely necessary' },
-                                { value: 'moderate', text: '$50-200 for the right opportunity' },
-                                { value: 'invest', text: '$200-500 if it\'s promising' },
-                                { value: 'serious', text: '$500+ ready to invest in my future' }
-                            ]}
-                        ]
-                    },
-                    {
-                        title: '💼 Business Preferences',
-                        fields: [
-                            { id: 'work-location', label: 'Preferred Work Location', type: 'select', options: [
-                                { value: 'home-only', text: 'Home only - need to be with kids' },
-                                { value: 'home-flexible', text: 'Mostly home, occasional outings' },
-                                { value: 'local-community', text: 'Local community/neighborhood' },
-                                { value: 'hybrid', text: 'Mix of home and outside work' },
-                                { value: 'travel-okay', text: 'Comfortable traveling for business' }
-                            ]},
-                            { id: 'work-style', label: 'Work Style Preference', type: 'select', options: [
-                                { value: 'independent', text: 'Independent work - minimal client interaction' },
-                                { value: 'some-interaction', text: 'Some client calls/meetings' },
-                                { value: 'collaborative', text: 'Collaborative - enjoy working with people' },
-                                { value: 'teaching-mentoring', text: 'Teaching/mentoring others' },
-                                { value: 'creative-expressive', text: 'Creative and expressive work' }
-                            ]},
-                            { id: 'camera-comfort', label: 'Are you comfortable being on camera/social media?', type: 'select', options: [
-                                { value: 'love-it', text: 'Love it! I\'m comfortable on camera' },
-                                { value: 'okay-with-it', text: 'Okay with it, can learn' },
-                                { value: 'prefer-behind-scenes', text: 'Prefer behind-the-scenes work' },
-                                { value: 'absolutely-not', text: 'Absolutely not comfortable' }
-                            ]},
-                            { id: 'income-timeline', label: 'Timeline to first income', type: 'select', options: [
-                                { value: 'immediate', text: 'Immediate need (within 1-2 months)' },
-                                { value: 'moderate', text: '3-6 months is fine' },
-                                { value: 'patient', text: 'Can wait 6-12 months for good business' },
-                                { value: 'long-term', text: 'Building for long-term (1+ years)' }
-                            ]},
-                            { id: 'total-budget', label: 'Maximum startup budget (total)', type: 'select', options: [
-                                { value: 'zero', text: '$0 - Must be completely free' },
-                                { value: 'minimal', text: 'Under $50 total' },
-                                { value: 'moderate', text: '$50-200 if necessary' },
-                                { value: 'invest', text: '$200-500 for right opportunity' },
-                                { value: 'serious', text: '$500+ ready to invest' }
-                            ]}
-                        ]
-                    }
-                ]
-            }
+        // Alternative Firebase Configuration (simplified)
+        const firebaseConfigAlt = {
+            apiKey: "AIzaSyDdnTzAePUyhp_ZCBy-kV6ApwUUbfKSMYg",
+            authDomain: "smart-mom-method-4a804.firebaseapp.com",
+            projectId: "smart-mom-method-4a804"
         };
 
-        // Watch for name and email completion
-        document.addEventListener('DOMContentLoaded', () => {
-            const nameField = document.getElementById('user-name');
-            const emailField = document.getElementById('user-email');
-            
-            function checkInitialFields() {
-                const name = nameField.value.trim();
-                const email = emailField.value.trim();
-                const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        // Initialize Firebase with error handling
+        function initializeFirebase(config = firebaseConfig) {
+            try {
+                debugLog('Attempting to initialize Firebase...', 'info');
                 
-                if (name && email && emailValid) {
-                    document.getElementById('pathSelection').style.display = 'block';
-                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+                // Check if Firebase is already initialized
+                if (firebase.apps.length > 0) {
+                    debugLog('Firebase already initialized, deleting existing app...', 'info');
+                    firebase.app().delete();
+                }
+                
+                // Initialize Firebase
+                firebase.initializeApp(config);
+                auth = firebase.auth();
+                db = firebase.firestore();
+                
+                debugLog('Firebase initialized successfully', 'success');
+                
+                // Test the connection immediately
+                return testFirebaseConnection();
+                
+            } catch (error) {
+                debugLog(`Firebase initialization failed: ${error.message}`, 'error');
+                throw error;
+            }
+        }
+
+        // Test Firebase Connection
+        async function testFirebaseConnection() {
+            try {
+                debugLog('Testing Firebase connection...', 'info');
+                
+                if (!auth) {
+                    throw new Error('Firebase Auth not initialized');
+                }
+                
+                // Test auth connection by checking current user
+                const user = auth.currentUser;
+                debugLog(`Current user: ${user ? user.email : 'No user logged in'}`, 'info');
+                
+                // Test Firestore connection
+                if (db) {
+                    await db.enableNetwork();
+                    debugLog('Firestore connection successful', 'success');
+                }
+                
+                showTestResult('✅ Firebase connection successful!');
+                return true;
+                
+            } catch (error) {
+                debugLog(`Firebase connection test failed: ${error.message}`, 'error');
+                showTestResult(`❌ Firebase connection failed: ${error.message}`, true);
+                return false;
+            }
+        }
+
+        // Test Email Authentication
+        async function testEmailAuth() {
+            try {
+                debugLog('Testing email authentication...', 'info');
+                
+                const testEmail = `test_${Date.now()}@smartmommethod.com`;
+                const testPassword = 'TestPassword123!';
+                
+                debugLog(`Creating test account: ${testEmail}`, 'info');
+                
+                // Create test user
+                const userCredential = await auth.createUserWithEmailAndPassword(testEmail, testPassword);
+                debugLog('Test user created successfully', 'success');
+                
+                // Delete test user immediately
+                await userCredential.user.delete();
+                debugLog('Test user deleted successfully', 'success');
+                
+                showTestResult('✅ Email authentication working correctly!');
+                
+            } catch (error) {
+                debugLog(`Email auth test failed: ${error.message}`, 'error');
+                showTestResult(`❌ Email auth failed: ${error.message}`, true);
+                
+                // Provide specific error guidance
+                if (error.code === 'auth/configuration-not-found') {
+                    showTestResult(`❌ Configuration error: Check Firebase Console settings`, true);
+                } else if (error.code === 'auth/api-key-not-valid') {
+                    showTestResult(`❌ Invalid API Key: Regenerate in Firebase Console`, true);
+                } else if (error.code === 'auth/project-not-found') {
+                    showTestResult(`❌ Project not found: Check project ID`, true);
                 }
             }
-            
-            nameField.addEventListener('input', checkInitialFields);
-            emailField.addEventListener('input', checkInitialFields);
-            
-            animateUserCounter();
-            
-            // Auto-save form data as user types
-            document.addEventListener('input', (e) => {
-                if (e.target.classList.contains('form-control') && currentUser) {
-                    clearTimeout(window.autoSaveTimer);
-                    window.autoSaveTimer = setTimeout(saveFormProgress, 2000);
-                }
-            });
-        });
-
-        // Path Selection Functions
-        function selectPath(path) {
-            selectedPath = path;
-            
-            // Update visual selection
-            document.querySelectorAll('.path-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector(`[data-path="${path}"]`).classList.add('selected');
-            
-            // Show continue button
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.classList.add('visible');
         }
 
-        function proceedWithSelectedPath() {
-            if (!selectedPath) {
-                alert('Please select a path before continuing.');
-                return;
+        // Try alternative configuration
+        function regenerateFirebaseConfig() {
+            try {
+                debugLog('Trying alternative Firebase configuration...', 'info');
+                initializeFirebase(firebaseConfigAlt);
+                showTestResult('✅ Alternative configuration loaded. Try authentication now.');
+            } catch (error) {
+                debugLog(`Alternative config failed: ${error.message}`, 'error');
+                showTestResult(`❌ Alternative config failed: ${error.message}`, true);
             }
-            
-            // Generate form sections based on selected path
-            generateFormSections(selectedPath);
-            
-            // Hide path selection and show form sections
-            document.getElementById('pathSelection').style.display = 'none';
-            document.getElementById('dynamicFormSections').classList.remove('hidden');
-            document.getElementById('dynamicFormSections').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function generateFormSections(path) {
-            const pathConfig = pathFieldMappings[path];
-            const container = document.getElementById('dynamicFormSections');
-            
-            let html = '';
-            
-            // Add sections
-            pathConfig.sections.forEach(section => {
-                html += `
-                    <div class="form-section">
-                        <h3>${section.title}</h3>
-                `;
-                
-                section.fields.forEach(field => {
-                    html += `<div class="form-group">`;
-                    html += `<label>${field.label}: <span class="required">*</span></label>`;
-                    
-                    if (field.type === 'textarea') {
-                        html += `
-                            <textarea id="${field.id}" class="form-control" rows="3" 
-                                      placeholder="${field.placeholder}" 
-                                      onchange="validateField(this)" 
-                                      oninput="updateCharCount(this, ${field.maxLength})"></textarea>
-                            <div class="char-counter">0/${field.maxLength}</div>
-                        `;
-                    } else if (field.type === 'select') {
-                        html += `<select id="${field.id}" class="form-control" onchange="validateField(this)">`;
-                        html += `<option value="">Select...</option>`;
-                        field.options.forEach(option => {
-                            html += `<option value="${option.value}">${option.text}</option>`;
-                        });
-                        html += `</select>`;
-                    } else {
-                        html += `<input type="${field.type}" id="${field.id}" class="form-control" placeholder="${field.placeholder || ''}" onchange="validateField(this)" />`;
-                    }
-                    
-                    html += `<div class="validation-message" id="${field.id}-validation"></div>`;
-                    html += `</div>`;
-                });
-                
-                html += `</div>`;
-            });
-            
-            // Add continue button
-            html += `
-                <button type="button" class="btn-primary" onclick="proceedToAI()">
-                    🚀 Create My Personalized ${path === 'business-launch' ? 'Business Plan' : path === 'life-organization' ? 'Organization Plan' : 'Life & Business Plan'}
-                </button>
-            `;
-            
-            container.innerHTML = html;
-        }
-
-        function proceedToAI() {
-            const pathConfig = pathFieldMappings[selectedPath];
-            
-            // Validate all required fields for selected path
-            let allValid = true;
-            pathConfig.required.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field && !validateField(field)) {
-                    allValid = false;
-                }
-            });
-            
-            if (!allValid) {
-                alert('Please fill in all required fields before continuing.');
-                return;
-            }
-            
-            currentStep = 2;
-            updateProgressDisplay();
-            
-            // Generate appropriate prompt based on path
-            document.getElementById('chatgptPrompt').value = generatePathSpecificPrompt();
-            
-            // Show AI steps
-            document.getElementById('aiSteps').classList.remove('hidden');
-            document.getElementById('step2Content').classList.remove('hidden');
-            document.getElementById('step2Content').scrollIntoView({ behavior: 'smooth' });
-            
-            // Save progress
-            saveFormProgress();
-        }
-
-        function generatePathSpecificPrompt() {
-            const data = collectFormData();
-            
-            if (selectedPath === 'life-organization') {
-                return generateLifeOrganizationPrompt(data);
-            } else if (selectedPath === 'business-launch') {
-                return generateBusinessPrompt(data);
-            } else {
-                return generateCombinedPrompt(data);
-            }
-        }
-
-        function generateLifeOrganizationPrompt(data) {
-            return `
-Create a personalized family organization plan for a busy mom:
-
-**Personal Situation:**
-- Name: ${data['user-name']}
-- Family: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-- Work Status: ${data['work-status']}
-- Household Challenges: ${data['household-challenges']}
-- Organization Goals: ${data['organization-goals']}
-- Time Available: ${data['time-available']}
-- Current Systems: ${data['current-systems']}
-
-Please provide:
-1. Daily routine optimization suggestions
-2. Family calendar and scheduling systems
-3. Household organization strategies
-4. Meal planning and prep systems
-5. Simple systems that work for busy families
-6. Specific tools and apps recommendations
-
-Focus on practical, implementable solutions that fit her actual schedule and family needs.`;
-        }
-
-        function generateBusinessPrompt(data) {
-            const realismInstructions = `
-**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away
-
-**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
-- Businesses requiring 40+ hours/week
-- High-skill services they've never done
-- Anything requiring significant upfront investment (if they said free)
-- Complex businesses with steep learning curves
-
-Focus on what's ACTUALLY doable for their situation.`;
-            
-            return `${realismInstructions}
-
-Create 3 personalized business ideas for a busy mom with this profile:
-
-**Personal Situation:**
-- Name: ${data['user-name']}
-- Family: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-- Work Status: ${data['work-status']}
-
-**Skills & Goals:**
-- Background: ${data.skills}
-- Income Goal: ${data['income-goal']}
-- Learning Willingness: ${data['learning-willingness']}
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-- Language: ${currentLanguage === 'es' ? 'Spanish' : 'English'}
-
-Please provide:
-1. 3 specific business ideas that fit her schedule and skills
-2. Estimated startup costs for each (respecting her budget constraints)
-3. Expected time to profitability (realistic expectations)
-4. Required weekly time commitment (fitting her availability)
-5. Specific first steps for each idea
-
-Focus on businesses that can be started with her stated investment level and can accommodate her family responsibilities. Be HONEST about challenges and timeframes.`;
-        }
-
-        function generateCombinedPrompt(data) {
-            const realismInstructions = `
-**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away
-
-**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
-- Businesses requiring 40+ hours/week
-- High-skill services they've never done
-- Anything requiring significant upfront investment (if they said free)
-- Complex businesses with steep learning curves
-
-Focus on what's ACTUALLY doable for their situation.`;
-
-            return `${realismInstructions}
-
-Create a comprehensive life organization AND business plan for a busy mom:
-
-**Personal Situation:**
-- Name: ${data['user-name']}
-- Family: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-- Work Status: ${data['work-status']}
-
-**Life Organization Needs:**
-- Household Challenges: ${data['household-challenges']}
-- Organization Goals: ${data['organization-goals']}
-
-**Business Goals:**
-- Background: ${data.skills}
-- Income Goal: ${data['income-goal']}
-- Learning Willingness: ${data['learning-willingness']}
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-
-Please provide:
-1. Home organization systems that support business goals
-2. Time management strategies for family + business
-3. 2-3 business ideas that complement her organization needs
-4. Daily routines that integrate both family and business
-5. Realistic implementation timeline for both goals
-
-Focus on how life organization can enable business success and vice versa.`;
         }
 
         // Authentication Functions
         function showAuthModal(mode = 'signup') {
+            debugLog(`Opening auth modal in ${mode} mode`, 'info');
             authMode = mode;
             const modal = document.getElementById('authModal');
             const title = document.getElementById('authTitle');
@@ -2272,6 +886,7 @@ Focus on how life organization can enable business success and vice versa.`;
         }
 
         function closeAuthModal() {
+            debugLog('Closing auth modal', 'info');
             document.getElementById('authModal').classList.remove('active');
             clearAuthMessages();
         }
@@ -2287,79 +902,186 @@ Focus on how life organization can enable business success and vice versa.`;
         }
 
         function showAuthError(message) {
+            debugLog(`Auth error: ${message}`, 'error');
             const errorDiv = document.getElementById('authError');
             errorDiv.textContent = message;
             errorDiv.classList.remove('hidden');
         }
 
         function showAuthSuccess(message) {
+            debugLog(`Auth success: ${message}`, 'success');
             const successDiv = document.getElementById('authSuccess');
             successDiv.textContent = message;
             successDiv.classList.remove('hidden');
         }
 
+        function setButtonLoading(button, loading) {
+            if (loading) {
+                button.disabled = true;
+                button.classList.add('loading');
+                button.textContent = '';
+            } else {
+                button.disabled = false;
+                button.classList.remove('loading');
+            }
+        }
+
         // Authentication Event Handlers
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('authEmail').value;
-            const password = document.getElementById('authPassword').value;
-            const name = document.getElementById('authName').value;
-            const confirmPassword = document.getElementById('authConfirmPassword').value;
-            
-            clearAuthMessages();
-            
-            try {
-                if (authMode === 'signup') {
-                    if (password !== confirmPassword) {
+        document.addEventListener('DOMContentLoaded', function() {
+            const authForm = document.getElementById('authForm');
+            if (authForm) {
+                authForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('authEmail').value;
+                    const password = document.getElementById('authPassword').value;
+                    const name = document.getElementById('authName').value;
+                    const confirmPassword = document.getElementById('authConfirmPassword').value;
+                    const submitBtn = document.getElementById('authSubmitBtn');
+                    
+                    debugLog(`Attempting ${authMode} with email: ${email}`, 'info');
+                    
+                    // Basic validation
+                    if (authMode === 'signup' && password !== confirmPassword) {
                         showAuthError('Passwords do not match');
                         return;
                     }
                     
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    await userCredential.user.updateProfile({ displayName: name });
+                    if (password.length < 6) {
+                        showAuthError('Password must be at least 6 characters');
+                        return;
+                    }
                     
-                    // Save user data to Firestore
-                    await db.collection('users').doc(userCredential.user.uid).set({
-                        name: name,
-                        email: email,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        language: currentLanguage
-                    });
+                    clearAuthMessages();
+                    setButtonLoading(submitBtn, true);
                     
-                    showAuthSuccess('Account created successfully!');
-                } else {
-                    await auth.signInWithEmailAndPassword(email, password);
-                    showAuthSuccess('Welcome back!');
-                }
-                
-                setTimeout(() => {
-                    closeAuthModal();
-                    startOnboarding();
-                }, 1500);
-                
-            } catch (error) {
-                showAuthError(error.message);
+                    try {
+                        if (!auth) {
+                            throw new Error('Firebase Auth not initialized. Please refresh the page.');
+                        }
+                        
+                        let userCredential;
+                        
+                        if (authMode === 'signup') {
+                            debugLog('Creating new user account...', 'info');
+                            userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                            
+                            if (name && userCredential.user) {
+                                await userCredential.user.updateProfile({ displayName: name });
+                                debugLog('User profile updated with display name', 'info');
+                            }
+                            
+                            // Save user data to Firestore
+                            if (db && userCredential.user) {
+                                try {
+                                    await db.collection('users').doc(userCredential.user.uid).set({
+                                        name: name || '',
+                                        email: email,
+                                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                                        language: currentLanguage
+                                    });
+                                    debugLog('User data saved to Firestore', 'success');
+                                } catch (firestoreError) {
+                                    debugLog(`Firestore save error: ${firestoreError.message}`, 'error');
+                                    // Don't fail the auth process for Firestore errors
+                                }
+                            }
+                            
+                            showAuthSuccess('Account created successfully!');
+                        } else {
+                            debugLog('Signing in existing user...', 'info');
+                            userCredential = await auth.signInWithEmailAndPassword(email, password);
+                            showAuthSuccess('Welcome back!');
+                        }
+                        
+                        debugLog(`${authMode} successful for user: ${userCredential.user.uid}`, 'success');
+                        
+                        setTimeout(() => {
+                            closeAuthModal();
+                            startOnboarding();
+                        }, 1500);
+                        
+                    } catch (error) {
+                        debugLog(`${authMode} failed: ${error.code} - ${error.message}`, 'error');
+                        
+                        // User-friendly error messages
+                        let userMessage = error.message;
+                        switch (error.code) {
+                            case 'auth/email-already-in-use':
+                                userMessage = 'This email is already registered. Try signing in instead.';
+                                break;
+                            case 'auth/weak-password':
+                                userMessage = 'Password is too weak. Please use at least 6 characters.';
+                                break;
+                            case 'auth/user-not-found':
+                                userMessage = 'No account found with this email. Please sign up first.';
+                                break;
+                            case 'auth/wrong-password':
+                                userMessage = 'Incorrect password. Please try again.';
+                                break;
+                            case 'auth/invalid-email':
+                                userMessage = 'Please enter a valid email address.';
+                                break;
+                            case 'auth/configuration-not-found':
+                                userMessage = 'Authentication not properly configured. Please contact support.';
+                                break;
+                            case 'auth/api-key-not-valid':
+                                userMessage = 'Invalid API configuration. Please contact support.';
+                                break;
+                            default:
+                                userMessage = `Authentication error: ${error.message}`;
+                        }
+                        
+                        showAuthError(userMessage);
+                    } finally {
+                        setButtonLoading(submitBtn, false);
+                        if (authMode === 'signup') {
+                            submitBtn.textContent = 'Create Account';
+                        } else {
+                            submitBtn.textContent = 'Sign In';
+                        }
+                    }
+                });
             }
         });
 
         async function signInWithGoogle() {
+            debugLog('Attempting Google sign-in...', 'info');
+            
+            if (!auth) {
+                showAuthError('Firebase Auth not initialized. Please refresh the page.');
+                return;
+            }
+            
             try {
                 const provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('email');
+                provider.addScope('profile');
+                
+                debugLog('Opening Google popup...', 'info');
                 const result = await auth.signInWithPopup(provider);
                 
-                // Save user data to Firestore if new user
-                const userRef = db.collection('users').doc(result.user.uid);
-                const userDoc = await userRef.get();
+                debugLog(`Google sign-in successful for: ${result.user.email}`, 'success');
                 
-                if (!userDoc.exists) {
-                    await userRef.set({
-                        name: result.user.displayName,
-                        email: result.user.email,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        language: currentLanguage,
-                        provider: 'google'
-                    });
+                // Save user data to Firestore if new user
+                if (db) {
+                    try {
+                        const userRef = db.collection('users').doc(result.user.uid);
+                        const userDoc = await userRef.get();
+                        
+                        if (!userDoc.exists) {
+                            await userRef.set({
+                                name: result.user.displayName || '',
+                                email: result.user.email,
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                                language: currentLanguage,
+                                provider: 'google'
+                            });
+                            debugLog('Google user data saved to Firestore', 'success');
+                        }
+                    } catch (firestoreError) {
+                        debugLog(`Firestore save error: ${firestoreError.message}`, 'error');
+                    }
                 }
                 
                 showAuthSuccess('Welcome! Signed in with Google');
@@ -2369,849 +1091,89 @@ Focus on how life organization can enable business success and vice versa.`;
                 }, 1500);
                 
             } catch (error) {
-                showAuthError(error.message);
+                debugLog(`Google sign-in failed: ${error.code} - ${error.message}`, 'error');
+                
+                let userMessage = 'Google sign-in failed. Please try again.';
+                if (error.code === 'auth/popup-closed-by-user') {
+                    userMessage = 'Sign-in cancelled. Please try again.';
+                } else if (error.code === 'auth/popup-blocked') {
+                    userMessage = 'Popup blocked. Please allow popups and try again.';
+                }
+                
+                showAuthError(userMessage);
             }
         }
 
         async function signOut() {
             try {
+                debugLog('Signing out user...', 'info');
                 await auth.signOut();
                 document.getElementById('userStatusBar').classList.add('hidden');
                 document.getElementById('welcomeModal').classList.remove('hidden');
+                debugLog('User signed out successfully', 'success');
             } catch (error) {
+                debugLog(`Sign out error: ${error.message}`, 'error');
                 console.error('Sign out error:', error);
             }
         }
 
         // Auth State Observer
-        auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                currentUser = user;
-                document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
-                document.getElementById('userStatusBar').classList.remove('hidden');
-                
-                // Load user's saved progress
-                await loadUserProgress();
-            } else {
-                currentUser = null;
-                document.getElementById('userStatusBar').classList.add('hidden');
-            }
-        });
-
-        // User Progress Management
-        async function loadUserProgress() {
-            if (!currentUser) return;
-            
-            try {
-                const progressDoc = await db.collection('progress').doc(currentUser.uid).get();
-                if (progressDoc.exists) {
-                    const progress = progressDoc.data();
-                    
-                    // Restore form data
-                    Object.keys(progress.formData || {}).forEach(key => {
-                        const element = document.getElementById(key);
-                        if (element) {
-                            element.value = progress.formData[key];
-                        }
-                    });
-                    
-                    // Restore current step and selected path
-                    if (progress.currentStep) {
-                        currentStep = progress.currentStep;
-                        updateProgressDisplay();
-                    }
-                    
-                    if (progress.selectedPath) {
-                        selectedPath = progress.selectedPath;
-                    }
-                    
-                    // Show returning user status
-                    showReturningUserStatus(progress.lastSaved);
-                }
-            } catch (error) {
-                console.error('Error loading progress:', error);
-            }
-        }
-
-        async function saveFormProgress() {
-            if (!currentUser) {
-                // Save to localStorage for non-authenticated users
-                localStorage.setItem('smartMomWorkflowData', JSON.stringify({
-                    formData: collectFormData(),
-                    currentStep: currentStep,
-                    selectedPath: selectedPath,
-                    lastSaved: new Date().toISOString()
-                }));
+        function setupAuthStateObserver() {
+            if (!auth) {
+                debugLog('Cannot setup auth observer - auth not initialized', 'error');
                 return;
             }
             
-            try {
-                await db.collection('progress').doc(currentUser.uid).set({
-                    formData: collectFormData(),
-                    currentStep: currentStep,
-                    selectedPath: selectedPath,
-                    lastSaved: firebase.firestore.FieldValue.serverTimestamp(),
-                    language: currentLanguage
-                }, { merge: true });
-            } catch (error) {
-                console.error('Error saving progress:', error);
-            }
-        }
-
-        function showReturningUserStatus(lastSaved) {
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'returning-user-status';
-            statusDiv.innerHTML = `
-                <h4>🎉 Welcome Back!</h4>
-                <p>Your progress has been restored from ${lastSaved ? new Date(lastSaved.toDate()).toLocaleDateString() : 'your last session'}.</p>
-                <div style="margin-top: 20px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-primary" onclick="continueFromSavedProgress()" style="background: var(--sage-green);">
-                        🚀 Continue Where I Left Off (Step ${currentStep})
-                    </button>
-                    <button class="btn-primary" onclick="startFresh()" style="background: var(--deep-teal);">
-                        🔄 Start Fresh
-                    </button>
-                    ${!currentUser ? `<button class="btn-primary" onclick="showAuthModal('signin')" style="background: var(--soft-gold);">
-                        🔑 Login to Access Full History
-                    </button>` : ''}
-                </div>
-            `;
-            
-            const initialStep = document.querySelector('.initial-step');
-            initialStep.parentNode.insertBefore(statusDiv, initialStep);
-        }
-
-        // Form Management Functions
-        function collectFormData() {
-            const allFields = ['user-name', 'user-email', 'family-structure', 'daily-schedule', 'work-status', 'skills', 'income-goal', 'learning-willingness', 'investment-level', 'work-location', 'work-style', 'camera-comfort', 'income-timeline', 'total-budget', 'household-challenges', 'organization-goals', 'time-available', 'current-systems', 'chatgpt-response', 'gemini-response', 'pricing-research-response', 'claude-response'];
-            
-            const data = {};
-            allFields.forEach(fieldId => {
-                const element = document.getElementById(fieldId);
-                data[fieldId] = element?.value || '';
-            });
-            
-            return data;
-        }
-
-        function validateField(field) {
-            const fieldId = field.id;
-            const value = field.value.trim();
-            const validationDiv = document.getElementById(`${fieldId}-validation`);
-            
-            let isValid = true;
-            let message = '';
-            
-            // Required field validation
-            if (field.hasAttribute('required') || field.classList.contains('required')) {
-                if (!value) {
-                    isValid = false;
-                    message = 'This field is required';
-                }
-            }
-            
-            // Email validation
-            if (field.type === 'email' && value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(value)) {
-                    isValid = false;
-                    message = 'Please enter a valid email address';
-                }
-            }
-            
-            // Update validation message
-            if (validationDiv) {
-                validationDiv.textContent = message;
-                validationDiv.className = isValid ? 'validation-message success' : 'validation-message';
-            }
-            
-            // Auto-save if authenticated
-            if (isValid && currentUser) {
-                saveFormProgress();
-            }
-            
-            return isValid;
-        }
-
-        function updateCharCount(textarea, maxLength) {
-            const counter = textarea.parentNode.querySelector('.char-counter');
-            if (counter) {
-                const currentLength = textarea.value.length;
-                counter.textContent = `${currentLength}/${maxLength}`;
-                
-                if (currentLength > maxLength) {
-                    counter.style.color = '#e57373';
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    debugLog(`User signed in: ${user.email} (${user.uid})`, 'success');
+                    currentUser = user;
+                    document.getElementById('userWelcome').textContent = `Welcome back, ${user.displayName || user.email}!`;
+                    document.getElementById('userStatusBar').classList.remove('hidden');
                 } else {
-                    counter.style.color = '';
-                }
-            }
-        }
-
-        // Progress Management - Updated for 7 steps
-        function updateProgressDisplay() {
-            const progressFill = document.querySelector('.progress-fill');
-            const stepCounter = document.querySelector('.step-counter');
-            const progressSteps = document.querySelectorAll('.progress-step');
-            
-            // Update progress bar
-            const progressPercentage = (currentStep / 7) * 100;
-            progressFill.style.width = `${progressPercentage}%`;
-            
-            // Update step counter
-            stepCounter.textContent = `Step ${currentStep} of 7`;
-            
-            // Update step indicators
-            progressSteps.forEach((step, index) => {
-                step.classList.remove('active', 'completed', 'next');
-                
-                if (index + 1 < currentStep) {
-                    step.classList.add('completed');
-                } else if (index + 1 === currentStep) {
-                    step.classList.add('active');
-                } else if (index + 1 === currentStep + 1) {
-                    step.classList.add('next');
+                    debugLog('User signed out', 'info');
+                    currentUser = null;
+                    document.getElementById('userStatusBar').classList.add('hidden');
                 }
             });
         }
 
-        // Continue with existing AI functions (same as before)
-        function autoPopulateGeminiPrompt() {
-            const data = collectFormData();
-            const chatgptIdeas = data['chatgpt-response'];
-            
-            const realismInstructions = `
-**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away`;
-            
-            const prompt = `${realismInstructions}
-
-Based on these business ideas generated for a busy mom: 
-
-${chatgptIdeas}
-
-Please provide:
-1. Market research and validation for each idea
-2. Target audience analysis (who will actually pay for this?)
-3. Competition assessment (realistic view of what she's up against)
-4. Marketing strategies that work for busy moms (simple, effective)
-5. Potential challenges and realistic solutions
-6. Revenue projections for first year (conservative estimates)
-
-Focus on practical, actionable insights that a mom entrepreneur can implement while managing family responsibilities. Be honest about what's actually achievable.`;
-
-            return prompt;
-        }
-
-        function generatePricingResearchPrompt() {
-            const realismInstructions = `
-**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away
-
-**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
-- Businesses requiring 40+ hours/week
-- High-skill services they've never done
-- Anything requiring significant upfront investment (if they said free)
-- Complex businesses with steep learning curves
-
-Focus on what's ACTUALLY doable for their situation.`;
-
-            const data = collectFormData();
-            const selectedIdea = selectedBusinessIdea || 'the selected business idea';
-            const userLocation = 'Lincoln, Nebraska';
-            
-            const prompt = `${realismInstructions}
-
-Research realistic pricing for ${selectedIdea} specifically for someone just starting:
-
-**Personal Context:**
-- Complete beginner with no business experience
-- Daily Schedule: ${data['daily-schedule']}
-- Investment Level: ${data['investment-level']}
-- Income Timeline: ${data['income-timeline']}
-- Location: ${userLocation}
-
-**PRICING RESEARCH NEEDED:**
-
-1. **Beginner Pricing (Month 1-6):** What should someone with no experience charge?
-   - Specific dollar amounts, not ranges
-   - What makes pricing competitive vs. too low/high
-   - How to price when you have no portfolio
-
-2. **Developing Skills (Month 6-18):** Pricing as competency grows
-   - When and how much to raise prices
-   - What achievements justify price increases
-
-3. **Experienced Rates (18+ months):** What experts charge
-   - Market ceiling for this service
-   - Premium pricing strategies
-
-4. **Geographic Considerations:** Market rates for ${userLocation}
-   - Local market analysis
-   - Online vs. local pricing differences
-
-5. **Common Pricing Mistakes:** What kills new businesses
-   - Pricing too low (and why)
-   - Pricing too high (and consequences)
-   - Hidden costs beginners forget
-
-6. **Competition Analysis:** What others actually charge vs advertise
-   - Real competitor pricing research
-   - How to position against competition
-
-**BE BRUTALLY HONEST about realistic expectations for beginners.** 
-Include specific examples and dollar amounts. Don't sugarcoat - give the real data that will help her succeed.`;
-
-            return prompt;
-        }
-
-        function autoPopulateClaudePrompt() {
-            const data = collectFormData();
-            const chatgptIdeas = data['chatgpt-response'];
-            const geminiAnalysis = data['gemini-response'];
-            const pricingResearch = data['pricing-research-response'];
-            
-            const realismInstructions = `
-**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest businesses requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
-- Suggest pricing that will actually get clients, not scare them away`;
-
-            const adhdInstructions = `
-**CRITICAL: Design this calendar for ADHD, Autism, and Executive Function challenges**
-
-DAILY STRUCTURE RULES:
-- MAXIMUM 4 tasks per day (never exceed this number)
-- Each task broken into 3-7 specific sub-steps
-- No vague instructions - be extremely detailed
-- Include exact links to platforms/tools needed
-- Specify if account creation required (FREE vs PAID with exact costs)
-- Add time estimates including thinking/processing time
-- Build in 15-minute buffer between tasks
-
-TASK FORMAT EXAMPLE:
-✅ Task 1: Create Instagram Business Account (FREE - 30 minutes)
-  □ Step 1: Go to instagram.com/business (click this exact link)
-  □ Step 2: Click "Create account" → Select "Business Account"  
-  □ Step 3: Choose username: [yourname] + "business" or "coaching"
-  □ Step 4: Upload profile photo (phone selfie works perfectly)
-  □ Step 5: Write bio: "I help [your target audience] achieve [specific result]"
-  □ Step 6: Add contact info: your email and phone
-
-**12-WEEK DETAILED BREAKDOWN:**
-- Week 1-2: Foundation & Legal Setup (14 days of specific tasks)
-- Week 3-4: Market Research & Validation (14 days of tasks)  
-- Week 5-8: Skill Building & MVP Creation (28 days of tasks)
-- Week 9-12: Launch, Marketing & Scale (28 days of tasks)
-
-For EACH week, provide:
-- 5-7 specific daily tasks (max 4 per day)
-- Time estimates for each task
-- What to do if behind schedule
-- Weekly milestones to hit
-
-Generate the COMPLETE 12-week calendar with daily actionable tasks.`;
-            
-            const prompt = `${realismInstructions}
-
-${adhdInstructions}
-
-Create a comprehensive ADHD-friendly business plan based on:
-
-**Original Business Ideas:**
-${chatgptIdeas}
-
-**Market Research & Analysis:**
-${geminiAnalysis}
-
-**Realistic Pricing Research:**
-${pricingResearch}
-
-**Mom's Profile:**
-- Schedule: ${data['daily-schedule']}
-- Skills: ${data.skills}
-- Goal: ${data['income-goal']}
-- Camera Comfort: ${data['camera-comfort']}
-- Work Style: ${data['work-style']}
-- Budget: ${data['total-budget']}
-- Timeline: ${data['income-timeline']}
-
-Please create a detailed business plan including:
-1. Executive summary
-2. ADHD-optimized step-by-step implementation timeline
-3. Daily action items for first 12 weeks (following ADHD rules above)
-4. Resource requirements and realistic budget
-5. Success metrics and achievable milestones
-6. Risk management strategies
-7. Work-life balance considerations specific to moms
-
-Make this actionable and realistic for a busy mom entrepreneur with executive function challenges. Use the pricing research to set realistic expectations.`;
-
-            return prompt;
-        }
-
-        function parseChatGPTResponse() {
-            const response = document.getElementById('chatgpt-response').value;
-            if (response.trim()) {
-                // Auto-generate Gemini prompt
-                document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
-                
-                // Extract business idea for pricing research
-                extractBusinessIdea(response);
-                
-                // Save progress
-                saveFormProgress();
-            }
-        }
-
-        function parseGeminiResponse() {
-            const response = document.getElementById('gemini-response').value;
-            if (response.trim()) {
-                // Save progress
-                saveFormProgress();
-            }
-        }
-
-        function extractBusinessIdea(chatgptResponse) {
-            // Simple extraction - take first business idea mentioned
-            const lines = chatgptResponse.split('\n');
-            for (let line of lines) {
-                if (line.includes('1.') || line.includes('Business Idea 1') || line.includes('Option 1')) {
-                    selectedBusinessIdea = line.replace(/^\d+\.?\s*/, '').trim();
-                    break;
-                }
-            }
-            
-            // Fallback: take first sentence that looks like a business idea
-            if (!selectedBusinessIdea) {
-                const sentences = chatgptResponse.split('.');
-                for (let sentence of sentences) {
-                    if (sentence.length > 20 && sentence.length < 100) {
-                        selectedBusinessIdea = sentence.trim();
-                        break;
-                    }
-                }
-            }
-            
-            // Update UI
-            const businessIdeaDiv = document.getElementById('selectedBusinessIdea');
-            if (businessIdeaDiv) {
-                businessIdeaDiv.textContent = selectedBusinessIdea || 'Selected business idea from ChatGPT response';
-            }
-        }
-
-        // Step Navigation - Updated for path-based workflow
-        function proceedToGemini() {
-            if (!document.getElementById('chatgpt-response').value.trim()) {
-                alert('Please paste your ChatGPT response before continuing.');
-                return;
-            }
-            
-            currentStep = 3;
-            updateProgressDisplay();
-            
-            // Show step 3 content
-            document.getElementById('step3Content').classList.remove('hidden');
-            document.getElementById('step3Content').scrollIntoView({ behavior: 'smooth' });
-            
-            // Save progress
-            saveFormProgress();
-        }
-
-        function proceedToPricingResearch() {
-            if (!document.getElementById('gemini-response').value.trim()) {
-                alert('Please paste your Gemini response before continuing.');
-                return;
-            }
-            
-            currentStep = 4;
-            updateProgressDisplay();
-            
-            // Generate pricing research prompt
-            document.getElementById('pricingResearchPrompt').value = generatePricingResearchPrompt();
-            
-            // Show step 3.5 content
-            document.getElementById('step3_5Content').classList.remove('hidden');
-            document.getElementById('step3_5Content').scrollIntoView({ behavior: 'smooth' });
-            
-            // Save progress
-            saveFormProgress();
-        }
-
-        function proceedToClaude() {
-            if (!document.getElementById('pricing-research-response').value.trim()) {
-                alert('Please paste your pricing research response before continuing.');
-                return;
-            }
-            
-            currentStep = 5;
-            updateProgressDisplay();
-            
-            // Auto-generate Claude prompt
-            document.getElementById('claudePrompt').value = autoPopulateClaudePrompt();
-            
-            // Show step 4 content
-            document.getElementById('step4Content').classList.remove('hidden');
-            document.getElementById('step4Content').scrollIntoView({ behavior: 'smooth' });
-            
-            // Save progress
-            saveFormProgress();
-        }
-
-        function completePlan() {
-            if (!document.getElementById('claude-response').value.trim()) {
-                alert('Please paste your Claude response before completing.');
-                return;
-            }
-            
-            currentStep = 7;
-            updateProgressDisplay();
-            
-            generateFinalPlan();
-            
-            // Show final content
-            document.getElementById('finalPlanContent').classList.remove('hidden');
-            document.getElementById('finalPlanContent').scrollIntoView({ behavior: 'smooth' });
-            
-            // Save progress
-            saveFormProgress();
-        }
-
-        function generateFinalPlan() {
-            // Combine all AI responses into final plan
-            const data = collectFormData();
-            formData.finalPlan = {
-                chatgpt: data['chatgpt-response'],
-                gemini: data['gemini-response'],
-                pricingResearch: data['pricing-research-response'],
-                claude: data['claude-response'],
-                selectedPath: selectedPath,
-                generatedAt: new Date().toISOString()
-            };
-        }
-
-        // Utility Functions
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            element.select();
-            document.execCommand('copy');
-            
-            // Show feedback
-            const button = event.target;
-            const originalText = button.textContent;
-            button.textContent = '✅ Copied!';
-            setTimeout(() => {
-                button.textContent = originalText;
-            }, 2000);
-        }
-
-        function downloadBusinessPlan() {
-            const data = collectFormData();
-            const planContent = `
-SMART MOM METHOD - ${selectedPath.toUpperCase().replace('-', ' ')} PLAN
-Generated: ${new Date().toLocaleDateString()}
-
-=== PERSONAL PROFILE ===
-Name: ${data['user-name']}
-Email: ${data['user-email']}
-Selected Path: ${selectedPath}
-Family Structure: ${data['family-structure']}
-Daily Schedule: ${data['daily-schedule']}
-Work Status: ${data['work-status']}
-
-${selectedPath.includes('business') ? `
-=== BUSINESS PROFILE ===
-Professional Background: ${data.skills}
-Income Goal: ${data['income-goal']}
-Learning Willingness: ${data['learning-willingness']}
-Investment Level: ${data['investment-level']}
-Work Location: ${data['work-location']}
-Work Style: ${data['work-style']}
-Camera Comfort: ${data['camera-comfort']}
-Income Timeline: ${data['income-timeline']}
-Total Budget: ${data['total-budget']}
-` : ''}
-
-${selectedPath.includes('life') ? `
-=== ORGANIZATION PROFILE ===
-Household Challenges: ${data['household-challenges']}
-Organization Goals: ${data['organization-goals']}
-Time Available: ${data['time-available']}
-Current Systems: ${data['current-systems']}
-` : ''}
-
-=== CHATGPT ANALYSIS ===
-${data['chatgpt-response']}
-
-=== GEMINI RESEARCH ===
-${data['gemini-response']}
-
-${data['pricing-research-response'] ? `
-=== PRICING RESEARCH ===
-${data['pricing-research-response']}
-` : ''}
-
-=== CLAUDE IMPLEMENTATION PLAN ===
-${data['claude-response']}
-
-Generated with Smart Mom Method - smartmommethod.com
-            `;
-            
-            const blob = new Blob([planContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `smart-mom-${selectedPath}-plan-${new Date().toISOString().split('T')[0]}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        async function submitTestimonial() {
-            const testimonial = document.getElementById('testimonial').value.trim();
-            if (!testimonial) {
-                alert('Please write your testimonial before submitting.');
-                return;
-            }
-            
-            try {
-                // Submit to webhook
-                const formData = new FormData();
-                formData.append('testimonial', testimonial);
-                formData.append('user_name', currentUser?.displayName || 'Anonymous');
-                formData.append('selected_path', selectedPath);
-                formData.append('timestamp', new Date().toISOString());
-                
-                await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (currentUser) {
-                    await db.collection('testimonials').add({
-                        userId: currentUser.uid,
-                        userName: currentUser.displayName || 'Anonymous',
-                        testimonial: testimonial,
-                        selectedPath: selectedPath,
-                        submittedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                }
-                
-                alert('Thank you for sharing your story! Your testimonial has been submitted.');
-                document.getElementById('testimonial').value = '';
-            } catch (error) {
-                console.error('Error submitting testimonial:', error);
-                alert('Thank you for your feedback! We appreciate your story.');
-            }
-        }
-
-        // Service Integration Functions
-        function handleStripePayment(service) {
-            const stripeUrls = {
-                'life-calendar': 'https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07',
-                'life-training': 'https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06',
-                'business-calendar': 'https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05',
-                'business-training': 'https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04'
-            };
-            
-            const url = stripeUrls[service];
-            if (url) {
-                window.open(url, '_blank');
-            }
-        }
-
-        function openCalendly(url) {
-            window.open(url, '_blank');
-        }
-
-        // Core Functions
-        function startOnboarding() {
-            document.getElementById('welcomeModal').classList.add('hidden');
-        }
-
-        function handleReturningUser() {
-            // First close the welcome modal
-            document.getElementById('welcomeModal').classList.add('hidden');
-            
-            // Then check for returning user data
-            checkReturningUser();
-        }
-
-        function checkReturningUser() {
-            // Check for saved data
-            const savedData = localStorage.getItem('smartMomWorkflowData');
-            
-            if (savedData || currentUser) {
-                if (currentUser) {
-                    // User is authenticated, load their progress
-                    loadUserProgress();
-                    startOnboarding();
-                } else if (savedData) {
-                    // Load from localStorage
-                    const data = JSON.parse(savedData);
-                    Object.keys(data.formData || {}).forEach(key => {
-                        const element = document.getElementById(key);
-                        if (element) {
-                            element.value = data.formData[key];
-                        }
-                    });
-                    
-                    if (data.currentStep) {
-                        currentStep = data.currentStep;
-                        updateProgressDisplay();
-                    }
-                    
-                    if (data.selectedPath) {
-                        selectedPath = data.selectedPath;
-                    }
-                    
-                    showReturningUserStatus(data.lastSaved);
-                    startOnboarding();
-                }
-            } else {
-                showAuthModal('signin');
-            }
-        }
-
-        function continueFromSavedProgress() {
-            // Hide returning user status
-            const statusDiv = document.querySelector('.returning-user-status');
-            if (statusDiv) {
-                statusDiv.style.display = 'none';
-            }
-            
-            // Continue based on current step and selected path
-            if (currentStep === 1 && selectedPath) {
-                // Show path selection or generate form sections
-                if (selectedPath) {
-                    generateFormSections(selectedPath);
-                    document.getElementById('pathSelection').style.display = 'none';
-                    document.getElementById('dynamicFormSections').classList.remove('hidden');
-                    document.getElementById('dynamicFormSections').scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    document.getElementById('pathSelection').style.display = 'block';
-                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
-                }
-            } else if (currentStep >= 2) {
-                // Show AI steps
-                document.getElementById('aiSteps').classList.remove('hidden');
-                
-                // Show appropriate step content
-                if (currentStep === 2) {
-                    document.getElementById('chatgptPrompt').value = generatePathSpecificPrompt();
-                    document.getElementById('step2Content').classList.remove('hidden');
-                    document.getElementById('step2Content').scrollIntoView({ behavior: 'smooth' });
-                } else if (currentStep === 3) {
-                    document.getElementById('geminiPrompt').value = autoPopulateGeminiPrompt();
-                    document.getElementById('step3Content').classList.remove('hidden');
-                    document.getElementById('step3Content').scrollIntoView({ behavior: 'smooth' });
-                } else if (currentStep === 4) {
-                    document.getElementById('pricingResearchPrompt').value = generatePricingResearchPrompt();
-                    document.getElementById('step3_5Content').classList.remove('hidden');
-                    document.getElementById('step3_5Content').scrollIntoView({ behavior: 'smooth' });
-                } else if (currentStep === 5) {
-                    document.getElementById('claudePrompt').value = autoPopulateClaudePrompt();
-                    document.getElementById('step4Content').classList.remove('hidden');
-                    document.getElementById('step4Content').scrollIntoView({ behavior: 'smooth' });
-                } else if (currentStep >= 6) {
-                    document.getElementById('finalPlanContent').classList.remove('hidden');
-                    document.getElementById('finalPlanContent').scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }
-
-        function startFresh() {
-            // Clear all saved data
-            localStorage.removeItem('smartMomWorkflowData');
-            
-            // Reset all form fields
-            document.querySelectorAll('.form-control').forEach(field => {
-                field.value = '';
-            });
-            
-            // Reset variables
-            currentStep = 1;
-            selectedPath = '';
-            selectedBusinessIdea = '';
-            
-            // Update progress display
-            updateProgressDisplay();
-            
-            // Hide returning user status
-            const statusDiv = document.querySelector('.returning-user-status');
-            if (statusDiv) {
-                statusDiv.style.display = 'none';
-            }
-            
-            // Reset UI to initial state
-            document.getElementById('pathSelection').style.display = 'none';
-            document.getElementById('dynamicFormSections').classList.add('hidden');
-            document.getElementById('aiSteps').classList.add('hidden');
-            
-            // Hide all step content
-            document.getElementById('step2Content').classList.add('hidden');
-            document.getElementById('step3Content').classList.add('hidden');
-            document.getElementById('step3_5Content').classList.add('hidden');
-            document.getElementById('step4Content').classList.add('hidden');
-            document.getElementById('finalPlanContent').classList.add('hidden');
-            
-            // Scroll to top
-            document.querySelector('.initial-step').scrollIntoView({ behavior: 'smooth' });
-            
-            alert('Starting fresh! All previous data has been cleared.');
-        }
-
+        // Basic utility functions
         function changeLanguage(lang) {
             currentLanguage = lang;
+            debugLog(`Language changed to: ${lang}`, 'info');
             
             // Update active language button
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             document.getElementById(`lang-${lang}`).classList.add('active');
+        }
+
+        function startOnboarding() {
+            debugLog('Starting onboarding process...', 'info');
+            document.getElementById('welcomeModal').classList.add('hidden');
+        }
+
+        function handleReturningUser() {
+            debugLog('Handling returning user...', 'info');
+            document.getElementById('welcomeModal').classList.add('hidden');
+            showAuthModal('signin');
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', async function() {
+            debugLog('Page loaded, initializing Firebase...', 'info');
             
-            // Save language preference
-            if (currentUser) {
-                db.collection('users').doc(currentUser.uid).update({
-                    language: lang
-                }).catch(console.error);
+            try {
+                await initializeFirebase();
+                setupAuthStateObserver();
+                debugLog('Application initialized successfully', 'success');
+            } catch (error) {
+                debugLog(`Application initialization failed: ${error.message}`, 'error');
+                showTestResult(`❌ Initialization failed: ${error.message}. Try the "Try Alternative Config" button.`, true);
             }
-        }
-
-        function scrollToForm() {
-            const initialStep = document.querySelector('.initial-step');
-            if (initialStep) {
-                initialStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        // Auto-animate user counter
-        let userCount = 2847;
-        function animateUserCounter() {
-            setInterval(() => {
-                userCount += Math.floor(Math.random() * 3);
-                const counterElement = document.querySelector('.user-counter span');
-                if (counterElement) {
-                    counterElement.textContent = `🎉 ${userCount.toLocaleString()}+ moms have launched their businesses!`;
-                }
-            }, 5000);
-        }
+        });
     </script>
 </body>
 </html>
