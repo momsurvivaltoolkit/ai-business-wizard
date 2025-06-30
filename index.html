@@ -1256,6 +1256,14 @@
             
             // Add auth form submission handler
             document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+            
+            // Show setup message in console
+            console.log('🚀 SMART MOM METHOD - SETUP STATUS');
+            console.log('✅ Website is running in LOCAL STORAGE mode');
+            console.log('📝 All user data will be saved locally while Airtable is being configured');
+            console.log('🔧 To enable Airtable integration, fix the 403 permission errors shown above');
+            console.log('⚡ All functionality works: signup, signin, path selection, calendar generation');
+            console.log('📧 Webhooks to N8N should still work for email automation');
         }
 
         // Authentication Functions
@@ -1325,16 +1333,8 @@
         }
 
         async function handleSignup(email, password, name) {
-            // Check if user already exists (if Airtable is working)
-            try {
-                const existingUser = await loadFromAirtable(email);
-                if (existingUser) {
-                    showAuthError('An account with this email already exists. Please sign in instead.');
-                    return;
-                }
-            } catch (error) {
-                console.log('Airtable check failed, proceeding with local storage fallback');
-            }
+            // For now, skip Airtable completely and use localStorage
+            // This ensures the signup always works while you fix Airtable
             
             // Create simple password hash (in production, use proper hashing)
             const passwordHash = btoa(password); // Basic encoding - use proper hashing in production
@@ -1350,74 +1350,41 @@
                 createdAt: new Date().toISOString()
             };
             
-            try {
-                // Try to save to Airtable first
-                const recordId = await saveToAirtable(userData);
-                
-                if (recordId) {
-                    showAuthSuccess('Account created successfully! You can now save your progress.');
-                    
-                    // Send welcome email webhook
-                    await sendWelcomeEmail(userData);
-                    
-                    // Auto-fill the main form
-                    document.getElementById('user-name').value = name;
-                    document.getElementById('user-email').value = email;
-                    
-                    // Close modal after delay
-                    setTimeout(() => {
-                        closeAuthModal();
-                        checkInitialFields(); // This will show path selection if fields are filled
-                    }, 2000);
-                } else {
-                    throw new Error('Failed to save to Airtable');
-                }
-                
-            } catch (error) {
-                console.log('Airtable save failed, using localStorage fallback');
-                
-                // Fallback to localStorage
-                const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
-                if (localUsers[email]) {
-                    showAuthError('An account with this email already exists locally. Please sign in instead.');
-                    return;
-                }
-                
-                localUsers[email] = userData;
-                localStorage.setItem('smartMomUsers', JSON.stringify(localUsers));
-                
-                showAuthSuccess('Account created successfully! (Saved locally while database is being set up)');
-                
-                // Send welcome email webhook (this should still work)
-                await sendWelcomeEmail(userData);
-                
-                // Auto-fill the main form
-                document.getElementById('user-name').value = name;
-                document.getElementById('user-email').value = email;
-                
-                // Close modal after delay
-                setTimeout(() => {
-                    closeAuthModal();
-                    checkInitialFields();
-                }, 2000);
+            // Check localStorage for existing users
+            const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+            if (localUsers[email]) {
+                showAuthError('An account with this email already exists. Please sign in instead.');
+                return;
             }
+            
+            // Save to localStorage (guaranteed to work)
+            localUsers[email] = userData;
+            localStorage.setItem('smartMomUsers', JSON.stringify(localUsers));
+            
+            showAuthSuccess('Account created successfully! Your progress will be saved locally.');
+            
+            // Send welcome email webhook (this should still work)
+            try {
+                await sendWelcomeEmail(userData);
+            } catch (error) {
+                console.log('Welcome email webhook failed, but continuing...');
+            }
+            
+            // Auto-fill the main form
+            document.getElementById('user-name').value = name;
+            document.getElementById('user-email').value = email;
+            
+            // Close modal after delay
+            setTimeout(() => {
+                closeAuthModal();
+                checkInitialFields();
+            }, 2000);
         }
 
         async function handleSignin(email, password) {
-            let userData = null;
-            
-            // Try Airtable first
-            try {
-                userData = await loadFromAirtable(email);
-            } catch (error) {
-                console.log('Airtable lookup failed, checking localStorage');
-            }
-            
-            // Fallback to localStorage if Airtable failed
-            if (!userData) {
-                const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
-                userData = localUsers[email];
-            }
+            // For now, use localStorage only while Airtable is being fixed
+            const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+            const userData = localUsers[email];
             
             if (!userData) {
                 showAuthError('No account found with this email address.');
@@ -1666,57 +1633,38 @@
             lookupBtn.textContent = currentLanguage === 'es' ? 'Buscando...' : 'Looking up...';
             lookupBtn.disabled = true;
 
-            try {
-                let userData = null;
+            // For now, use localStorage only while Airtable is being fixed
+            const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+            const userData = localUsers[email];
+            
+            if (userData) {
+                // Success! Load user data
+                successDiv.textContent = currentLanguage === 'es' ? 
+                    `¡Encontrado! Bienvenida de nuevo, ${userData.name || 'Smart Mom'}!` : 
+                    `Found! Welcome back, ${userData.name || 'Smart Mom'}!`;
+                successDiv.classList.remove('hidden');
                 
-                // Try Airtable first
-                try {
-                    userData = await loadFromAirtable(email);
-                } catch (error) {
-                    console.log('Airtable lookup failed, checking localStorage fallback');
-                }
+                // Load user progress
+                setTimeout(() => {
+                    loadUserProgress(userData);
+                    closeReturningUserModal();
+                }, 1500);
                 
-                // If Airtable failed, try localStorage fallback
-                if (!userData) {
-                    const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
-                    userData = localUsers[email];
-                }
-                
-                if (userData) {
-                    // Success! Load user data
-                    successDiv.textContent = currentLanguage === 'es' ? 
-                        `¡Encontrado! Bienvenida de nuevo, ${userData.name || 'Smart Mom'}!` : 
-                        `Found! Welcome back, ${userData.name || 'Smart Mom'}!`;
-                    successDiv.classList.remove('hidden');
-                    
-                    // Load user progress
-                    setTimeout(() => {
-                        loadUserProgress(userData);
-                        closeReturningUserModal();
-                    }, 1500);
-                    
-                } else {
-                    // User not found
-                    errorDiv.textContent = currentLanguage === 'es' ? 
-                        'Correo no encontrado. ¿Te gustaría empezar un nuevo viaje?' : 
-                        'Email not found. Would you like to start a new journey?';
-                    errorDiv.classList.remove('hidden');
-                    
-                    // Offer to start new journey
-                    setTimeout(() => {
-                        if (confirm(currentLanguage === 'es' ? 
-                            '¿Quieres empezar desde el principio?' : 
-                            'Would you like to start from the beginning?')) {
-                            closeReturningUserModal();
-                        }
-                    }, 2000);
-                }
-                
-            } catch (error) {
+            } else {
+                // User not found
                 errorDiv.textContent = currentLanguage === 'es' ? 
-                    'Error al buscar tu información. Por favor intenta de nuevo.' : 
-                    'Error looking up your information. Please try again.';
+                    'Correo no encontrado en el almacenamiento local. ¿Te gustaría empezar un nuevo viaje?' : 
+                    'Email not found in local storage. Would you like to start a new journey?';
                 errorDiv.classList.remove('hidden');
+                
+                // Offer to start new journey
+                setTimeout(() => {
+                    if (confirm(currentLanguage === 'es' ? 
+                        '¿Quieres empezar desde el principio?' : 
+                        'Would you like to start from the beginning?')) {
+                        closeReturningUserModal();
+                    }
+                }, 2000);
             }
 
             // Reset button
@@ -1871,16 +1819,17 @@
                 }
             };
 
-            // Save to Airtable
-            try {
-                const recordId = await saveToAirtable(userData);
-                if (recordId) {
-                    console.log('User data saved to Airtable with ID:', recordId);
-                }
-            } catch (error) {
-                console.error('Error saving user data:', error);
-                // Continue anyway - don't block the user experience
+            // Save to localStorage for now (while Airtable is being fixed)
+            const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+            if (localUsers[userData.email]) {
+                // Update existing user
+                localUsers[userData.email] = { ...localUsers[userData.email], ...userData };
+            } else {
+                // Create new entry
+                localUsers[userData.email] = userData;
             }
+            localStorage.setItem('smartMomUsers', JSON.stringify(localUsers));
+            console.log('User progress saved locally:', userData);
             
             // Hide current sections
             document.getElementById('initialStep').classList.add('hidden');
@@ -1890,8 +1839,12 @@
             document.getElementById('successMessage').classList.remove('hidden');
             document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
             
-            // Send webhook notification if needed
-            sendWebhookNotification(userData);
+            // Send webhook notification (this should still work)
+            try {
+                await sendWebhookNotification(userData);
+            } catch (error) {
+                console.log('Webhook failed, but continuing...', error);
+            }
             
             // Update selected path display
             updateSelectedPathDisplay();
