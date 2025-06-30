@@ -2925,6 +2925,291 @@ Create a detailed business plan including:
 Be specific, actionable, and brutally realistic. Include exact steps, timeframes, and contingency plans.`;
         }
 
+        function generateGeminiMVPPrompt(data) {
+            return `${realismInstructions}
+
+**CRITICAL: PLEASE USE DEEP SEARCH IN GEMINI**
+INSTRUCTIONS FOR GEMINI:
+1. When you paste this prompt, look for "Deep Search" option in Gemini interface
+2. Click "Deep Search" and wait for Gemini to ask for confirmation
+3. Click confirm and wait for complete deep search results (this may take 30-60 seconds)
+4. Copy the ENTIRE response back to the website
+
+**CONTEXT:** I just received business ideas from ChatGPT for a mom entrepreneur. Now I need your help with deep market research and MVP validation using current 2024/2025 data.
+
+**Mom's Profile:**
+- Investment Level: ${data['investment-level']}
+- Work Location: ${data['work-location']}
+- Work Style: ${data['work-style']}
+- Camera Comfort: ${data['camera-comfort']}
+- Income Timeline: ${data['income-timeline']}
+- Total Budget: ${data['total-budget']}
+- Family: ${data['family-structure']}
+- Schedule: ${data['daily-schedule']}
+
+**ChatGPT Business Ideas:** [Will be replaced with actual response]
+
+Using DEEP SEARCH, research and provide detailed analysis:
+
+1. **MVP Definition & Validation** 
+   - What's the simplest version she can start with (considering her limited time)?
+   - How can she test the idea with minimal investment?
+   - What would a realistic first month look like?
+
+2. **Market Reality Check (2024/2025 Data)**
+   - Who else is doing this currently?
+   - How saturated is the market right now?
+   - What are competitors charging?
+   - Are there market gaps she could fill?
+
+3. **Customer Validation Strategy**
+   - Where can she find potential customers online/offline?
+   - How can she validate demand before investing time?
+   - What questions should she ask potential customers?
+
+4. **Resource Requirements (Be Realistic)**
+   - What tools/software does she actually need? (free vs. paid options)
+   - What skills does she need to learn first?
+   - Does she need partnerships or can she do this solo?
+
+5. **Success Metrics for First 90 Days**
+   - What should she track daily/weekly?
+   - What numbers indicate she's on the right track?
+   - When should she pivot vs. persist?
+
+6. **Risk Assessment & Mitigation**
+   - What are the biggest risks for her specific situation?
+   - How can she minimize financial/time risks?
+   - What are realistic backup plans?
+
+7. **Timeline to First Revenue**
+   - Realistic timeline from idea to first paying customer
+   - Weekly milestones for the first month
+   - When should she expect consistent income?
+
+Focus on CURRENT market data, real examples, and actionable next steps she can implement this week.`;
+        }
+
+        function generateGeminiPricingPrompt(data) {
+            return `${realismInstructions}
+
+**CRITICAL: USE DEEP SEARCH AGAIN IN GEMINI**
+INSTRUCTIONS FOR GEMINI:
+1. Choose "Deep Search" option again for this pricing research
+2. Wait for confirmation and complete the deep search process
+3. This search should focus on current pricing data and market rates
+
+**CONTEXT:** Following up on our MVP research, I now need comprehensive pricing strategy research using current 2024/2025 market data.
+
+**Mom's Profile:**
+- Investment Level: ${data['investment-level']}
+- Work Location: ${data['work-location']}
+- Income Timeline: ${data['income-timeline']}
+- Total Budget: ${data['total-budget']}
+- Family Situation: ${data['family-structure']}
+- Experience Level: Beginner (consider this heavily in pricing recommendations)
+
+**Previous MVP Research:** [Will be replaced with actual Gemini MVP response]
+
+Using DEEP SEARCH, research and provide detailed pricing analysis:
+
+1. **Beginner-Friendly Pricing Strategy**
+   - What should someone with NO experience charge initially?
+   - How to price competitively without underselling
+   - When to raise prices as skills improve
+
+2. **Competitive Pricing Analysis (Current Market)**
+   - What do similar businesses charge right now in 2024/2025?
+   - Include specific examples with price ranges ($X - $Y per hour/project)
+   - Compare local vs. national vs. international rates
+
+3. **Value-Based Pricing Research**
+   - What measurable results/ROI do customers get?
+   - How to justify pricing to budget-conscious customers
+   - Case studies of successful pricing strategies
+
+4. **Package & Pricing Structure Options**
+   - Should she offer hourly, project, or package pricing?
+   - Examples of 3-tier pricing structures
+   - What works best for her timeline constraints?
+
+5. **Payment Models & Logistics**
+   - One-time vs. recurring revenue options
+   - Payment terms that work for new businesses
+   - How to handle payment processing as a beginner
+
+6. **Market Testing & Validation**
+   - How to test different price points with minimal risk
+   - Scripts for discussing pricing with potential customers
+   - When to negotiate vs. hold firm on pricing
+
+7. **Scalability & Growth Strategy**
+   - How pricing should evolve in months 1-6
+   - When to introduce premium services
+   - Path from beginner rates to expert pricing
+
+8. **Geographic & Demographic Considerations**
+   - How location affects pricing (if applicable)
+   - Adjusting for target customer's budget level
+   - Online vs. local pricing differences
+
+Provide specific dollar amounts, real market examples, and actionable pricing strategies for a complete beginner.`;
+        }
+
+        function generateGeminiInfographicPrompt(data) {
+            return `**CRITICAL INSTRUCTIONS FOR INFOGRAPHIC CREATION:**
+
+**CONTEXT:** Create a visual business plan infographic that summarizes our comprehensive research.
+
+**Previous Research to Incorporate:**
+- MVP Research: [Will be replaced with actual MVP response]
+- Pricing Research: [Will be replaced with actual pricing response]
+
+**Mom's Business Profile:**
+- Selected Path: ${data.selectedPath}
+- Investment Budget: ${data['total-budget']}
+- Income Timeline: ${data['income-timeline']}
+- Work Style: ${data['work-style']}
+- Family Situation: ${data['family-structure']}
+
+**IMPORTANT: I need the actual HTML/SVG CODE, not a description**
+
+Please create a professional, visually appealing business plan infographic that includes:
+
+**Visual Sections to Include:**
+1. **Business Overview** - Main concept and unique value proposition
+2. **Target Customer Profile** - Who will buy and why
+3. **MVP Strategy** - Simple first steps and validation approach
+4. **Pricing Structure** - Clear pricing tiers or models
+5. **90-Day Roadmap** - Key milestones with timeline
+6. **Success Metrics** - What numbers to track
+7. **Revenue Projections** - Realistic income expectations
+
+**Design Requirements:**
+- Use Smart Mom Method brand colors: #6B8E6B (sage green), #2D5B69 (deep teal), #D4A574 (soft gold), #FAF7F0 (warm cream)
+- Clean, professional layout suitable for a mom entrepreneur
+- Icons and visual elements for each section
+- Easy to read fonts and clear hierarchy
+- Responsive design that works on mobile and desktop
+- Include inspiring but realistic messaging
+
+**CRITICAL OUTPUT REQUIREMENT:**
+Please provide the complete HTML/SVG code that I can copy and paste directly into a webpage. Do NOT provide explanations or descriptions - just give me the working code that will display the infographic.
+
+The code should be self-contained (no external dependencies except for basic fonts) and ready to integrate immediately.
+
+Start your response with the opening HTML tag and end with the closing tag. Include all styling within <style> tags in the HTML.`;
+        }
+
+        function generateClaudeCalendarPrompt(data) {
+            return `${realismInstructions}
+
+**COMPREHENSIVE INTERACTIVE BUSINESS CALENDAR CREATION**
+
+**Mom's Complete Profile:**
+- Name: ${data.name}
+- Selected Path: ${data.selectedPath}
+- Investment Level: ${data['investment-level']}
+- Work Location: ${data['work-location']}
+- Work Style: ${data['work-style']}
+- Camera Comfort: ${data['camera-comfort']}
+- Income Timeline: ${data['income-timeline']}
+- Total Budget: ${data['total-budget']}
+- Family Structure: ${data['family-structure']}
+- Daily Schedule: ${data['daily-schedule']}
+
+**Complete AI Research Foundation:**
+- ChatGPT Business Ideas: [Will be replaced with actual response]
+- Gemini MVP Research: [Will be replaced with actual MVP response]  
+- Gemini Pricing Strategy: [Will be replaced with actual pricing response]
+
+**TASK:** Create a comprehensive, easy-to-follow interactive business calendar that integrates with her family life and incorporates ALL the research above.
+
+**Calendar Requirements:**
+
+**1. BRAIN-FRIENDLY STRUCTURE**
+- Clear, simple daily tasks (no overwhelming lists)
+- Color-coded priority system (Green=Must Do, Yellow=Important, Blue=When Possible)
+- Time-blocked schedule that respects energy levels throughout the day
+- Built-in buffer time for interruptions and family needs
+- Visual progress tracking and celebration points
+
+**2. 90-DAY IMPLEMENTATION TIMELINE**
+- **Days 1-30: Foundation & MVP Development**
+  - Week 1: Setup and preparation tasks
+  - Week 2: First customer outreach and validation
+  - Week 3: Refine MVP based on feedback
+  - Week 4: Establish basic business systems
+- **Days 31-60: Growth & Optimization**
+  - Week 5-6: Scale customer acquisition
+  - Week 7-8: Optimize pricing and processes
+- **Days 61-90: Revenue Generation & Scaling**
+  - Week 9-10: Focus on consistent income
+  - Week 11-12: Plan for next quarter growth
+
+**3. DAILY STRUCTURE INTEGRATION**
+- **Morning Power Hour** (before kids wake): Most important business task
+- **Naptime/Quiet Time Blocks**: Focused work sessions (15-30 min chunks)
+- **Evening Wind-Down**: Administrative tasks while kids play/homework
+- **Weekend Family-Friendly Activities**: Business tasks kids can "help" with
+
+**4. ADAPTIVE SCHEDULING SYSTEM**
+- **High Energy Days**: Tackle challenging tasks (customer calls, content creation)
+- **Low Energy Days**: Administrative tasks, planning, learning
+- **Sick Kid Days**: Backup plan with 10-minute micro-tasks
+- **Holiday/Travel Days**: Minimal maintenance tasks only
+
+**5. PROGRESS TRACKING BUILT-IN**
+- Daily check-off lists with immediate gratification
+- Weekly review sessions (15 minutes max)
+- Monthly milestone celebrations with family
+- Clear indicators when to pivot or adjust strategy
+
+**6. SENSORY-FRIENDLY CONSIDERATIONS**
+- Quiet work time suggestions for sound-sensitive tasks
+- Movement breaks built into schedule
+- Flexibility for days when routines don't work
+- Multiple reminder systems (visual, written, digital options)
+
+**7. EXECUTIVE FUNCTION SUPPORT**
+- Task breakdowns into 2-3 step micro-actions
+- Built-in accountability checkpoints
+- Clear start/stop triggers for each activity
+- Transition time built between different types of tasks
+
+**8. FINANCIAL INTEGRATION**
+- Daily money-tracking habits (2 minutes max)
+- Weekly financial check-ins
+- Monthly revenue and expense reviews
+- Goal visualization and celebration systems
+
+**Create a detailed, week-by-week calendar that she can implement immediately while honoring her role as a mom and respecting different energy levels, attention spans, and life realities. Include specific tasks, time estimates, and clear success criteria for each activity.**
+
+**Make this practical, achievable, and sustainable for long-term success.**`;
+        }
+
+        function generateSequentialPrompts() {
+            const data = collectFormData();
+            
+            // Generate Gemini MVP prompt that will incorporate ChatGPT response
+            const geminiMvpPrompt = generateGeminiMVPPrompt(data);
+            document.getElementById('gemini-mvp-prompt').value = geminiMvpPrompt;
+            
+            // Generate Gemini Pricing prompt that will incorporate MVP response
+            const geminiPricingPrompt = generateGeminiPricingPrompt(data);
+            document.getElementById('gemini-pricing-prompt').value = geminiPricingPrompt;
+            
+            // Generate Gemini Infographic prompt that will incorporate both MVP and pricing responses
+            const geminiInfographicPrompt = generateGeminiInfographicPrompt(data);
+            document.getElementById('gemini-infographic-prompt').value = geminiInfographicPrompt;
+            
+            // Generate Claude Calendar prompt that will incorporate all previous responses
+            const claudeCalendarPrompt = generateClaudeCalendarPrompt(data);
+            document.getElementById('claude-calendar-prompt').value = claudeCalendarPrompt;
+            
+            console.log('Sequential prompts generated with enhanced logic for incorporating previous responses');
+        }
+
         function showAIResults() {
             // Hide AI processing and show results
             document.getElementById('aiProcessSteps').classList.add('hidden');
@@ -2941,178 +3226,6 @@ Be specific, actionable, and brutally realistic. Include exact steps, timeframes
             
             // Generate the sequential prompts
             generateSequentialPrompts();
-        }
-
-        function generateSequentialPrompts() {
-            const data = collectFormData();
-            
-            // Generate Gemini MVP prompt that incorporates ChatGPT response
-            const geminiMvpPrompt = generateGeminiMVPPrompt(data);
-            document.getElementById('gemini-mvp-prompt').value = geminiMvpPrompt;
-            
-            // Generate Gemini Pricing prompt that will incorporate MVP response
-            const geminiPricingPrompt = generateGeminiPricingPrompt(data);
-            document.getElementById('gemini-pricing-prompt').value = geminiPricingPrompt;
-            
-            // Generate Gemini Infographic prompt that will incorporate pricing response
-            const geminiInfographicPrompt = generateGeminiInfographicPrompt(data);
-            document.getElementById('gemini-infographic-prompt').value = geminiInfographicPrompt;
-            
-            // Generate Claude Calendar prompt that will incorporate all responses
-            const claudeCalendarPrompt = generateClaudeCalendarPrompt(data);
-            document.getElementById('claude-calendar-prompt').value = claudeCalendarPrompt;
-        }
-
-        function generateGeminiMVPPrompt(data) {
-            return `${realismInstructions}
-
-**CONTEXT:** I just received business ideas from ChatGPT for a mom entrepreneur. Now I need your help with deep market research and MVP validation.
-
-**Mom's Profile:**
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-- Family: ${data['family-structure']}
-- Schedule: ${data['daily-schedule']}
-
-**ChatGPT Business Ideas:** [Will be replaced with actual response]
-
-Using DEEP SEARCH, please research and provide:
-
-1. **MVP Validation** - For the most promising business idea from ChatGPT, what's the simplest MVP she could create?
-2. **Market Size & Competition** - Who else is doing this? How saturated is the market?
-3. **Customer Validation** - Where can she find and validate potential customers?
-4. **Success Metrics** - What KPIs should she track in the first 90 days?
-5. **Resource Requirements** - What tools, skills, or partnerships does she need?
-6. **Risk Assessment** - What are the biggest risks and how to mitigate them?
-7. **Timeline to Launch** - Realistic timeline from idea to first paying customer
-
-Focus on ACTIONABLE insights with specific examples and real market data from your deep search.`;
-        }
-
-        function generateGeminiPricingPrompt(data) {
-            return `${realismInstructions}
-
-**CONTEXT:** Following up on our MVP research, I now need comprehensive pricing strategy research.
-
-**Mom's Profile:**
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-- Family Situation: ${data['family-structure']}
-
-**Previous MVP Research:** [Will be replaced with actual Gemini MVP response]
-
-Using DEEP SEARCH again, please research and provide:
-
-1. **Competitive Pricing Analysis** - What do similar businesses charge? Include specific examples and price ranges
-2. **Value-Based Pricing** - What's the actual value/ROI her customers would receive?
-3. **Pricing Psychology** - Optimal pricing structures for her target market
-4. **Package Options** - Should she offer tiers? What would each tier include?
-5. **Payment Models** - One-time, recurring, project-based? What works best?
-6. **Market Testing** - How can she test different price points with minimal risk?
-7. **Scalability** - How can pricing evolve as she grows?
-8. **Local vs. National** - Price differences based on geographic location
-
-Provide specific dollar amounts, pricing strategies, and examples from successful mom entrepreneurs in similar markets.`;
-        }
-
-        function generateGeminiInfographicPrompt(data) {
-            return `**CONTEXT:** Create a visual business plan infographic based on our research.
-
-**Previous Research Summary:**
-- MVP Research: [Will be replaced with actual MVP response]
-- Pricing Research: [Will be replaced with actual pricing response]
-
-**Mom's Business Profile:**
-- Path: ${data.selectedPath}
-- Budget: ${data['total-budget']}
-- Timeline: ${data['income-timeline']}
-- Work Style: ${data['work-style']}
-
-Please create a beautiful, professional infographic that visualizes her business plan. Include:
-
-1. **Business Overview** - Main business concept and value proposition
-2. **Target Market** - Who are her ideal customers
-3. **Revenue Model** - How she'll make money
-4. **MVP Roadmap** - Key milestones in first 90 days
-5. **Pricing Strategy** - Service/product pricing structure
-6. **Success Metrics** - KPIs to track
-
-**IMPORTANT:** Please provide the complete HTML/SVG code for the infographic, not just a description. Use modern design with:
-- Clean, professional layout
-- Smart Mom Method brand colors: #6B8E6B (sage green), #2D5B69 (deep teal), #D4A574 (soft gold)
-- Icons and visual elements
-- Responsive design
-- Easy to read fonts
-
-Generate the actual HTML/SVG code that I can integrate directly into the website.`;
-        }
-
-        function generateClaudeCalendarPrompt(data) {
-            return `${realismInstructions}
-
-**COMPREHENSIVE BUSINESS CALENDAR CREATION**
-
-**Mom's Complete Profile:**
-- Name: ${data.name}
-- Selected Path: ${data.selectedPath}
-- Investment: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Timeline: ${data['income-timeline']}
-- Budget: ${data['total-budget']}
-- Family: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-
-**Previous AI Research:**
-- ChatGPT Business Ideas: [Will be replaced with actual response]
-- Gemini MVP Research: [Will be replaced with actual MVP response]  
-- Gemini Pricing Strategy: [Will be replaced with actual pricing response]
-
-Based on ALL the previous research and her specific family situation, create a comprehensive 90-day interactive business calendar that includes:
-
-**Week-by-Week Action Plan:**
-- Specific tasks for each week
-- Time estimates for each task
-- Integration with her family schedule
-- Realistic expectations based on her available time
-
-**Daily Business Building Blocks:**
-- Morning routines (before kids wake up)
-- Naptime/quiet time productivity blocks
-- Evening business development
-- Weekend family-friendly business activities
-
-**Monthly Milestones:**
-- Month 1: Foundation building and MVP development
-- Month 2: Customer acquisition and validation
-- Month 3: Revenue generation and scaling
-
-**Family Integration Strategy:**
-- How to involve kids appropriately
-- Managing business calls with family life
-- Backup plans for sick days/emergencies
-- Support system development
-
-**Financial Tracking System:**
-- Revenue goals and tracking
-- Expense management
-- Profit calculations
-- Emergency fund planning
-
-**Time Management Framework:**
-- Priority matrix for business vs. family
-- Batch working strategies
-- Delegation opportunities
-- Self-care integration
-
-Please create a detailed, actionable calendar that she can implement immediately while honoring her role as a mom.`;
         }
 
         function validateWorkflowStep(step) {
