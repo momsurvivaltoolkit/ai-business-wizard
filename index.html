@@ -1674,6 +1674,61 @@
                         <div class="validation-message" id="daily-schedule-validation"></div>
                     </div>
 
+                    <div class="form-group">
+                        <label id="learningStyleLabel">Learning Style: <span class="required">*</span></label>
+                        <select id="learning-style" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your learning style...</option>
+                            <option value="visual">Visual (I learn by seeing)</option>
+                            <option value="auditory">Auditory (I learn by hearing)</option>
+                            <option value="kinesthetic">Kinesthetic (I learn by doing)</option>
+                            <option value="mixed">Mixed (I use all styles)</option>
+                        </select>
+                        <div class="validation-message" id="learning-style-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workPaceLabel">Work Pace: <span class="required">*</span></label>
+                        <select id="work-pace" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your work pace...</option>
+                            <option value="fast-paced">Fast-paced (I like quick decisions)</option>
+                            <option value="steady">Steady (I prefer consistent progress)</option>
+                            <option value="relaxed">Relaxed (I need time to process)</option>
+                            <option value="flexible">Flexible (It depends on the task)</option>
+                        </select>
+                        <div class="validation-message" id="work-pace-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workFrequencyLabel">Work Frequency: <span class="required">*</span></label>
+                        <select id="work-frequency" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your work frequency...</option>
+                            <option value="daily">Daily (I can work every day)</option>
+                            <option value="few-times-week">Few times per week (2-4 days)</option>
+                            <option value="weekly">Weekly (1-2 days per week)</option>
+                            <option value="flexible-schedule">Flexible schedule</option>
+                        </select>
+                        <div class="validation-message" id="work-frequency-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="techComfortLabel">Tech Comfort Level: <span class="required">*</span></label>
+                        <select id="tech-comfort" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your tech comfort level...</option>
+                            <option value="beginner">Beginner (I need step-by-step guidance)</option>
+                            <option value="intermediate">Intermediate (I can figure things out)</option>
+                            <option value="advanced">Advanced (I'm comfortable with most tech)</option>
+                            <option value="expert">Expert (I troubleshoot for others)</option>
+                        </select>
+                        <div class="validation-message" id="tech-comfort-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="currentTechToolsLabel">Current Tech Tools:</label>
+                        <input type="text" id="current-tech-tools" class="form-control" placeholder="List any tools/platforms you already use (Google, Facebook, Zoom, etc.)" oninput="updateCharCount(this, 500)" />
+                        <div class="char-counter" id="current-tech-tools-counter">0/500</div>
+                        <div class="validation-message" id="current-tech-tools-validation"></div>
+                    </div>
+
                     <button class="continue-btn visible" onclick="proceedWithQuestionnaire()">
                         <span id="proceedBtnText">Start AI-Powered Analysis</span>
                     </button>
@@ -2081,10 +2136,10 @@
                             <h3 style="margin-bottom: 15px;">What You've Accomplished:</h3>
                             <ul style="list-style: none; padding: 0;">
                                 <li style="margin: 10px 0;">✅ Identified your unique mom-entrepreneur profile</li>
-                                <li style="margin: 10px 0;">Generated AI-powered business recommendations</li>
-                                <li style="margin: 10px 0;">Created your personalized calendar framework</li>
-                                <li style="margin: 10px 0;">Established clear next steps for success</li>
-                                <li style="margin: 10px 0;">Joined a community of successful Smart Moms</li>
+                                <li style="margin: 10px 0;">✅ Generated AI-powered business recommendations</li>
+                                <li style="margin: 10px 0;">✅ Created your personalized calendar framework</li>
+                                <li style="margin: 10px 0;">✅ Established clear next steps for success</li>
+                                <li style="margin: 10px 0;">✅ Joined a community of successful Smart Moms</li>
                             </ul>
                         </div>
 
@@ -2185,6 +2240,11 @@ Focus on what's ACTUALLY doable for their situation.
                 totalBudgetLabel: "Maximum startup budget (total):",
                 familyStructureLabel: "Family structure & ages:",
                 dailyScheduleLabel: "Describe your typical daily schedule:",
+                learningStyleLabel: "Learning Style:",
+                workPaceLabel: "Work Pace:",
+                workFrequencyLabel: "Work Frequency:",
+                techComfortLabel: "Tech Comfort Level:",
+                currentTechToolsLabel: "Current Tech Tools:",
                 proceedBtnText: "Start AI-Powered Analysis"
             },
             es: {
@@ -2224,6 +2284,11 @@ Focus on what's ACTUALLY doable for their situation.
                 totalBudgetLabel: "Presupuesto máximo de inicio (total):",
                 familyStructureLabel: "Estructura familiar y edades:",
                 dailyScheduleLabel: "Describe tu horario diario típico:",
+                learningStyleLabel: "Estilo de Aprendizaje:",
+                workPaceLabel: "Ritmo de Trabajo:",
+                workFrequencyLabel: "Frecuencia de Trabajo:",
+                techComfortLabel: "Nivel de Comodidad Tecnológica:",
+                currentTechToolsLabel: "Herramientas Tecnológicas Actuales:",
                 proceedBtnText: "Iniciar Análisis con IA"
             }
         };
@@ -2243,6 +2308,8 @@ Focus on what's ACTUALLY doable for their situation.
             console.log('✅ ADHD/autism-friendly visual design');
             console.log('✅ Response collection and prompt generation');
             console.log('✅ Final dashboard integration');
+            console.log('✅ 5 NEW FORM FIELDS ADDED: Learning Style, Work Pace, Work Frequency, Tech Comfort, Current Tech Tools');
+            console.log(`📊 Total form fields: 19 (12 required + 7 optional)`);
         }
 
         // Utility function for safe webhook calls
@@ -2450,7 +2517,8 @@ Focus on what's ACTUALLY doable for their situation.
                 'user-name': currentLanguage === 'es' ? 'Ingresa tu nombre' : 'Enter your name',
                 'user-email': currentLanguage === 'es' ? 'tu.correo@ejemplo.com' : 'your.email@example.com',
                 'family-structure': currentLanguage === 'es' ? 'Cuéntanos sobre tu familia: ¿Cuántos hijos? ¿Qué edades? ¿Alguna necesidad especial o consideración?' : 'Tell us about your family: How many kids? What ages? Any special needs or considerations?',
-                'daily-schedule': currentLanguage === 'es' ? 'Cuéntanos sobre un día típico: ¿A qué hora despiertas? ¿Horarios de los niños? ¿Cuándo tienes tiempo libre?' : 'Walk us through a typical day: When do you wake up? Kids\' schedules? When do you have free time?'
+                'daily-schedule': currentLanguage === 'es' ? 'Cuéntanos sobre un día típico: ¿A qué hora despiertas? ¿Horarios de los niños? ¿Cuándo tienes tiempo libre?' : 'Walk us through a typical day: When do you wake up? Kids\' schedules? When do you have free time?',
+                'current-tech-tools': currentLanguage === 'es' ? 'Lista las herramientas/plataformas que ya usas (Google, Facebook, Zoom, etc.)' : 'List any tools/platforms you already use (Google, Facebook, Zoom, etc.)'
             };
             
             Object.entries(placeholders).forEach(([id, text]) => {
@@ -2702,6 +2770,16 @@ Focus on what's ACTUALLY doable for their situation.
                     validation.textContent = '';
                     field.style.borderColor = 'var(--light-sage)';
                 }
+            } else if (field.type === 'text' && field.id === 'current-tech-tools') {
+                // Optional field - no validation error for empty
+                if (value.length > 0) {
+                    validation.textContent = '✓ Looks good';
+                    validation.className = 'validation-message success';
+                    field.style.borderColor = 'var(--sage-green)';
+                } else {
+                    validation.textContent = '';
+                    field.style.borderColor = 'var(--light-sage)';
+                }
             } else {
                 if (value.length >= 2) {
                     validation.textContent = '✓ Looks good';
@@ -2718,14 +2796,14 @@ Focus on what's ACTUALLY doable for their situation.
             }
         }
 
-        function updateCharCount(textarea, maxChars) {
-            const counter = document.getElementById(textarea.id + '-counter');
-            const currentLength = textarea.value.length;
+        function updateCharCount(field, maxChars) {
+            const counter = document.getElementById(field.id + '-counter');
+            const currentLength = field.value.length;
             counter.textContent = `${currentLength}/${maxChars}`;
             
             if (currentLength > maxChars) {
                 counter.style.color = '#e57373';
-                textarea.value = textarea.value.substring(0, maxChars);
+                field.value = field.value.substring(0, maxChars);
                 counter.textContent = `${maxChars}/${maxChars}`;
             } else if (currentLength > maxChars * 0.9) {
                 counter.style.color = '#f39c12';
@@ -2795,7 +2873,8 @@ Focus on what's ACTUALLY doable for their situation.
             const requiredFields = [
                 'investment-level', 'work-location', 'work-style', 
                 'camera-comfort', 'income-timeline', 'total-budget', 
-                'family-structure', 'daily-schedule'
+                'family-structure', 'daily-schedule', 'learning-style',
+                'work-pace', 'work-frequency', 'tech-comfort'
             ];
 
             let allValid = true;
@@ -2829,7 +2908,7 @@ Focus on what's ACTUALLY doable for their situation.
                 localUsers[userData.email] = userData;
             }
             localStorage.setItem('smartMomUsers', JSON.stringify(localUsers));
-            console.log('User questionnaire data saved locally:', userData);
+            console.log('✅ User questionnaire data (19 fields) saved locally:', userData);
             
             // Hide questionnaire
             document.getElementById('businessQuestionnaire').classList.add('hidden');
@@ -2865,6 +2944,11 @@ Focus on what's ACTUALLY doable for their situation.
                 'total-budget': document.getElementById('total-budget')?.value || '',
                 'family-structure': document.getElementById('family-structure')?.value || '',
                 'daily-schedule': document.getElementById('daily-schedule')?.value || '',
+                'learning-style': document.getElementById('learning-style')?.value || '',
+                'work-pace': document.getElementById('work-pace')?.value || '',
+                'work-frequency': document.getElementById('work-frequency')?.value || '',
+                'tech-comfort': document.getElementById('tech-comfort')?.value || '',
+                'current-tech-tools': document.getElementById('current-tech-tools')?.value || '',
                 formData: {
                     'user-name': document.getElementById('user-name')?.value.trim() || '',
                     'user-email': document.getElementById('user-email')?.value.trim() || '',
@@ -2875,7 +2959,12 @@ Focus on what's ACTUALLY doable for their situation.
                     'income-timeline': document.getElementById('income-timeline')?.value || '',
                     'total-budget': document.getElementById('total-budget')?.value || '',
                     'family-structure': document.getElementById('family-structure')?.value || '',
-                    'daily-schedule': document.getElementById('daily-schedule')?.value || ''
+                    'daily-schedule': document.getElementById('daily-schedule')?.value || '',
+                    'learning-style': document.getElementById('learning-style')?.value || '',
+                    'work-pace': document.getElementById('work-pace')?.value || '',
+                    'work-frequency': document.getElementById('work-frequency')?.value || '',
+                    'tech-comfort': document.getElementById('tech-comfort')?.value || '',
+                    'current-tech-tools': document.getElementById('current-tech-tools')?.value || ''
                 }
             };
         }
@@ -2897,6 +2986,11 @@ Create 3 personalized business ideas for a busy mom with this profile:
 - Camera Comfort: ${data['camera-comfort']}
 - Income Timeline: ${data['income-timeline']}
 - Total Budget: ${data['total-budget']}
+- Learning Style: ${data['learning-style']}
+- Work Pace: ${data['work-pace']}
+- Work Frequency: ${data['work-frequency']}
+- Tech Comfort: ${data['tech-comfort']}
+- Current Tech Tools: ${data['current-tech-tools']}
 
 **Family & Schedule:**
 - Family Structure: ${data['family-structure']}
@@ -2907,7 +3001,9 @@ Based on this information, suggest 3 realistic business ideas that:
 2. Fit within her budget and timeline constraints
 3. Work with her family schedule and commitments
 4. Respect her camera/social media comfort level
-5. Are actually doable for a mom with limited time
+5. Align with her learning style and work pace preferences
+6. Match her tech comfort level and available tools
+7. Are actually doable for a mom with limited time
 
 For each business idea, include:
 - Business concept (be specific)
@@ -3010,6 +3106,11 @@ ${chatgptResponse}
 - Camera Comfort: ${data['camera-comfort']}
 - Income Timeline: ${data['income-timeline']}
 - Total Budget: ${data['total-budget']}
+- Learning Style: ${data['learning-style']}
+- Work Pace: ${data['work-pace']}
+- Work Frequency: ${data['work-frequency']}
+- Tech Comfort: ${data['tech-comfort']}
+- Current Tech Tools: ${data['current-tech-tools']}
 - Family: ${data['family-structure']}
 - Schedule: ${data['daily-schedule']}
 
@@ -3031,6 +3132,7 @@ Focus on:
 - Realistic timeline expectations
 - Budget-conscious strategies
 - Specific to her constraints and situation
+- Consider her learning style and tech comfort level
 
 Recommend the ONE best business idea with detailed MVP plan.`;
 
@@ -3060,6 +3162,11 @@ ${mvpResponse}
 - Total Budget: ${data['total-budget']}
 - Income Timeline: ${data['income-timeline']}
 - Work Location: ${data['work-location']}
+- Learning Style: ${data['learning-style']}
+- Work Pace: ${data['work-pace']}
+- Work Frequency: ${data['work-frequency']}
+- Tech Comfort: ${data['tech-comfort']}
+- Current Tech Tools: ${data['current-tech-tools']}
 
 **IMPORTANT: Use Gemini's "Deep Search" feature for comprehensive pricing research.**
 
@@ -3077,7 +3184,8 @@ Research and provide:
 **Specific Requirements:**
 - Give exact dollar amounts, not ranges
 - Consider her beginner status
-- Factor in her time constraints
+- Factor in her time constraints and work frequency
+- Consider her tech comfort level for implementation
 - Provide 3 pricing tiers (basic, standard, premium)
 - Include launch pricing vs. established pricing
 - Consider local market conditions
@@ -3170,6 +3278,11 @@ ${pricingResponse}
 - Camera: ${data['camera-comfort']}
 - Timeline: ${data['income-timeline']}
 - Budget: ${data['total-budget']}
+- Learning Style: ${data['learning-style']}
+- Work Pace: ${data['work-pace']}
+- Work Frequency: ${data['work-frequency']}
+- Tech Comfort: ${data['tech-comfort']}
+- Current Tech Tools: ${data['current-tech-tools']}
 - Family: ${data['family-structure']}
 - Schedule: ${data['daily-schedule']}
 
@@ -3220,6 +3333,8 @@ ${pricingResponse}
 - Actionable tasks
 - Measurable goals
 - Emergency flexibility
+- Adapted to her learning style and work pace
+- Appropriate for her tech comfort level
 
 Create this as a complete, downloadable HTML file that she can use as her business and life organization tool. Include everything she needs to succeed based on all the AI research.`;
 
@@ -3300,7 +3415,11 @@ Create this as a complete, downloadable HTML file that she can use as her busine
                         <strong>Selected Path:</strong> ${data.selectedPath}<br>
                         <strong>Investment Level:</strong> ${data['investment-level']}<br>
                         <strong>Timeline:</strong> ${data['income-timeline']}<br>
-                        <strong>Work Style:</strong> ${data['work-style']}
+                        <strong>Work Style:</strong> ${data['work-style']}<br>
+                        <strong>Learning Style:</strong> ${data['learning-style']}<br>
+                        <strong>Work Pace:</strong> ${data['work-pace']}<br>
+                        <strong>Work Frequency:</strong> ${data['work-frequency']}<br>
+                        <strong>Tech Comfort:</strong> ${data['tech-comfort']}
                     </div>
                     
                     <h5 style="margin: 20px 0 10px 0;">Key Recommendations:</h5>
@@ -3513,6 +3632,11 @@ Work Style: ${packageData.userProfile['work-style']}
 Camera Comfort: ${packageData.userProfile['camera-comfort']}
 Income Timeline: ${packageData.userProfile['income-timeline']}
 Total Budget: ${packageData.userProfile['total-budget']}
+Learning Style: ${packageData.userProfile['learning-style']}
+Work Pace: ${packageData.userProfile['work-pace']}
+Work Frequency: ${packageData.userProfile['work-frequency']}
+Tech Comfort: ${packageData.userProfile['tech-comfort']}
+Current Tech Tools: ${packageData.userProfile['current-tech-tools']}
 
 Family Structure: ${packageData.userProfile['family-structure']}
 
@@ -3713,7 +3837,8 @@ END:VCALENDAR`;
             const formFields = [
                 'investment-level', 'work-location', 'work-style', 
                 'camera-comfort', 'income-timeline', 'total-budget', 
-                'family-structure', 'daily-schedule'
+                'family-structure', 'daily-schedule', 'learning-style',
+                'work-pace', 'work-frequency', 'tech-comfort', 'current-tech-tools'
             ];
             
             formFields.forEach(fieldId => {
