@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Mom Method - AI Interactive Calendar Wizard</title>
+    <title>Smart Mom Method - AI Interactive Calendar & Business Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -585,8 +585,8 @@
             opacity: 0.9;
         }
 
-        /* Initial Step */
-        .initial-step {
+        /* Form Sections */
+        .form-section {
             margin-bottom: 40px;
             padding: 40px;
             background: white;
@@ -595,7 +595,7 @@
             box-shadow: 0 4px 16px rgba(107, 142, 107, 0.08);
         }
 
-        .initial-step h2 {
+        .form-section h2 {
             font-family: 'Playfair Display', serif;
             color: var(--charcoal);
             margin-bottom: 32px;
@@ -648,6 +648,14 @@
 
         .validation-message.success {
             color: var(--sage-green);
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 12px;
+            color: var(--charcoal);
+            opacity: 0.6;
+            margin-top: 4px;
         }
 
         /* Path Selection */
@@ -743,11 +751,7 @@
             box-shadow: 0 8px 24px rgba(107, 142, 107, 0.3);
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* AI Process Steps */
+        /* AI Steps */
         .ai-step {
             display: flex;
             align-items: center;
@@ -809,6 +813,277 @@
 
         .ai-step.completed .ai-step-icon {
             color: var(--sage-green);
+        }
+
+        /* AI Results Section */
+        .ai-results {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 2px solid var(--light-sage);
+        }
+
+        .ai-platform {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 6px solid var(--sage-green);
+        }
+
+        .ai-platform h3 {
+            color: var(--sage-green);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-platform textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            border: 2px solid var(--light-sage);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            background: var(--warm-cream);
+        }
+
+        .ai-platform textarea:focus {
+            outline: none;
+            border-color: var(--sage-green);
+            box-shadow: 0 0 0 4px var(--sage-alpha);
+        }
+
+        .ai-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .ai-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .ai-btn.primary {
+            background: var(--sage-green);
+            color: white;
+        }
+
+        .ai-btn.primary:hover {
+            background: #5A7A5A;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.secondary {
+            background: var(--soft-gold);
+            color: white;
+        }
+
+        .ai-btn.secondary:hover {
+            background: #C79660;
+            transform: translateY(-1px);
+        }
+
+        /* Payment Options */
+        .payment-options {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .payment-options h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .payment-options p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .payment-card {
+            background: white;
+            color: var(--charcoal);
+            padding: 40px 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .payment-card.featured {
+            border: 3px solid var(--soft-gold);
+            transform: scale(1.05);
+        }
+
+        .payment-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--sage-green);
+            margin-bottom: 10px;
+        }
+
+        .payment-card .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--charcoal);
+        }
+
+        .payment-card .features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .payment-card .features li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .payment-card .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--sage-green);
+            font-weight: bold;
+        }
+
+        .payment-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--sage-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-btn:hover {
+            background: #5A7A5A;
+            transform: translateY(-2px);
+        }
+
+        .payment-btn.featured {
+            background: var(--soft-gold);
+        }
+
+        .payment-btn.featured:hover {
+            background: #C79660;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: var(--light-sage);
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .booking-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--charcoal);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .booking-section p {
+            color: var(--charcoal);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .booking-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(44, 62, 80, 0.15);
+        }
+
+        .booking-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .booking-card h3 {
+            color: var(--charcoal);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .booking-card p {
+            color: var(--charcoal);
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .booking-btn {
+            background: var(--deep-teal);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .booking-btn:hover {
+            background: #1E3D47;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         /* Mobile Responsiveness */
@@ -876,6 +1151,20 @@
             .path-option {
                 padding: 30px 20px;
             }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .booking-options {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -909,7 +1198,7 @@
     <div id="welcomeModal" class="welcome-modal">
         <div class="welcome-content">
             <h2 id="welcomeTitle">Welcome to Smart Mom Method!</h2>
-            <p id="welcomeDescription">Create your personalized interactive calendar in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.</p>
+            <p id="welcomeDescription">Create your personalized interactive calendar and business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.</p>
             <div class="welcome-buttons">
                 <button class="welcome-btn primary" onclick="startOnboarding()">
                     🚀 <span id="welcomeStart">Get Started</span>
@@ -986,12 +1275,12 @@
         <div class="main-card">
             <div class="header">
                 <h1 id="mainTitle">Smart Mom Method</h1>
-                <p class="subtitle" id="mainSubtitle">AI-Powered Interactive Calendar for Busy Moms</p>
+                <p class="subtitle" id="mainSubtitle">AI-Powered Interactive Calendar & Business Planning for Busy Moms</p>
                 <span class="badge" id="freeBadge">100% Free</span>
                 
                 <div class="cta-section">
                     <button class="btn-current" onclick="scrollToForm()">
-                        🚀 <span id="ctaButton">Start Your Free Interactive Calendar Now</span>
+                        🚀 <span id="ctaButton">Start Your Free Interactive Calendar & Business Plan Now</span>
                     </button>
                     <p style="margin-top: 16px; font-size: 0.95rem; opacity: 0.9;" id="ctaSubtext">No email required to browse • Full process takes 20-25 minutes</p>
                 </div>
@@ -1000,17 +1289,17 @@
             <div class="content">
                 <div class="step-description">
                     <h2 id="stepDescTitle">👋 Let's Get Started</h2>
-                    <p id="stepDescText">First, let's get to know you better so we can create the perfect interactive calendar for your unique situation.</p>
+                    <p id="stepDescText">First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.</p>
                 </div>
 
                 <div class="empowerment-message">
                     <div class="empowerment-title" id="empowermentTitle">You're Already Successful! 🌟</div>
-                    <p class="empowerment-text" id="empowermentText">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and interactive calendar!</p>
+                    <p class="empowerment-text" id="empowermentText">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!</p>
                 </div>
 
-                <!-- Initial Step: Name & Email -->
-                <div class="initial-step" id="initialStep">
-                    <h2 id="initialStepTitle">👋 Let's Get Started</h2>
+                <!-- Basic Information Section -->
+                <div class="form-section" id="basicInfoSection">
+                    <h2 id="basicInfoTitle">👋 Basic Information</h2>
                     
                     <div class="form-group">
                         <label id="nameLabel">Your Name: <span class="required">*</span></label>
@@ -1049,53 +1338,124 @@
                         </div>
                     </div>
                     
-                    <button class="continue-btn" id="continueBtn" onclick="proceedWithSelectedPath()">
+                    <button class="continue-btn" id="continueBtn" onclick="showBusinessQuestionnaire()">
                         <span id="continueBtnText">Continue With Selected Path</span>
                     </button>
                 </div>
 
-                <!-- Success Message -->
-                <div id="successMessage" class="hidden">
-                    <div class="step-description">
-                        <h2>🎉 Path Selected Successfully!</h2>
-                        <p>Perfect! You've selected the <strong id="selectedPathDisplay"></strong> path. Now let's create your personalized interactive calendar with AI assistance.</p>
-                        
-                        <div style="background: var(--light-sage); padding: 20px; border-radius: 12px; margin-top: 20px;">
-                            <h3>What happens next:</h3>
-                            <ol style="margin: 15px 0; padding-left: 20px;">
-                                <li><strong>AI Analysis:</strong> Analyze your schedule and goals</li>
-                                <li><strong>Calendar Generation:</strong> Create your interactive calendar</li>
-                                <li><strong>Time Optimization:</strong> Optimize your daily routines</li>
-                                <li><strong>Action Plan:</strong> Build your step-by-step plan</li>
-                                <li><strong>Download Ready:</strong> Get your interactive calendar</li>
-                            </ol>
-                        </div>
-                        
-                        <button class="continue-btn visible" onclick="startAIProcess()" style="opacity: 1; pointer-events: all; transform: translateY(0);">
-                            🚀 Generate My Interactive Calendar
-                        </button>
-                        
-                        <button class="continue-btn visible" onclick="startOver()" style="opacity: 1; pointer-events: all; transform: translateY(0); background: var(--deep-teal); margin-left: 10px;">
-                            🔄 Choose Different Path
-                        </button>
+                <!-- Business Questionnaire -->
+                <div class="form-section hidden" id="businessQuestionnaire">
+                    <h2 id="businessQuestionnaireTitle">💼 Business Preferences</h2>
+                    
+                    <div class="form-group">
+                        <label id="investmentLabel">Investment level for business: <span class="required">*</span></label>
+                        <select id="investment-level" class="form-control" onchange="validateField(this)">
+                            <option value="">Select investment level...</option>
+                            <option value="no-money">$0 - I need free options only</option>
+                            <option value="minimal">Under $100 - Very limited budget</option>
+                            <option value="moderate">$100-500 - Can invest if necessary</option>
+                            <option value="flexible">$500+ - Flexible for right opportunity</option>
+                        </select>
+                        <div class="validation-message" id="investment-level-validation"></div>
                     </div>
+
+                    <div class="form-group">
+                        <label id="workLocationLabel">Preferred Work Location: <span class="required">*</span></label>
+                        <select id="work-location" class="form-control" onchange="validateField(this)">
+                            <option value="">Select work location...</option>
+                            <option value="home-only">Home only - need to be with kids</option>
+                            <option value="home-flexible">Mostly home, occasional outings</option>
+                            <option value="local-community">Local community/neighborhood</option>
+                            <option value="hybrid">Mix of home and outside work</option>
+                            <option value="travel-okay">Comfortable traveling for business</option>
+                        </select>
+                        <div class="validation-message" id="work-location-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workStyleLabel">Work Style Preference: <span class="required">*</span></label>
+                        <select id="work-style" class="form-control" onchange="validateField(this)">
+                            <option value="">Select work style...</option>
+                            <option value="independent">Independent work - minimal client interaction</option>
+                            <option value="some-interaction">Some client calls/meetings</option>
+                            <option value="collaborative">Collaborative - enjoy working with people</option>
+                            <option value="teaching-mentoring">Teaching/mentoring others</option>
+                            <option value="creative-expressive">Creative and expressive work</option>
+                        </select>
+                        <div class="validation-message" id="work-style-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="cameraComfortLabel">Are you comfortable being on camera/social media? <span class="required">*</span></label>
+                        <select id="camera-comfort" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your comfort level...</option>
+                            <option value="love-it">Love it! I'm comfortable on camera</option>
+                            <option value="okay-with-it">Okay with it, can learn</option>
+                            <option value="prefer-behind-scenes">Prefer behind-the-scenes work</option>
+                            <option value="absolutely-not">Absolutely not comfortable</option>
+                        </select>
+                        <div class="validation-message" id="camera-comfort-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="incomeTimelineLabel">Timeline to first income: <span class="required">*</span></label>
+                        <select id="income-timeline" class="form-control" onchange="validateField(this)">
+                            <option value="">Select timeline...</option>
+                            <option value="immediate">Immediate need (within 1-2 months)</option>
+                            <option value="moderate">3-6 months is fine</option>
+                            <option value="patient">Can wait 6-12 months for good business</option>
+                            <option value="long-term">Building for long-term (1+ years)</option>
+                        </select>
+                        <div class="validation-message" id="income-timeline-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="totalBudgetLabel">Maximum startup budget (total): <span class="required">*</span></label>
+                        <select id="total-budget" class="form-control" onchange="validateField(this)">
+                            <option value="">Select budget...</option>
+                            <option value="zero">$0 - Must be completely free</option>
+                            <option value="minimal">Under $50 total</option>
+                            <option value="moderate">$50-200 if necessary</option>
+                            <option value="invest">$200-500 for right opportunity</option>
+                            <option value="serious">$500+ ready to invest</option>
+                        </select>
+                        <div class="validation-message" id="total-budget-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="familyStructureLabel">Family structure & ages: <span class="required">*</span></label>
+                        <textarea id="family-structure" class="form-control" rows="4" placeholder="Tell us about your family: How many kids? What ages? Any special needs or considerations?" oninput="updateCharCount(this, 1000)"></textarea>
+                        <div class="char-counter" id="family-structure-counter">0/1000</div>
+                        <div class="validation-message" id="family-structure-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="dailyScheduleLabel">Describe your typical daily schedule: <span class="required">*</span></label>
+                        <textarea id="daily-schedule" class="form-control" rows="4" placeholder="Walk us through a typical day: When do you wake up? Kids' schedules? When do you have free time?" oninput="updateCharCount(this, 1000)"></textarea>
+                        <div class="char-counter" id="daily-schedule-counter">0/1000</div>
+                        <div class="validation-message" id="daily-schedule-validation"></div>
+                    </div>
+
+                    <button class="continue-btn visible" onclick="proceedWithQuestionnaire()">
+                        <span id="proceedBtnText">Generate My AI-Powered Plan</span>
+                    </button>
                 </div>
 
                 <!-- AI Process Steps -->
                 <div id="aiProcessSteps" class="hidden">
                     <div class="step-description">
-                        <h2>🤖 AI-Powered Interactive Calendar Generation</h2>
-                        <p>We're creating your personalized interactive calendar and life organization system using advanced AI. This process takes just a few minutes.</p>
+                        <h2>🤖 AI-Powered Analysis in Progress</h2>
+                        <p>We're analyzing your responses using advanced AI to create your personalized interactive calendar and business plan. This process takes just a few minutes.</p>
                     </div>
 
                     <div id="aiProgress" style="background: white; padding: 30px; border-radius: 20px; border: 2px solid var(--light-sage); margin: 20px 0;">
-                        <h3 style="margin-bottom: 20px;">Calendar Generation Progress:</h3>
+                        <h3 style="margin-bottom: 20px;">AI Processing Progress:</h3>
                         
                         <div class="ai-step" id="ai-step-1">
                             <div class="ai-step-icon">⏳</div>
                             <div class="ai-step-content">
-                                <h4>Step 1: Analyzing Your Schedule & Goals</h4>
-                                <p>Processing your daily routine, family needs, and priorities...</p>
+                                <h4>Step 1: Analyzing Your Profile & Goals</h4>
+                                <p>Processing your family situation, preferences, and business goals...</p>
                             </div>
                             <div class="ai-step-status">In Progress...</div>
                         </div>
@@ -1103,8 +1463,8 @@
                         <div class="ai-step" id="ai-step-2">
                             <div class="ai-step-icon">⏳</div>
                             <div class="ai-step-content">
-                                <h4>Step 2: Creating Your Interactive Calendar</h4>
-                                <p>Building personalized time blocks and daily schedules...</p>
+                                <h4>Step 2: ChatGPT Business Ideas Generation</h4>
+                                <p>Creating personalized business ideas based on your constraints...</p>
                             </div>
                             <div class="ai-step-status">Waiting...</div>
                         </div>
@@ -1112,8 +1472,8 @@
                         <div class="ai-step" id="ai-step-3">
                             <div class="ai-step-icon">⏳</div>
                             <div class="ai-step-content">
-                                <h4>Step 3: Optimizing Time Management</h4>
-                                <p>Fine-tuning routines for maximum efficiency...</p>
+                                <h4>Step 3: Gemini Market Research</h4>
+                                <p>Researching market opportunities and validation...</p>
                             </div>
                             <div class="ai-step-status">Waiting...</div>
                         </div>
@@ -1121,10 +1481,149 @@
                         <div class="ai-step" id="ai-step-4">
                             <div class="ai-step-icon">⏳</div>
                             <div class="ai-step-content">
-                                <h4>Step 4: Finalizing Your Action Plan</h4>
-                                <p>Creating step-by-step implementation guide...</p>
+                                <h4>Step 4: Claude Business Plan Creation</h4>
+                                <p>Generating comprehensive business plan and calendar...</p>
                             </div>
                             <div class="ai-step-status">Waiting...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Results -->
+                <div id="aiResults" class="hidden">
+                    <div class="step-description">
+                        <h2>🎯 Your Personalized AI Analysis Results</h2>
+                        <p>Based on your responses, here are your customized AI prompts and business recommendations. Copy these prompts to the respective AI platforms for detailed analysis.</p>
+                    </div>
+
+                    <div class="ai-results">
+                        <div class="ai-platform" style="background: #e8f5e8;">
+                            <h3>🤖 ChatGPT Analysis</h3>
+                            <textarea id="chatgpt-prompt" readonly placeholder="Your ChatGPT prompt will appear here..."></textarea>
+                            <div class="ai-buttons">
+                                <button class="ai-btn primary" onclick="copyToClipboard('chatgpt-prompt')">📋 Copy Prompt</button>
+                                <button class="ai-btn secondary" onclick="openChatGPT()">🚀 Open ChatGPT</button>
+                            </div>
+                        </div>
+
+                        <div class="ai-platform" style="background: #f0f7ff;">
+                            <h3>💎 Google Gemini Research</h3>
+                            <textarea id="gemini-prompt" readonly placeholder="Your Gemini prompt will appear here..."></textarea>
+                            <div class="ai-buttons">
+                                <button class="ai-btn primary" onclick="copyToClipboard('gemini-prompt')">📋 Copy Prompt</button>
+                                <button class="ai-btn secondary" onclick="openGemini()">🚀 Open Gemini</button>
+                            </div>
+                        </div>
+
+                        <div class="ai-platform" style="background: #fff5e6;">
+                            <h3>🧠 Claude Business Plan</h3>
+                            <textarea id="claude-prompt" readonly placeholder="Your Claude prompt will appear here..."></textarea>
+                            <div class="ai-buttons">
+                                <button class="ai-btn primary" onclick="copyToClipboard('claude-prompt')">📋 Copy Prompt</button>
+                                <button class="ai-btn secondary" onclick="openClaude()">🚀 Open Claude</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="continue-btn visible" onclick="showPaymentOptions()" style="opacity: 1; pointer-events: all; transform: translateY(0); margin-top: 30px;">
+                        🎯 Get Your Personalized Calendar & Training
+                    </button>
+                </div>
+
+                <!-- Payment Options -->
+                <div id="paymentOptions" class="hidden">
+                    <div class="payment-options">
+                        <h2>🚀 Transform Your Plan Into Action</h2>
+                        <p>You've got the ideas - now let's make them happen! Get your personalized interactive calendar and expert guidance to succeed.</p>
+                        
+                        <div class="payment-grid">
+                            <div class="payment-card">
+                                <div class="price">$39</div>
+                                <div class="title">Life Organization Calendar</div>
+                                <ul class="features">
+                                    <li>Personalized interactive calendar</li>
+                                    <li>Daily routines & time blocks</li>
+                                    <li>Family schedule optimization</li>
+                                    <li>Goal tracking templates</li>
+                                    <li>Printable planning sheets</li>
+                                </ul>
+                                <button class="payment-btn" onclick="window.open('https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07', '_blank')">
+                                    Get Life Calendar
+                                </button>
+                            </div>
+
+                            <div class="payment-card featured">
+                                <div class="price">$89</div>
+                                <div class="title">Life + Training Package</div>
+                                <ul class="features">
+                                    <li>Everything in Life Calendar</li>
+                                    <li>90-minute video training course</li>
+                                    <li>Step-by-step implementation guide</li>
+                                    <li>Time management strategies</li>
+                                    <li>Bonus productivity tools</li>
+                                </ul>
+                                <button class="payment-btn featured" onclick="window.open('https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06', '_blank')">
+                                    Get Life + Training
+                                </button>
+                            </div>
+
+                            <div class="payment-card">
+                                <div class="price">$49</div>
+                                <div class="title">Business Launch Calendar</div>
+                                <ul class="features">
+                                    <li>Business planning calendar</li>
+                                    <li>Revenue milestone tracking</li>
+                                    <li>Marketing action plans</li>
+                                    <li>Client management system</li>
+                                    <li>Financial tracking tools</li>
+                                </ul>
+                                <button class="payment-btn" onclick="window.open('https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05', '_blank')">
+                                    Get Business Calendar
+                                </button>
+                            </div>
+
+                            <div class="payment-card featured">
+                                <div class="price">$100</div>
+                                <div class="title">Complete Business Package</div>
+                                <ul class="features">
+                                    <li>Everything in Business Calendar</li>
+                                    <li>2-hour business training course</li>
+                                    <li>Market research templates</li>
+                                    <li>Pricing & sales strategies</li>
+                                    <li>Launch timeline with milestones</li>
+                                </ul>
+                                <button class="payment-btn featured" onclick="window.open('https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04', '_blank')">
+                                    Get Complete Package
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Section -->
+                <div id="bookingSection" class="hidden">
+                    <div class="booking-section">
+                        <h2>📞 Need Personal Guidance?</h2>
+                        <p>Sometimes you need a real person to talk through your specific situation. Book a call with our Smart Mom Method experts.</p>
+                        
+                        <div class="booking-options">
+                            <div class="booking-card">
+                                <div class="icon">💬</div>
+                                <h3>Free Smart Mom Call</h3>
+                                <p>30-minute free consultation to discuss your goals and get personalized advice on your next steps.</p>
+                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min', '_blank')">
+                                    Book Free Call
+                                </button>
+                            </div>
+
+                            <div class="booking-card">
+                                <div class="icon">🎯</div>
+                                <h3>Strategy Session</h3>
+                                <p>30-minute focused strategy session to create a detailed action plan for your business or life organization goals.</p>
+                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/30min', '_blank')">
+                                    Book Strategy Session
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1133,38 +1632,35 @@
                 <div id="completionSection" class="hidden">
                     <div style="background: linear-gradient(135deg, var(--sage-green), var(--deep-teal)); color: white; padding: 60px 40px; text-align: center; border-radius: 24px; margin: 40px 0; position: relative; overflow: hidden;">
                         <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">🎉 Congratulations!</h2>
-                        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your personalized Smart Mom interactive calendar is ready!</p>
+                        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your personalized Smart Mom Method analysis is complete!</p>
                         
                         <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
-                            <h3 style="margin-bottom: 15px;">Your Interactive Calendar Includes:</h3>
+                            <h3 style="margin-bottom: 15px;">What You've Accomplished:</h3>
                             <ul style="list-style: none; padding: 0;">
-                                <li style="margin: 10px 0;">📅 Personalized daily schedule blocks</li>
-                                <li style="margin: 10px 0;">⏰ Optimized time management system</li>
-                                <li style="margin: 10px 0;">🎯 Goal-oriented task organization</li>
-                                <li style="margin: 10px 0;">📋 Interactive checklist templates</li>
-                                <li style="margin: 10px 0;">🔄 Family routine optimization</li>
+                                <li style="margin: 10px 0;">✅ Identified your unique mom-entrepreneur profile</li>
+                                <li style="margin: 10px 0;">🤖 Generated AI-powered business recommendations</li>
+                                <li style="margin: 10px 0;">📅 Created your personalized calendar framework</li>
+                                <li style="margin: 10px 0;">🎯 Established clear next steps for success</li>
+                                <li style="margin: 10px 0;">💪 Joined a community of successful Smart Moms</li>
                             </ul>
                         </div>
 
                         <button onclick="downloadCalendar()" style="background: var(--soft-gold); color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
-                            📥 Download Your Interactive Calendar
+                            📥 Download Your Basic Calendar
                         </button>
                         
-                        <button onclick="emailCalendar()" style="background: white; color: var(--sage-green); padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
-                            📧 Email Me My Calendar
+                        <button onclick="startOver()" style="background: white; color: var(--sage-green); padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
+                            🔄 Create Another Plan
                         </button>
                     </div>
 
                     <div style="background: var(--light-sage); padding: 30px; border-radius: 20px; text-align: center;">
                         <h3>Thank you for using Smart Mom Method! 🌟</h3>
-                        <p>Your journey to an organized life and successful business starts now. We're here to support you every step of the way.</p>
+                        <p>Your journey to an organized life and successful business starts now. You have everything you need to succeed - you just need to take action!</p>
                         
                         <div style="margin-top: 20px;">
                             <button onclick="provideFeedback()" style="background: var(--sage-green); color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 5px; cursor: pointer;">
-                                💬 Share Feedback
-                            </button>
-                            <button onclick="startOver()" style="background: var(--deep-teal); color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 5px; cursor: pointer;">
-                                🔄 Create Another Plan
+                                💬 Share Your Experience
                             </button>
                         </div>
                     </div>
@@ -1174,17 +1670,42 @@
     </div>
 
     <script>
+        // Airtable Configuration
+        const AIRTABLE_BASE_ID = 'appQUFJzVLlHbB4Fp';
+        const AIRTABLE_TOKEN = 'patje3I65ajVyNTSN.3963cc18c6dc227b6e290d5da83da3bde2f4d089d60d4a0e49787fecdb676f65';
+        const AIRTABLE_TABLE_NAME = 'Users';
+
         // Global Variables
         let currentLanguage = 'en';
         let currentStep = 1;
         let selectedPath = '';
         let authMode = 'signup';
 
+        // AI Realism Instructions
+        const realismInstructions = `
+**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
+- This person is a BEGINNER, not an expert
+- Be brutally honest about challenges and timelines  
+- Don't suggest businesses requiring experience they don't have
+- Focus on DOWN-TO-EARTH, practical solutions only
+- Consider their family constraints and available time
+- If they said "free only," respect that completely
+- Suggest pricing that will actually get clients, not scare them away
+
+**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
+- Businesses requiring 40+ hours/week
+- High-skill services they've never done
+- Anything requiring significant upfront investment (if they said free)
+- Complex businesses with steep learning curves
+
+Focus on what's ACTUALLY doable for their situation.
+`;
+
         // Translation data
         const translations = {
             en: {
                 welcomeTitle: "Welcome to Smart Mom Method!",
-                welcomeDescription: "Create your personalized interactive calendar in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.",
+                welcomeDescription: "Create your personalized interactive calendar and business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.",
                 welcomeStart: "Get Started",
                 welcomeCreate: "Create Account & Save Progress",
                 welcomeReturning: "I'm a returning user",
@@ -1192,29 +1713,39 @@
                 stepCounter: "Step 1 of 7",
                 timeEstimate: "⏱️ Estimated: 5 min",
                 mainTitle: "Smart Mom Method",
-                mainSubtitle: "AI-Powered Interactive Calendar for Busy Moms",
+                mainSubtitle: "AI-Powered Interactive Calendar & Business Planning for Busy Moms",
                 freeBadge: "100% Free",
-                ctaButton: "Start Your Free Interactive Calendar Now",
+                ctaButton: "Start Your Free Interactive Calendar & Business Plan Now",
                 ctaSubtext: "No email required to browse • Full process takes 20-25 minutes",
                 stepDescTitle: "👋 Let's Get Started",
-                stepDescText: "First, let's get to know you better so we can create the perfect interactive calendar for your unique situation.",
+                stepDescText: "First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.",
                 empowermentTitle: "You're Already Successful! 🌟",
-                empowermentText: "Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and interactive calendar!",
-                initialStepTitle: "👋 Let's Get Started",
+                empowermentText: "Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!",
+                basicInfoTitle: "👋 Basic Information",
                 nameLabel: "Your Name:",
                 emailLabel: "Your Email:",
                 pathSelectionTitle: "What brings you here today? Choose your main focus:",
                 pathTitle1: "Life Organization",
                 pathDesc1: "I need help organizing my daily life, family schedules, and home systems",
-                pathTitle2: "Business Launch",
+                pathTitle2: "Business Launch", 
                 pathDesc2: "I want to start a business or create passive income streams",
                 pathTitle3: "Both Life & Business",
                 pathDesc3: "I need life organization AND want to start a business",
-                continueBtnText: "Continue With Selected Path"
+                continueBtnText: "Continue With Selected Path",
+                businessQuestionnaireTitle: "💼 Business Preferences",
+                investmentLabel: "Investment level for business:",
+                workLocationLabel: "Preferred Work Location:",
+                workStyleLabel: "Work Style Preference:",
+                cameraComfortLabel: "Are you comfortable being on camera/social media?",
+                incomeTimelineLabel: "Timeline to first income:",
+                totalBudgetLabel: "Maximum startup budget (total):",
+                familyStructureLabel: "Family structure & ages:",
+                dailyScheduleLabel: "Describe your typical daily schedule:",
+                proceedBtnText: "Generate My AI-Powered Plan"
             },
             es: {
                 welcomeTitle: "¡Bienvenida al Método Smart Mom!",
-                welcomeDescription: "Crea tu calendario interactivo personalizado en 7 pasos simples. Este proceso tomará aproximadamente 20-25 minutos y generará un calendario interactivo y plan integral diseñado específicamente para mamás ocupadas como tú.",
+                welcomeDescription: "Crea tu calendario interactivo personalizado y plan de negocio en 7 pasos simples. Este proceso tomará aproximadamente 20-25 minutos y generará un calendario interactivo y plan integral diseñado específicamente para mamás ocupadas como tú.",
                 welcomeStart: "Comenzar",
                 welcomeCreate: "Crear Cuenta y Guardar Progreso",
                 welcomeReturning: "Soy usuaria recurrente",
@@ -1222,15 +1753,15 @@
                 stepCounter: "Paso 1 de 7",
                 timeEstimate: "⏱️ Estimado: 5 min",
                 mainTitle: "Método Smart Mom",
-                mainSubtitle: "Calendario Interactivo con IA para Mamás Ocupadas",
+                mainSubtitle: "Calendario Interactivo y Planificación de Negocios con IA para Mamás Ocupadas",
                 freeBadge: "100% Gratis",
-                ctaButton: "Inicia Tu Calendario Interactivo Gratis Ahora",
+                ctaButton: "Inicia Tu Calendario Interactivo y Plan de Negocio Gratis Ahora",
                 ctaSubtext: "No se requiere email para navegar • El proceso completo toma 20-25 minutos",
                 stepDescTitle: "👋 ¡Comencemos!",
-                stepDescText: "Primero, conozcámonos mejor para poder crear el calendario interactivo perfecto para tu situación única.",
+                stepDescText: "Primero, conozcámonos mejor para poder crear el calendario interactivo y plan de negocio perfecto para tu situación única.",
                 empowermentTitle: "¡Ya Eres Exitosa! 🌟",
-                empowermentText: "Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalizemos eso hacia TU vida organizada y calendario interactivo!",
-                initialStepTitle: "👋 ¡Comencemos!",
+                empowermentText: "Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalizemos eso hacia TU vida organizada y negocio exitoso!",
+                basicInfoTitle: "👋 Información Básica",
                 nameLabel: "Tu Nombre:",
                 emailLabel: "Tu Correo Electrónico:",
                 pathSelectionTitle: "¿Qué te trae aquí hoy? Elige tu enfoque principal:",
@@ -1240,7 +1771,17 @@
                 pathDesc2: "Quiero iniciar un negocio o crear fuentes de ingresos pasivos",
                 pathTitle3: "Ambos: Vida y Negocio",
                 pathDesc3: "Necesito organización de vida Y quiero iniciar un negocio",
-                continueBtnText: "Continuar con el Camino Seleccionado"
+                continueBtnText: "Continuar con el Camino Seleccionado",
+                businessQuestionnaireTitle: "💼 Preferencias de Negocio",
+                investmentLabel: "Nivel de inversión para el negocio:",
+                workLocationLabel: "Ubicación de Trabajo Preferida:",
+                workStyleLabel: "Estilo de Trabajo Preferido:",
+                cameraComfortLabel: "¿Te sientes cómoda frente a la cámara/redes sociales?",
+                incomeTimelineLabel: "Cronograma para primeros ingresos:",
+                totalBudgetLabel: "Presupuesto máximo de inicio (total):",
+                familyStructureLabel: "Estructura familiar y edades:",
+                dailyScheduleLabel: "Describe tu horario diario típico:",
+                proceedBtnText: "Generar Mi Plan Personalizado con IA"
             }
         };
 
@@ -1253,12 +1794,13 @@
             document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
             
             // Show setup message in console
-            console.log('🚀 SMART MOM METHOD - FIXED VERSION LOADED');
-            console.log('✅ All CORS errors are now non-blocking');
-            console.log('✅ localStorage fallback system active');
-            console.log('✅ All console errors fixed');
-            console.log('✅ Interactive calendar focus throughout');
-            console.log('📧 Webhooks are non-blocking - failures won\'t break user experience');
+            console.log('🚀 SMART MOM METHOD - COMPLETE VERSION LOADED');
+            console.log('✅ Full business questionnaire active');
+            console.log('✅ AI prompt generation ready');
+            console.log('✅ Stripe payments integrated');
+            console.log('✅ Calendly booking integrated');
+            console.log('✅ Airtable + localStorage fallback');
+            console.log('✅ English/Spanish support');
         }
 
         // Utility function for safe webhook calls
@@ -1464,7 +2006,9 @@
             // Update placeholders
             const placeholders = {
                 'user-name': currentLanguage === 'es' ? 'Ingresa tu nombre' : 'Enter your name',
-                'user-email': currentLanguage === 'es' ? 'tu.correo@ejemplo.com' : 'your.email@example.com'
+                'user-email': currentLanguage === 'es' ? 'tu.correo@ejemplo.com' : 'your.email@example.com',
+                'family-structure': currentLanguage === 'es' ? 'Cuéntanos sobre tu familia: ¿Cuántos hijos? ¿Qué edades? ¿Alguna necesidad especial o consideración?' : 'Tell us about your family: How many kids? What ages? Any special needs or considerations?',
+                'daily-schedule': currentLanguage === 'es' ? 'Cuéntanos sobre un día típico: ¿A qué hora despiertas? ¿Horarios de los niños? ¿Cuándo tienes tiempo libre?' : 'Walk us through a typical day: When do you wake up? Kids\' schedules? When do you have free time?'
             };
             
             Object.entries(placeholders).forEach(([id, text]) => {
@@ -1651,9 +2195,10 @@
             
             // Show appropriate step based on progress
             if (userData.selectedPath) {
-                // User has selected a path, show success or continue to next steps
-                if (userData.currentStep >= 2) {
-                    proceedWithSelectedPath();
+                // User has selected a path, show questionnaire or continue to next steps
+                if (userData.currentStep >= 3) {
+                    // Show AI results or later steps
+                    showBusinessQuestionnaire();
                 } else {
                     // Show path selection with pre-selected path
                     document.getElementById('pathSelection').classList.remove('hidden');
@@ -1692,6 +2237,29 @@
                     validation.textContent = '';
                     field.style.borderColor = 'var(--light-sage)';
                 }
+            } else if (field.tagName === 'SELECT') {
+                if (value) {
+                    validation.textContent = '✓ Selected';
+                    validation.className = 'validation-message success';
+                    field.style.borderColor = 'var(--sage-green)';
+                } else {
+                    validation.textContent = 'Please make a selection';
+                    validation.className = 'validation-message';
+                    field.style.borderColor = '#e57373';
+                }
+            } else if (field.tagName === 'TEXTAREA') {
+                if (value.length >= 10) {
+                    validation.textContent = '✓ Looks good';
+                    validation.className = 'validation-message success';
+                    field.style.borderColor = 'var(--sage-green)';
+                } else if (value.length > 0) {
+                    validation.textContent = 'Please provide more detail (at least 10 characters)';
+                    validation.className = 'validation-message';
+                    field.style.borderColor = '#e57373';
+                } else {
+                    validation.textContent = '';
+                    field.style.borderColor = 'var(--light-sage)';
+                }
             } else {
                 if (value.length >= 2) {
                     validation.textContent = '✓ Looks good';
@@ -1705,6 +2273,22 @@
                     validation.textContent = '';
                     field.style.borderColor = 'var(--light-sage)';
                 }
+            }
+        }
+
+        function updateCharCount(textarea, maxChars) {
+            const counter = document.getElementById(textarea.id + '-counter');
+            const currentLength = textarea.value.length;
+            counter.textContent = `${currentLength}/${maxChars}`;
+            
+            if (currentLength > maxChars) {
+                counter.style.color = '#e57373';
+                textarea.value = textarea.value.substring(0, maxChars);
+                counter.textContent = `${maxChars}/${maxChars}`;
+            } else if (currentLength > maxChars * 0.9) {
+                counter.style.color = '#f39c12';
+            } else {
+                counter.style.color = 'var(--charcoal)';
             }
         }
 
@@ -1730,7 +2314,7 @@
         }
 
         function scrollToForm() {
-            document.getElementById('initialStep').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('basicInfoSection').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Path Selection Functions
@@ -1748,26 +2332,50 @@
             continueBtn.classList.add('visible');
         }
 
-        async function proceedWithSelectedPath() {
+        function showBusinessQuestionnaire() {
             if (!selectedPath) {
                 alert(currentLanguage === 'es' ? 
                     'Por favor selecciona un camino antes de continuar.' :
                     'Please select a path before continuing.');
                 return;
             }
+
+            // Hide path selection
+            document.getElementById('pathSelection').classList.add('hidden');
             
-            // Get user data
-            const userData = {
-                email: document.getElementById('user-email').value.trim(),
-                name: document.getElementById('user-name').value.trim(),
-                selectedPath: selectedPath,
-                currentStep: 2,
-                language: currentLanguage,
-                formData: {
-                    'user-name': document.getElementById('user-name').value.trim(),
-                    'user-email': document.getElementById('user-email').value.trim()
+            // Show business questionnaire
+            document.getElementById('businessQuestionnaire').classList.remove('hidden');
+            document.getElementById('businessQuestionnaire').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function proceedWithQuestionnaire() {
+            // Validate all required fields
+            const requiredFields = [
+                'investment-level', 'work-location', 'work-style', 
+                'camera-comfort', 'income-timeline', 'total-budget', 
+                'family-structure', 'daily-schedule'
+            ];
+
+            let allValid = true;
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    validateField(field);
+                    if (!field.value.trim()) {
+                        allValid = false;
+                    }
                 }
-            };
+            }
+
+            if (!allValid) {
+                alert(currentLanguage === 'es' ? 
+                    'Por favor completa todos los campos requeridos antes de continuar.' :
+                    'Please complete all required fields before continuing.');
+                return;
+            }
+
+            // Get user data
+            const userData = collectFormData();
 
             // Save to localStorage 
             const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
@@ -1779,61 +2387,64 @@
                 localUsers[userData.email] = userData;
             }
             localStorage.setItem('smartMomUsers', JSON.stringify(localUsers));
-            console.log('User progress saved locally:', userData);
+            console.log('User questionnaire data saved locally:', userData);
             
-            // Hide current sections
-            document.getElementById('initialStep').classList.add('hidden');
-            document.getElementById('pathSelection').classList.add('hidden');
+            // Hide questionnaire
+            document.getElementById('businessQuestionnaire').classList.add('hidden');
             
-            // Show success message
-            document.getElementById('successMessage').classList.remove('hidden');
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-            
-            // Send webhook notification (non-blocking)
-            safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
-                email: userData.email,
-                name: userData.name,
-                selected_path: userData.selectedPath,
-                trigger_path_email: 'true',
-                lead_stage: 'Path Selected',
-                language: userData.language,
-                timestamp: new Date().toISOString()
-            }, 'Path selection notification');
-            
-            // Update selected path display
-            updateSelectedPathDisplay();
-        }
-
-        function updateSelectedPathDisplay() {
-            const pathNames = {
-                'life-organization': currentLanguage === 'es' ? 'Organización de Vida' : 'Life Organization',
-                'business-launch': currentLanguage === 'es' ? 'Lanzamiento de Negocio' : 'Business Launch',
-                'both': currentLanguage === 'es' ? 'Vida y Negocio' : 'Life & Business'
-            };
-            
-            const displayElement = document.getElementById('selectedPathDisplay');
-            if (displayElement) {
-                displayElement.textContent = pathNames[selectedPath] || selectedPath;
-            }
-        }
-
-        // AI Process Functions
-        async function startAIProcess() {
-            // Hide success message and show AI process
-            document.getElementById('successMessage').classList.add('hidden');
+            // Show AI processing
             document.getElementById('aiProcessSteps').classList.remove('hidden');
             document.getElementById('aiProcessSteps').scrollIntoView({ behavior: 'smooth' });
             
-            // Simulate AI processing steps
+            // Send webhook notification (non-blocking)
+            safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
+                ...userData,
+                trigger_questionnaire_complete: 'true',
+                lead_stage: 'Questionnaire Complete',
+                timestamp: new Date().toISOString()
+            }, 'Questionnaire completion notification');
+            
+            // Simulate AI processing
             await simulateAISteps();
         }
 
+        function collectFormData() {
+            return {
+                email: document.getElementById('user-email')?.value.trim() || '',
+                name: document.getElementById('user-name')?.value.trim() || '',
+                selectedPath: selectedPath,
+                currentStep: 3,
+                language: currentLanguage,
+                'investment-level': document.getElementById('investment-level')?.value || '',
+                'work-location': document.getElementById('work-location')?.value || '',
+                'work-style': document.getElementById('work-style')?.value || '',
+                'camera-comfort': document.getElementById('camera-comfort')?.value || '',
+                'income-timeline': document.getElementById('income-timeline')?.value || '',
+                'total-budget': document.getElementById('total-budget')?.value || '',
+                'family-structure': document.getElementById('family-structure')?.value || '',
+                'daily-schedule': document.getElementById('daily-schedule')?.value || '',
+                formData: {
+                    'user-name': document.getElementById('user-name')?.value.trim() || '',
+                    'user-email': document.getElementById('user-email')?.value.trim() || '',
+                    'investment-level': document.getElementById('investment-level')?.value || '',
+                    'work-location': document.getElementById('work-location')?.value || '',
+                    'work-style': document.getElementById('work-style')?.value || '',
+                    'camera-comfort': document.getElementById('camera-comfort')?.value || '',
+                    'income-timeline': document.getElementById('income-timeline')?.value || '',
+                    'total-budget': document.getElementById('total-budget')?.value || '',
+                    'family-structure': document.getElementById('family-structure')?.value || '',
+                    'daily-schedule': document.getElementById('daily-schedule')?.value || ''
+                }
+            };
+        }
+
+        // AI Functions
         async function simulateAISteps() {
             const steps = [
                 { id: 'ai-step-1', duration: 3000, icon: '🔍', status: 'Analyzing...' },
                 { id: 'ai-step-2', duration: 4000, icon: '🤖', status: 'Generating...' },
-                { id: 'ai-step-3', duration: 3500, icon: '📊', status: 'Optimizing...' },
-                { id: 'ai-step-4', duration: 2500, icon: '📅', status: 'Creating...' }
+                { id: 'ai-step-3', duration: 3500, icon: '💎', status: 'Researching...' },
+                { id: 'ai-step-4', duration: 2500, icon: '🧠', status: 'Creating...' }
             ];
 
             for (let i = 0; i < steps.length; i++) {
@@ -1858,31 +2469,203 @@
                 await new Promise(resolve => setTimeout(resolve, 500));
             }
             
-            // All steps completed, show final section
+            // All steps completed, generate AI prompts and show results
             await new Promise(resolve => setTimeout(resolve, 1000));
-            showCompletion();
+            generateAIPrompts();
+            showAIResults();
         }
 
-        function showCompletion() {
-            // Hide AI process and show completion
-            document.getElementById('aiProcessSteps').classList.add('hidden');
-            document.getElementById('completionSection').classList.remove('hidden');
-            document.getElementById('completionSection').scrollIntoView({ behavior: 'smooth' });
+        function generateAIPrompts() {
+            const data = collectFormData();
             
-            // Send completion webhook (non-blocking)
-            safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-complete', {
-                email: document.getElementById('user-email').value.trim(),
-                name: document.getElementById('user-name').value.trim(),
-                selectedPath: selectedPath,
-                completed: true,
-                language: currentLanguage,
-                trigger_completion_email: 'true',
-                calendar_ready: 'true',
-                timestamp: new Date().toISOString()
-            }, 'Completion notification');
+            // Generate ChatGPT prompt
+            const chatgptPrompt = generateChatGPTPrompt(data);
+            document.getElementById('chatgpt-prompt').value = chatgptPrompt;
+            
+            // Generate Gemini prompt
+            const geminiPrompt = generateGeminiPrompt(data);
+            document.getElementById('gemini-prompt').value = geminiPrompt;
+            
+            // Generate Claude prompt
+            const claudePrompt = generateClaudePrompt(data);
+            document.getElementById('claude-prompt').value = claudePrompt;
         }
 
-        // Download and Email Functions
+        function generateChatGPTPrompt(data) {
+            return `${realismInstructions}
+
+Create 3 personalized business ideas for a busy mom with this profile:
+
+**Personal Details:**
+- Name: ${data.name}
+- Selected Path: ${data.selectedPath}
+- Investment Level: ${data['investment-level']}
+- Work Location: ${data['work-location']}
+- Work Style: ${data['work-style']}
+- Camera Comfort: ${data['camera-comfort']}
+- Income Timeline: ${data['income-timeline']}
+- Total Budget: ${data['total-budget']}
+
+**Family & Schedule:**
+- Family Structure: ${data['family-structure']}
+- Daily Schedule: ${data['daily-schedule']}
+
+Based on this information, suggest 3 realistic business ideas that:
+1. Match her work location and style preferences
+2. Fit within her budget and timeline constraints
+3. Work with her family schedule and commitments
+4. Respect her camera/social media comfort level
+5. Are actually doable for a mom with limited time
+
+For each business idea, include:
+- Business concept (be specific)
+- Why it fits her situation
+- Realistic income potential in first 6 months
+- Time commitment required per week
+- Initial steps to get started
+- Potential challenges and how to overcome them
+
+Remember: Be brutally honest about what's realistic vs. what sounds good on paper.`;
+        }
+
+        function generateGeminiPrompt(data) {
+            return `${realismInstructions}
+
+Research market opportunities for a mom entrepreneur with these constraints:
+
+**Mom's Profile:**
+- Investment Level: ${data['investment-level']}
+- Work Location: ${data['work-location']}  
+- Work Style: ${data['work-style']}
+- Camera Comfort: ${data['camera-comfort']}
+- Income Timeline: ${data['income-timeline']}
+- Total Budget: ${data['total-budget']}
+- Family: ${data['family-structure']}
+- Schedule: ${data['daily-schedule']}
+
+Please research and provide:
+
+1. **Market Validation** - What businesses are actually working for moms in similar situations?
+2. **Competition Analysis** - Who's already doing this? How saturated are these markets?
+3. **Pricing Research** - What can she realistically charge? What do competitors charge?
+4. **Target Audience** - Who would buy from a mom in her situation?
+5. **Marketing Channels** - Where can she reach customers within her constraints?
+6. **Success Stories** - Find real examples of moms who've succeeded in similar circumstances
+7. **Failure Points** - What are the common reasons these businesses fail?
+
+Focus on: 
+- Current market trends (2024/2025)
+- What's oversaturated vs. underserved
+- Realistic timeline expectations
+- Budget-conscious strategies
+
+Be specific with data, examples, and actionable insights. Don't just give generic advice.`;
+        }
+
+        function generateClaudePrompt(data) {
+            return `${realismInstructions}
+
+Create a comprehensive business plan for a mom entrepreneur:
+
+**Mom's Profile:**
+- Name: ${data.name}
+- Path: ${data.selectedPath}
+- Investment: ${data['investment-level']}
+- Location: ${data['work-location']}
+- Style: ${data['work-style']}
+- Camera: ${data['camera-comfort']}
+- Timeline: ${data['income-timeline']}
+- Budget: ${data['total-budget']}
+- Family: ${data['family-structure']}
+- Schedule: ${data['daily-schedule']}
+
+Create a detailed business plan including:
+
+**1. Business Selection & Validation**
+- Choose the most viable business idea for her specific situation
+- Explain why this beats other options
+- Market validation approach
+
+**2. Implementation Timeline**
+- Week-by-week action plan for first 90 days
+- Realistic milestones and goals
+- Integration with her family schedule
+
+**3. Financial Projections**
+- Startup costs breakdown
+- Monthly expense projections
+- Realistic revenue timeline
+- Break-even analysis
+
+**4. Marketing Strategy**
+- Customer acquisition plan within her constraints
+- Content strategy (considering camera comfort)
+- Budget-friendly marketing tactics
+
+**5. Operations Plan**
+- Daily/weekly business tasks
+- How to manage family + business
+- Systems and tools needed
+
+**6. Risk Management**
+- Potential challenges and solutions
+- Plan B options
+- What to do if things don't work
+
+**7. Interactive Calendar Framework**
+- Time-blocked schedule template
+- Integration with family needs
+- Growth planning schedule
+
+Be specific, actionable, and brutally realistic. Include exact steps, timeframes, and contingency plans.`;
+        }
+
+        function showAIResults() {
+            // Hide AI processing and show results
+            document.getElementById('aiProcessSteps').classList.add('hidden');
+            document.getElementById('aiResults').classList.remove('hidden');
+            document.getElementById('aiResults').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showPaymentOptions() {
+            document.getElementById('paymentOptions').classList.remove('hidden');
+            document.getElementById('bookingSection').classList.remove('hidden');
+            document.getElementById('completionSection').classList.remove('hidden');
+            
+            document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Utility Functions
+        function copyToClipboard(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                alert(currentLanguage === 'es' ? 
+                    '¡Copiado al portapapeles!' : 
+                    'Copied to clipboard!');
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                alert(currentLanguage === 'es' ? 
+                    'Error al copiar. Por favor selecciona y copia manualmente.' : 
+                    'Failed to copy. Please select and copy manually.');
+            }
+        }
+
+        function openChatGPT() {
+            window.open('https://chat.openai.com', '_blank');
+        }
+
+        function openGemini() {
+            window.open('https://gemini.google.com', '_blank');
+        }
+
+        function openClaude() {
+            window.open('https://claude.ai', '_blank');
+        }
+
         function downloadCalendar() {
             // Generate calendar content based on selected path
             const calendarContent = generateCalendarContent();
@@ -1891,56 +2674,38 @@
             const blob = new Blob([calendarContent], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `smart-mom-interactive-calendar-${selectedPath}.ics`;
+            link.download = `smart-mom-${selectedPath}-calendar.ics`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             
             // Track download
-            console.log('Interactive calendar downloaded for path:', selectedPath);
-        }
-
-        async function emailCalendar() {
-            const email = document.getElementById('user-email').value.trim();
-            
-            // Send email calendar webhook (non-blocking)
-            safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-email-calendar', {
-                email: email,
-                name: document.getElementById('user-name').value.trim(),
-                selectedPath: selectedPath,
-                trigger_calendar_email: 'true',
-                language: currentLanguage,
-                timestamp: new Date().toISOString()
-            }, 'Email calendar');
-            
-            alert(currentLanguage === 'es' ? 
-                '¡Perfecto! Te hemos enviado tu calendario interactivo por correo electrónico.' :
-                'Perfect! We\'ve sent your interactive calendar to your email address.');
+            console.log('Calendar downloaded for path:', selectedPath);
         }
 
         function generateCalendarContent() {
             const now = new Date();
             const pathTitles = {
-                'life-organization': 'Smart Mom Interactive Life Organization Calendar',
-                'business-launch': 'Smart Mom Interactive Business Launch Calendar',
-                'both': 'Smart Mom Complete Interactive Life & Business Calendar'
+                'life-organization': 'Smart Mom Life Organization Calendar',
+                'business-launch': 'Smart Mom Business Launch Calendar',
+                'both': 'Smart Mom Complete Life & Business Calendar'
             };
             
-            // Enhanced ICS calendar format with more interactive elements
+            // Enhanced ICS calendar format
             return `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Smart Mom Method Interactive Calendar//EN
+PRODID:-//Smart Mom Method Calendar//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:${pathTitles[selectedPath] || 'Smart Mom Interactive Calendar'}
-X-WR-CALDESC:Your personalized Smart Mom Method interactive calendar with optimized daily routines, goal tracking, and family organization system.
+X-WR-CALNAME:${pathTitles[selectedPath] || 'Smart Mom Calendar'}
+X-WR-CALDESC:Your personalized Smart Mom Method calendar with AI-generated business plan and life organization system.
 BEGIN:VEVENT
 UID:smartmom-welcome-${Date.now()}@smartmommethod.com
 DTSTAMP:${now.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DTSTART:${now.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-SUMMARY:🌟 Welcome to Your Smart Mom Interactive Calendar!
-DESCRIPTION:Congratulations! Your personalized Smart Mom Method interactive calendar is ready. This calendar includes time-blocked schedules\\, family routines\\, and goal-oriented tasks designed specifically for busy moms like you. Start implementing your new organized life today!
-CATEGORIES:Smart Mom Method\\,Life Organization\\,Goal Setting
+SUMMARY:🌟 Welcome to Your Smart Mom Method Journey!
+DESCRIPTION:Congratulations! Your personalized Smart Mom Method plan is ready. This calendar includes your AI-generated business recommendations\\, daily routines\\, and goal-oriented tasks designed specifically for busy moms like you. Start implementing your new organized life and business today!
+CATEGORIES:Smart Mom Method\\,Life Organization\\,Business Planning
 END:VEVENT
 END:VCALENDAR`;
         }
@@ -1970,17 +2735,33 @@ END:VCALENDAR`;
         function startOver() {
             selectedPath = '';
             
-            // Reset form
+            // Reset all forms
             document.getElementById('user-name').value = '';
             document.getElementById('user-email').value = '';
+            
+            // Reset business questionnaire
+            const formFields = [
+                'investment-level', 'work-location', 'work-style', 
+                'camera-comfort', 'income-timeline', 'total-budget', 
+                'family-structure', 'daily-schedule'
+            ];
+            
+            formFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = '';
+                    field.style.borderColor = 'var(--light-sage)';
+                }
+            });
             
             // Reset validations
             document.querySelectorAll('.validation-message').forEach(msg => {
                 msg.textContent = '';
             });
             
-            document.querySelectorAll('.form-control').forEach(field => {
-                field.style.borderColor = 'var(--light-sage)';
+            // Reset character counters
+            document.querySelectorAll('.char-counter').forEach(counter => {
+                counter.textContent = '0/1000';
             });
             
             // Reset path selection
@@ -1991,14 +2772,17 @@ END:VCALENDAR`;
             document.getElementById('continueBtn').classList.remove('visible');
             
             // Show initial sections
-            document.getElementById('initialStep').classList.remove('hidden');
+            document.getElementById('basicInfoSection').classList.remove('hidden');
             document.getElementById('pathSelection').classList.add('hidden');
-            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('businessQuestionnaire').classList.add('hidden');
             document.getElementById('aiProcessSteps').classList.add('hidden');
+            document.getElementById('aiResults').classList.add('hidden');
+            document.getElementById('paymentOptions').classList.add('hidden');
+            document.getElementById('bookingSection').classList.add('hidden');
             document.getElementById('completionSection').classList.add('hidden');
             
             // Scroll to top
-            document.getElementById('initialStep').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('basicInfoSection').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Initialize when page loads
