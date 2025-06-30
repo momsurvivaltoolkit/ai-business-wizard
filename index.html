@@ -17,6 +17,12 @@
             --sage-alpha: rgba(107, 142, 107, 0.1);
             --teal-alpha: rgba(45, 91, 105, 0.1);
             --gold-alpha: rgba(212, 165, 116, 0.1);
+            --step-current: #3498db;
+            --step-completed: #27ae60;
+            --step-pending: #95a5a6;
+            --button-next: #2ecc71;
+            --button-done: #7f8c8d;
+            --button-back: #e74c3c;
         }
 
         * {
@@ -378,12 +384,12 @@
             background: linear-gradient(90deg, var(--sage-green), var(--deep-teal));
             transition: width 0.5s ease;
             border-radius: 6px;
-            width: 14.29%;
+            width: 16.67%;
         }
 
         .progress-bar {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 16px;
             margin-bottom: 0;
         }
@@ -406,17 +412,17 @@
         }
 
         .progress-step.active {
-            background: var(--sage-green);
+            background: var(--step-current);
             color: white;
         }
 
         .progress-step.completed {
-            background: var(--deep-teal);
+            background: var(--step-completed);
             color: white;
         }
 
-        .progress-step.next {
-            background: var(--soft-gold);
+        .progress-step.pending {
+            background: var(--step-pending);
             color: white;
         }
 
@@ -751,72 +757,8 @@
             box-shadow: 0 8px 24px rgba(107, 142, 107, 0.3);
         }
 
-        /* AI Steps */
-        .ai-step {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 12px;
-            background: var(--warm-cream);
-            border: 2px solid var(--light-sage);
-            transition: all 0.3s ease;
-        }
-
-        .ai-step.processing {
-            border-color: var(--soft-gold);
-            background: rgba(212, 165, 116, 0.1);
-        }
-
-        .ai-step.completed {
-            border-color: var(--sage-green);
-            background: var(--light-sage);
-        }
-
-        .ai-step-icon {
-            font-size: 2rem;
-            margin-right: 20px;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        .ai-step-content {
-            flex: 1;
-        }
-
-        .ai-step-content h4 {
-            margin: 0 0 8px 0;
-            color: var(--charcoal);
-            font-weight: 600;
-        }
-
-        .ai-step-content p {
-            margin: 0;
-            color: var(--charcoal);
-            opacity: 0.8;
-        }
-
-        .ai-step-status {
-            font-weight: 600;
-            color: var(--soft-gold);
-            min-width: 120px;
-            text-align: right;
-        }
-
-        .ai-step.processing .ai-step-status {
-            color: var(--soft-gold);
-        }
-
-        .ai-step.completed .ai-step-status {
-            color: var(--sage-green);
-        }
-
-        .ai-step.completed .ai-step-icon {
-            color: var(--sage-green);
-        }
-
-        /* AI Results Section */
-        .ai-results {
+        /* Enhanced Interactive AI Steps */
+        .interactive-ai-workflow {
             background: white;
             border-radius: 20px;
             padding: 40px;
@@ -824,45 +766,137 @@
             border: 2px solid var(--light-sage);
         }
 
-        .ai-platform {
-            margin-bottom: 40px;
+        .ai-step-container {
+            margin: 40px 0;
             padding: 30px;
             border-radius: 16px;
-            border-left: 6px solid var(--sage-green);
+            border: 3px solid var(--step-pending);
+            transition: all 0.3s ease;
         }
 
-        .ai-platform h3 {
-            color: var(--sage-green);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
+        .ai-step-container.current {
+            border-color: var(--step-current);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .ai-step-container.completed {
+            border-color: var(--step-completed);
+            background: rgba(39, 174, 96, 0.05);
+        }
+
+        .ai-step-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .ai-platform textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 20px;
-            border: 2px solid var(--light-sage);
+        .ai-step-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .ai-step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--step-pending);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .ai-step-container.current .ai-step-number {
+            background: var(--step-current);
+        }
+
+        .ai-step-container.completed .ai-step-number {
+            background: var(--step-completed);
+        }
+
+        .ai-step-status {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: var(--step-pending);
+            color: white;
+        }
+
+        .ai-step-container.current .ai-step-status {
+            background: var(--step-current);
+        }
+
+        .ai-step-container.completed .ai-step-status {
+            background: var(--step-completed);
+        }
+
+        .ai-step-content {
+            margin: 20px 0;
+        }
+
+        .ai-prompt-area {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
             border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .ai-prompt-label {
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .ai-prompt-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             line-height: 1.5;
             resize: vertical;
-            background: var(--warm-cream);
+            background: white;
         }
 
-        .ai-platform textarea:focus {
-            outline: none;
-            border-color: var(--sage-green);
-            box-shadow: 0 0 0 4px var(--sage-alpha);
+        .ai-response-area {
+            background: #f0f8ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .ai-response-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            background: white;
         }
 
         .ai-buttons {
             display: flex;
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
 
@@ -874,26 +908,200 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 14px;
+            min-width: 140px;
         }
 
-        .ai-btn.primary {
+        .ai-btn.next {
+            background: var(--button-next);
+            color: white;
+        }
+
+        .ai-btn.next:hover {
+            background: #27ae60;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.done {
+            background: var(--button-done);
+            color: white;
+        }
+
+        .ai-btn.done:hover {
+            background: #6c7b7d;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.back {
+            background: var(--button-back);
+            color: white;
+        }
+
+        .ai-btn.back:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.copy {
             background: var(--sage-green);
             color: white;
         }
 
-        .ai-btn.primary:hover {
+        .ai-btn.copy:hover {
             background: #5A7A5A;
             transform: translateY(-1px);
         }
 
-        .ai-btn.secondary {
+        .ai-btn.open {
             background: var(--soft-gold);
             color: white;
         }
 
-        .ai-btn.secondary:hover {
+        .ai-btn.open:hover {
             background: #C79660;
             transform: translateY(-1px);
+        }
+
+        .ai-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .instructions-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #f39c12;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .instructions-title {
+            font-weight: 600;
+            color: #d68910;
+            margin-bottom: 10px;
+        }
+
+        .instructions-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions-list li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .instructions-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #d68910;
+            font-weight: bold;
+        }
+
+        /* Final Dashboard */
+        .final-dashboard {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .dashboard-section {
+            background: white;
+            color: var(--charcoal);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-section h3 {
+            color: var(--sage-green);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .infographic-container {
+            min-height: 300px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #666;
+        }
+
+        .calendar-preview {
+            min-height: 300px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+        }
+
+        .business-summary {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .final-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .final-action-btn {
+            background: var(--soft-gold);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .final-action-btn:hover {
+            background: #C79660;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+        }
+
+        .final-action-btn.primary {
+            background: var(--button-next);
+        }
+
+        .final-action-btn.primary:hover {
+            background: #27ae60;
         }
 
         /* Payment Options */
@@ -1105,7 +1313,7 @@
             }
             
             .progress-bar {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
             }
 
@@ -1165,6 +1373,33 @@
             .form-section {
                 padding: 30px 20px;
             }
+
+            .ai-step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ai-buttons {
+                flex-direction: column;
+            }
+
+            .ai-btn {
+                min-width: 100%;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .final-action-btn {
+                min-width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
 </head>
@@ -1198,13 +1433,13 @@
     <div id="welcomeModal" class="welcome-modal">
         <div class="welcome-content">
             <h2 id="welcomeTitle">Welcome to Smart Mom Method!</h2>
-            <p id="welcomeDescription">Create your personalized interactive calendar and business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.</p>
+            <p id="welcomeDescription">Create your personalized interactive calendar and business plan in 6 simple steps. This process will take approximately 25-30 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.</p>
             <div class="welcome-buttons">
                 <button class="welcome-btn primary" onclick="startOnboarding()">
-                    🚀 <span id="welcomeStart">Get Started</span>
+                    <span id="welcomeStart">Get Started</span>
                 </button>
                 <button class="welcome-btn auth" onclick="showAuthModal('signup')">
-                    💾 <span id="welcomeCreate">Create Account & Save Progress</span>
+                    <span id="welcomeCreate">Create Account & Save Progress</span>
                 </button>
                 <button class="welcome-btn secondary" onclick="handleReturningUser()">
                     <span id="welcomeReturning">I'm a returning user</span>
@@ -1234,8 +1469,8 @@
         <!-- Progress Container -->
         <div class="progress-container">
             <div class="progress-header">
-                <div class="step-counter" id="stepCounter">Step 1 of 7</div>
-                <div class="time-estimate" id="timeEstimate">⏱️ Estimated: 5 min</div>
+                <div class="step-counter" id="stepCounter">Step 1 of 6</div>
+                <div class="time-estimate" id="timeEstimate">Estimated: 5 min</div>
             </div>
             <div class="overall-progress">
                 <div class="progress-fill" id="progressFill"></div>
@@ -1243,31 +1478,27 @@
             <div class="progress-bar">
                 <div class="progress-step active" id="step-1">
                     <span class="step-number">1</span>
-                    <span class="step-text" id="stepText1">Collect Information</span>
+                    <span class="step-text" id="stepText1">ChatGPT Ideas</span>
                 </div>
-                <div class="progress-step next" id="step-2">
+                <div class="progress-step pending" id="step-2">
                     <span class="step-number">2</span>
-                    <span class="step-text" id="stepText2">ChatGPT</span>
+                    <span class="step-text" id="stepText2">Gemini MVP</span>
                 </div>
-                <div class="progress-step" id="step-3">
+                <div class="progress-step pending" id="step-3">
                     <span class="step-number">3</span>
-                    <span class="step-text" id="stepText3">Gemini</span>
+                    <span class="step-text" id="stepText3">Gemini Pricing</span>
                 </div>
-                <div class="progress-step" id="step-3-5">
-                    <span class="step-number">3.5</span>
-                    <span class="step-text" id="stepText3_5">Pricing Research</span>
-                </div>
-                <div class="progress-step" id="step-4">
+                <div class="progress-step pending" id="step-4">
                     <span class="step-number">4</span>
-                    <span class="step-text" id="stepText4">Claude</span>
+                    <span class="step-text" id="stepText4">Gemini Infographic</span>
                 </div>
-                <div class="progress-step" id="step-5">
+                <div class="progress-step pending" id="step-5">
                     <span class="step-number">5</span>
-                    <span class="step-text" id="stepText5">Optimize</span>
+                    <span class="step-text" id="stepText5">Claude Calendar</span>
                 </div>
-                <div class="progress-step" id="step-6">
+                <div class="progress-step pending" id="step-6">
                     <span class="step-number">6</span>
-                    <span class="step-text" id="stepText6">Complete</span>
+                    <span class="step-text" id="stepText6">Final Dashboard</span>
                 </div>
             </div>
         </div>
@@ -1280,26 +1511,26 @@
                 
                 <div class="cta-section">
                     <button class="btn-current" onclick="scrollToForm()">
-                        🚀 <span id="ctaButton">Start Your Free Interactive Calendar & Business Plan Now</span>
+                        <span id="ctaButton">Start Your Free Interactive Calendar & Business Plan Now</span>
                     </button>
-                    <p style="margin-top: 16px; font-size: 0.95rem; opacity: 0.9;" id="ctaSubtext">No email required to browse • Full process takes 20-25 minutes</p>
+                    <p style="margin-top: 16px; font-size: 0.95rem; opacity: 0.9;" id="ctaSubtext">No email required to browse • Full process takes 25-30 minutes</p>
                 </div>
             </div>
 
             <div class="content">
                 <div class="step-description">
-                    <h2 id="stepDescTitle">👋 Let's Get Started</h2>
+                    <h2 id="stepDescTitle">Let's Get Started</h2>
                     <p id="stepDescText">First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.</p>
                 </div>
 
                 <div class="empowerment-message">
-                    <div class="empowerment-title" id="empowermentTitle">You're Already Successful! 🌟</div>
+                    <div class="empowerment-title" id="empowermentTitle">You're Already Successful!</div>
                     <p class="empowerment-text" id="empowermentText">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!</p>
                 </div>
 
                 <!-- Basic Information Section -->
                 <div class="form-section" id="basicInfoSection">
-                    <h2 id="basicInfoTitle">👋 Basic Information</h2>
+                    <h2 id="basicInfoTitle">Basic Information</h2>
                     
                     <div class="form-group">
                         <label id="nameLabel">Your Name: <span class="required">*</span></label>
@@ -1345,7 +1576,7 @@
 
                 <!-- Business Questionnaire -->
                 <div class="form-section hidden" id="businessQuestionnaire">
-                    <h2 id="businessQuestionnaireTitle">💼 Business Preferences</h2>
+                    <h2 id="businessQuestionnaireTitle">Business Preferences</h2>
                     
                     <div class="form-group">
                         <label id="investmentLabel">Investment level for business: <span class="required">*</span></label>
@@ -1437,319 +1668,299 @@
                     </div>
 
                     <button class="continue-btn visible" onclick="proceedWithQuestionnaire()">
-                        <span id="proceedBtnText">Generate My AI-Powered Plan</span>
+                        <span id="proceedBtnText">Start AI-Powered Analysis</span>
                     </button>
                 </div>
 
-                <!-- AI Process Steps -->
-                <div id="aiProcessSteps" class="hidden">
+                <!-- Enhanced Interactive AI Workflow -->
+                <div id="interactiveAIWorkflow" class="hidden">
                     <div class="step-description">
-                        <h2>🤖 AI-Powered Analysis in Progress</h2>
-                        <p>We're analyzing your responses using advanced AI to create your personalized interactive calendar and business plan. This process takes just a few minutes.</p>
+                        <h2>AI-Powered Business Plan Creation</h2>
+                        <p>Follow the 6-step process below. Each step builds on the previous one to create your comprehensive business plan and interactive calendar.</p>
                     </div>
 
-                    <div id="aiProgress" style="background: white; padding: 30px; border-radius: 20px; border: 2px solid var(--light-sage); margin: 20px 0;">
-                        <h3 style="margin-bottom: 20px;">AI Processing Progress:</h3>
-                        
-                        <div class="ai-step" id="ai-step-1">
-                            <div class="ai-step-icon">⏳</div>
-                            <div class="ai-step-content">
-                                <h4>Step 1: Analyzing Your Profile & Goals</h4>
-                                <p>Processing your family situation, preferences, and business goals...</p>
+                    <div class="interactive-ai-workflow">
+                        <!-- Step 1: ChatGPT Business Ideas -->
+                        <div class="ai-step-container current" id="ai-step-1-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">1</div>
+                                    <span>ChatGPT Business Ideas</span>
+                                </div>
+                                <div class="ai-step-status">Current Step</div>
                             </div>
-                            <div class="ai-step-status">In Progress...</div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the prompt below</li>
+                                        <li>Open ChatGPT in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>Copy ChatGPT's complete response</li>
+                                        <li>Paste the response in the box below</li>
+                                        <li>Click "Generate Next Prompt" to continue</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for ChatGPT:</label>
+                                    <textarea id="chatgpt-prompt" class="ai-prompt-textarea" readonly placeholder="Your ChatGPT prompt will be generated here..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('chatgpt-prompt')">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openChatGPT()">Open ChatGPT</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste ChatGPT's Response Here:</label>
+                                    <textarea id="chatgpt-response" class="ai-response-textarea" placeholder="Paste the complete response from ChatGPT here..." oninput="checkResponseAndEnableNext(1)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-1" onclick="generateNextPrompt(2)" disabled>Generate Next Prompt</button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="ai-step" id="ai-step-2">
-                            <div class="ai-step-icon">⏳</div>
-                            <div class="ai-step-content">
-                                <h4>Step 2: ChatGPT Business Ideas Generation</h4>
-                                <p>Creating personalized business ideas based on your constraints...</p>
+                        <!-- Step 2: Gemini MVP Deep Search -->
+                        <div class="ai-step-container pending" id="ai-step-2-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">2</div>
+                                    <span>Gemini MVP Deep Search</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
                             </div>
-                            <div class="ai-step-status">Waiting...</div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the prompt below (generated from your ChatGPT response)</li>
+                                        <li>Open Gemini in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>IMPORTANT: Choose "Deep Search" option when prompted</li>
+                                        <li>Wait for complete Deep Search results</li>
+                                        <li>Copy Gemini's complete response</li>
+                                        <li>Paste the response in the box below</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Gemini (MVP Research):</label>
+                                    <textarea id="gemini-mvp-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 1..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('gemini-mvp-prompt')" disabled id="copy-mvp-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openGemini()" disabled id="open-gemini-mvp-btn">Open Gemini</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(1)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste Gemini's MVP Deep Search Response Here:</label>
+                                    <textarea id="gemini-mvp-response" class="ai-response-textarea" placeholder="Paste the complete Deep Search response from Gemini here..." oninput="checkResponseAndEnableNext(2)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-2" onclick="generateNextPrompt(3)" disabled>Generate Next Prompt</button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="ai-step" id="ai-step-3">
-                            <div class="ai-step-icon">⏳</div>
-                            <div class="ai-step-content">
-                                <h4>Step 3: Gemini Market Research</h4>
-                                <p>Researching market opportunities and validation...</p>
+                        <!-- Step 3: Gemini Pricing Deep Search -->
+                        <div class="ai-step-container pending" id="ai-step-3-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">3</div>
+                                    <span>Gemini Pricing Deep Search</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
                             </div>
-                            <div class="ai-step-status">Waiting...</div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the pricing research prompt below</li>
+                                        <li>Open Gemini in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>IMPORTANT: Choose "Deep Search" option when prompted</li>
+                                        <li>Wait for complete Deep Search results</li>
+                                        <li>Copy Gemini's complete pricing response</li>
+                                        <li>Paste the response in the box below</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Gemini (Pricing Research):</label>
+                                    <textarea id="gemini-pricing-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 2..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('gemini-pricing-prompt')" disabled id="copy-pricing-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openGemini()" disabled id="open-gemini-pricing-btn">Open Gemini</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(2)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste Gemini's Pricing Deep Search Response Here:</label>
+                                    <textarea id="gemini-pricing-response" class="ai-response-textarea" placeholder="Paste the complete pricing research response from Gemini here..." oninput="checkResponseAndEnableNext(3)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-3" onclick="generateNextPrompt(4)" disabled>Generate Next Prompt</button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="ai-step" id="ai-step-4">
-                            <div class="ai-step-icon">⏳</div>
-                            <div class="ai-step-content">
-                                <h4>Step 4: Claude Business Plan Creation</h4>
-                                <p>Generating comprehensive business plan and calendar...</p>
+                        <!-- Step 4: Gemini Infographic Generation -->
+                        <div class="ai-step-container pending" id="ai-step-4-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">4</div>
+                                    <span>Gemini Infographic Generation</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
                             </div>
-                            <div class="ai-step-status">Waiting...</div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the infographic generation prompt below</li>
+                                        <li>Open Gemini in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>Ask Gemini to create a visual pricing infographic</li>
+                                        <li>Copy the HTML/CSS CODE that Gemini provides</li>
+                                        <li>Paste ONLY the code in the box below</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Gemini (Infographic):</label>
+                                    <textarea id="gemini-infographic-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 3..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('gemini-infographic-prompt')" disabled id="copy-infographic-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openGemini()" disabled id="open-gemini-infographic-btn">Open Gemini</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(3)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste Infographic CODE Here (HTML/CSS only):</label>
+                                    <textarea id="gemini-infographic-code" class="ai-response-textarea" placeholder="Paste ONLY the HTML/CSS code for the infographic here..." oninput="checkInfographicCode(4)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-4" onclick="generateNextPrompt(5)" disabled>Generate Next Prompt</button>
+                                    <button class="ai-btn" onclick="previewInfographic()">Preview Infographic</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Claude Interactive Calendar -->
+                        <div class="ai-step-container pending" id="ai-step-5-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">5</div>
+                                    <span>Claude Interactive Calendar</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the comprehensive prompt below</li>
+                                        <li>Open Claude in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>Wait for Claude to create your interactive calendar</li>
+                                        <li>Download the calendar artifact from Claude</li>
+                                        <li>Come back and confirm completion</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Claude (Interactive Calendar):</label>
+                                    <textarea id="claude-calendar-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 4..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('claude-calendar-prompt')" disabled id="copy-claude-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openClaude()" disabled id="open-claude-btn">Open Claude</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(4)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Confirm Calendar Creation:</label>
+                                    <div style="padding: 20px; text-align: center;">
+                                        <p>Did Claude create your interactive calendar successfully?</p>
+                                        <button class="ai-btn next" id="confirm-calendar-btn" onclick="confirmCalendarCreation()">Yes, I have my calendar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Final Integration Dashboard -->
+                        <div class="ai-step-container pending" id="ai-step-6-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">6</div>
+                                    <span>Final Integration Dashboard</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <p>Your complete Smart Mom Method plan will be displayed here once all steps are completed.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- AI Results -->
-                <div id="aiResults" class="hidden">
-                    <div class="step-description">
-                        <h2>🎯 Your Personalized AI Analysis Results</h2>
-                        <p>Based on your responses, here are your customized AI prompts and business recommendations. Copy these prompts to the respective AI platforms for detailed analysis.</p>
-                    </div>
-
-                    <div class="ai-results">
-                        <div class="ai-platform" style="background: #e8f5e8;">
-                            <h3>🤖 ChatGPT Analysis</h3>
-                            <textarea id="chatgpt-prompt" readonly placeholder="Your ChatGPT prompt will appear here..."></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('chatgpt-prompt')">📋 Copy Prompt</button>
-                                <button class="ai-btn secondary" onclick="openChatGPT()">🚀 Open ChatGPT</button>
-                            </div>
+                <!-- Final Dashboard -->
+                <div id="finalDashboard" class="hidden">
+                    <div class="final-dashboard">
+                        <div class="dashboard-header">
+                            <h2>Your Complete Smart Mom Method Plan</h2>
+                            <p>Here's your comprehensive business plan with integrated pricing strategy and interactive calendar.</p>
                         </div>
-
-                        <div class="ai-platform" style="background: #f0f7ff;">
-                            <h3>💎 Google Gemini Research</h3>
-                            <textarea id="gemini-prompt" readonly placeholder="Your Gemini prompt will appear here..."></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('gemini-prompt')">📋 Copy Prompt</button>
-                                <button class="ai-btn secondary" onclick="openGemini()">🚀 Open Gemini</button>
-                            </div>
-                        </div>
-
-                        <div class="ai-platform" style="background: #fff5e6;">
-                            <h3>🧠 Claude Business Plan</h3>
-                            <textarea id="claude-prompt" readonly placeholder="Your Claude prompt will appear here..."></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('claude-prompt')">📋 Copy Prompt</button>
-                                <button class="ai-btn secondary" onclick="openClaude()">🚀 Open Claude</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="continue-btn visible" id="startWorkflowBtn" onclick="startSequentialWorkflow()" style="opacity: 1; pointer-events: all; transform: translateY(0); margin-top: 30px;">
-                        <span id="startWorkflowText">🚀 Start Interactive AI Workflow</span>
-                    </button>
-                </div>
-
-                <!-- Sequential AI Workflow -->
-                <div id="sequentialWorkflow" class="hidden">
-                    <div class="step-description">
-                        <h2 id="workflowTitle">🔄 Interactive AI Workflow</h2>
-                        <p id="workflowDescription">Follow these steps to build your complete business plan. Each step builds on the previous one for maximum effectiveness.</p>
-                    </div>
-
-                    <!-- Step 1: ChatGPT Response Collection -->
-                    <div id="step1Collection" class="form-section">
-                        <h2 id="step1Title">🤖 Step 1: Get Business Ideas from ChatGPT</h2>
                         
-                        <div class="empowerment-message">
-                            <div class="empowerment-title" id="step1InstructionTitle">Instructions:</div>
-                            <p class="empowerment-text" id="step1Instructions">
-                                1. Copy the ChatGPT prompt above<br>
-                                2. Go to ChatGPT and paste the prompt<br>
-                                3. Wait for the complete response<br>
-                                4. Copy the ENTIRE response and paste it below
-                            </p>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="chatgptResponseLabel">ChatGPT Response: <span class="required">*</span></label>
-                            <textarea id="chatgpt-response" class="form-control" rows="10" placeholder="Paste ChatGPT's complete response here..." oninput="updateCharCount(this, 5000); validateWorkflowStep(1)"></textarea>
-                            <div class="char-counter" id="chatgpt-response-counter">0/5000</div>
-                            <div class="validation-message" id="chatgpt-response-validation"></div>
-                        </div>
-
-                        <button class="continue-btn" id="processStep1Btn" onclick="processStep1Response()" style="opacity: 0.5; pointer-events: none;">
-                            <span id="processStep1Text">📈 Process ChatGPT Response</span>
-                        </button>
-                    </div>
-
-                    <!-- Step 2: Gemini MVP Collection -->
-                    <div id="step2Collection" class="form-section hidden">
-                        <h2 id="step2Title">💎 Step 2: MVP Research with Gemini Deep Search</h2>
-                        
-                        <div class="empowerment-message">
-                            <div class="empowerment-title" id="step2InstructionTitle">Instructions:</div>
-                            <p class="empowerment-text" id="step2Instructions">
-                                1. Copy the prompt below to Gemini<br>
-                                2. IMPORTANT: Choose "Deep Search" option in Gemini<br>
-                                3. Wait for Gemini to confirm Deep Search is complete<br>
-                                4. Copy the ENTIRE response and paste below
-                            </p>
-                        </div>
-
-                        <div class="ai-platform" style="background: #f0f7ff; margin-bottom: 20px;">
-                            <h3>💎 Gemini MVP Deep Search Prompt</h3>
-                            <textarea id="gemini-mvp-prompt" readonly rows="8"></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('gemini-mvp-prompt')">📋 Copy MVP Prompt</button>
-                                <button class="ai-btn secondary" onclick="openGemini()">🚀 Open Gemini</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="geminiMvpResponseLabel">Gemini MVP Research Response: <span class="required">*</span></label>
-                            <textarea id="gemini-mvp-response" class="form-control" rows="10" placeholder="Paste Gemini's complete MVP research response here..." oninput="updateCharCount(this, 5000); validateWorkflowStep(2)"></textarea>
-                            <div class="char-counter" id="gemini-mvp-response-counter">0/5000</div>
-                            <div class="validation-message" id="gemini-mvp-response-validation"></div>
-                        </div>
-
-                        <button class="continue-btn" id="processStep2Btn" onclick="processStep2Response()" style="opacity: 0.5; pointer-events: none;">
-                            <span id="processStep2Text">🔍 Process MVP Research</span>
-                        </button>
-                    </div>
-
-                    <!-- Step 3: Gemini Pricing Collection -->
-                    <div id="step3Collection" class="form-section hidden">
-                        <h2 id="step3Title">💰 Step 3: Pricing Research with Gemini Deep Search</h2>
-                        
-                        <div class="empowerment-message">
-                            <div class="empowerment-title" id="step3InstructionTitle">Instructions:</div>
-                            <p class="empowerment-text" id="step3Instructions">
-                                1. Copy the pricing prompt below to Gemini<br>
-                                2. IMPORTANT: Choose "Deep Search" again<br>
-                                3. Wait for Gemini to complete the Deep Search<br>
-                                4. Copy the ENTIRE pricing response below
-                            </p>
-                        </div>
-
-                        <div class="ai-platform" style="background: #f0f7ff; margin-bottom: 20px;">
-                            <h3>💰 Gemini Pricing Deep Search Prompt</h3>
-                            <textarea id="gemini-pricing-prompt" readonly rows="8"></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('gemini-pricing-prompt')">📋 Copy Pricing Prompt</button>
-                                <button class="ai-btn secondary" onclick="openGemini()">🚀 Open Gemini</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="geminiPricingResponseLabel">Gemini Pricing Research Response: <span class="required">*</span></label>
-                            <textarea id="gemini-pricing-response" class="form-control" rows="10" placeholder="Paste Gemini's complete pricing research response here..." oninput="updateCharCount(this, 5000); validateWorkflowStep(3)"></textarea>
-                            <div class="char-counter" id="gemini-pricing-response-counter">0/5000</div>
-                            <div class="validation-message" id="gemini-pricing-response-validation"></div>
-                        </div>
-
-                        <button class="continue-btn" id="processStep3Btn" onclick="processStep3Response()" style="opacity: 0.5; pointer-events: none;">
-                            <span id="processStep3Text">💹 Process Pricing Research</span>
-                        </button>
-                    </div>
-
-                    <!-- Step 4: Gemini Infographic Collection -->
-                    <div id="step4Collection" class="form-section hidden">
-                        <h2 id="step4Title">🎨 Step 4: Generate Business Infographic</h2>
-                        
-                        <div class="empowerment-message">
-                            <div class="empowerment-title" id="step4InstructionTitle">Instructions:</div>
-                            <p class="empowerment-text" id="step4Instructions">
-                                1. Copy the infographic prompt below to Gemini<br>
-                                2. Ask Gemini to create a visual infographic<br>
-                                3. IMPORTANT: Copy only the HTML/SVG CODE, not the explanation<br>
-                                4. Paste the code below for integration
-                            </p>
-                        </div>
-
-                        <div class="ai-platform" style="background: #f0f7ff; margin-bottom: 20px;">
-                            <h3>🎨 Gemini Infographic Generation Prompt</h3>
-                            <textarea id="gemini-infographic-prompt" readonly rows="8"></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('gemini-infographic-prompt')">📋 Copy Infographic Prompt</button>
-                                <button class="ai-btn secondary" onclick="openGemini()">🚀 Open Gemini</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="geminiInfographicCodeLabel">Infographic HTML/SVG Code: <span class="required">*</span></label>
-                            <textarea id="gemini-infographic-code" class="form-control" rows="10" placeholder="Paste the HTML/SVG code from Gemini here (not the explanation, just the code)..." oninput="validateWorkflowStep(4)"></textarea>
-                            <div class="validation-message" id="gemini-infographic-code-validation"></div>
-                        </div>
-
-                        <button class="continue-btn" id="processStep4Btn" onclick="processStep4Code()" style="opacity: 0.5; pointer-events: none;">
-                            <span id="processStep4Text">🎨 Integrate Infographic</span>
-                        </button>
-                    </div>
-
-                    <!-- Step 5: Claude Calendar Collection -->
-                    <div id="step5Collection" class="form-section hidden">
-                        <h2 id="step5Title">📅 Step 5: Create Interactive Calendar with Claude</h2>
-                        
-                        <div class="empowerment-message">
-                            <div class="empowerment-title" id="step5InstructionTitle">Instructions:</div>
-                            <p class="empowerment-text" id="step5Instructions">
-                                1. Copy the comprehensive Claude prompt below<br>
-                                2. Go to Claude and paste the prompt<br>
-                                3. Wait for Claude's complete calendar response<br>
-                                4. Copy the ENTIRE response and paste below
-                            </p>
-                        </div>
-
-                        <div class="ai-platform" style="background: #fff5e6; margin-bottom: 20px;">
-                            <h3>🧠 Claude Interactive Calendar Prompt</h3>
-                            <textarea id="claude-calendar-prompt" readonly rows="10"></textarea>
-                            <div class="ai-buttons">
-                                <button class="ai-btn primary" onclick="copyToClipboard('claude-calendar-prompt')">📋 Copy Calendar Prompt</button>
-                                <button class="ai-btn secondary" onclick="openClaude()">🚀 Open Claude</button>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label id="claudeCalendarResponseLabel">Claude Calendar Response: <span class="required">*</span></label>
-                            <textarea id="claude-calendar-response" class="form-control" rows="10" placeholder="Paste Claude's complete calendar response here..." oninput="updateCharCount(this, 8000); validateWorkflowStep(5)"></textarea>
-                            <div class="char-counter" id="claude-calendar-response-counter">0/8000</div>
-                            <div class="validation-message" id="claude-calendar-response-validation"></div>
-                        </div>
-
-                        <button class="continue-btn" id="processStep5Btn" onclick="processStep5Response()" style="opacity: 0.5; pointer-events: none;">
-                            <span id="processStep5Text">📅 Generate Final Calendar</span>
-                        </button>
-                    </div>
-
-                    <!-- Step 6: Final Integration Dashboard -->
-                    <div id="step6Dashboard" class="hidden">
-                        <div class="step-description">
-                            <h2 id="finalDashboardTitle">🎉 Your Complete Smart Mom Business Plan</h2>
-                            <p id="finalDashboardDescription">Congratulations! Your AI-powered business plan is complete. Here's your integrated dashboard with all components.</p>
-                        </div>
-
-                        <!-- Integrated Infographic Display -->
-                        <div id="infographicDisplay" class="ai-results" style="margin-bottom: 30px;">
-                            <h3 id="infographicDisplayTitle">🎨 Your Business Infographic</h3>
-                            <div id="infographicContainer" style="border: 2px solid var(--light-sage); border-radius: 16px; padding: 20px; background: white; text-align: center; min-height: 200px;">
-                                <p id="infographicPlaceholder">Your generated infographic will appear here...</p>
-                            </div>
-                        </div>
-
-                        <!-- Calendar Integration -->
-                        <div id="calendarDisplay" class="ai-results" style="margin-bottom: 30px;">
-                            <h3 id="calendarDisplayTitle">📅 Your Interactive Business Calendar</h3>
-                            <div id="calendarContainer" style="border: 2px solid var(--light-sage); border-radius: 16px; padding: 20px; background: var(--warm-cream); max-height: 400px; overflow-y: auto;">
-                                <p id="calendarPlaceholder">Your personalized calendar will appear here...</p>
-                            </div>
-                        </div>
-
-                        <!-- Complete Business Plan Summary -->
-                        <div id="businessPlanSummary" class="ai-results">
-                            <h3 id="businessPlanSummaryTitle">📋 Complete Business Plan Summary</h3>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                                <div style="background: #e8f5e8; padding: 20px; border-radius: 12px;">
-                                    <h4>🤖 Business Ideas</h4>
-                                    <div id="businessIdeasSummary" style="font-size: 0.9rem; opacity: 0.8;">From ChatGPT analysis...</div>
+                        <div class="dashboard-grid">
+                            <div class="dashboard-section">
+                                <h3>Business Plan Summary</h3>
+                                <div id="business-summary-content" class="business-summary">
+                                    <p>Your business plan summary will appear here based on all AI responses.</p>
                                 </div>
-                                <div style="background: #f0f7ff; padding: 20px; border-radius: 12px;">
-                                    <h4>💎 Market Research</h4>
-                                    <div id="marketResearchSummary" style="font-size: 0.9rem; opacity: 0.8;">From Gemini deep search...</div>
+                            </div>
+                            
+                            <div class="dashboard-section">
+                                <h3>Pricing Strategy Infographic</h3>
+                                <div id="infographic-container" class="infographic-container">
+                                    <p>Your pricing infographic will render here once you complete Step 4.</p>
                                 </div>
-                                <div style="background: #fff5e6; padding: 20px; border-radius: 12px;">
-                                    <h4>📅 Action Plan</h4>
-                                    <div id="actionPlanSummary" style="font-size: 0.9rem; opacity: 0.8;">From Claude calendar...</div>
+                            </div>
+                            
+                            <div class="dashboard-section">
+                                <h3>Interactive Calendar</h3>
+                                <div id="calendar-display" class="calendar-preview">
+                                    <p>Your interactive calendar is available for download from Claude.</p>
+                                    <button class="ai-btn open" onclick="openClaude()" style="margin-top: 15px;">Open Claude to Download Calendar</button>
                                 </div>
                             </div>
                         </div>
-
-                        <div style="text-align: center; margin-top: 40px;">
-                            <button class="continue-btn visible" onclick="downloadCompleteBusinessPlan()" style="opacity: 1; pointer-events: all; transform: translateY(0); margin: 10px;">
-                                <span id="downloadCompleteText">📥 Download Complete Business Plan</span>
+                        
+                        <div class="final-actions">
+                            <button class="final-action-btn primary" onclick="downloadCompletePackage()">
+                                Download Complete Package
                             </button>
-                            <button class="continue-btn visible" onclick="showPaymentOptions()" style="opacity: 1; pointer-events: all; transform: translateY(0); margin: 10px;">
-                                <span id="getPersonalizedText">🎯 Get Your Personalized Calendar & Training</span>
+                            <button class="final-action-btn" onclick="showPaymentOptions()">
+                                Get Professional Implementation
                             </button>
                         </div>
                     </div>
@@ -1758,7 +1969,7 @@
                 <!-- Payment Options -->
                 <div id="paymentOptions" class="hidden">
                     <div class="payment-options">
-                        <h2>🚀 Transform Your Plan Into Action</h2>
+                        <h2>Transform Your Plan Into Action</h2>
                         <p>You've got the ideas - now let's make them happen! Get your personalized interactive calendar and expert guidance to succeed.</p>
                         
                         <div class="payment-grid">
@@ -1828,7 +2039,7 @@
                 <!-- Booking Section -->
                 <div id="bookingSection" class="hidden">
                     <div class="booking-section">
-                        <h2>📞 Need Personal Guidance?</h2>
+                        <h2>Need Personal Guidance?</h2>
                         <p>Sometimes you need a real person to talk through your specific situation. Book a call with our Smart Mom Method experts.</p>
                         
                         <div class="booking-options">
@@ -1856,36 +2067,36 @@
                 <!-- Final Completion -->
                 <div id="completionSection" class="hidden">
                     <div style="background: linear-gradient(135deg, var(--sage-green), var(--deep-teal)); color: white; padding: 60px 40px; text-align: center; border-radius: 24px; margin: 40px 0; position: relative; overflow: hidden;">
-                        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">🎉 Congratulations!</h2>
+                        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">Congratulations!</h2>
                         <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your personalized Smart Mom Method analysis is complete!</p>
                         
                         <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
                             <h3 style="margin-bottom: 15px;">What You've Accomplished:</h3>
                             <ul style="list-style: none; padding: 0;">
                                 <li style="margin: 10px 0;">✅ Identified your unique mom-entrepreneur profile</li>
-                                <li style="margin: 10px 0;">🤖 Generated AI-powered business recommendations</li>
-                                <li style="margin: 10px 0;">📅 Created your personalized calendar framework</li>
-                                <li style="margin: 10px 0;">🎯 Established clear next steps for success</li>
-                                <li style="margin: 10px 0;">💪 Joined a community of successful Smart Moms</li>
+                                <li style="margin: 10px 0;">Generated AI-powered business recommendations</li>
+                                <li style="margin: 10px 0;">Created your personalized calendar framework</li>
+                                <li style="margin: 10px 0;">Established clear next steps for success</li>
+                                <li style="margin: 10px 0;">Joined a community of successful Smart Moms</li>
                             </ul>
                         </div>
 
                         <button onclick="downloadCalendar()" style="background: var(--soft-gold); color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
-                            📥 Download Your Basic Calendar
+                            Download Your Basic Calendar
                         </button>
                         
                         <button onclick="startOver()" style="background: white; color: var(--sage-green); padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
-                            🔄 Create Another Plan
+                            Create Another Plan
                         </button>
                     </div>
 
                     <div style="background: var(--light-sage); padding: 30px; border-radius: 20px; text-align: center;">
-                        <h3>Thank you for using Smart Mom Method! 🌟</h3>
+                        <h3>Thank you for using Smart Mom Method!</h3>
                         <p>Your journey to an organized life and successful business starts now. You have everything you need to succeed - you just need to take action!</p>
                         
                         <div style="margin-top: 20px;">
                             <button onclick="provideFeedback()" style="background: var(--sage-green); color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 5px; cursor: pointer;">
-                                💬 Share Your Experience
+                                Share Your Experience
                             </button>
                         </div>
                     </div>
@@ -1905,6 +2116,8 @@
         let currentStep = 1;
         let selectedPath = '';
         let authMode = 'signup';
+        let currentAIStep = 1;
+        let aiResponses = {};
 
         // AI Realism Instructions
         const realismInstructions = `
@@ -1930,23 +2143,23 @@ Focus on what's ACTUALLY doable for their situation.
         const translations = {
             en: {
                 welcomeTitle: "Welcome to Smart Mom Method!",
-                welcomeDescription: "Create your personalized interactive calendar and business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.",
+                welcomeDescription: "Create your personalized interactive calendar and business plan in 6 simple steps. This process will take approximately 25-30 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.",
                 welcomeStart: "Get Started",
                 welcomeCreate: "Create Account & Save Progress",
                 welcomeReturning: "I'm a returning user",
                 languageTitle: "Choose Your Language / Elige Tu Idioma",
-                stepCounter: "Step 1 of 7",
-                timeEstimate: "⏱️ Estimated: 5 min",
+                stepCounter: "Step 1 of 6",
+                timeEstimate: "Estimated: 5 min",
                 mainTitle: "Smart Mom Method",
                 mainSubtitle: "AI-Powered Interactive Calendar & Business Planning for Busy Moms",
                 freeBadge: "100% Free",
                 ctaButton: "Start Your Free Interactive Calendar & Business Plan Now",
-                ctaSubtext: "No email required to browse • Full process takes 20-25 minutes",
-                stepDescTitle: "👋 Let's Get Started",
+                ctaSubtext: "No email required to browse • Full process takes 25-30 minutes",
+                stepDescTitle: "Let's Get Started",
                 stepDescText: "First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.",
-                empowermentTitle: "You're Already Successful! 🌟",
+                empowermentTitle: "You're Already Successful!",
                 empowermentText: "Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!",
-                basicInfoTitle: "👋 Basic Information",
+                basicInfoTitle: "Basic Information",
                 nameLabel: "Your Name:",
                 emailLabel: "Your Email:",
                 pathSelectionTitle: "What brings you here today? Choose your main focus:",
@@ -1957,7 +2170,7 @@ Focus on what's ACTUALLY doable for their situation.
                 pathTitle3: "Both Life & Business",
                 pathDesc3: "I need life organization AND want to start a business",
                 continueBtnText: "Continue With Selected Path",
-                businessQuestionnaireTitle: "💼 Business Preferences",
+                businessQuestionnaireTitle: "Business Preferences",
                 investmentLabel: "Investment level for business:",
                 workLocationLabel: "Preferred Work Location:",
                 workStyleLabel: "Work Style Preference:",
@@ -1966,62 +2179,27 @@ Focus on what's ACTUALLY doable for their situation.
                 totalBudgetLabel: "Maximum startup budget (total):",
                 familyStructureLabel: "Family structure & ages:",
                 dailyScheduleLabel: "Describe your typical daily schedule:",
-                proceedBtnText: "Generate My AI-Powered Plan",
-                startWorkflowText: "🚀 Start Interactive AI Workflow",
-                workflowTitle: "🔄 Interactive AI Workflow",
-                workflowDescription: "Follow these steps to build your complete business plan. Each step builds on the previous one for maximum effectiveness.",
-                step1Title: "🤖 Step 1: Get Business Ideas from ChatGPT",
-                step1InstructionTitle: "Instructions:",
-                step1Instructions: "1. Copy the ChatGPT prompt above<br>2. Go to ChatGPT and paste the prompt<br>3. Wait for the complete response<br>4. Copy the ENTIRE response and paste it below",
-                chatgptResponseLabel: "ChatGPT Response:",
-                processStep1Text: "📈 Process ChatGPT Response",
-                step2Title: "💎 Step 2: MVP Research with Gemini Deep Search",
-                step2InstructionTitle: "Instructions:",
-                step2Instructions: "1. Copy the prompt below to Gemini<br>2. IMPORTANT: Choose \"Deep Search\" option in Gemini<br>3. Wait for Gemini to confirm Deep Search is complete<br>4. Copy the ENTIRE response and paste below",
-                geminiMvpResponseLabel: "Gemini MVP Research Response:",
-                processStep2Text: "🔍 Process MVP Research",
-                step3Title: "💰 Step 3: Pricing Research with Gemini Deep Search",
-                step3InstructionTitle: "Instructions:",
-                step3Instructions: "1. Copy the pricing prompt below to Gemini<br>2. IMPORTANT: Choose \"Deep Search\" again<br>3. Wait for Gemini to complete the Deep Search<br>4. Copy the ENTIRE pricing response below",
-                geminiPricingResponseLabel: "Gemini Pricing Research Response:",
-                processStep3Text: "💹 Process Pricing Research",
-                step4Title: "🎨 Step 4: Generate Business Infographic",
-                step4InstructionTitle: "Instructions:",
-                step4Instructions: "1. Copy the infographic prompt below to Gemini<br>2. Ask Gemini to create a visual infographic<br>3. IMPORTANT: Copy only the HTML/SVG CODE, not the explanation<br>4. Paste the code below for integration",
-                geminiInfographicCodeLabel: "Infographic HTML/SVG Code:",
-                processStep4Text: "🎨 Integrate Infographic",
-                step5Title: "📅 Step 5: Create Interactive Calendar with Claude",
-                step5InstructionTitle: "Instructions:",
-                step5Instructions: "1. Copy the comprehensive Claude prompt below<br>2. Go to Claude and paste the prompt<br>3. Wait for Claude's complete calendar response<br>4. Copy the ENTIRE response and paste below",
-                claudeCalendarResponseLabel: "Claude Calendar Response:",
-                processStep5Text: "📅 Generate Final Calendar",
-                finalDashboardTitle: "🎉 Your Complete Smart Mom Business Plan",
-                finalDashboardDescription: "Congratulations! Your AI-powered business plan is complete. Here's your integrated dashboard with all components.",
-                infographicDisplayTitle: "🎨 Your Business Infographic",
-                calendarDisplayTitle: "📅 Your Interactive Business Calendar",
-                businessPlanSummaryTitle: "📋 Complete Business Plan Summary",
-                downloadCompleteText: "📥 Download Complete Business Plan",
-                getPersonalizedText: "🎯 Get Your Personalized Calendar & Training"
+                proceedBtnText: "Start AI-Powered Analysis"
             },
             es: {
                 welcomeTitle: "¡Bienvenida al Método Smart Mom!",
-                welcomeDescription: "Crea tu calendario interactivo personalizado y plan de negocio en 7 pasos simples. Este proceso tomará aproximadamente 20-25 minutos y generará un calendario interactivo y plan integral diseñado específicamente para mamás ocupadas como tú.",
+                welcomeDescription: "Crea tu calendario interactivo personalizado y plan de negocio en 6 pasos simples. Este proceso tomará aproximadamente 25-30 minutos y generará un calendario interactivo y plan integral diseñado específicamente para mamás ocupadas como tú.",
                 welcomeStart: "Comenzar",
                 welcomeCreate: "Crear Cuenta y Guardar Progreso",
                 welcomeReturning: "Soy usuaria recurrente",
                 languageTitle: "Elige Tu Idioma / Choose Your Language",
-                stepCounter: "Paso 1 de 7",
-                timeEstimate: "⏱️ Estimado: 5 min",
+                stepCounter: "Paso 1 de 6",
+                timeEstimate: "Estimado: 5 min",
                 mainTitle: "Método Smart Mom",
                 mainSubtitle: "Calendario Interactivo y Planificación de Negocios con IA para Mamás Ocupadas",
                 freeBadge: "100% Gratis",
                 ctaButton: "Inicia Tu Calendario Interactivo y Plan de Negocio Gratis Ahora",
-                ctaSubtext: "No se requiere email para navegar • El proceso completo toma 20-25 minutos",
-                stepDescTitle: "👋 ¡Comencemos!",
+                ctaSubtext: "No se requiere email para navegar • El proceso completo toma 25-30 minutos",
+                stepDescTitle: "¡Comencemos!",
                 stepDescText: "Primero, conozcámonos mejor para poder crear el calendario interactivo y plan de negocio perfecto para tu situación única.",
-                empowermentTitle: "¡Ya Eres Exitosa! 🌟",
+                empowermentTitle: "¡Ya Eres Exitosa!",
                 empowermentText: "Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalizemos eso hacia TU vida organizada y negocio exitoso!",
-                basicInfoTitle: "👋 Información Básica",
+                basicInfoTitle: "Información Básica",
                 nameLabel: "Tu Nombre:",
                 emailLabel: "Tu Correo Electrónico:",
                 pathSelectionTitle: "¿Qué te trae aquí hoy? Elige tu enfoque principal:",
@@ -2032,7 +2210,7 @@ Focus on what's ACTUALLY doable for their situation.
                 pathTitle3: "Ambos: Vida y Negocio",
                 pathDesc3: "Necesito organización de vida Y quiero iniciar un negocio",
                 continueBtnText: "Continuar con el Camino Seleccionado",
-                businessQuestionnaireTitle: "💼 Preferencias de Negocio",
+                businessQuestionnaireTitle: "Preferencias de Negocio",
                 investmentLabel: "Nivel de inversión para el negocio:",
                 workLocationLabel: "Ubicación de Trabajo Preferida:",
                 workStyleLabel: "Estilo de Trabajo Preferido:",
@@ -2041,52 +2219,8 @@ Focus on what's ACTUALLY doable for their situation.
                 totalBudgetLabel: "Presupuesto máximo de inicio (total):",
                 familyStructureLabel: "Estructura familiar y edades:",
                 dailyScheduleLabel: "Describe tu horario diario típico:",
-                proceedBtnText: "Generar Mi Plan Personalizado con IA",
-                startWorkflowText: "🚀 Iniciar Flujo de Trabajo Interactivo con IA",
-                workflowTitle: "🔄 Flujo de Trabajo Interactivo con IA",
-                workflowDescription: "Sigue estos pasos para construir tu plan de negocios completo. Cada paso se basa en el anterior para máxima efectividad.",
-                step1Title: "🤖 Paso 1: Obtener Ideas de Negocio de ChatGPT",
-                step1InstructionTitle: "Instrucciones:",
-                step1Instructions: "1. Copia el prompt de ChatGPT de arriba<br>2. Ve a ChatGPT y pega el prompt<br>3. Espera la respuesta completa<br>4. Copia TODA la respuesta y pégala abajo",
-                chatgptResponseLabel: "Respuesta de ChatGPT:",
-                processStep1Text: "📈 Procesar Respuesta de ChatGPT",
-                step2Title: "💎 Paso 2: Investigación de MVP con Búsqueda Profunda de Gemini",
-                step2InstructionTitle: "Instrucciones:",
-                step2Instructions: "1. Copia el prompt de abajo a Gemini<br>2. IMPORTANTE: Elige la opción \"Búsqueda Profunda\" en Gemini<br>3. Espera a que Gemini confirme que la Búsqueda Profunda está completa<br>4. Copia TODA la respuesta y pégala abajo",
-                geminiMvpResponseLabel: "Respuesta de Investigación MVP de Gemini:",
-                processStep2Text: "🔍 Procesar Investigación MVP",
-                step3Title: "💰 Paso 3: Investigación de Precios con Búsqueda Profunda de Gemini",
-                step3InstructionTitle: "Instrucciones:",
-                step3Instructions: "1. Copia el prompt de precios de abajo a Gemini<br>2. IMPORTANTE: Elige \"Búsqueda Profunda\" nuevamente<br>3. Espera a que Gemini complete la Búsqueda Profunda<br>4. Copia TODA la respuesta de precios abajo",
-                geminiPricingResponseLabel: "Respuesta de Investigación de Precios de Gemini:",
-                processStep3Text: "💹 Procesar Investigación de Precios",
-                step4Title: "🎨 Paso 4: Generar Infografía de Negocio",
-                step4InstructionTitle: "Instrucciones:",
-                step4Instructions: "1. Copia el prompt de infografía de abajo a Gemini<br>2. Pide a Gemini que cree una infografía visual<br>3. IMPORTANTE: Copia solo el CÓDIGO HTML/SVG, no la explicación<br>4. Pega el código abajo para integración",
-                geminiInfographicCodeLabel: "Código HTML/SVG de Infografía:",
-                processStep4Text: "🎨 Integrar Infografía",
-                step5Title: "📅 Paso 5: Crear Calendario Interactivo con Claude",
-                step5InstructionTitle: "Instrucciones:",
-                step5Instructions: "1. Copia el prompt completo de Claude de abajo<br>2. Ve a Claude y pega el prompt<br>3. Espera la respuesta completa del calendario de Claude<br>4. Copia TODA la respuesta y pégala abajo",
-                claudeCalendarResponseLabel: "Respuesta del Calendario de Claude:",
-                processStep5Text: "📅 Generar Calendario Final",
-                finalDashboardTitle: "🎉 Tu Plan de Negocios Smart Mom Completo",
-                finalDashboardDescription: "¡Felicidades! Tu plan de negocios impulsado por IA está completo. Aquí está tu panel integrado con todos los componentes.",
-                infographicDisplayTitle: "🎨 Tu Infografía de Negocio",
-                calendarDisplayTitle: "📅 Tu Calendario Interactivo de Negocio",
-                businessPlanSummaryTitle: "📋 Resumen Completo del Plan de Negocios",
-                downloadCompleteText: "📥 Descargar Plan de Negocios Completo",
-                getPersonalizedText: "🎯 Obtener Tu Calendario y Entrenamiento Personalizado"
+                proceedBtnText: "Iniciar Análisis con IA"
             }
-        };
-
-        // Sequential Workflow Functions
-        let workflowResponses = {
-            chatgpt: '',
-            geminiMvp: '',
-            geminiPricing: '',
-            geminiInfographic: '',
-            claude: ''
         };
 
         // Initialize the application
@@ -2098,14 +2232,12 @@ Focus on what's ACTUALLY doable for their situation.
             document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
             
             // Show setup message in console
-            console.log('🚀 SMART MOM METHOD - COMPLETE VERSION LOADED');
-            console.log('✅ Full business questionnaire active');
-            console.log('✅ AI prompt generation ready');
-            console.log('✅ Stripe payments integrated');
-            console.log('✅ Calendly booking integrated');
-            console.log('✅ Airtable + localStorage fallback');
-            console.log('✅ English/Spanish support');
-            console.log('✅ Sequential AI Workflow active');
+            console.log('🚀 SMART MOM METHOD - ENHANCED 6-STEP VERSION LOADED');
+            console.log('✅ Interactive AI workflow active');
+            console.log('✅ Progressive step revelation');
+            console.log('✅ ADHD/autism-friendly visual design');
+            console.log('✅ Response collection and prompt generation');
+            console.log('✅ Final dashboard integration');
         }
 
         // Utility function for safe webhook calls
@@ -2697,9 +2829,9 @@ Focus on what's ACTUALLY doable for their situation.
             // Hide questionnaire
             document.getElementById('businessQuestionnaire').classList.add('hidden');
             
-            // Show AI processing
-            document.getElementById('aiProcessSteps').classList.remove('hidden');
-            document.getElementById('aiProcessSteps').scrollIntoView({ behavior: 'smooth' });
+            // Show Interactive AI Workflow
+            document.getElementById('interactiveAIWorkflow').classList.remove('hidden');
+            document.getElementById('interactiveAIWorkflow').scrollIntoView({ behavior: 'smooth' });
             
             // Send webhook notification (non-blocking)
             safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
@@ -2709,8 +2841,8 @@ Focus on what's ACTUALLY doable for their situation.
                 timestamp: new Date().toISOString()
             }, 'Questionnaire completion notification');
             
-            // Simulate AI processing
-            await simulateAISteps();
+            // Generate first prompt
+            generateChatGPTPrompt();
         }
 
         function collectFormData() {
@@ -2743,61 +2875,11 @@ Focus on what's ACTUALLY doable for their situation.
             };
         }
 
-        // AI Functions
-        async function simulateAISteps() {
-            const steps = [
-                { id: 'ai-step-1', duration: 3000, icon: '🔍', status: 'Analyzing...' },
-                { id: 'ai-step-2', duration: 4000, icon: '🤖', status: 'Generating...' },
-                { id: 'ai-step-3', duration: 3500, icon: '💎', status: 'Researching...' },
-                { id: 'ai-step-4', duration: 2500, icon: '🧠', status: 'Creating...' }
-            ];
-
-            for (let i = 0; i < steps.length; i++) {
-                const step = steps[i];
-                const stepElement = document.getElementById(step.id);
-                
-                // Start processing this step
-                stepElement.classList.add('processing');
-                stepElement.querySelector('.ai-step-icon').textContent = step.icon;
-                stepElement.querySelector('.ai-step-status').textContent = step.status;
-                
-                // Wait for the step duration
-                await new Promise(resolve => setTimeout(resolve, step.duration));
-                
-                // Complete this step
-                stepElement.classList.remove('processing');
-                stepElement.classList.add('completed');
-                stepElement.querySelector('.ai-step-icon').textContent = '✅';
-                stepElement.querySelector('.ai-step-status').textContent = 'Completed!';
-                
-                // Small delay between steps
-                await new Promise(resolve => setTimeout(resolve, 500));
-            }
-            
-            // All steps completed, generate AI prompts and show results
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            generateAIPrompts();
-            showAIResults();
-        }
-
-        function generateAIPrompts() {
+        // Enhanced AI Workflow Functions
+        function generateChatGPTPrompt() {
             const data = collectFormData();
             
-            // Generate ChatGPT prompt
-            const chatgptPrompt = generateChatGPTPrompt(data);
-            document.getElementById('chatgpt-prompt').value = chatgptPrompt;
-            
-            // Generate Gemini prompt
-            const geminiPrompt = generateGeminiPrompt(data);
-            document.getElementById('gemini-prompt').value = geminiPrompt;
-            
-            // Generate Claude prompt
-            const claudePrompt = generateClaudePrompt(data);
-            document.getElementById('claude-prompt').value = claudePrompt;
-        }
-
-        function generateChatGPTPrompt(data) {
-            return `${realismInstructions}
+            const chatgptPrompt = `${realismInstructions}
 
 Create 3 personalized business ideas for a busy mom with this profile:
 
@@ -2831,12 +2913,90 @@ For each business idea, include:
 - Potential challenges and how to overcome them
 
 Remember: Be brutally honest about what's realistic vs. what sounds good on paper.`;
+
+            document.getElementById('chatgpt-prompt').value = chatgptPrompt;
+            updateProgressStep(1);
         }
 
-        function generateGeminiPrompt(data) {
-            return `${realismInstructions}
+        function checkResponseAndEnableNext(step) {
+            const responseField = document.getElementById(getResponseFieldId(step));
+            const nextBtn = document.getElementById(`next-btn-${step}`);
+            
+            if (responseField.value.trim().length > 50) {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                // Store the response
+                aiResponses[step] = responseField.value.trim();
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+            }
+        }
 
-Research market opportunities for a mom entrepreneur with these constraints:
+        function checkInfographicCode(step) {
+            const codeField = document.getElementById('gemini-infographic-code');
+            const nextBtn = document.getElementById(`next-btn-${step}`);
+            
+            const code = codeField.value.trim();
+            if (code.length > 20 && (code.includes('<') || code.includes('css') || code.includes('style'))) {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                aiResponses[step] = code;
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+            }
+        }
+
+        function getResponseFieldId(step) {
+            const fieldIds = {
+                1: 'chatgpt-response',
+                2: 'gemini-mvp-response',
+                3: 'gemini-pricing-response',
+                4: 'gemini-infographic-code',
+                5: 'claude-calendar-response'
+            };
+            return fieldIds[step];
+        }
+
+        function generateNextPrompt(nextStep) {
+            // Mark current step as completed
+            markStepCompleted(nextStep - 1);
+            
+            // Update current step
+            currentAIStep = nextStep;
+            updateProgressStep(nextStep);
+            
+            // Generate appropriate prompt based on step
+            switch(nextStep) {
+                case 2:
+                    generateGeminiMVPPrompt();
+                    break;
+                case 3:
+                    generateGeminiPricingPrompt();
+                    break;
+                case 4:
+                    generateGeminiInfographicPrompt();
+                    break;
+                case 5:
+                    generateClaudeCalendarPrompt();
+                    break;
+                case 6:
+                    showFinalDashboard();
+                    break;
+            }
+        }
+
+        function generateGeminiMVPPrompt() {
+            const chatgptResponse = aiResponses[1] || '';
+            const data = collectFormData();
+            
+            const geminiMVPPrompt = `${realismInstructions}
+
+Based on these business ideas from ChatGPT and the mom's profile, conduct deep market research:
+
+**ChatGPT Business Ideas:**
+${chatgptResponse}
 
 **Mom's Profile:**
 - Investment Level: ${data['investment-level']}
@@ -2848,31 +3008,155 @@ Research market opportunities for a mom entrepreneur with these constraints:
 - Family: ${data['family-structure']}
 - Schedule: ${data['daily-schedule']}
 
+**IMPORTANT: Use Gemini's "Deep Search" feature for comprehensive research.**
+
 Please research and provide:
 
-1. **Market Validation** - What businesses are actually working for moms in similar situations?
+1. **Market Validation** - Which of these business ideas have the best market demand?
 2. **Competition Analysis** - Who's already doing this? How saturated are these markets?
-3. **Pricing Research** - What can she realistically charge? What do competitors charge?
+3. **MVP Development** - What's the minimum viable product for each idea?
 4. **Target Audience** - Who would buy from a mom in her situation?
-5. **Marketing Channels** - Where can she reach customers within her constraints?
-6. **Success Stories** - Find real examples of moms who've succeeded in similar circumstances
-7. **Failure Points** - What are the common reasons these businesses fail?
+5. **Success Stories** - Find real examples of moms who've succeeded in similar circumstances
+6. **Failure Points** - What are the common reasons these businesses fail?
+7. **Implementation Roadmap** - Step-by-step MVP development for the most viable option
 
 Focus on: 
 - Current market trends (2024/2025)
 - What's oversaturated vs. underserved
 - Realistic timeline expectations
 - Budget-conscious strategies
+- Specific to her constraints and situation
 
-Be specific with data, examples, and actionable insights. Don't just give generic advice.`;
+Recommend the ONE best business idea with detailed MVP plan.`;
+
+            document.getElementById('gemini-mvp-prompt').value = geminiMVPPrompt;
+            
+            // Enable buttons for step 2
+            document.getElementById('copy-mvp-btn').disabled = false;
+            document.getElementById('open-gemini-mvp-btn').disabled = false;
+            
+            // Scroll to step 2
+            document.getElementById('ai-step-2-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function generateClaudePrompt(data) {
-            return `${realismInstructions}
+        function generateGeminiPricingPrompt() {
+            const mvpResponse = aiResponses[2] || '';
+            const data = collectFormData();
+            
+            const geminiPricingPrompt = `${realismInstructions}
 
-Create a comprehensive business plan for a mom entrepreneur:
+Based on the MVP research and recommended business idea, conduct deep pricing research:
 
-**Mom's Profile:**
+**Recommended Business & MVP Plan:**
+${mvpResponse}
+
+**Mom's Constraints:**
+- Investment Level: ${data['investment-level']}
+- Total Budget: ${data['total-budget']}
+- Income Timeline: ${data['income-timeline']}
+- Work Location: ${data['work-location']}
+
+**IMPORTANT: Use Gemini's "Deep Search" feature for comprehensive pricing research.**
+
+Research and provide:
+
+1. **Competitor Pricing Analysis** - What do similar services/products cost?
+2. **Market Price Points** - What do customers actually pay vs. what's advertised?
+3. **Pricing Strategy Recommendations** - Start low, premium, or mid-range?
+4. **Revenue Projections** - Realistic income potential at different price points
+5. **Pricing Psychology** - What price points convert best for her target audience?
+6. **Package Options** - How to structure pricing tiers
+7. **Geographic Pricing** - Price differences by location/market
+8. **Beginner-Friendly Pricing** - How to price as a newcomer vs. established competitor
+
+**Specific Requirements:**
+- Give exact dollar amounts, not ranges
+- Consider her beginner status
+- Factor in her time constraints
+- Provide 3 pricing tiers (basic, standard, premium)
+- Include launch pricing vs. established pricing
+- Consider local market conditions
+
+Make specific recommendations for her exact situation.`;
+
+            document.getElementById('gemini-pricing-prompt').value = geminiPricingPrompt;
+            
+            // Enable buttons for step 3
+            document.getElementById('copy-pricing-btn').disabled = false;
+            document.getElementById('open-gemini-pricing-btn').disabled = false;
+            
+            // Scroll to step 3
+            document.getElementById('ai-step-3-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateGeminiInfographicPrompt() {
+            const pricingResponse = aiResponses[3] || '';
+            const data = collectFormData();
+            
+            const geminiInfographicPrompt = `Create a visual pricing infographic based on this pricing research:
+
+**Pricing Research Results:**
+${pricingResponse}
+
+**Requirements:**
+Create an HTML/CSS infographic that shows:
+
+1. **3 Pricing Tiers** - Clear visual comparison
+2. **Value Propositions** - What customers get at each level
+3. **Professional Design** - Clean, modern, easy to understand
+4. **ADHD/Autism Friendly** - Clear visual hierarchy, not overwhelming
+5. **Color Coded** - Different colors for each tier
+6. **Mobile Responsive** - Works on all devices
+
+**Design Guidelines:**
+- Use professional colors (blues, greens, soft golds)
+- Clear typography, easy to read
+- Visual icons for features
+- Comparison layout (3 columns)
+- Call-to-action buttons
+- Simple, clean design
+- No animation or distracting elements
+
+**Content to Include:**
+- Tier names and prices
+- Key features for each tier
+- "Most Popular" badge for middle tier
+- Clear value proposition
+- Easy comparison format
+
+Please provide ONLY the complete HTML/CSS code that I can copy and paste to render the infographic. Make it self-contained with inline CSS.`;
+
+            document.getElementById('gemini-infographic-prompt').value = geminiInfographicPrompt;
+            
+            // Enable buttons for step 4
+            document.getElementById('copy-infographic-btn').disabled = false;
+            document.getElementById('open-gemini-infographic-btn').disabled = false;
+            
+            // Scroll to step 4
+            document.getElementById('ai-step-4-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateClaudeCalendarPrompt() {
+            const chatgptResponse = aiResponses[1] || '';
+            const mvpResponse = aiResponses[2] || '';
+            const pricingResponse = aiResponses[3] || '';
+            const infographicCode = aiResponses[4] || '';
+            const data = collectFormData();
+            
+            const claudeCalendarPrompt = `${realismInstructions}
+
+Create a comprehensive interactive calendar and business plan based on all previous AI research:
+
+**ChatGPT Business Ideas:**
+${chatgptResponse}
+
+**Gemini MVP Research:**
+${mvpResponse}
+
+**Gemini Pricing Research:**
+${pricingResponse}
+
+**Mom's Complete Profile:**
 - Name: ${data.name}
 - Path: ${data.selectedPath}
 - Investment: ${data['investment-level']}
@@ -2884,683 +3168,391 @@ Create a comprehensive business plan for a mom entrepreneur:
 - Family: ${data['family-structure']}
 - Schedule: ${data['daily-schedule']}
 
-Create a detailed business plan including:
+**TASK: Create an interactive HTML calendar artifact that includes:**
 
-**1. Business Selection & Validation**
-- Choose the most viable business idea for her specific situation
-- Explain why this beats other options
-- Market validation approach
+1. **Interactive Monthly Calendar**
+   - Clickable dates with business tasks
+   - Family schedule integration
+   - Color-coded activities (business, family, personal)
+   - Goal tracking milestones
+   - Revenue targets
 
-**2. Implementation Timeline**
-- Week-by-week action plan for first 90 days
-- Realistic milestones and goals
-- Integration with her family schedule
+2. **Business Plan Summary**
+   - Chosen business idea with rationale
+   - Step-by-step implementation timeline
+   - Weekly task breakdown
+   - Revenue projections
+   - Marketing plan
 
-**3. Financial Projections**
-- Startup costs breakdown
-- Monthly expense projections
-- Realistic revenue timeline
-- Break-even analysis
+3. **Daily Schedule Template**
+   - Time blocking for business work
+   - Family commitments
+   - Personal time
+   - Flexibility for her constraints
 
-**4. Marketing Strategy**
-- Customer acquisition plan within her constraints
-- Content strategy (considering camera comfort)
-- Budget-friendly marketing tactics
+4. **Progress Tracking**
+   - Business milestone tracking
+   - Financial goals
+   - Personal development
+   - Family organization
 
-**5. Operations Plan**
-- Daily/weekly business tasks
-- How to manage family + business
-- Systems and tools needed
-
-**6. Risk Management**
-- Potential challenges and solutions
-- Plan B options
-- What to do if things don't work
-
-**7. Interactive Calendar Framework**
-- Time-blocked schedule template
-- Integration with family needs
-- Growth planning schedule
-
-Be specific, actionable, and brutally realistic. Include exact steps, timeframes, and contingency plans.`;
-        }
-
-        function generateGeminiMVPPrompt(data) {
-            return `${realismInstructions}
-
-**CRITICAL: PLEASE USE DEEP SEARCH IN GEMINI**
-INSTRUCTIONS FOR GEMINI:
-1. When you paste this prompt, look for "Deep Search" option in Gemini interface
-2. Click "Deep Search" and wait for Gemini to ask for confirmation
-3. Click confirm and wait for complete deep search results (this may take 30-60 seconds)
-4. Copy the ENTIRE response back to the website
-
-**CONTEXT:** I just received business ideas from ChatGPT for a mom entrepreneur. Now I need your help with deep market research and MVP validation using current 2024/2025 data.
-
-**Mom's Profile:**
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-- Family: ${data['family-structure']}
-- Schedule: ${data['daily-schedule']}
-
-**ChatGPT Business Ideas:** [Will be replaced with actual response]
-
-Using DEEP SEARCH, research and provide detailed analysis:
-
-1. **MVP Definition & Validation** 
-   - What's the simplest version she can start with (considering her limited time)?
-   - How can she test the idea with minimal investment?
-   - What would a realistic first month look like?
-
-2. **Market Reality Check (2024/2025 Data)**
-   - Who else is doing this currently?
-   - How saturated is the market right now?
-   - What are competitors charging?
-   - Are there market gaps she could fill?
-
-3. **Customer Validation Strategy**
-   - Where can she find potential customers online/offline?
-   - How can she validate demand before investing time?
-   - What questions should she ask potential customers?
-
-4. **Resource Requirements (Be Realistic)**
-   - What tools/software does she actually need? (free vs. paid options)
-   - What skills does she need to learn first?
-   - Does she need partnerships or can she do this solo?
-
-5. **Success Metrics for First 90 Days**
-   - What should she track daily/weekly?
-   - What numbers indicate she's on the right track?
-   - When should she pivot vs. persist?
-
-6. **Risk Assessment & Mitigation**
-   - What are the biggest risks for her specific situation?
-   - How can she minimize financial/time risks?
-   - What are realistic backup plans?
-
-7. **Timeline to First Revenue**
-   - Realistic timeline from idea to first paying customer
-   - Weekly milestones for the first month
-   - When should she expect consistent income?
-
-Focus on CURRENT market data, real examples, and actionable next steps she can implement this week.`;
-        }
-
-        function generateGeminiPricingPrompt(data) {
-            return `${realismInstructions}
-
-**CRITICAL: USE DEEP SEARCH AGAIN IN GEMINI**
-INSTRUCTIONS FOR GEMINI:
-1. Choose "Deep Search" option again for this pricing research
-2. Wait for confirmation and complete the deep search process
-3. This search should focus on current pricing data and market rates
-
-**CONTEXT:** Following up on our MVP research, I now need comprehensive pricing strategy research using current 2024/2025 market data.
-
-**Mom's Profile:**
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-- Family Situation: ${data['family-structure']}
-- Experience Level: Beginner (consider this heavily in pricing recommendations)
-
-**Previous MVP Research:** [Will be replaced with actual Gemini MVP response]
-
-Using DEEP SEARCH, research and provide detailed pricing analysis:
-
-1. **Beginner-Friendly Pricing Strategy**
-   - What should someone with NO experience charge initially?
-   - How to price competitively without underselling
-   - When to raise prices as skills improve
-
-2. **Competitive Pricing Analysis (Current Market)**
-   - What do similar businesses charge right now in 2024/2025?
-   - Include specific examples with price ranges ($X - $Y per hour/project)
-   - Compare local vs. national vs. international rates
-
-3. **Value-Based Pricing Research**
-   - What measurable results/ROI do customers get?
-   - How to justify pricing to budget-conscious customers
-   - Case studies of successful pricing strategies
-
-4. **Package & Pricing Structure Options**
-   - Should she offer hourly, project, or package pricing?
-   - Examples of 3-tier pricing structures
-   - What works best for her timeline constraints?
-
-5. **Payment Models & Logistics**
-   - One-time vs. recurring revenue options
-   - Payment terms that work for new businesses
-   - How to handle payment processing as a beginner
-
-6. **Market Testing & Validation**
-   - How to test different price points with minimal risk
-   - Scripts for discussing pricing with potential customers
-   - When to negotiate vs. hold firm on pricing
-
-7. **Scalability & Growth Strategy**
-   - How pricing should evolve in months 1-6
-   - When to introduce premium services
-   - Path from beginner rates to expert pricing
-
-8. **Geographic & Demographic Considerations**
-   - How location affects pricing (if applicable)
-   - Adjusting for target customer's budget level
-   - Online vs. local pricing differences
-
-Provide specific dollar amounts, real market examples, and actionable pricing strategies for a complete beginner.`;
-        }
-
-        function generateGeminiInfographicPrompt(data) {
-            return `**CRITICAL INSTRUCTIONS FOR INFOGRAPHIC CREATION:**
-
-**CONTEXT:** Create a visual business plan infographic that summarizes our comprehensive research.
-
-**Previous Research to Incorporate:**
-- MVP Research: [Will be replaced with actual MVP response]
-- Pricing Research: [Will be replaced with actual pricing response]
-
-**Mom's Business Profile:**
-- Selected Path: ${data.selectedPath}
-- Investment Budget: ${data['total-budget']}
-- Income Timeline: ${data['income-timeline']}
-- Work Style: ${data['work-style']}
-- Family Situation: ${data['family-structure']}
-
-**IMPORTANT: I need the actual HTML/SVG CODE, not a description**
-
-Please create a professional, visually appealing business plan infographic that includes:
-
-**Visual Sections to Include:**
-1. **Business Overview** - Main concept and unique value proposition
-2. **Target Customer Profile** - Who will buy and why
-3. **MVP Strategy** - Simple first steps and validation approach
-4. **Pricing Structure** - Clear pricing tiers or models
-5. **90-Day Roadmap** - Key milestones with timeline
-6. **Success Metrics** - What numbers to track
-7. **Revenue Projections** - Realistic income expectations
+5. **Resource Links**
+   - Tools and platforms needed
+   - Learning resources
+   - Support communities
 
 **Design Requirements:**
-- Use Smart Mom Method brand colors: #6B8E6B (sage green), #2D5B69 (deep teal), #D4A574 (soft gold), #FAF7F0 (warm cream)
-- Clean, professional layout suitable for a mom entrepreneur
-- Icons and visual elements for each section
-- Easy to read fonts and clear hierarchy
-- Responsive design that works on mobile and desktop
-- Include inspiring but realistic messaging
+- ADHD/Autism friendly (clear, organized, not overwhelming)
+- Mobile responsive
+- Professional appearance
+- Easy to navigate
+- Printable sections
+- Interactive elements
 
-**CRITICAL OUTPUT REQUIREMENT:**
-Please provide the complete HTML/SVG code that I can copy and paste directly into a webpage. Do NOT provide explanations or descriptions - just give me the working code that will display the infographic.
+**Content Requirements:**
+- Specific to her exact situation
+- Realistic timelines
+- Actionable tasks
+- Measurable goals
+- Emergency flexibility
 
-The code should be self-contained (no external dependencies except for basic fonts) and ready to integrate immediately.
+Create this as a complete, downloadable HTML file that she can use as her business and life organization tool. Include everything she needs to succeed based on all the AI research.`;
 
-Start your response with the opening HTML tag and end with the closing tag. Include all styling within <style> tags in the HTML.`;
-        }
-
-        function generateClaudeCalendarPrompt(data) {
-            return `${realismInstructions}
-
-**COMPREHENSIVE INTERACTIVE BUSINESS CALENDAR CREATION**
-
-**Mom's Complete Profile:**
-- Name: ${data.name}
-- Selected Path: ${data.selectedPath}
-- Investment Level: ${data['investment-level']}
-- Work Location: ${data['work-location']}
-- Work Style: ${data['work-style']}
-- Camera Comfort: ${data['camera-comfort']}
-- Income Timeline: ${data['income-timeline']}
-- Total Budget: ${data['total-budget']}
-- Family Structure: ${data['family-structure']}
-- Daily Schedule: ${data['daily-schedule']}
-
-**Complete AI Research Foundation:**
-- ChatGPT Business Ideas: [Will be replaced with actual response]
-- Gemini MVP Research: [Will be replaced with actual MVP response]  
-- Gemini Pricing Strategy: [Will be replaced with actual pricing response]
-
-**TASK:** Create a comprehensive, easy-to-follow interactive business calendar that integrates with her family life and incorporates ALL the research above.
-
-**Calendar Requirements:**
-
-**1. BRAIN-FRIENDLY STRUCTURE**
-- Clear, simple daily tasks (no overwhelming lists)
-- Color-coded priority system (Green=Must Do, Yellow=Important, Blue=When Possible)
-- Time-blocked schedule that respects energy levels throughout the day
-- Built-in buffer time for interruptions and family needs
-- Visual progress tracking and celebration points
-
-**2. 90-DAY IMPLEMENTATION TIMELINE**
-- **Days 1-30: Foundation & MVP Development**
-  - Week 1: Setup and preparation tasks
-  - Week 2: First customer outreach and validation
-  - Week 3: Refine MVP based on feedback
-  - Week 4: Establish basic business systems
-- **Days 31-60: Growth & Optimization**
-  - Week 5-6: Scale customer acquisition
-  - Week 7-8: Optimize pricing and processes
-- **Days 61-90: Revenue Generation & Scaling**
-  - Week 9-10: Focus on consistent income
-  - Week 11-12: Plan for next quarter growth
-
-**3. DAILY STRUCTURE INTEGRATION**
-- **Morning Power Hour** (before kids wake): Most important business task
-- **Naptime/Quiet Time Blocks**: Focused work sessions (15-30 min chunks)
-- **Evening Wind-Down**: Administrative tasks while kids play/homework
-- **Weekend Family-Friendly Activities**: Business tasks kids can "help" with
-
-**4. ADAPTIVE SCHEDULING SYSTEM**
-- **High Energy Days**: Tackle challenging tasks (customer calls, content creation)
-- **Low Energy Days**: Administrative tasks, planning, learning
-- **Sick Kid Days**: Backup plan with 10-minute micro-tasks
-- **Holiday/Travel Days**: Minimal maintenance tasks only
-
-**5. PROGRESS TRACKING BUILT-IN**
-- Daily check-off lists with immediate gratification
-- Weekly review sessions (15 minutes max)
-- Monthly milestone celebrations with family
-- Clear indicators when to pivot or adjust strategy
-
-**6. SENSORY-FRIENDLY CONSIDERATIONS**
-- Quiet work time suggestions for sound-sensitive tasks
-- Movement breaks built into schedule
-- Flexibility for days when routines don't work
-- Multiple reminder systems (visual, written, digital options)
-
-**7. EXECUTIVE FUNCTION SUPPORT**
-- Task breakdowns into 2-3 step micro-actions
-- Built-in accountability checkpoints
-- Clear start/stop triggers for each activity
-- Transition time built between different types of tasks
-
-**8. FINANCIAL INTEGRATION**
-- Daily money-tracking habits (2 minutes max)
-- Weekly financial check-ins
-- Monthly revenue and expense reviews
-- Goal visualization and celebration systems
-
-**Create a detailed, week-by-week calendar that she can implement immediately while honoring her role as a mom and respecting different energy levels, attention spans, and life realities. Include specific tasks, time estimates, and clear success criteria for each activity.**
-
-**Make this practical, achievable, and sustainable for long-term success.**`;
-        }
-
-        function generateSequentialPrompts() {
-            const data = collectFormData();
-            
-            // Generate Gemini MVP prompt that will incorporate ChatGPT response
-            const geminiMvpPrompt = generateGeminiMVPPrompt(data);
-            document.getElementById('gemini-mvp-prompt').value = geminiMvpPrompt;
-            
-            // Generate Gemini Pricing prompt that will incorporate MVP response
-            const geminiPricingPrompt = generateGeminiPricingPrompt(data);
-            document.getElementById('gemini-pricing-prompt').value = geminiPricingPrompt;
-            
-            // Generate Gemini Infographic prompt that will incorporate both MVP and pricing responses
-            const geminiInfographicPrompt = generateGeminiInfographicPrompt(data);
-            document.getElementById('gemini-infographic-prompt').value = geminiInfographicPrompt;
-            
-            // Generate Claude Calendar prompt that will incorporate all previous responses
-            const claudeCalendarPrompt = generateClaudeCalendarPrompt(data);
             document.getElementById('claude-calendar-prompt').value = claudeCalendarPrompt;
             
-            console.log('Sequential prompts generated with enhanced logic for incorporating previous responses');
-        }
-
-        function showAIResults() {
-            // Hide AI processing and show results
-            document.getElementById('aiProcessSteps').classList.add('hidden');
-            document.getElementById('aiResults').classList.remove('hidden');
-            document.getElementById('aiResults').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Sequential Workflow Functions
-        function startSequentialWorkflow() {
-            // Hide AI results and show workflow
-            document.getElementById('aiResults').classList.add('hidden');
-            document.getElementById('sequentialWorkflow').classList.remove('hidden');
-            document.getElementById('sequentialWorkflow').scrollIntoView({ behavior: 'smooth' });
+            // Enable buttons for step 5
+            document.getElementById('copy-claude-btn').disabled = false;
+            document.getElementById('open-claude-btn').disabled = false;
             
-            // Generate the sequential prompts
-            generateSequentialPrompts();
+            // Scroll to step 5
+            document.getElementById('ai-step-5-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function validateWorkflowStep(step) {
-            let isValid = false;
-            let field, validation, button;
+        function confirmCalendarCreation() {
+            // Mark step 5 as completed
+            markStepCompleted(5);
             
-            switch(step) {
-                case 1:
-                    field = document.getElementById('chatgpt-response');
-                    validation = document.getElementById('chatgpt-response-validation');
-                    button = document.getElementById('processStep1Btn');
-                    break;
-                case 2:
-                    field = document.getElementById('gemini-mvp-response');
-                    validation = document.getElementById('gemini-mvp-response-validation');
-                    button = document.getElementById('processStep2Btn');
-                    break;
-                case 3:
-                    field = document.getElementById('gemini-pricing-response');
-                    validation = document.getElementById('gemini-pricing-response-validation');
-                    button = document.getElementById('processStep3Btn');
-                    break;
-                case 4:
-                    field = document.getElementById('gemini-infographic-code');
-                    validation = document.getElementById('gemini-infographic-code-validation');
-                    button = document.getElementById('processStep4Btn');
-                    break;
-                case 5:
-                    field = document.getElementById('claude-calendar-response');
-                    validation = document.getElementById('claude-calendar-response-validation');
-                    button = document.getElementById('processStep5Btn');
-                    break;
+            // Move to final dashboard
+            currentAIStep = 6;
+            updateProgressStep(6);
+            showFinalDashboard();
+        }
+
+        function showFinalDashboard() {
+            // Mark step 6 as current
+            markStepCompleted(6);
+            
+            // Hide the interactive workflow
+            document.getElementById('interactiveAIWorkflow').classList.add('hidden');
+            
+            // Show final dashboard
+            document.getElementById('finalDashboard').classList.remove('hidden');
+            document.getElementById('finalDashboard').scrollIntoView({ behavior: 'smooth' });
+            
+            // Populate dashboard content
+            populateFinalDashboard();
+        }
+
+        function populateFinalDashboard() {
+            // Populate business summary
+            const businessSummary = document.getElementById('business-summary-content');
+            const summaryContent = generateBusinessSummary();
+            businessSummary.innerHTML = summaryContent;
+            
+            // Render infographic if available
+            if (aiResponses[4]) {
+                renderInfographic(aiResponses[4]);
             }
             
-            if (field && validation && button) {
-                const value = field.value.trim();
-                
-                if (step === 4) {
-                    // For code, check if it looks like HTML/SVG
-                    if (value.length > 50 && (value.includes('<svg') || value.includes('<div') || value.includes('<html'))) {
-                        validation.textContent = '✓ Code detected';
-                        validation.className = 'validation-message success';
-                        field.style.borderColor = 'var(--sage-green)';
-                        isValid = true;
-                    } else if (value.length > 0) {
-                        validation.textContent = 'Please paste HTML/SVG code (not just text description)';
-                        validation.className = 'validation-message';
-                        field.style.borderColor = '#e57373';
-                    } else {
-                        validation.textContent = '';
-                        field.style.borderColor = 'var(--light-sage)';
+            // Update calendar display
+            const calendarDisplay = document.getElementById('calendar-display');
+            calendarDisplay.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <h4>Your Interactive Calendar</h4>
+                    <p>Your personalized calendar has been created by Claude and is ready for download.</p>
+                    <button class="ai-btn open" onclick="openClaude()" style="margin: 10px;">
+                        Download Calendar from Claude
+                    </button>
+                    <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">
+                        The calendar includes your business plan, daily schedules, goal tracking, and family integration.
+                    </p>
+                </div>
+            `;
+        }
+
+        function generateBusinessSummary() {
+            const data = collectFormData();
+            return `
+                <div style="line-height: 1.6;">
+                    <h4 style="color: var(--sage-green); margin-bottom: 15px;">Your Smart Mom Business Plan</h4>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>Selected Path:</strong> ${data.selectedPath}<br>
+                        <strong>Investment Level:</strong> ${data['investment-level']}<br>
+                        <strong>Timeline:</strong> ${data['income-timeline']}<br>
+                        <strong>Work Style:</strong> ${data['work-style']}
+                    </div>
+                    
+                    <h5 style="margin: 20px 0 10px 0;">Key Recommendations:</h5>
+                    <ul style="margin-left: 20px;">
+                        <li>Business ideas tailored to your schedule and budget</li>
+                        <li>Market-validated MVP approach</li>
+                        <li>Realistic pricing strategy</li>
+                        <li>Family-integrated implementation plan</li>
+                        <li>Step-by-step action items</li>
+                    </ul>
+                    
+                    <div style="background: var(--light-sage); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <strong>Next Steps:</strong><br>
+                        1. Download your interactive calendar from Claude<br>
+                        2. Review the complete business plan<br>
+                        3. Start with Week 1 action items<br>
+                        4. Track progress using built-in tools<br>
+                        5. Adjust schedule as needed for family needs
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderInfographic(code) {
+            const infographicContainer = document.getElementById('infographic-container');
+            
+            try {
+                // Sanitize and render the code safely
+                const sanitizedCode = sanitizeHTML(code);
+                infographicContainer.innerHTML = sanitizedCode;
+                infographicContainer.style.border = 'none';
+            } catch (error) {
+                console.error('Error rendering infographic:', error);
+                infographicContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <h4>Pricing Strategy</h4>
+                        <p>Your pricing infographic was generated but couldn't be rendered automatically.</p>
+                        <button class="ai-btn" onclick="showRawInfographicCode()" style="margin: 10px;">
+                            View Infographic Code
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function sanitizeHTML(html) {
+            // Basic HTML sanitization - remove potentially dangerous elements
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            
+            // Remove script tags and event handlers
+            const scripts = temp.querySelectorAll('script');
+            scripts.forEach(script => script.remove());
+            
+            // Remove event handlers
+            const elements = temp.querySelectorAll('*');
+            elements.forEach(el => {
+                const attributes = [...el.attributes];
+                attributes.forEach(attr => {
+                    if (attr.name.startsWith('on')) {
+                        el.removeAttribute(attr.name);
                     }
-                } else {
-                    // For text responses
-                    if (value.length >= 100) {
-                        validation.textContent = '✓ Response looks complete';
-                        validation.className = 'validation-message success';
-                        field.style.borderColor = 'var(--sage-green)';
-                        isValid = true;
-                    } else if (value.length > 0) {
-                        validation.textContent = 'Please provide a more complete response (at least 100 characters)';
-                        validation.className = 'validation-message';
-                        field.style.borderColor = '#e57373';
-                    } else {
-                        validation.textContent = '';
-                        field.style.borderColor = 'var(--light-sage)';
-                    }
-                }
-                
-                // Enable/disable button
-                if (isValid) {
-                    button.style.opacity = '1';
-                    button.style.pointerEvents = 'all';
-                } else {
-                    button.style.opacity = '0.5';
-                    button.style.pointerEvents = 'none';
-                }
-            }
+                });
+            });
             
-            return isValid;
+            return temp.innerHTML;
         }
 
-        function processStep1Response() {
-            const response = document.getElementById('chatgpt-response').value.trim();
-            if (response.length < 100) {
-                alert(currentLanguage === 'es' ? 
-                    'Por favor proporciona una respuesta más completa de ChatGPT.' :
-                    'Please provide a more complete response from ChatGPT.');
-                return;
-            }
-            
-            // Store the response
-            workflowResponses.chatgpt = response;
-            
-            // Update the Gemini MVP prompt with ChatGPT response
-            let mvpPrompt = document.getElementById('gemini-mvp-prompt').value;
-            mvpPrompt = mvpPrompt.replace('[Will be replaced with actual response]', response);
-            document.getElementById('gemini-mvp-prompt').value = mvpPrompt;
-            
-            // Hide step 1 and show step 2
-            document.getElementById('step1Collection').classList.add('hidden');
-            document.getElementById('step2Collection').classList.remove('hidden');
-            document.getElementById('step2Collection').scrollIntoView({ behavior: 'smooth' });
-            
-            console.log('Step 1 completed, ChatGPT response processed');
-        }
-
-        function processStep2Response() {
-            const response = document.getElementById('gemini-mvp-response').value.trim();
-            if (response.length < 100) {
-                alert(currentLanguage === 'es' ? 
-                    'Por favor proporciona una respuesta más completa de Gemini.' :
-                    'Please provide a more complete response from Gemini.');
-                return;
-            }
-            
-            // Store the response
-            workflowResponses.geminiMvp = response;
-            
-            // Update the Gemini Pricing prompt with MVP response
-            let pricingPrompt = document.getElementById('gemini-pricing-prompt').value;
-            pricingPrompt = pricingPrompt.replace('[Will be replaced with actual Gemini MVP response]', response);
-            document.getElementById('gemini-pricing-prompt').value = pricingPrompt;
-            
-            // Hide step 2 and show step 3
-            document.getElementById('step2Collection').classList.add('hidden');
-            document.getElementById('step3Collection').classList.remove('hidden');
-            document.getElementById('step3Collection').scrollIntoView({ behavior: 'smooth' });
-            
-            console.log('Step 2 completed, Gemini MVP response processed');
-        }
-
-        function processStep3Response() {
-            const response = document.getElementById('gemini-pricing-response').value.trim();
-            if (response.length < 100) {
-                alert(currentLanguage === 'es' ? 
-                    'Por favor proporciona una respuesta más completa de investigación de precios.' :
-                    'Please provide a more complete pricing research response.');
-                return;
-            }
-            
-            // Store the response
-            workflowResponses.geminiPricing = response;
-            
-            // Update the Gemini Infographic prompt with previous responses
-            let infographicPrompt = document.getElementById('gemini-infographic-prompt').value;
-            infographicPrompt = infographicPrompt.replace('[Will be replaced with actual MVP response]', workflowResponses.geminiMvp);
-            infographicPrompt = infographicPrompt.replace('[Will be replaced with actual pricing response]', response);
-            document.getElementById('gemini-infographic-prompt').value = infographicPrompt;
-            
-            // Hide step 3 and show step 4
-            document.getElementById('step3Collection').classList.add('hidden');
-            document.getElementById('step4Collection').classList.remove('hidden');
-            document.getElementById('step4Collection').scrollIntoView({ behavior: 'smooth' });
-            
-            console.log('Step 3 completed, Gemini pricing response processed');
-        }
-
-        function processStep4Code() {
+        function previewInfographic() {
             const code = document.getElementById('gemini-infographic-code').value.trim();
-            if (code.length < 50 || (!code.includes('<svg') && !code.includes('<div') && !code.includes('<html'))) {
-                alert(currentLanguage === 'es' ? 
-                    'Por favor pega el código HTML/SVG real de la infografía, no solo texto.' :
-                    'Please paste the actual HTML/SVG code for the infographic, not just text.');
+            if (!code) {
+                alert('Please paste the infographic code first.');
                 return;
             }
             
-            // Store the code
-            workflowResponses.geminiInfographic = code;
-            
-            // Update the Claude Calendar prompt with all previous responses
-            let calendarPrompt = document.getElementById('claude-calendar-prompt').value;
-            calendarPrompt = calendarPrompt.replace('[Will be replaced with actual response]', workflowResponses.chatgpt);
-            calendarPrompt = calendarPrompt.replace('[Will be replaced with actual MVP response]', workflowResponses.geminiMvp);
-            calendarPrompt = calendarPrompt.replace('[Will be replaced with actual pricing response]', workflowResponses.geminiPricing);
-            document.getElementById('claude-calendar-prompt').value = calendarPrompt;
-            
-            // Hide step 4 and show step 5
-            document.getElementById('step4Collection').classList.add('hidden');
-            document.getElementById('step5Collection').classList.remove('hidden');
-            document.getElementById('step5Collection').scrollIntoView({ behavior: 'smooth' });
-            
-            console.log('Step 4 completed, infographic code processed');
+            // Open preview in new window
+            const previewWindow = window.open('', '_blank', 'width=800,height=600');
+            previewWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Infographic Preview</title>
+                    <style>body { margin: 20px; font-family: Arial, sans-serif; }</style>
+                </head>
+                <body>
+                    <h2>Pricing Infographic Preview</h2>
+                    ${sanitizeHTML(code)}
+                </body>
+                </html>
+            `);
+            previewWindow.document.close();
         }
 
-        function processStep5Response() {
-            const response = document.getElementById('claude-calendar-response').value.trim();
-            if (response.length < 100) {
-                alert(currentLanguage === 'es' ? 
-                    'Por favor proporciona una respuesta más completa del calendario de Claude.' :
-                    'Please provide a more complete calendar response from Claude.');
-                return;
-            }
+        function showRawInfographicCode() {
+            const code = aiResponses[4] || '';
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0,0,0,0.8); z-index: 10000; display: flex; 
+                align-items: center; justify-content: center;
+            `;
             
-            // Store the response
-            workflowResponses.claude = response;
-            
-            // Generate final dashboard
-            generateFinalDashboard();
-            
-            // Hide step 5 and show final dashboard
-            document.getElementById('step5Collection').classList.add('hidden');
-            document.getElementById('step6Dashboard').classList.remove('hidden');
-            document.getElementById('step6Dashboard').scrollIntoView({ behavior: 'smooth' });
-            
-            console.log('Step 5 completed, generating final dashboard');
+            modal.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 12px; max-width: 80%; max-height: 80%; overflow: auto;">
+                    <h3>Infographic Code</h3>
+                    <textarea style="width: 100%; height: 400px; font-family: monospace;" readonly>${code}</textarea>
+                    <div style="margin-top: 15px;">
+                        <button onclick="copyToClipboard('infographicCodeText')" style="padding: 10px 20px; margin: 5px;">Copy Code</button>
+                        <button onclick="this.closest('.modal').remove()" style="padding: 10px 20px; margin: 5px;">Close</button>
+                    </div>
+                </div>
+            `;
+            modal.className = 'modal';
+            document.body.appendChild(modal);
         }
 
-        function generateFinalDashboard() {
-            // Display the infographic
-            const infographicContainer = document.getElementById('infographicContainer');
-            const infographicPlaceholder = document.getElementById('infographicPlaceholder');
+        function updateProgressStep(step) {
+            // Update step counter
+            document.getElementById('stepCounter').textContent = `Step ${step} of 6`;
             
-            if (workflowResponses.geminiInfographic) {
-                infographicPlaceholder.style.display = 'none';
-                infographicContainer.innerHTML = workflowResponses.geminiInfographic;
+            // Update progress bar
+            const progressFill = document.getElementById('progressFill');
+            const percentage = (step / 6) * 100;
+            progressFill.style.width = `${percentage}%`;
+            
+            // Update step visual states
+            for (let i = 1; i <= 6; i++) {
+                const stepElement = document.getElementById(`step-${i}`);
+                if (stepElement) {
+                    stepElement.classList.remove('active', 'completed', 'pending');
+                    
+                    if (i < step) {
+                        stepElement.classList.add('completed');
+                    } else if (i === step) {
+                        stepElement.classList.add('active');
+                    } else {
+                        stepElement.classList.add('pending');
+                    }
+                }
             }
             
-            // Display the calendar
-            const calendarContainer = document.getElementById('calendarContainer');
-            const calendarPlaceholder = document.getElementById('calendarPlaceholder');
-            
-            if (workflowResponses.claude) {
-                calendarPlaceholder.style.display = 'none';
-                // Format Claude response for better display
-                const formattedCalendar = workflowResponses.claude.replace(/\n/g, '<br>');
-                calendarContainer.innerHTML = `<div style="white-space: pre-wrap; line-height: 1.6;">${formattedCalendar}</div>`;
+            // Update AI step containers
+            for (let i = 1; i <= 6; i++) {
+                const container = document.getElementById(`ai-step-${i}-container`);
+                if (container) {
+                    container.classList.remove('current', 'completed', 'pending');
+                    
+                    if (i < step) {
+                        container.classList.add('completed');
+                        container.querySelector('.ai-step-status').textContent = 'Completed';
+                    } else if (i === step) {
+                        container.classList.add('current');
+                        container.querySelector('.ai-step-status').textContent = 'Current Step';
+                    } else {
+                        container.classList.add('pending');
+                        container.querySelector('.ai-step-status').textContent = 'Waiting';
+                    }
+                }
             }
-            
-            // Update business plan summary
-            document.getElementById('businessIdeasSummary').textContent = 
-                workflowResponses.chatgpt.substring(0, 150) + '...';
-            document.getElementById('marketResearchSummary').textContent = 
-                workflowResponses.geminiMvp.substring(0, 150) + '...';
-            document.getElementById('actionPlanSummary').textContent = 
-                workflowResponses.claude.substring(0, 150) + '...';
         }
 
-        function downloadCompleteBusinessPlan() {
-            // Generate comprehensive business plan document
-            const userData = collectFormData();
-            const businessPlanContent = generateCompleteBusinessPlan(userData);
+        function markStepCompleted(step) {
+            const container = document.getElementById(`ai-step-${step}-container`);
+            if (container) {
+                container.classList.remove('current', 'pending');
+                container.classList.add('completed');
+                container.querySelector('.ai-step-status').textContent = 'Completed';
+            }
             
-            // Create downloadable file
-            const blob = new Blob([businessPlanContent], { type: 'text/html;charset=utf-8' });
+            const progressStep = document.getElementById(`step-${step}`);
+            if (progressStep) {
+                progressStep.classList.remove('active', 'pending');
+                progressStep.classList.add('completed');
+            }
+        }
+
+        function goBackToStep(step) {
+            currentAIStep = step;
+            updateProgressStep(step);
+            
+            // Scroll to the specified step
+            const container = document.getElementById(`ai-step-${step}-container`);
+            if (container) {
+                container.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function downloadCompletePackage() {
+            // Create a comprehensive package with all collected data
+            const packageData = {
+                userProfile: collectFormData(),
+                aiResponses: aiResponses,
+                businessPlan: generateBusinessSummary(),
+                infographicCode: aiResponses[4] || '',
+                timestamp: new Date().toISOString()
+            };
+            
+            // Create downloadable content
+            const packageContent = `
+SMART MOM METHOD - COMPLETE PACKAGE
+Generated: ${new Date().toLocaleDateString()}
+
+=== USER PROFILE ===
+Name: ${packageData.userProfile.name}
+Email: ${packageData.userProfile.email}
+Selected Path: ${packageData.userProfile.selectedPath}
+Investment Level: ${packageData.userProfile['investment-level']}
+Work Location: ${packageData.userProfile['work-location']}
+Work Style: ${packageData.userProfile['work-style']}
+Camera Comfort: ${packageData.userProfile['camera-comfort']}
+Income Timeline: ${packageData.userProfile['income-timeline']}
+Total Budget: ${packageData.userProfile['total-budget']}
+
+Family Structure: ${packageData.userProfile['family-structure']}
+
+Daily Schedule: ${packageData.userProfile['daily-schedule']}
+
+=== AI RESPONSES ===
+
+1. CHATGPT BUSINESS IDEAS:
+${aiResponses[1] || 'Not completed'}
+
+2. GEMINI MVP RESEARCH:
+${aiResponses[2] || 'Not completed'}
+
+3. GEMINI PRICING RESEARCH:
+${aiResponses[3] || 'Not completed'}
+
+4. GEMINI INFOGRAPHIC CODE:
+${aiResponses[4] || 'Not completed'}
+
+=== NEXT STEPS ===
+1. Download your interactive calendar from Claude
+2. Review all AI responses for detailed business guidance
+3. Start implementing the recommended business plan
+4. Use the pricing strategy for your target market
+5. Track progress using the provided tools
+
+=== SUPPORT ===
+For additional support and implementation guidance, 
+visit our payment options or book a consultation call.
+
+This package contains your complete Smart Mom Method analysis.
+Keep this file for reference throughout your business journey.
+            `;
+            
+            // Create and download the file
+            const blob = new Blob([packageContent], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `smart-mom-complete-business-plan-${userData.name.replace(/\s+/g, '-').toLowerCase()}.html`;
+            link.download = `smart-mom-complete-package-${Date.now()}.txt`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             
-            // Send completion webhook
-            safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-complete', {
-                ...userData,
-                workflowCompleted: true,
-                hasAllResponses: true,
+            // Track download
+            safeWebhookCall('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-download', {
+                email: packageData.userProfile.email,
+                name: packageData.userProfile.name,
+                package_type: 'complete',
                 timestamp: new Date().toISOString()
-            }, 'Workflow completion notification');
-            
-            console.log('Complete business plan downloaded');
-        }
-
-        function generateCompleteBusinessPlan(userData) {
-            return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Mom Business Plan - ${userData.name}</title>
-    <style>
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1, h2, h3 { color: #6B8E6B; }
-        .section { margin-bottom: 30px; padding: 20px; border-left: 4px solid #6B8E6B; background: #f9f9f9; }
-        .infographic { border: 2px solid #D4A574; border-radius: 8px; padding: 20px; margin: 20px 0; }
-        .calendar { background: #E8F5E8; padding: 20px; border-radius: 8px; margin: 20px 0; }
-        .summary { background: #2D5B69; color: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
-    </style>
-</head>
-<body>
-    <h1>🌟 Smart Mom Method - Complete Business Plan</h1>
-    <h2>👋 ${userData.name}'s Personalized Business Strategy</h2>
-    
-    <div class="summary">
-        <h3>📋 Executive Summary</h3>
-        <p><strong>Selected Path:</strong> ${userData.selectedPath}</p>
-        <p><strong>Investment Level:</strong> ${userData['investment-level']}</p>
-        <p><strong>Timeline:</strong> ${userData['income-timeline']}</p>
-        <p><strong>Budget:</strong> ${userData['total-budget']}</p>
-        <p><strong>Family Situation:</strong> ${userData['family-structure']}</p>
-    </div>
-    
-    <div class="section">
-        <h3>🤖 AI-Generated Business Ideas</h3>
-        <p>${workflowResponses.chatgpt || 'ChatGPT analysis will appear here...'}</p>
-    </div>
-    
-    <div class="section">
-        <h3>💎 Market Research & MVP Strategy</h3>
-        <p>${workflowResponses.geminiMvp || 'Gemini MVP research will appear here...'}</p>
-    </div>
-    
-    <div class="section">
-        <h3>💰 Pricing Strategy & Market Analysis</h3>
-        <p>${workflowResponses.geminiPricing || 'Gemini pricing research will appear here...'}</p>
-    </div>
-    
-    <div class="infographic">
-        <h3>🎨 Business Plan Infographic</h3>
-        ${workflowResponses.geminiInfographic || '<p>Infographic will appear here...</p>'}
-    </div>
-    
-    <div class="calendar">
-        <h3>📅 90-Day Action Calendar</h3>
-        <pre style="white-space: pre-wrap; font-family: inherit;">${workflowResponses.claude || 'Claude calendar will appear here...'}</pre>
-    </div>
-    
-    <div class="section">
-        <h3>🎯 Next Steps</h3>
-        <ol>
-            <li>Review your complete business plan</li>
-            <li>Start with Week 1 actions from your calendar</li>
-            <li>Join the Smart Mom Method community</li>
-            <li>Track your progress weekly</li>
-            <li>Adjust and optimize based on results</li>
-        </ol>
-    </div>
-    
-    <footer style="text-align: center; margin-top: 40px; padding: 20px; border-top: 2px solid #6B8E6B;">
-        <p><strong>Generated by Smart Mom Method</strong></p>
-        <p>Created on: ${new Date().toLocaleDateString()}</p>
-        <p>Your journey to an organized life and successful business starts now!</p>
-    </footer>
-</body>
-</html>`;
+            }, 'Package download tracking');
         }
 
         function showPaymentOptions() {
@@ -3574,14 +3566,27 @@ Start your response with the opening HTML tag and end with the closing tag. Incl
         // Utility Functions
         function copyToClipboard(textareaId) {
             const textarea = document.getElementById(textareaId);
+            if (!textarea) return;
+            
             textarea.select();
             textarea.setSelectionRange(0, 99999); // For mobile devices
             
             try {
                 document.execCommand('copy');
-                alert(currentLanguage === 'es' ? 
-                    '¡Copiado al portapapeles!' : 
-                    'Copied to clipboard!');
+                // Show success feedback
+                const originalText = textarea.nextElementSibling?.textContent || '';
+                if (textarea.nextElementSibling && textarea.nextElementSibling.classList.contains('ai-btn')) {
+                    const btn = textarea.nextElementSibling;
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                    }, 2000);
+                } else {
+                    alert(currentLanguage === 'es' ? 
+                        '¡Copiado al portapapeles!' : 
+                        'Copied to clipboard!');
+                }
             } catch (err) {
                 console.error('Failed to copy: ', err);
                 alert(currentLanguage === 'es' ? 
@@ -3639,7 +3644,7 @@ BEGIN:VEVENT
 UID:smartmom-welcome-${Date.now()}@smartmommethod.com
 DTSTAMP:${now.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DTSTART:${now.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-SUMMARY:🌟 Welcome to Your Smart Mom Method Journey!
+SUMMARY:Welcome to Your Smart Mom Method Journey!
 DESCRIPTION:Congratulations! Your personalized Smart Mom Method plan is ready. This calendar includes your AI-generated business recommendations\\, daily routines\\, and goal-oriented tasks designed specifically for busy moms like you. Start implementing your new organized life and business today!
 CATEGORIES:Smart Mom Method\\,Life Organization\\,Business Planning
 END:VEVENT
@@ -3670,6 +3675,8 @@ END:VCALENDAR`;
 
         function startOver() {
             selectedPath = '';
+            currentAIStep = 1;
+            aiResponses = {};
             
             // Reset all forms
             document.getElementById('user-name').value = '';
@@ -3690,6 +3697,20 @@ END:VCALENDAR`;
                 }
             });
             
+            // Reset AI response fields
+            const aiFields = [
+                'chatgpt-prompt', 'chatgpt-response',
+                'gemini-mvp-prompt', 'gemini-mvp-response',
+                'gemini-pricing-prompt', 'gemini-pricing-response',
+                'gemini-infographic-prompt', 'gemini-infographic-code',
+                'claude-calendar-prompt'
+            ];
+            
+            aiFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) field.value = '';
+            });
+            
             // Reset validations
             document.querySelectorAll('.validation-message').forEach(msg => {
                 msg.textContent = '';
@@ -3707,13 +3728,15 @@ END:VCALENDAR`;
             
             document.getElementById('continueBtn').classList.remove('visible');
             
+            // Reset progress
+            updateProgressStep(1);
+            
             // Show initial sections
             document.getElementById('basicInfoSection').classList.remove('hidden');
             document.getElementById('pathSelection').classList.add('hidden');
             document.getElementById('businessQuestionnaire').classList.add('hidden');
-            document.getElementById('aiProcessSteps').classList.add('hidden');
-            document.getElementById('aiResults').classList.add('hidden');
-            document.getElementById('sequentialWorkflow').classList.add('hidden');
+            document.getElementById('interactiveAIWorkflow').classList.add('hidden');
+            document.getElementById('finalDashboard').classList.add('hidden');
             document.getElementById('paymentOptions').classList.add('hidden');
             document.getElementById('bookingSection').classList.add('hidden');
             document.getElementById('completionSection').classList.add('hidden');
