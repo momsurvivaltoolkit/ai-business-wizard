@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; connect-src 'self' https://momsurvivaltoolkit.app.n8n.cloud https://api.allorigins.win; style-src 'self' 'unsafe-inline';">
     <title>Smart Mom Method - AI Interactive Calendar & Business Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
@@ -4236,16 +4235,75 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
         }
 
         // Create new record
-        async function createRecord(table, fields) {
-            try {
-                const response = await fetch(`${airtableConfig.apiUrl}/${table}`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${airtableConfig.apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ fields })
-                });
+       // CORS proxy wrapper function
+async function corsProxyFetch(url, options = {}) {
+    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+    const proxiedUrl = proxyUrl + encodeURIComponent(url);
+    
+    try {
+        return await fetch(proxiedUrl, {
+            ...options,
+            headers: {
+                ...options.headers,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+    } catch (error) {
+        console.log('Primary proxy failed, trying fallback...');
+        try {
+            return await fetch('https://cors-anywhere.herokuapp.com/' + url, options);
+        } catch (fallbackError) {
+            console.error('Both proxies failed:', fallbackError);
+            throw error;
+        }
+    }
+}
+
+// Create new record (CORS proxy version)
+async function createRecord(table, fields) {
+    try {
+        const response = await corsProxyFetch(`https://api.airtable.com/v0/appQUF3zVLlHbB4fP/${table}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer patjes1GsajwyYTSN.39633c18c6dc227b6e290d5da8lda3bde2f4d089d6bd4ae049787fecdb676f65',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fields })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error creating record:', error);
+        throw error;
+    }
+}
+
+// Update existing record (CORS proxy version)
+async function updateRecord(table, recordId, fields) {
+    try {
+        const response = await corsProxyFetch(`https://api.airtable.com/v0/appQUF3zVLlHbB4fP/${table}/${recordId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': 'Bearer patjes1GsajwyYTSN.39633c18c6dc227b6e290d5da8lda3bde2f4d089d6bd4ae049787fecdb676f65',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ fields })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error updating record:', error);
+        throw error;
+    }
+}
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -4402,8 +4460,8 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
         // Load user progress
         async function loadUserProgress(userEmail) {
             try {
-                const response = await fetch(
-                    `${airtableConfig.apiUrl}/Progress?filterByFormula={UserEmail}='${userEmail}'`,
+              const response = await corsProxyFetch(
+    `${airtableConfig.apiUrl}/Progress?filterByFormula={userEmail}='${userEmail}'`,
                     {
                         headers: {
                             'Authorization': `Bearer ${airtableConfig.apiKey}`,
@@ -4464,8 +4522,7 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
 
                 const result = await createRecord('Testimonials', testimonialData);
                 
-                // Also send to webhook
-                await sendToWebhook({
+             await sendToWebhook({
                     trigger: 'testimonial',
                     testimonial: testimonial,
                     user_name: userName,
@@ -4624,36 +4681,58 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
             showAuthModal('signin');
         }
 
-        // ===== WEBHOOK FUNCTIONS =====
-        
-        async function sendToWebhook(data) {
-            try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        ...data,
-                        source: 'smart-mom-method-website',
-                        version: '2.0'
-                    })
-                });
-                
-                if (response.ok) {
-                    console.log('✅ Webhook sent successfully');
-                    return true;
-                } else {
-                    console.warn('⚠️ Webhook failed:', response.status);
-                    return false;
-                }
-            } catch (error) {
-                console.warn('⚠️ Webhook error (expected - webhook may be broken):', error.message);
-                return false;
+               
+       // ===== WEBHOOK FUNCTIONS =====
+async function corsProxyFetch(url, options = {}) {
+    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+    const proxiedUrl = proxyUrl + encodeURIComponent(url);
+    
+    try {
+        return await fetch(proxiedUrl, {
+            ...options,
+            headers: {
+                ...options.headers,
+                'X-Requested-With': 'XMLHttpRequest'
             }
+        });
+    } catch (error) {
+        console.log('Primary proxy failed, trying fallback...');
+        try {
+            return await fetch('https://cors-anywhere.herokuapp.com/' + url, options);
+        } catch (fallbackError) {
+            console.error('Both proxies failed:', fallbackError);
+            throw error;
         }
+    }
+}
 
+async function sendToWebhook(data) {
+    try {
+        const response = await corsProxyFetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                ...data,
+                source: 'smart-mom-method-website',
+                version: '2.0'
+            })
+        });
+
+        if (response.ok) {
+            console.log('📧 Webhook sent successfully!');
+            return true;
+        } else {
+            console.warn('⚠️ Webhook failed:', response.status);
+            return false;
+        }
+    } catch (error) {
+        console.warn('⚠️ Webhook error (expected - webhook may be broken):', error.message);
+        return false;
+    }
+}
         async function sendWelcomeEmail(name, email) {
             const welcomeData = {
                 trigger: 'welcome_email',
