@@ -1325,11 +1325,15 @@
         }
 
         async function handleSignup(email, password, name) {
-            // Check if user already exists
-            const existingUser = await loadFromAirtable(email);
-            if (existingUser) {
-                showAuthError('An account with this email already exists. Please sign in instead.');
-                return;
+            // Check if user already exists (if Airtable is working)
+            try {
+                const existingUser = await loadFromAirtable(email);
+                if (existingUser) {
+                    showAuthError('An account with this email already exists. Please sign in instead.');
+                    return;
+                }
+            } catch (error) {
+                console.log('Airtable check failed, proceeding with local storage fallback');
             }
             
             // Create simple password hash (in production, use proper hashing)
@@ -1347,28 +1351,10 @@
             };
             
             try {
-                const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        fields: {
-                            Email: userData.email,
-                            Name: userData.name,
-                            'Selected Path': userData.selectedPath,
-                            'Current Step': userData.currentStep,
-                            'Last Updated': new Date().toISOString(),
-                            'Form Data': JSON.stringify(userData.formData),
-                            Language: userData.language,
-                            'Password Hash': userData.passwordHash,
-                            'Created At': userData.createdAt
-                        }
-                    })
-                });
+                // Try to save to Airtable first
+                const recordId = await saveToAirtable(userData);
                 
-                if (response.ok) {
+                if (recordId) {
                     showAuthSuccess('Account created successfully! You can now save your progress.');
                     
                     // Send welcome email webhook
@@ -1383,18 +1369,55 @@
                         closeAuthModal();
                         checkInitialFields(); // This will show path selection if fields are filled
                     }, 2000);
-                    
                 } else {
-                    throw new Error('Failed to create account');
+                    throw new Error('Failed to save to Airtable');
                 }
                 
             } catch (error) {
-                showAuthError('Failed to create account. Please try again.');
+                console.log('Airtable save failed, using localStorage fallback');
+                
+                // Fallback to localStorage
+                const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+                if (localUsers[email]) {
+                    showAuthError('An account with this email already exists locally. Please sign in instead.');
+                    return;
+                }
+                
+                localUsers[email] = userData;
+                localStorage.setItem('smartMomUsers', JSON.stringify(localUsers));
+                
+                showAuthSuccess('Account created successfully! (Saved locally while database is being set up)');
+                
+                // Send welcome email webhook (this should still work)
+                await sendWelcomeEmail(userData);
+                
+                // Auto-fill the main form
+                document.getElementById('user-name').value = name;
+                document.getElementById('user-email').value = email;
+                
+                // Close modal after delay
+                setTimeout(() => {
+                    closeAuthModal();
+                    checkInitialFields();
+                }, 2000);
             }
         }
 
         async function handleSignin(email, password) {
-            const userData = await loadFromAirtable(email);
+            let userData = null;
+            
+            // Try Airtable first
+            try {
+                userData = await loadFromAirtable(email);
+            } catch (error) {
+                console.log('Airtable lookup failed, checking localStorage');
+            }
+            
+            // Fallback to localStorage if Airtable failed
+            if (!userData) {
+                const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+                userData = localUsers[email];
+            }
             
             if (!userData) {
                 showAuthError('No account found with this email address.');
@@ -1644,7 +1667,20 @@
             lookupBtn.disabled = true;
 
             try {
-                const userData = await loadFromAirtable(email);
+                let userData = null;
+                
+                // Try Airtable first
+                try {
+                    userData = await loadFromAirtable(email);
+                } catch (error) {
+                    console.log('Airtable lookup failed, checking localStorage fallback');
+                }
+                
+                // If Airtable failed, try localStorage fallback
+                if (!userData) {
+                    const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+                    userData = localUsers[email];
+                }
                 
                 if (userData) {
                     // Success! Load user data
