@@ -1917,49 +1917,50 @@
                         </div>
 
                         <!-- Step 5: Claude Interactive Calendar -->
-                        <div class="ai-step-container pending" id="ai-step-5-container">
-                            <div class="ai-step-header">
-                                <div class="ai-step-title">
-                                    <div class="ai-step-number">5</div>
-                                    <span>Claude Interactive Calendar</span>
-                                </div>
-                                <div class="ai-step-status">Waiting</div>
-                            </div>
-                            
-                            <div class="ai-step-content">
-                                <div class="instructions-box">
-                                    <div class="instructions-title">Instructions:</div>
-                                    <ul class="instructions-list">
-                                        <li>Copy the comprehensive prompt below</li>
-                                        <li>Open Claude in a new tab</li>
-                                        <li>Paste the prompt and submit</li>
-                                        <li>Wait for Claude to create your interactive calendar</li>
-                                        <li>Download the calendar artifact from Claude</li>
-                                        <li>Come back and confirm completion</li>
-                                    </ul>
-                                </div>
+                       <!-- Step 5: Claude Interactive Calendar -->
+<div class="ai-step-container pending" id="ai-step-5-container">
+    <div class="ai-step-header">
+        <div class="ai-step-title">
+            <div class="ai-step-number">5</div>
+            <span>Claude Interactive Calendar</span>
+        </div>
+        <div class="ai-step-status">Waiting</div>
+    </div>
+    
+    <div class="ai-step-content">
+        <div class="instructions-box">
+            <div class="instructions-title">Instructions:</div>
+            <ul class="instructions-list">
+                <li>Copy the comprehensive prompt below</li>
+                <li>Open Claude in a new tab</li>
+                <li>Paste the prompt and submit</li>
+                <li>Wait for Claude to create your interactive calendar</li>
+                <li>Copy the ENTIRE calendar artifact code from Claude</li>
+                <li>Paste the calendar code below to complete your workflow</li>
+            </ul>
+        </div>
 
-                                <div class="ai-prompt-area">
-                                    <label class="ai-prompt-label">Generated Prompt for Claude (Interactive Calendar):</label>
-                                    <textarea id="claude-calendar-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 4..."></textarea>
-                                </div>
+        <div class="ai-prompt-area">
+            <label class="ai-prompt-label">Generated Prompt for Claude (Interactive Calendar):</label>
+            <textarea id="claude-calendar-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 4..."></textarea>
+        </div>
 
-                                <div class="ai-buttons">
-                                    <button class="ai-btn copy" onclick="copyToClipboard('claude-calendar-prompt')" disabled id="copy-claude-btn">Copy Prompt</button>
-                                    <button class="ai-btn open" onclick="openClaude()" disabled id="open-claude-btn">Open Claude</button>
-                                    <button class="ai-btn back" onclick="goBackToStep(4)">Go Back</button>
-                                </div>
+        <div class="ai-buttons">
+            <button class="ai-btn copy" onclick="copyToClipboard('claude-calendar-prompt')" disabled id="copy-claude-btn">Copy Prompt</button>
+            <button class="ai-btn open" onclick="openClaude()" disabled id="open-claude-btn">Open Claude</button>
+            <button class="ai-btn back" onclick="goBackToStep(4)">Go Back</button>
+        </div>
 
-                                <div class="ai-response-area">
-                                    <label class="ai-prompt-label">Confirm Calendar Creation:</label>
-                                    <div style="padding: 20px; text-align: center;">
-                                        <p>Did Claude create your interactive calendar successfully?</p>
-                                        <button class="ai-btn next" id="confirm-calendar-btn" onclick="confirmCalendarCreation()">Yes, I have my calendar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="ai-response-area">
+            <label class="ai-prompt-label">Paste Your Complete Calendar Code Here:</label>
+            <textarea id="claude-calendar-code" class="ai-response-textarea" placeholder="Paste the complete interactive calendar artifact code from Claude here..." oninput="checkCalendarCodeAndEnableFinish()"></textarea>
+        </div>
 
+        <div class="ai-buttons">
+            <button class="ai-btn next" id="finish-workflow-btn" onclick="finishWorkflowWithCalendar()" disabled>Finish & Send My Calendar</button>
+        </div>
+    </div>
+</div>
                         <!-- Step 6: Final Integration Dashboard -->
                         <div class="ai-step-container pending" id="ai-step-6-container">
                             <div class="ai-step-header">
@@ -2944,17 +2945,20 @@ Make it practical, realistic, and tailored to her specific situation and constra
             });
         });
 
-        function checkBasicInfoComplete() {
-            const name = document.getElementById('user-name').value.trim();
-            const email = document.getElementById('user-email').value.trim();
-            
-            if (name && email && email.includes('@')) {
-                setTimeout(() => {
-                    document.getElementById('pathSelection').classList.remove('hidden');
-                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-            }
-        }
+      function checkBasicInfoComplete() {
+    const name = document.getElementById('user-name').value.trim();
+    const email = document.getElementById('user-email').value.trim();
+    
+    if (name && email && email.includes('@')) {
+        // Trigger welcome email
+        sendWelcomeEmail(name, email);
+        
+        setTimeout(() => {
+            document.getElementById('pathSelection').classList.remove('hidden');
+            document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+    }
+}
 
         // Make functions globally accessible
         window.startOnboarding = startOnboarding;
@@ -2966,6 +2970,126 @@ Make it practical, realistic, and tailored to her specific situation and constra
         window.closeReturningUserModal = closeReturningUserModal;
 
         console.log('Smart Mom Method - All functions loaded and ready!');
+        // ADD THESE NEW FUNCTIONS AFTER LINE 1059
+
+// Welcome Email Function
+async function sendWelcomeEmail(name, email) {
+    const welcomeData = {
+        trigger: 'welcome_email',
+        name: name,
+        email: email,
+        timestamp: new Date().toISOString(),
+        language: window.currentLanguage || 'en',
+        source: 'smart-mom-method-website'
+    };
+    
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(welcomeData)
+        });
+        
+        if (response.ok) {
+            console.log('✅ Welcome email sent');
+        }
+    } catch (error) {
+        console.warn('⚠️ Welcome email error:', error.message);
+    }
+}
+
+// Completion Email Function
+async function sendCompletionEmailWithCalendar(userData, calendarCode) {
+    const completionData = {
+        trigger: 'completion_email',
+        name: userData.name,
+        email: userData.email,
+        selectedPath: userData.selectedPath,
+        calendarCode: calendarCode,
+        completedAt: new Date().toISOString(),
+        language: window.currentLanguage || 'en',
+        source: 'smart-mom-method-website'
+    };
+    
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(completionData)
+        });
+        
+        if (response.ok) {
+            console.log('✅ Completion email with calendar sent');
+        }
+    } catch (error) {
+        console.warn('⚠️ Completion email error:', error.message);
+    }
+}
+
+// Check Calendar Code Function
+function checkCalendarCodeAndEnableFinish() {
+    const codeField = document.getElementById('claude-calendar-code');
+    const finishButton = document.getElementById('finish-workflow-btn');
+    
+    if (codeField && finishButton) {
+        const code = codeField.value.trim();
+        const isValidCode = code.length > 200 && 
+                          (code.includes('<') || code.includes('calendar') || code.includes('schedule'));
+        finishButton.disabled = !isValidCode;
+    }
+}
+
+// Finish Workflow Function
+function finishWorkflowWithCalendar() {
+    const calendarCode = document.getElementById('claude-calendar-code').value.trim();
+    const userData = collectUserData();
+    
+    if (!calendarCode || !userData) {
+        alert('Please make sure you have pasted your calendar code and completed all required fields.');
+        return;
+    }
+    
+    aiResponses.calendarCode = calendarCode;
+    sendCompletionEmailWithCalendar(userData, calendarCode);
+    updateStepStatus(5, 'completed');
+    updateStepStatus(6, 'current');
+    showWorkflowCompletion();
+}
+
+// Show Workflow Completion Function
+function showWorkflowCompletion() {
+    document.getElementById('interactiveAIWorkflow').classList.add('hidden');
+    
+    const completionHtml = `
+        <div style="background: linear-gradient(135deg, var(--sage-green), var(--deep-teal)); color: white; padding: 60px 40px; text-align: center; border-radius: 24px; margin: 40px 0;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">🎉 Workflow Complete!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your personalized interactive calendar has been sent to your email!</p>
+            
+            <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
+                <h3 style="margin-bottom: 15px;">What's Next:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin: 10px 0;">📧 Check your email for your interactive calendar</li>
+                    <li style="margin: 10px 0;">📅 Download and start using your personalized calendar</li>
+                    <li style="margin: 10px 0;">🚀 Begin implementing your business plan</li>
+                    <li style="margin: 10px 0;">💪 Take action on your organized life goals</li>
+                </ul>
+            </div>
+
+            <button onclick="location.reload()" style="background: var(--soft-gold); color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
+                Create Another Plan
+            </button>
+        </div>
+    `;
+    
+    const container = document.querySelector('.content');
+    container.innerHTML = completionHtml;
+}
     </script>
 </body>
 </html>
