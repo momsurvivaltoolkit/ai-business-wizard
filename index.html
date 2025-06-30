@@ -1973,6 +1973,34 @@
                     </div>
                 </div>
 
+                <!-- Booking Section -->
+                <div id="bookingSection" class="hidden">
+                    <div class="booking-section">
+                        <h2>Need Personal Guidance?</h2>
+                        <p>Sometimes you need a real person to talk through your specific situation. Book a call with our Smart Mom Method experts.</p>
+                        
+                        <div class="booking-options">
+                            <div class="booking-card">
+                                <div class="icon">💬</div>
+                                <h3>Free Smart Mom Call</h3>
+                                <p>30-minute free consultation to discuss your goals and get personalized advice on your next steps.</p>
+                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min', '_blank')">
+                                    Book Free Call
+                                </button>
+                            </div>
+
+                            <div class="booking-card">
+                                <div class="icon">🎯</div>
+                                <h3>Strategy Session</h3>
+                                <p>30-minute focused strategy session to create a detailed action plan for your business or life organization goals.</p>
+                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/30min', '_blank')">
+                                    Book Free Strategy Session
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Payment Options -->
                 <div id="paymentOptions" class="hidden">
                     <div class="payment-options">
@@ -2037,34 +2065,6 @@
                                 </ul>
                                 <button class="payment-btn featured" onclick="window.open('https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04', '_blank')">
                                     Get Complete Package
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Booking Section -->
-                <div id="bookingSection" class="hidden">
-                    <div class="booking-section">
-                        <h2>Need Personal Guidance?</h2>
-                        <p>Sometimes you need a real person to talk through your specific situation. Book a call with our Smart Mom Method experts.</p>
-                        
-                        <div class="booking-options">
-                            <div class="booking-card">
-                                <div class="icon">💬</div>
-                                <h3>Free Smart Mom Call</h3>
-                                <p>30-minute free consultation to discuss your goals and get personalized advice on your next steps.</p>
-                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min', '_blank')">
-                                    Book Free Call
-                                </button>
-                            </div>
-
-                            <div class="booking-card">
-                                <div class="icon">🎯</div>
-                                <h3>Strategy Session</h3>
-                                <p>30-minute focused strategy session to create a detailed action plan for your business or life organization goals.</p>
-                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/30min', '_blank')">
-                                    Book Strategy Session
                                 </button>
                             </div>
                         </div>
@@ -3257,9 +3257,9 @@ Create this as a complete, downloadable HTML file that she can use as her busine
             // Populate dashboard content
             populateFinalDashboard();
             
-            // Automatically show payment options and other sections
-            document.getElementById('paymentOptions').classList.remove('hidden');
+            // Automatically show payment options and other sections in correct order
             document.getElementById('bookingSection').classList.remove('hidden');
+            document.getElementById('paymentOptions').classList.remove('hidden');
             document.getElementById('completionSection').classList.remove('hidden');
         }
 
@@ -3764,8 +3764,8 @@ END:VCALENDAR`;
             document.getElementById('businessQuestionnaire').classList.add('hidden');
             document.getElementById('interactiveAIWorkflow').classList.add('hidden');
             document.getElementById('finalDashboard').classList.add('hidden');
-            document.getElementById('paymentOptions').classList.add('hidden');
             document.getElementById('bookingSection').classList.add('hidden');
+            document.getElementById('paymentOptions').classList.add('hidden');
             document.getElementById('completionSection').classList.add('hidden');
             
             // Scroll to top
