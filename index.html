@@ -747,6 +747,70 @@
             display: none !important;
         }
 
+        /* AI Process Steps */
+        .ai-step {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            background: var(--warm-cream);
+            border: 2px solid var(--light-sage);
+            transition: all 0.3s ease;
+        }
+
+        .ai-step.processing {
+            border-color: var(--soft-gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .ai-step.completed {
+            border-color: var(--sage-green);
+            background: var(--light-sage);
+        }
+
+        .ai-step-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .ai-step-content {
+            flex: 1;
+        }
+
+        .ai-step-content h4 {
+            margin: 0 0 8px 0;
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        .ai-step-content p {
+            margin: 0;
+            color: var(--charcoal);
+            opacity: 0.8;
+        }
+
+        .ai-step-status {
+            font-weight: 600;
+            color: var(--soft-gold);
+            min-width: 120px;
+            text-align: right;
+        }
+
+        .ai-step.processing .ai-step-status {
+            color: var(--soft-gold);
+        }
+
+        .ai-step.completed .ai-step-status {
+            color: var(--sage-green);
+        }
+
+        .ai-step.completed .ai-step-icon {
+            color: var(--sage-green);
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .container {
@@ -994,21 +1058,115 @@
                 <div id="successMessage" class="hidden">
                     <div class="step-description">
                         <h2>🎉 Path Selected Successfully!</h2>
-                        <p>Great choice! You've selected your path and we've gathered your information. In a real implementation, this would proceed to generate personalized AI prompts for ChatGPT, Gemini, and Claude to create your comprehensive business plan.</p>
+                        <p>Perfect! You've selected the <strong id="selectedPathDisplay"></strong> path. Now let's create your personalized interactive calendar with AI assistance.</p>
                         
                         <div style="background: var(--light-sage); padding: 20px; border-radius: 12px; margin-top: 20px;">
                             <h3>What happens next:</h3>
-                            <ul style="margin: 15px 0; padding-left: 20px;">
-                                <li>Generate personalized ChatGPT prompts</li>
-                                <li>Refine ideas with Gemini research</li>
-                                <li>Create final plan with Claude</li>
-                                <li>Download your complete business plan</li>
-                            </ul>
+                            <ol style="margin: 15px 0; padding-left: 20px;">
+                                <li><strong>AI Analysis:</strong> Analyze your schedule and goals</li>
+                                <li><strong>Calendar Generation:</strong> Create your interactive calendar</li>
+                                <li><strong>Time Optimization:</strong> Optimize your daily routines</li>
+                                <li><strong>Action Plan:</strong> Build your step-by-step plan</li>
+                                <li><strong>Download Ready:</strong> Get your interactive calendar</li>
+                            </ol>
                         </div>
                         
-                        <button class="continue-btn visible" onclick="startOver()" style="opacity: 1; pointer-events: all; transform: translateY(0);">
-                            Try Different Path
+                        <button class="continue-btn visible" onclick="startAIProcess()" style="opacity: 1; pointer-events: all; transform: translateY(0);">
+                            🚀 Generate My Interactive Calendar
                         </button>
+                        
+                        <button class="continue-btn visible" onclick="startOver()" style="opacity: 1; pointer-events: all; transform: translateY(0); background: var(--deep-teal); margin-left: 10px;">
+                            🔄 Choose Different Path
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Process Steps -->
+                <div id="aiProcessSteps" class="hidden">
+                    <div class="step-description">
+                        <h2>🤖 AI-Powered Interactive Calendar Generation</h2>
+                        <p>We're creating your personalized interactive calendar and life organization system using advanced AI. This process takes just a few minutes.</p>
+                    </div>
+
+                    <div id="aiProgress" style="background: white; padding: 30px; border-radius: 20px; border: 2px solid var(--light-sage); margin: 20px 0;">
+                        <h3 style="margin-bottom: 20px;">Calendar Generation Progress:</h3>
+                        
+                        <div class="ai-step" id="ai-step-1">
+                            <div class="ai-step-icon">⏳</div>
+                            <div class="ai-step-content">
+                                <h4>Step 1: Analyzing Your Schedule & Goals</h4>
+                                <p>Processing your daily routine, family needs, and priorities...</p>
+                            </div>
+                            <div class="ai-step-status">In Progress...</div>
+                        </div>
+
+                        <div class="ai-step" id="ai-step-2">
+                            <div class="ai-step-icon">⏳</div>
+                            <div class="ai-step-content">
+                                <h4>Step 2: Creating Your Interactive Calendar</h4>
+                                <p>Building personalized time blocks and daily schedules...</p>
+                            </div>
+                            <div class="ai-step-status">Waiting...</div>
+                        </div>
+
+                        <div class="ai-step" id="ai-step-3">
+                            <div class="ai-step-icon">⏳</div>
+                            <div class="ai-step-content">
+                                <h4>Step 3: Optimizing Time Management</h4>
+                                <p>Fine-tuning routines for maximum efficiency...</p>
+                            </div>
+                            <div class="ai-step-status">Waiting...</div>
+                        </div>
+
+                        <div class="ai-step" id="ai-step-4">
+                            <div class="ai-step-icon">⏳</div>
+                            <div class="ai-step-content">
+                                <h4>Step 4: Finalizing Your Action Plan</h4>
+                                <p>Creating step-by-step implementation guide...</p>
+                            </div>
+                            <div class="ai-step-status">Waiting...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Completion -->
+                <div id="completionSection" class="hidden">
+                    <div style="background: linear-gradient(135deg, var(--sage-green), var(--deep-teal)); color: white; padding: 60px 40px; text-align: center; border-radius: 24px; margin: 40px 0; position: relative; overflow: hidden;">
+                        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">🎉 Congratulations!</h2>
+                        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your personalized Smart Mom interactive calendar is ready!</p>
+                        
+                        <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
+                            <h3 style="margin-bottom: 15px;">Your Interactive Calendar Includes:</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin: 10px 0;">📅 Personalized daily schedule blocks</li>
+                                <li style="margin: 10px 0;">⏰ Optimized time management system</li>
+                                <li style="margin: 10px 0;">🎯 Goal-oriented task organization</li>
+                                <li style="margin: 10px 0;">📋 Interactive checklist templates</li>
+                                <li style="margin: 10px 0;">🔄 Family routine optimization</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="downloadCalendar()" style="background: var(--soft-gold); color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
+                            📥 Download Your Interactive Calendar
+                        </button>
+                        
+                        <button onclick="emailCalendar()" style="background: white; color: var(--sage-green); padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
+                            📧 Email Me My Calendar
+                        </button>
+                    </div>
+
+                    <div style="background: var(--light-sage); padding: 30px; border-radius: 20px; text-align: center;">
+                        <h3>Thank you for using Smart Mom Method! 🌟</h3>
+                        <p>Your journey to an organized life and successful business starts now. We're here to support you every step of the way.</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <button onclick="provideFeedback()" style="background: var(--sage-green); color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 5px; cursor: pointer;">
+                                💬 Share Feedback
+                            </button>
+                            <button onclick="startOver()" style="background: var(--deep-teal); color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 5px; cursor: pointer;">
+                                🔄 Create Another Plan
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1016,6 +1174,11 @@
     </div>
 
     <script>
+        // Airtable Configuration
+        const AIRTABLE_BASE_ID = 'appQUFJzVLlHbB4Fp';
+        const AIRTABLE_TOKEN = 'patje3I65ajVyNTSN.3963cc18c6dc227b6e290d5da83da3bde2f4d089d60d4a0e49787fecdb676f65';
+        const AIRTABLE_TABLE_NAME = 'Users';
+
         // Global Variables
         let currentLanguage = 'en';
         let currentStep = 1;
@@ -1026,7 +1189,7 @@
         const translations = {
             en: {
                 welcomeTitle: "Welcome to Smart Mom Method!",
-                welcomeDescription: "Create your personalized business plan in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive business plan tailored specifically for busy moms like you.",
+                welcomeDescription: "Create your personalized interactive calendar in 7 simple steps. This process will take approximately 20-25 minutes and will generate a comprehensive interactive calendar and plan tailored specifically for busy moms like you.",
                 welcomeStart: "Get Started",
                 welcomeCreate: "Create Account & Save Progress",
                 welcomeReturning: "I'm a returning user",
@@ -1034,14 +1197,14 @@
                 stepCounter: "Step 1 of 7",
                 timeEstimate: "⏱️ Estimated: 5 min",
                 mainTitle: "Smart Mom Method",
-                mainSubtitle: "AI-Powered Business Planning for Busy Moms",
+                mainSubtitle: "AI-Powered Interactive Calendar for Busy Moms",
                 freeBadge: "100% Free",
-                ctaButton: "Start Your Free Business Plan Now",
+                ctaButton: "Start Your Free Interactive Calendar Now",
                 ctaSubtext: "No email required to browse • Full process takes 20-25 minutes",
                 stepDescTitle: "👋 Let's Get Started",
-                stepDescText: "First, let's get to know you better so we can create the perfect plan for your unique situation.",
+                stepDescText: "First, let's get to know you better so we can create the perfect interactive calendar for your unique situation.",
                 empowermentTitle: "You're Already Successful! 🌟",
-                empowermentText: "Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR business!",
+                empowermentText: "Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and business!",
                 initialStepTitle: "👋 Let's Get Started",
                 nameLabel: "Your Name:",
                 emailLabel: "Your Email:",
@@ -1056,7 +1219,7 @@
             },
             es: {
                 welcomeTitle: "¡Bienvenida al Método Smart Mom!",
-                welcomeDescription: "Crea tu plan de negocio personalizado en 7 pasos simples. Este proceso tomará aproximadamente 20-25 minutos y generará un plan de negocio integral diseñado específicamente para mamás ocupadas como tú.",
+                welcomeDescription: "Crea tu calendario interactivo personalizado en 7 pasos simples. Este proceso tomará aproximadamente 20-25 minutos y generará un calendario interactivo y plan integral diseñado específicamente para mamás ocupadas como tú.",
                 welcomeStart: "Comenzar",
                 welcomeCreate: "Crear Cuenta y Guardar Progreso",
                 welcomeReturning: "Soy usuaria recurrente",
@@ -1064,14 +1227,14 @@
                 stepCounter: "Paso 1 de 7",
                 timeEstimate: "⏱️ Estimado: 5 min",
                 mainTitle: "Método Smart Mom",
-                mainSubtitle: "Planificación de Negocios con IA para Mamás Ocupadas",
+                mainSubtitle: "Calendario Interactivo con IA para Mamás Ocupadas",
                 freeBadge: "100% Gratis",
-                ctaButton: "Inicia Tu Plan de Negocio Gratis Ahora",
+                ctaButton: "Inicia Tu Calendario Interactivo Gratis Ahora",
                 ctaSubtext: "No se requiere email para navegar • El proceso completo toma 20-25 minutos",
                 stepDescTitle: "👋 ¡Comencemos!",
-                stepDescText: "Primero, conozcámonos mejor para poder crear el plan perfecto para tu situación única.",
+                stepDescText: "Primero, conozcámonos mejor para poder crear el calendario interactivo perfecto para tu situación única.",
                 empowermentTitle: "¡Ya Eres Exitosa! 🌟",
-                empowermentText: "Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalizemos eso hacia TU negocio!",
+                empowermentText: "Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalizemos eso hacia TU vida organizada y negocio!",
                 initialStepTitle: "👋 ¡Comencemos!",
                 nameLabel: "Tu Nombre:",
                 emailLabel: "Tu Correo Electrónico:",
@@ -1090,6 +1253,182 @@
         function initializeApp() {
             updateUIText();
             checkInitialFields();
+            
+            // Add auth form submission handler
+            document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+        }
+
+        // Authentication Functions
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value;
+            const name = document.getElementById('authName').value.trim();
+            const confirmPassword = document.getElementById('authConfirmPassword').value;
+            
+            const errorDiv = document.getElementById('authError');
+            const successDiv = document.getElementById('authSuccess');
+            const submitBtn = document.getElementById('authSubmitBtn');
+            
+            // Clear previous messages
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+            
+            // Validation
+            if (!email || !password) {
+                showAuthError('Please fill in all required fields.');
+                return;
+            }
+            
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!emailValid) {
+                showAuthError('Please enter a valid email address.');
+                return;
+            }
+            
+            if (authMode === 'signup') {
+                if (!name) {
+                    showAuthError('Please enter your name.');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showAuthError('Passwords do not match.');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showAuthError('Password must be at least 6 characters long.');
+                    return;
+                }
+            }
+            
+            // Show loading state
+            submitBtn.textContent = authMode === 'signup' ? 'Creating Account...' : 'Signing In...';
+            submitBtn.disabled = true;
+            
+            try {
+                if (authMode === 'signup') {
+                    await handleSignup(email, password, name);
+                } else {
+                    await handleSignin(email, password);
+                }
+            } catch (error) {
+                console.error('Auth error:', error);
+                showAuthError('An error occurred. Please try again.');
+            }
+            
+            // Reset button
+            submitBtn.textContent = authMode === 'signup' ? 'Create Account' : 'Sign In';
+            submitBtn.disabled = false;
+        }
+
+        async function handleSignup(email, password, name) {
+            // Check if user already exists
+            const existingUser = await loadFromAirtable(email);
+            if (existingUser) {
+                showAuthError('An account with this email already exists. Please sign in instead.');
+                return;
+            }
+            
+            // Create simple password hash (in production, use proper hashing)
+            const passwordHash = btoa(password); // Basic encoding - use proper hashing in production
+            
+            const userData = {
+                email: email,
+                name: name,
+                selectedPath: '',
+                currentStep: 1,
+                language: currentLanguage,
+                formData: {},
+                passwordHash: passwordHash,
+                createdAt: new Date().toISOString()
+            };
+            
+            try {
+                const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: {
+                            Email: userData.email,
+                            Name: userData.name,
+                            'Selected Path': userData.selectedPath,
+                            'Current Step': userData.currentStep,
+                            'Last Updated': new Date().toISOString(),
+                            'Form Data': JSON.stringify(userData.formData),
+                            Language: userData.language,
+                            'Password Hash': userData.passwordHash,
+                            'Created At': userData.createdAt
+                        }
+                    })
+                });
+                
+                if (response.ok) {
+                    showAuthSuccess('Account created successfully! You can now save your progress.');
+                    
+                    // Send welcome email webhook
+                    await sendWelcomeEmail(userData);
+                    
+                    // Auto-fill the main form
+                    document.getElementById('user-name').value = name;
+                    document.getElementById('user-email').value = email;
+                    
+                    // Close modal after delay
+                    setTimeout(() => {
+                        closeAuthModal();
+                        checkInitialFields(); // This will show path selection if fields are filled
+                    }, 2000);
+                    
+                } else {
+                    throw new Error('Failed to create account');
+                }
+                
+            } catch (error) {
+                showAuthError('Failed to create account. Please try again.');
+            }
+        }
+
+        async function handleSignin(email, password) {
+            const userData = await loadFromAirtable(email);
+            
+            if (!userData) {
+                showAuthError('No account found with this email address.');
+                return;
+            }
+            
+            // Check password (basic comparison - use proper verification in production)
+            const storedHash = userData.passwordHash || '';
+            const passwordHash = btoa(password);
+            
+            if (storedHash !== passwordHash) {
+                showAuthError('Incorrect password.');
+                return;
+            }
+            
+            showAuthSuccess(`Welcome back, ${userData.name}!`);
+            
+            // Load user progress
+            setTimeout(() => {
+                loadUserProgress(userData);
+                closeAuthModal();
+            }, 1500);
+        }
+
+        function showAuthError(message) {
+            const errorDiv = document.getElementById('authError');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function showAuthSuccess(message) {
+            const successDiv = document.getElementById('authSuccess');
+            successDiv.textContent = message;
+            successDiv.classList.remove('hidden');
         }
 
         // Language Functions
@@ -1170,15 +1509,233 @@
             showAuthModal(authMode === 'signup' ? 'signin' : 'signup');
         }
 
-        function handleReturningUser() {
-            const email = prompt(currentLanguage === 'es' ? 
-                'Ingresa tu correo electrónico:' : 
-                'Enter your email address:');
+        // Real Airtable Functions
+        async function loadFromAirtable(email) {
+            try {
+                const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}?filterByFormula={Email}="${email}"`, {
+                    headers: {
+                        'Authorization': `Bearer ${AIRTABLE_TOKEN}`
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.records.length > 0) {
+                        const record = result.records[0];
+                        return {
+                            id: record.id,
+                            email: record.fields.Email,
+                            name: record.fields.Name,
+                            selectedPath: record.fields['Selected Path'],
+                            currentStep: record.fields['Current Step'] || 1,
+                            formData: JSON.parse(record.fields['Form Data'] || '{}'),
+                            language: record.fields.Language || 'en',
+                            passwordHash: record.fields['Password Hash'] || '',
+                            createdAt: record.fields['Created At']
+                        };
+                    }
+                }
+                return null;
+            } catch (error) {
+                console.error('Error loading from Airtable:', error);
+                return null;
+            }
+        }
+
+        async function saveToAirtable(userData) {
+            try {
+                const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: {
+                            Email: userData.email,
+                            Name: userData.name || '',
+                            'Selected Path': userData.selectedPath || '',
+                            'Current Step': userData.currentStep || 1,
+                            'Last Updated': new Date().toISOString(),
+                            'Form Data': JSON.stringify(userData.formData || {}),
+                            Language: userData.language || currentLanguage
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    return result.id;
+                } else {
+                    throw new Error(`Airtable error: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Error saving to Airtable:', error);
+                return null;
+            }
+        }
+
+        async function handleReturningUser() {
+            document.getElementById('welcomeModal').classList.add('hidden');
+            
+            // Create a better input modal instead of using prompt
+            const modal = document.createElement('div');
+            modal.className = 'auth-modal active';
+            modal.id = 'returningUserModal';
+            
+            modal.innerHTML = `
+                <div class="auth-content">
+                    <button class="auth-close" onclick="closeReturningUserModal()">&times;</button>
+                    <h2 class="auth-title">${currentLanguage === 'es' ? 'Bienvenida de Nuevo' : 'Welcome Back'}</h2>
+                    
+                    <div id="returningUserError" class="auth-error hidden"></div>
+                    <div id="returningUserSuccess" class="auth-success hidden"></div>
+                    
+                    <div class="auth-form">
+                        <input type="email" id="returningUserEmail" class="auth-input" placeholder="${currentLanguage === 'es' ? 'Tu correo electrónico' : 'Your email address'}" required>
+                        <button type="button" class="auth-button" onclick="lookupReturningUser()" id="lookupBtn">
+                            ${currentLanguage === 'es' ? 'Buscar Mi Progreso' : 'Find My Progress'}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        function closeReturningUserModal() {
+            const modal = document.getElementById('returningUserModal');
+            if (modal) {
+                modal.remove();
+                document.getElementById('welcomeModal').classList.remove('hidden');
+            }
+        }
+
+        async function lookupReturningUser() {
+            const email = document.getElementById('returningUserEmail').value.trim();
+            const errorDiv = document.getElementById('returningUserError');
+            const successDiv = document.getElementById('returningUserSuccess');
+            const lookupBtn = document.getElementById('lookupBtn');
+            
+            // Clear previous messages
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+            
+            if (!email) {
+                errorDiv.textContent = currentLanguage === 'es' ? 
+                    'Por favor ingresa tu correo electrónico.' : 
+                    'Please enter your email address.';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            // Validate email format
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!emailValid) {
+                errorDiv.textContent = currentLanguage === 'es' ? 
+                    'Por favor ingresa un correo electrónico válido.' : 
+                    'Please enter a valid email address.';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading state
+            lookupBtn.textContent = currentLanguage === 'es' ? 'Buscando...' : 'Looking up...';
+            lookupBtn.disabled = true;
+
+            try {
+                const userData = await loadFromAirtable(email);
                 
-            if (email) {
-                alert(currentLanguage === 'es' ? 
-                    'Funcionalidad de usuario recurrente estará disponible pronto.' :
-                    'Returning user functionality coming soon.');
+                if (userData) {
+                    // Success! Load user data
+                    successDiv.textContent = currentLanguage === 'es' ? 
+                        `¡Encontrado! Bienvenida de nuevo, ${userData.name || 'Smart Mom'}!` : 
+                        `Found! Welcome back, ${userData.name || 'Smart Mom'}!`;
+                    successDiv.classList.remove('hidden');
+                    
+                    // Load user progress
+                    setTimeout(() => {
+                        loadUserProgress(userData);
+                        closeReturningUserModal();
+                    }, 1500);
+                    
+                } else {
+                    // User not found
+                    errorDiv.textContent = currentLanguage === 'es' ? 
+                        'Correo no encontrado. ¿Te gustaría empezar un nuevo viaje?' : 
+                        'Email not found. Would you like to start a new journey?';
+                    errorDiv.classList.remove('hidden');
+                    
+                    // Offer to start new journey
+                    setTimeout(() => {
+                        if (confirm(currentLanguage === 'es' ? 
+                            '¿Quieres empezar desde el principio?' : 
+                            'Would you like to start from the beginning?')) {
+                            closeReturningUserModal();
+                        }
+                    }, 2000);
+                }
+                
+            } catch (error) {
+                errorDiv.textContent = currentLanguage === 'es' ? 
+                    'Error al buscar tu información. Por favor intenta de nuevo.' : 
+                    'Error looking up your information. Please try again.';
+                errorDiv.classList.remove('hidden');
+            }
+
+            // Reset button
+            lookupBtn.textContent = currentLanguage === 'es' ? 'Buscar Mi Progreso' : 'Find My Progress';
+            lookupBtn.disabled = false;
+        }
+
+        function loadUserProgress(userData) {
+            // Set global variables
+            selectedPath = userData.selectedPath || '';
+            currentLanguage = userData.language || 'en';
+            
+            // Update language UI
+            changeLanguage(currentLanguage);
+            
+            // Fill form fields if they exist
+            if (userData.name) {
+                const nameField = document.getElementById('user-name');
+                if (nameField) nameField.value = userData.name;
+            }
+            
+            if (userData.email) {
+                const emailField = document.getElementById('user-email');
+                if (emailField) emailField.value = userData.email;
+            }
+            
+            // Fill other form data
+            Object.keys(userData.formData || {}).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = userData.formData[key];
+                }
+            });
+            
+            // Show appropriate step based on progress
+            if (userData.selectedPath) {
+                // User has selected a path, show success or continue to next steps
+                if (userData.currentStep >= 2) {
+                    proceedWithSelectedPath();
+                } else {
+                    // Show path selection with pre-selected path
+                    document.getElementById('pathSelection').classList.remove('hidden');
+                    const pathOption = document.querySelector(`[data-path="${userData.selectedPath}"]`);
+                    if (pathOption) {
+                        pathOption.classList.add('selected');
+                        document.getElementById('continueBtn').classList.add('visible');
+                    }
+                }
+            } else {
+                // User hasn't selected a path yet, show path selection
+                const nameField = document.getElementById('user-name');
+                const emailField = document.getElementById('user-email');
+                if (nameField && emailField && nameField.value && emailField.value) {
+                    document.getElementById('pathSelection').classList.remove('hidden');
+                }
             }
         }
 
@@ -1257,12 +1814,36 @@
             continueBtn.classList.add('visible');
         }
 
-        function proceedWithSelectedPath() {
+        async function proceedWithSelectedPath() {
             if (!selectedPath) {
                 alert(currentLanguage === 'es' ? 
                     'Por favor selecciona un camino antes de continuar.' :
                     'Please select a path before continuing.');
                 return;
+            }
+            
+            // Get user data
+            const userData = {
+                email: document.getElementById('user-email').value.trim(),
+                name: document.getElementById('user-name').value.trim(),
+                selectedPath: selectedPath,
+                currentStep: 2,
+                language: currentLanguage,
+                formData: {
+                    'user-name': document.getElementById('user-name').value.trim(),
+                    'user-email': document.getElementById('user-email').value.trim()
+                }
+            };
+
+            // Save to Airtable
+            try {
+                const recordId = await saveToAirtable(userData);
+                if (recordId) {
+                    console.log('User data saved to Airtable with ID:', recordId);
+                }
+            } catch (error) {
+                console.error('Error saving user data:', error);
+                // Continue anyway - don't block the user experience
             }
             
             // Hide current sections
@@ -1273,12 +1854,266 @@
             document.getElementById('successMessage').classList.remove('hidden');
             document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
             
-            console.log('Selected path:', selectedPath);
-            console.log('User data:', {
-                name: document.getElementById('user-name').value,
-                email: document.getElementById('user-email').value,
-                path: selectedPath
-            });
+            // Send webhook notification if needed
+            sendWebhookNotification(userData);
+            
+            // Update selected path display
+            updateSelectedPathDisplay();
+        }
+
+        function updateSelectedPathDisplay() {
+            const pathNames = {
+                'life-organization': currentLanguage === 'es' ? 'Organización de Vida' : 'Life Organization',
+                'business-launch': currentLanguage === 'es' ? 'Lanzamiento de Negocio' : 'Business Launch',
+                'both': currentLanguage === 'es' ? 'Vida y Negocio' : 'Life & Business'
+            };
+            
+            const displayElement = document.getElementById('selectedPathDisplay');
+            if (displayElement) {
+                displayElement.textContent = pathNames[selectedPath] || selectedPath;
+            }
+        }
+
+        // AI Process Functions
+        async function startAIProcess() {
+            // Hide success message and show AI process
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('aiProcessSteps').classList.remove('hidden');
+            document.getElementById('aiProcessSteps').scrollIntoView({ behavior: 'smooth' });
+            
+            // Simulate AI processing steps
+            await simulateAISteps();
+        }
+
+        async function simulateAISteps() {
+            const steps = [
+                { id: 'ai-step-1', duration: 3000, icon: '🔍', status: 'Analyzing...' },
+                { id: 'ai-step-2', duration: 4000, icon: '🤖', status: 'Generating...' },
+                { id: 'ai-step-3', duration: 3500, icon: '📊', status: 'Researching...' },
+                { id: 'ai-step-4', duration: 2500, icon: '📅', status: 'Creating...' }
+            ];
+
+            for (let i = 0; i < steps.length; i++) {
+                const step = steps[i];
+                const stepElement = document.getElementById(step.id);
+                
+                // Start processing this step
+                stepElement.classList.add('processing');
+                stepElement.querySelector('.ai-step-icon').textContent = step.icon;
+                stepElement.querySelector('.ai-step-status').textContent = step.status;
+                
+                // Wait for the step duration
+                await new Promise(resolve => setTimeout(resolve, step.duration));
+                
+                // Complete this step
+                stepElement.classList.remove('processing');
+                stepElement.classList.add('completed');
+                stepElement.querySelector('.ai-step-icon').textContent = '✅';
+                stepElement.querySelector('.ai-step-status').textContent = 'Completed!';
+                
+                // Small delay between steps
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            // All steps completed, show final section
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            showCompletion();
+        }
+
+        function showCompletion() {
+            // Hide AI process and show completion
+            document.getElementById('aiProcessSteps').classList.add('hidden');
+            document.getElementById('completionSection').classList.remove('hidden');
+            document.getElementById('completionSection').scrollIntoView({ behavior: 'smooth' });
+            
+            // Send completion webhook
+            sendCompletionNotification();
+        }
+
+        async function sendCompletionNotification() {
+            const userData = {
+                email: document.getElementById('user-email').value.trim(),
+                name: document.getElementById('user-name').value.trim(),
+                selectedPath: selectedPath,
+                completed: true,
+                language: currentLanguage
+            };
+
+            try {
+                await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-complete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ...userData,
+                        trigger_completion_email: 'true',
+                        calendar_ready: 'true',
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch (error) {
+                console.error('Error sending completion notification:', error);
+            }
+        }
+
+        // Download and Email Functions
+        function downloadCalendar() {
+            // Generate calendar content based on selected path
+            const calendarContent = generateCalendarContent();
+            
+            // Create downloadable file
+            const blob = new Blob([calendarContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `smart-mom-interactive-calendar-${selectedPath}.ics`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Track download
+            console.log('Interactive calendar downloaded for path:', selectedPath);
+        }
+
+        async function emailCalendar() {
+            const email = document.getElementById('user-email').value.trim();
+            
+            try {
+                await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-email-calendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        name: document.getElementById('user-name').value.trim(),
+                        selectedPath: selectedPath,
+                        trigger_calendar_email: 'true',
+                        language: currentLanguage,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                alert(currentLanguage === 'es' ? 
+                    '¡Perfecto! Te hemos enviado tu calendario interactivo por correo electrónico.' :
+                    'Perfect! We\'ve sent your interactive calendar to your email address.');
+                    
+            } catch (error) {
+                console.error('Error sending calendar email:', error);
+                alert(currentLanguage === 'es' ? 
+                    'Error al enviar el correo. Por favor intenta descargar directamente.' :
+                    'Error sending email. Please try downloading directly.');
+            }
+        }
+
+        function generateCalendarContent() {
+            const now = new Date();
+            const pathTitles = {
+                'life-organization': 'Smart Mom Interactive Life Organization Calendar',
+                'business-launch': 'Smart Mom Interactive Business Launch Calendar',
+                'both': 'Smart Mom Complete Interactive Life & Business Calendar'
+            };
+            
+            // Enhanced ICS calendar format with more interactive elements
+            return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Smart Mom Method Interactive Calendar//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:${pathTitles[selectedPath] || 'Smart Mom Interactive Calendar'}
+X-WR-CALDESC:Your personalized Smart Mom Method interactive calendar with optimized daily routines, goal tracking, and family organization system.
+BEGIN:VEVENT
+UID:smartmom-welcome-${Date.now()}@smartmommethod.com
+DTSTAMP:${now.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTSTART:${now.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+SUMMARY:🌟 Welcome to Your Smart Mom Interactive Calendar!
+DESCRIPTION:Congratulations! Your personalized Smart Mom Method interactive calendar is ready. This calendar includes time-blocked schedules\\, family routines\\, and goal-oriented tasks designed specifically for busy moms like you. Start implementing your new organized life today!
+CATEGORIES:Smart Mom Method\\,Life Organization\\,Goal Setting
+END:VEVENT
+END:VCALENDAR`;
+        }
+
+        function provideFeedback() {
+            const feedback = prompt(currentLanguage === 'es' ? 
+                'Comparte tu experiencia con Smart Mom Method:' :
+                'Share your experience with Smart Mom Method:');
+                
+            if (feedback) {
+                // Send feedback to webhook
+                fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById('user-email').value.trim(),
+                        name: document.getElementById('user-name').value.trim(),
+                        feedback: feedback,
+                        selectedPath: selectedPath,
+                        language: currentLanguage,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                alert(currentLanguage === 'es' ? 
+                    '¡Gracias por tu feedback!' :
+                    'Thank you for your feedback!');
+            }
+        }
+
+        async function sendWelcomeEmail(userData) {
+            try {
+                const response = await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-welcome', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: userData.email,
+                        name: userData.name,
+                        trigger_welcome_email: 'true',
+                        account_created: 'true',
+                        language: userData.language,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Welcome email webhook sent successfully');
+                } else {
+                    console.error('Welcome email webhook error:', response.status);
+                }
+            } catch (error) {
+                console.error('Error sending welcome email webhook:', error);
+            }
+        }
+
+        async function sendWebhookNotification(userData) {
+            try {
+                const response = await fetch('https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: userData.email,
+                        name: userData.name,
+                        selected_path: userData.selectedPath,
+                        trigger_path_email: 'true',
+                        lead_stage: 'Path Selected',
+                        language: userData.language,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Webhook notification sent successfully');
+                } else {
+                    console.error('Webhook error:', response.status);
+                }
+            } catch (error) {
+                console.error('Error sending webhook:', error);
+            }
         }
 
         function startOver() {
