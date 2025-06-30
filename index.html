@@ -2034,6 +2034,13 @@
                         <h2>Need Personal Guidance?</h2>
                         <p>Sometimes you need a real person to talk through your specific situation. Book a call with our Smart Mom Method experts.</p>
                         
+                        <!-- Back to Planning Button -->
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <button onclick="returnToPlanningProcess()" onmouseover="this.style.background='#1E3D47'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--deep-teal)'; this.style.transform='translateY(0)'" style="background: var(--deep-teal); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                ← Return to Free Planning Process
+                            </button>
+                        </div>
+                        
                         <div class="booking-options">
                             <div class="booking-card">
                                 <div class="icon">💬</div>
@@ -2061,6 +2068,13 @@
                     <div class="payment-options">
                         <h2>Transform Your Plan Into Action</h2>
                         <p>You've got the ideas - now let's make them happen! Get your personalized interactive calendar and expert guidance to succeed.</p>
+                        
+                        <!-- Back to Planning Button -->
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <button onclick="returnToPlanningProcess()" onmouseover="this.style.background='#1E3D47'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--deep-teal)'; this.style.transform='translateY(0)'" style="background: var(--deep-teal); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                ← Return to Free Planning Process
+                            </button>
+                        </div>
                         
                         <div class="payment-grid">
                             <div class="payment-card">
@@ -3698,8 +3712,7 @@ Keep this file for reference throughout your business journey.
         }
 
         function skipToPaymentOptions() {
-            // Hide all form sections
-            document.getElementById('basicInfoSection').classList.add('hidden');
+            // Hide workflow sections but keep basic info visible
             document.getElementById('pathSelection').classList.add('hidden');
             document.getElementById('businessQuestionnaire').classList.add('hidden');
             document.getElementById('interactiveAIWorkflow').classList.add('hidden');
@@ -3712,6 +3725,29 @@ Keep this file for reference throughout your business journey.
             
             // Scroll to payment options
             document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function returnToPlanningProcess() {
+            // Hide payment sections
+            document.getElementById('paymentOptions').classList.add('hidden');
+            document.getElementById('bookingSection').classList.add('hidden');
+            document.getElementById('completionSection').classList.add('hidden');
+            
+            // Check if user has filled basic info to show appropriate next step
+            const nameField = document.getElementById('user-name');
+            const emailField = document.getElementById('user-email');
+            const name = nameField?.value.trim() || '';
+            const email = emailField?.value.trim() || '';
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            
+            if (name.length >= 2 && email && emailValid) {
+                // Show path selection if basic info is complete
+                document.getElementById('pathSelection').classList.remove('hidden');
+                document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Scroll back to basic info if not complete
+                document.getElementById('basicInfoSection').scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         // Utility Functions
@@ -3883,8 +3919,7 @@ END:VCALENDAR`;
             // Reset progress
             updateProgressStep(1);
             
-            // Show initial sections
-            document.getElementById('basicInfoSection').classList.remove('hidden');
+            // Show initial sections, keep basic info visible
             document.getElementById('pathSelection').classList.add('hidden');
             document.getElementById('businessQuestionnaire').classList.add('hidden');
             document.getElementById('interactiveAIWorkflow').classList.add('hidden');
