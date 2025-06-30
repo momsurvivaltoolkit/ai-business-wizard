@@ -1466,11 +1466,18 @@
             </div>
         </div>
 
+        <!-- Skip to Payment Button -->
+        <div style="text-align: center; margin: 30px 0; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 16px rgba(107, 142, 107, 0.08);">
+            <p style="color: var(--charcoal); margin-bottom: 15px; font-size: 1.1rem;">Want to skip the planning process and go directly to our solutions?</p>
+            <button onclick="skipToPaymentOptions()" style="background: linear-gradient(135deg, var(--soft-gold), #C79660); color: white; padding: 15px 30px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                View Payment Options
+            </button>
+        </div>
+
         <!-- Progress Container -->
         <div class="progress-container">
             <div class="progress-header">
                 <div class="step-counter" id="stepCounter">Step 1 of 6</div>
-                <div class="time-estimate" id="timeEstimate">Estimated: 5 min</div>
             </div>
             <div class="overall-progress">
                 <div class="progress-fill" id="progressFill"></div>
@@ -1518,17 +1525,7 @@
             </div>
 
             <div class="content">
-                <div class="step-description">
-                    <h2 id="stepDescTitle">Let's Get Started</h2>
-                    <p id="stepDescText">First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.</p>
-                </div>
-
-                <div class="empowerment-message">
-                    <div class="empowerment-title" id="empowermentTitle">You're Already Successful!</div>
-                    <p class="empowerment-text" id="empowermentText">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!</p>
-                </div>
-
-                <!-- Basic Information Section -->
+                <!-- Basic Information Section - Moved to top for visibility -->
                 <div class="form-section" id="basicInfoSection">
                     <h2 id="basicInfoTitle">Basic Information</h2>
                     
@@ -1543,6 +1540,16 @@
                         <input type="email" id="user-email" class="form-control" placeholder="your.email@example.com" onchange="validateField(this)" />
                         <div class="validation-message" id="user-email-validation"></div>
                     </div>
+                </div>
+
+                <div class="step-description">
+                    <h2 id="stepDescTitle">Let's Get Started</h2>
+                    <p id="stepDescText">First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.</p>
+                </div>
+
+                <div class="empowerment-message">
+                    <div class="empowerment-title" id="empowermentTitle">You're Already Successful!</div>
+                    <p class="empowerment-text" id="empowermentText">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!</p>
                 </div>
 
                 <!-- Path Selection -->
@@ -2149,7 +2156,6 @@ Focus on what's ACTUALLY doable for their situation.
                 welcomeReturning: "I'm a returning user",
                 languageTitle: "Choose Your Language / Elige Tu Idioma",
                 stepCounter: "Step 1 of 6",
-                timeEstimate: "Estimated: 5 min",
                 mainTitle: "Smart Mom Method",
                 mainSubtitle: "AI-Powered Interactive Calendar & Business Planning for Busy Moms",
                 freeBadge: "100% Free",
@@ -2189,7 +2195,6 @@ Focus on what's ACTUALLY doable for their situation.
                 welcomeReturning: "Soy usuaria recurrente",
                 languageTitle: "Elige Tu Idioma / Choose Your Language",
                 stepCounter: "Paso 1 de 6",
-                timeEstimate: "Estimado: 5 min",
                 mainTitle: "Método Smart Mom",
                 mainSubtitle: "Calendario Interactivo y Planificación de Negocios con IA para Mamás Ocupadas",
                 freeBadge: "100% Gratis",
@@ -3251,6 +3256,11 @@ Create this as a complete, downloadable HTML file that she can use as her busine
             
             // Populate dashboard content
             populateFinalDashboard();
+            
+            // Automatically show payment options and other sections
+            document.getElementById('paymentOptions').classList.remove('hidden');
+            document.getElementById('bookingSection').classList.remove('hidden');
+            document.getElementById('completionSection').classList.remove('hidden');
         }
 
         function populateFinalDashboard() {
@@ -3560,6 +3570,23 @@ Keep this file for reference throughout your business journey.
             document.getElementById('bookingSection').classList.remove('hidden');
             document.getElementById('completionSection').classList.remove('hidden');
             
+            document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function skipToPaymentOptions() {
+            // Hide all form sections
+            document.getElementById('basicInfoSection').classList.add('hidden');
+            document.getElementById('pathSelection').classList.add('hidden');
+            document.getElementById('businessQuestionnaire').classList.add('hidden');
+            document.getElementById('interactiveAIWorkflow').classList.add('hidden');
+            document.getElementById('finalDashboard').classList.add('hidden');
+            
+            // Show payment options
+            document.getElementById('paymentOptions').classList.remove('hidden');
+            document.getElementById('bookingSection').classList.remove('hidden');
+            document.getElementById('completionSection').classList.remove('hidden');
+            
+            // Scroll to payment options
             document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
         }
 
