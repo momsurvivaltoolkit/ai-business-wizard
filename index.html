@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Mom Method - AI Interactive Calendar & Business Wizard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- ADD TO HEAD SECTION -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     
     <style>
@@ -363,15 +362,6 @@
             font-size: 1.3rem;
         }
 
-        .time-estimate {
-            background: var(--soft-gold);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
         .overall-progress {
             width: 100%;
             height: 12px;
@@ -666,6 +656,632 @@
             margin-top: 4px;
         }
 
+        /* Path Selection */
+        .path-selection {
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .path-selection h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--charcoal);
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        .path-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .path-option {
+            background: var(--warm-cream);
+            border-radius: 20px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            text-align: center;
+        }
+
+        .path-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(107, 142, 107, 0.2);
+            border-color: var(--sage-green);
+        }
+
+        .path-option.selected {
+            border-color: var(--soft-gold);
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(212, 165, 116, 0.25);
+        }
+
+        .path-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .path-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+        }
+
+        .path-description {
+            color: var(--charcoal);
+            opacity: 0.8;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .continue-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(107, 142, 107, 0.3);
+        }
+
+        /* Enhanced Interactive AI Steps */
+        .interactive-ai-workflow {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 2px solid var(--light-sage);
+        }
+
+        .ai-step-container {
+            margin: 40px 0;
+            padding: 30px;
+            border-radius: 16px;
+            border: 3px solid var(--step-pending);
+            transition: all 0.3s ease;
+        }
+
+        .ai-step-container.current {
+            border-color: var(--step-current);
+            background: rgba(52, 152, 219, 0.05);
+        }
+
+        .ai-step-container.completed {
+            border-color: var(--step-completed);
+            background: rgba(39, 174, 96, 0.05);
+        }
+
+        .ai-step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .ai-step-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .ai-step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--step-pending);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .ai-step-container.current .ai-step-number {
+            background: var(--step-current);
+        }
+
+        .ai-step-container.completed .ai-step-number {
+            background: var(--step-completed);
+        }
+
+        .ai-step-status {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: var(--step-pending);
+            color: white;
+        }
+
+        .ai-step-container.current .ai-step-status {
+            background: var(--step-current);
+        }
+
+        .ai-step-container.completed .ai-step-status {
+            background: var(--step-completed);
+        }
+
+        .ai-step-content {
+            margin: 20px 0;
+        }
+
+        .ai-prompt-area {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .ai-prompt-label {
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .ai-prompt-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            background: white;
+        }
+
+        .ai-response-area {
+            background: #f0f8ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .ai-response-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            background: white;
+        }
+
+        .ai-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ai-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            min-width: 140px;
+        }
+
+        .ai-btn.next {
+            background: var(--button-next);
+            color: white;
+        }
+
+        .ai-btn.next:hover {
+            background: #27ae60;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.done {
+            background: var(--button-done);
+            color: white;
+        }
+
+        .ai-btn.done:hover {
+            background: #6c7b7d;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.back {
+            background: var(--button-back);
+            color: white;
+        }
+
+        .ai-btn.back:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.copy {
+            background: var(--sage-green);
+            color: white;
+        }
+
+        .ai-btn.copy:hover {
+            background: #5A7A5A;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn.open {
+            background: var(--soft-gold);
+            color: white;
+        }
+
+        .ai-btn.open:hover {
+            background: #C79660;
+            transform: translateY(-1px);
+        }
+
+        .ai-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .instructions-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #f39c12;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .instructions-title {
+            font-weight: 600;
+            color: #d68910;
+            margin-bottom: 10px;
+        }
+
+        .instructions-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions-list li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .instructions-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #d68910;
+            font-weight: bold;
+        }
+
+        /* Final Dashboard */
+        .final-dashboard {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .dashboard-section {
+            background: white;
+            color: var(--charcoal);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-section h3 {
+            color: var(--sage-green);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .infographic-container {
+            min-height: 300px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #666;
+        }
+
+        .calendar-preview {
+            min-height: 300px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #ddd;
+        }
+
+        .business-summary {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .final-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .final-action-btn {
+            background: var(--soft-gold);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .final-action-btn:hover {
+            background: #C79660;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+        }
+
+        .final-action-btn.primary {
+            background: var(--button-next);
+        }
+
+        .final-action-btn.primary:hover {
+            background: #27ae60;
+        }
+
+        /* Payment Options */
+        .payment-options {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .payment-options h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .payment-options p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .payment-card {
+            background: white;
+            color: var(--charcoal);
+            padding: 40px 30px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .payment-card.featured {
+            border: 3px solid var(--soft-gold);
+            transform: scale(1.05);
+        }
+
+        .payment-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--sage-green);
+            margin-bottom: 10px;
+        }
+
+        .payment-card .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--charcoal);
+        }
+
+        .payment-card .features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .payment-card .features li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .payment-card .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--sage-green);
+            font-weight: bold;
+        }
+
+        .payment-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--sage-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-btn:hover {
+            background: #5A7A5A;
+            transform: translateY(-2px);
+        }
+
+        .payment-btn.featured {
+            background: var(--soft-gold);
+        }
+
+        .payment-btn.featured:hover {
+            background: #C79660;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: var(--light-sage);
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .booking-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--charcoal);
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .booking-section p {
+            color: var(--charcoal);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .booking-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(44, 62, 80, 0.15);
+        }
+
+        .booking-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .booking-card h3 {
+            color: var(--charcoal);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .booking-card p {
+            color: var(--charcoal);
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .booking-btn {
+            background: var(--deep-teal);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .booking-btn:hover {
+            background: #1E3D47;
+            transform: translateY(-2px);
+        }
+
         .hidden {
             display: none !important;
         }
@@ -727,8 +1343,54 @@
                 padding: 30px 20px;
             }
 
+            .path-options {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .path-option {
+                padding: 30px 20px;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .booking-options {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
             .form-section {
                 padding: 30px 20px;
+            }
+
+            .ai-step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ai-buttons {
+                flex-direction: column;
+            }
+
+            .ai-btn {
+                min-width: 100%;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .final-action-btn {
+                min-width: 100%;
+                max-width: 300px;
             }
         }
     </style>
@@ -881,49 +1543,681 @@
                     <div class="empowerment-title" id="empowermentTitle">You're Already Successful!</div>
                     <p class="empowerment-text" id="empowermentText">Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!</p>
                 </div>
+
+                <!-- Path Selection -->
+                <div class="path-selection hidden" id="pathSelection">
+                    <h2 id="pathSelectionTitle">What brings you here today? Choose your main focus:</h2>
+                    
+                    <div class="path-options">
+                        <div class="path-option" data-path="life-organization" onclick="selectPath('life-organization')">
+                            <span class="path-icon">🏠</span>
+                            <h3 class="path-title" id="pathTitle1">Life Organization</h3>
+                            <p class="path-description" id="pathDesc1">I need help organizing my daily life, family schedules, and home systems</p>
+                        </div>
+                        
+                        <div class="path-option" data-path="business-launch" onclick="selectPath('business-launch')">
+                            <span class="path-icon">💼</span>
+                            <h3 class="path-title" id="pathTitle2">Business Launch</h3>
+                            <p class="path-description" id="pathDesc2">I want to start a business or create passive income streams</p>
+                        </div>
+                        
+                        <div class="path-option" data-path="both" onclick="selectPath('both')">
+                            <span class="path-icon">☀️</span>
+                            <h3 class="path-title" id="pathTitle3">Both Life & Business</h3>
+                            <p class="path-description" id="pathDesc3">I need life organization AND want to start a business</p>
+                        </div>
+                    </div>
+                    
+                    <button class="continue-btn" id="continueBtn" onclick="showBusinessQuestionnaire()">
+                        <span id="continueBtnText">Continue With Selected Path</span>
+                    </button>
+                </div>
+
+                <!-- Business Questionnaire -->
+                <div class="form-section hidden" id="businessQuestionnaire">
+                    <h2 id="businessQuestionnaireTitle">Business Preferences</h2>
+                    
+                    <div class="form-group">
+                        <label id="investmentLabel">Investment level for business: <span class="required">*</span></label>
+                        <select id="investment-level" class="form-control" onchange="validateField(this)">
+                            <option value="">Select investment level...</option>
+                            <option value="no-money">$0 - I need free options only</option>
+                            <option value="minimal">Under $100 - Very limited budget</option>
+                            <option value="moderate">$100-500 - Can invest if necessary</option>
+                            <option value="flexible">$500+ - Flexible for right opportunity</option>
+                        </select>
+                        <div class="validation-message" id="investment-level-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workLocationLabel">Preferred Work Location: <span class="required">*</span></label>
+                        <select id="work-location" class="form-control" onchange="validateField(this)">
+                            <option value="">Select work location...</option>
+                            <option value="home-only">Home only - need to be with kids</option>
+                            <option value="home-flexible">Mostly home, occasional outings</option>
+                            <option value="local-community">Local community/neighborhood</option>
+                            <option value="hybrid">Mix of home and outside work</option>
+                            <option value="travel-okay">Comfortable traveling for business</option>
+                        </select>
+                        <div class="validation-message" id="work-location-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workStyleLabel">Work Style Preference: <span class="required">*</span></label>
+                        <select id="work-style" class="form-control" onchange="validateField(this)">
+                            <option value="">Select work style...</option>
+                            <option value="independent">Independent work - minimal client interaction</option>
+                            <option value="some-interaction">Some client calls/meetings</option>
+                            <option value="collaborative">Collaborative - enjoy working with people</option>
+                            <option value="teaching-mentoring">Teaching/mentoring others</option>
+                            <option value="creative-expressive">Creative and expressive work</option>
+                        </select>
+                        <div class="validation-message" id="work-style-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="cameraComfortLabel">Are you comfortable being on camera/social media? <span class="required">*</span></label>
+                        <select id="camera-comfort" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your comfort level...</option>
+                            <option value="love-it">Love it! I'm comfortable on camera</option>
+                            <option value="okay-with-it">Okay with it, can learn</option>
+                            <option value="prefer-behind-scenes">Prefer behind-the-scenes work</option>
+                            <option value="absolutely-not">Absolutely not comfortable</option>
+                        </select>
+                        <div class="validation-message" id="camera-comfort-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="incomeTimelineLabel">Timeline to first income: <span class="required">*</span></label>
+                        <select id="income-timeline" class="form-control" onchange="validateField(this)">
+                            <option value="">Select timeline...</option>
+                            <option value="immediate">Immediate need (within 1-2 months)</option>
+                            <option value="moderate">3-6 months is fine</option>
+                            <option value="patient">Can wait 6-12 months for good business</option>
+                            <option value="long-term">Building for long-term (1+ years)</option>
+                        </select>
+                        <div class="validation-message" id="income-timeline-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="totalBudgetLabel">Maximum startup budget (total): <span class="required">*</span></label>
+                        <select id="total-budget" class="form-control" onchange="validateField(this)">
+                            <option value="">Select budget...</option>
+                            <option value="zero">$0 - Must be completely free</option>
+                            <option value="minimal">Under $50 total</option>
+                            <option value="moderate">$50-200 if necessary</option>
+                            <option value="invest">$200-500 for right opportunity</option>
+                            <option value="serious">$500+ ready to invest</option>
+                        </select>
+                        <div class="validation-message" id="total-budget-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="familyStructureLabel">Family structure & ages: <span class="required">*</span></label>
+                        <textarea id="family-structure" class="form-control" rows="4" placeholder="Tell us about your family: How many kids? What ages? Any special needs or considerations?" oninput="updateCharCount(this, 1000)"></textarea>
+                        <div class="char-counter" id="family-structure-counter">0/1000</div>
+                        <div class="validation-message" id="family-structure-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="dailyScheduleLabel">Describe your typical daily schedule: <span class="required">*</span></label>
+                        <textarea id="daily-schedule" class="form-control" rows="4" placeholder="Walk us through a typical day: When do you wake up? Kids' schedules? When do you have free time?" oninput="updateCharCount(this, 1000)"></textarea>
+                        <div class="char-counter" id="daily-schedule-counter">0/1000</div>
+                        <div class="validation-message" id="daily-schedule-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="learningStyleLabel">Learning Style: <span class="required">*</span></label>
+                        <select id="learning-style" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your learning style...</option>
+                            <option value="visual">Visual (I learn by seeing)</option>
+                            <option value="auditory">Auditory (I learn by hearing)</option>
+                            <option value="kinesthetic">Kinesthetic (I learn by doing)</option>
+                            <option value="mixed">Mixed (I use all styles)</option>
+                        </select>
+                        <div class="validation-message" id="learning-style-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workPaceLabel">Work Pace: <span class="required">*</span></label>
+                        <select id="work-pace" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your work pace...</option>
+                            <option value="fast-paced">Fast-paced (I like quick decisions)</option>
+                            <option value="steady">Steady (I prefer consistent progress)</option>
+                            <option value="relaxed">Relaxed (I need time to process)</option>
+                            <option value="flexible">Flexible (It depends on the task)</option>
+                        </select>
+                        <div class="validation-message" id="work-pace-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="workFrequencyLabel">Work Frequency: <span class="required">*</span></label>
+                        <select id="work-frequency" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your work frequency...</option>
+                            <option value="daily">Daily (I can work every day)</option>
+                            <option value="few-times-week">Few times per week (2-4 days)</option>
+                            <option value="weekly">Weekly (1-2 days per week)</option>
+                            <option value="flexible-schedule">Flexible schedule</option>
+                        </select>
+                        <div class="validation-message" id="work-frequency-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="techComfortLabel">Tech Comfort Level: <span class="required">*</span></label>
+                        <select id="tech-comfort" class="form-control" onchange="validateField(this)">
+                            <option value="">Select your tech comfort level...</option>
+                            <option value="beginner">Beginner (I need step-by-step guidance)</option>
+                            <option value="intermediate">Intermediate (I can figure things out)</option>
+                            <option value="advanced">Advanced (I'm comfortable with most tech)</option>
+                            <option value="expert">Expert (I troubleshoot for others)</option>
+                        </select>
+                        <div class="validation-message" id="tech-comfort-validation"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="currentTechToolsLabel">Current Tech Tools:</label>
+                        <input type="text" id="current-tech-tools" class="form-control" placeholder="List any tools/platforms you already use (Google, Facebook, Zoom, etc.)" oninput="updateCharCount(this, 500)" />
+                        <div class="char-counter" id="current-tech-tools-counter">0/500</div>
+                        <div class="validation-message" id="current-tech-tools-validation"></div>
+                    </div>
+
+                    <button class="continue-btn visible" onclick="proceedWithQuestionnaire()">
+                        <span id="proceedBtnText">Start AI-Powered Analysis</span>
+                    </button>
+                </div>
+
+                <!-- Enhanced Interactive AI Workflow -->
+                <div id="interactiveAIWorkflow" class="hidden">
+                    <div class="step-description">
+                        <h2>AI-Powered Business Plan Creation</h2>
+                        <p>Follow the 6-step process below. Each step builds on the previous one to create your comprehensive business plan and interactive calendar.</p>
+                    </div>
+
+                    <div class="interactive-ai-workflow">
+                        <!-- Step 1: ChatGPT Business Ideas -->
+                        <div class="ai-step-container current" id="ai-step-1-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">1</div>
+                                    <span>ChatGPT Business Ideas</span>
+                                </div>
+                                <div class="ai-step-status">Current Step</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the prompt below</li>
+                                        <li>Open ChatGPT in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>Copy ChatGPT's complete response</li>
+                                        <li>Paste the response in the box below</li>
+                                        <li>Click "Generate Next Prompt" to continue</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for ChatGPT:</label>
+                                    <textarea id="chatgpt-prompt" class="ai-prompt-textarea" readonly placeholder="Your ChatGPT prompt will be generated here..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('chatgpt-prompt')">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openChatGPT()">Open ChatGPT</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste ChatGPT's Response Here:</label>
+                                    <textarea id="chatgpt-response" class="ai-response-textarea" placeholder="Paste the complete response from ChatGPT here..." oninput="checkResponseAndEnableNext(1)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-1" onclick="generateNextPrompt(2)" disabled>Generate Next Prompt</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Gemini MVP Deep Search -->
+                        <div class="ai-step-container pending" id="ai-step-2-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">2</div>
+                                    <span>Gemini MVP Deep Search</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the prompt below (generated from your ChatGPT response)</li>
+                                        <li>Open Gemini in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>IMPORTANT: Choose "Deep Search" option when prompted</li>
+                                        <li>Wait for complete Deep Search results</li>
+                                        <li>Copy Gemini's complete response</li>
+                                        <li>Paste the response in the box below</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Gemini (MVP Research):</label>
+                                    <textarea id="gemini-mvp-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 1..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('gemini-mvp-prompt')" disabled id="copy-mvp-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openGemini()" disabled id="open-gemini-mvp-btn">Open Gemini</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(1)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste Gemini's MVP Deep Search Response Here:</label>
+                                    <textarea id="gemini-mvp-response" class="ai-response-textarea" placeholder="Paste the complete Deep Search response from Gemini here..." oninput="checkResponseAndEnableNext(2)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-2" onclick="generateNextPrompt(3)" disabled>Generate Next Prompt</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Gemini Pricing Deep Search -->
+                        <div class="ai-step-container pending" id="ai-step-3-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">3</div>
+                                    <span>Gemini Pricing Deep Search</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the pricing research prompt below</li>
+                                        <li>Open Gemini in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>IMPORTANT: Choose "Deep Search" option when prompted</li>
+                                        <li>Wait for complete Deep Search results</li>
+                                        <li>Copy Gemini's complete pricing response</li>
+                                        <li>Paste the response in the box below</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Gemini (Pricing Research):</label>
+                                    <textarea id="gemini-pricing-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 2..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('gemini-pricing-prompt')" disabled id="copy-pricing-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openGemini()" disabled id="open-gemini-pricing-btn">Open Gemini</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(2)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste Gemini's Pricing Deep Search Response Here:</label>
+                                    <textarea id="gemini-pricing-response" class="ai-response-textarea" placeholder="Paste the complete pricing research response from Gemini here..." oninput="checkResponseAndEnableNext(3)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-3" onclick="generateNextPrompt(4)" disabled>Generate Next Prompt</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Gemini Infographic Generation -->
+                        <div class="ai-step-container pending" id="ai-step-4-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">4</div>
+                                    <span>Gemini Infographic Generation</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the infographic generation prompt below</li>
+                                        <li>Open Gemini in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>Ask Gemini to create a visual pricing infographic</li>
+                                        <li>Copy the HTML/CSS CODE that Gemini provides</li>
+                                        <li>Paste ONLY the code in the box below</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Gemini (Infographic):</label>
+                                    <textarea id="gemini-infographic-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 3..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('gemini-infographic-prompt')" disabled id="copy-infographic-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openGemini()" disabled id="open-gemini-infographic-btn">Open Gemini</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(3)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Paste Infographic CODE Here (HTML/CSS only):</label>
+                                    <textarea id="gemini-infographic-code" class="ai-response-textarea" placeholder="Paste ONLY the HTML/CSS code for the infographic here..." oninput="checkInfographicCode(4)"></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn next" id="next-btn-4" onclick="generateNextPrompt(5)" disabled>Generate Next Prompt</button>
+                                    <button class="ai-btn" onclick="previewInfographic()">Preview Infographic</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Claude Interactive Calendar -->
+                        <div class="ai-step-container pending" id="ai-step-5-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">5</div>
+                                    <span>Claude Interactive Calendar</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <div class="instructions-box">
+                                    <div class="instructions-title">Instructions:</div>
+                                    <ul class="instructions-list">
+                                        <li>Copy the comprehensive prompt below</li>
+                                        <li>Open Claude in a new tab</li>
+                                        <li>Paste the prompt and submit</li>
+                                        <li>Wait for Claude to create your interactive calendar</li>
+                                        <li>Download the calendar artifact from Claude</li>
+                                        <li>Come back and confirm completion</li>
+                                    </ul>
+                                </div>
+
+                                <div class="ai-prompt-area">
+                                    <label class="ai-prompt-label">Generated Prompt for Claude (Interactive Calendar):</label>
+                                    <textarea id="claude-calendar-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 4..."></textarea>
+                                </div>
+
+                                <div class="ai-buttons">
+                                    <button class="ai-btn copy" onclick="copyToClipboard('claude-calendar-prompt')" disabled id="copy-claude-btn">Copy Prompt</button>
+                                    <button class="ai-btn open" onclick="openClaude()" disabled id="open-claude-btn">Open Claude</button>
+                                    <button class="ai-btn back" onclick="goBackToStep(4)">Go Back</button>
+                                </div>
+
+                                <div class="ai-response-area">
+                                    <label class="ai-prompt-label">Confirm Calendar Creation:</label>
+                                    <div style="padding: 20px; text-align: center;">
+                                        <p>Did Claude create your interactive calendar successfully?</p>
+                                        <button class="ai-btn next" id="confirm-calendar-btn" onclick="confirmCalendarCreation()">Yes, I have my calendar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Final Integration Dashboard -->
+                        <div class="ai-step-container pending" id="ai-step-6-container">
+                            <div class="ai-step-header">
+                                <div class="ai-step-title">
+                                    <div class="ai-step-number">6</div>
+                                    <span>Final Integration Dashboard</span>
+                                </div>
+                                <div class="ai-step-status">Waiting</div>
+                            </div>
+                            
+                            <div class="ai-step-content">
+                                <p>Your complete Smart Mom Method plan will be displayed here once all steps are completed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Dashboard -->
+                <div id="finalDashboard" class="hidden">
+                    <div class="final-dashboard">
+                        <div class="dashboard-header">
+                            <h2>Your Complete Smart Mom Method Plan</h2>
+                            <p>Here's your comprehensive business plan with integrated pricing strategy and interactive calendar.</p>
+                        </div>
+                        
+                        <div class="dashboard-grid">
+                            <div class="dashboard-section">
+                                <h3>Business Plan Summary</h3>
+                                <div id="business-summary-content" class="business-summary">
+                                    <p>Your business plan summary will appear here based on all AI responses.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="dashboard-section">
+                                <h3>Pricing Strategy Infographic</h3>
+                                <div id="infographic-container" class="infographic-container">
+                                    <p>Your pricing infographic will render here once you complete Step 4.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="dashboard-section">
+                                <h3>Interactive Calendar</h3>
+                                <div id="calendar-preview-display" class="calendar-preview">
+                                    <p>Your interactive calendar is available for download from Claude.</p>
+                                    <button class="ai-btn open" onclick="openClaude()" style="margin-top: 15px;">Open Claude to Download Calendar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="final-actions">
+                            <button class="final-action-btn primary" onclick="downloadCompletePackage()">
+                                Download Complete Package
+                            </button>
+                            <button class="final-action-btn" onclick="showPaymentOptions()">
+                                Get Professional Implementation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Section -->
+                <div id="bookingSection" class="hidden">
+                    <div class="booking-section">
+                        <h2>Need Personal Guidance?</h2>
+                        <p>Sometimes you need a real person to talk through your specific situation. Book a call with our Smart Mom Method experts.</p>
+                        
+                        <!-- Back to Planning Button -->
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <button onclick="returnToPlanningProcess()" style="background: var(--deep-teal); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                ← Return to Free Planning Process
+                            </button>
+                        </div>
+                        
+                        <div class="booking-options">
+                            <div class="booking-card">
+                                <div class="icon">💬</div>
+                                <h3>Free Smart Mom Call</h3>
+                                <p>30-minute free consultation to discuss your goals and get personalized advice on your next steps.</p>
+                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min', '_blank')">
+                                    Book Free Call
+                                </button>
+                            </div>
+
+                            <div class="booking-card">
+                                <div class="icon">🎯</div>
+                                <h3>Strategy Session</h3>
+                                <p>30-minute focused strategy session to create a detailed action plan for your business or life organization goals.</p>
+                                <button class="booking-btn" onclick="window.open('https://calendly.com/momsurvivaltoolkit/30min', '_blank')">
+                                    Book Free Strategy Session
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Options -->
+                <div id="paymentOptions" class="hidden">
+                    <div class="payment-options">
+                        <h2>Transform Your Plan Into Action</h2>
+                        <p>You've got the ideas - now let's make them happen! Get your personalized interactive calendar and expert guidance to succeed.</p>
+                        
+                        <!-- Back to Planning Button -->
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <button onclick="returnToPlanningProcess()" style="background: var(--deep-teal); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                                ← Return to Free Planning Process
+                            </button>
+                        </div>
+                        
+                        <div class="payment-grid">
+                            <div class="payment-card">
+                                <div class="price">$39</div>
+                                <div class="title">Life Organization Calendar</div>
+                                <ul class="features">
+                                    <li>Personalized interactive calendar</li>
+                                    <li>Daily routines & time blocks</li>
+                                    <li>Family schedule optimization</li>
+                                    <li>Goal tracking templates</li>
+                                    <li>Printable planning sheets</li>
+                                </ul>
+                                <button class="payment-btn" onclick="window.open('https://buy.stripe.com/cN100gj9M0fo83eUa1a17Vm07', '_blank')">
+                                    Get Life Calendar
+                                </button>
+                            </div>
+
+                            <div class="payment-card featured">
+                                <div class="price">$89</div>
+                                <div class="title">Life + Training Package</div>
+                                <ul class="features">
+                                    <li>Everything in Life Calendar</li>
+                                    <li>90-minute video training course</li>
+                                    <li>Step-by-step implementation guide</li>
+                                    <li>Time management strategies</li>
+                                    <li>Bonus productivity tools</li>
+                                </ul>
+                                <button class="payment-btn featured" onclick="window.open('https://buy.stripe.com/5kQ6oHb946RSn22zbz7Vm06', '_blank')">
+                                    Get Life + Training
+                                </button>
+                            </div>
+
+                            <div class="payment-card">
+                                <div class="price">$49</div>
+                                <div class="title">Business Launch Calendar</div>
+                                <ul class="features">
+                                    <li>Business planning calendar</li>
+                                    <li>Revenue milestone tracking</li>
+                                    <li>Marketing action plans</li>
+                                    <li>Client management system</li>
+                                    <li>Financial tracking tools</li>
+                                </ul>
+                                <button class="payment-btn" onclick="window.open('https://buy.stripe.com/3cI8wP7NS2BmbLqgc9L7Vm05', '_blank')">
+                                    Get Business Calendar
+                                </button>
+                            </div>
+
+                            <div class="payment-card featured">
+                                <div class="price">$100</div>
+                                <div class="title">Complete Business Package</div>
+                                <ul class="features">
+                                    <li>Everything in Business Calendar</li>
+                                    <li>2-hour business training course</li>
+                                    <li>Market research templates</li>
+                                    <li>Pricing & sales strategies</li>
+                                    <li>Launch timeline with milestones</li>
+                                </ul>
+                                <button class="payment-btn featured" onclick="window.open('https://buy.stripe.com/fZu8wP8RW1x8i18eec97Vm04', '_blank')">
+                                    Get Complete Package
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Completion -->
+                <div id="completionSection" class="hidden">
+                    <div style="background: linear-gradient(135deg, var(--sage-green), var(--deep-teal)); color: white; padding: 60px 40px; text-align: center; border-radius: 24px; margin: 40px 0; position: relative; overflow: hidden;">
+                        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">Congratulations!</h2>
+                        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your personalized Smart Mom Method analysis is complete!</p>
+                        
+                        <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
+                            <h3 style="margin-bottom: 15px;">What You've Accomplished:</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin: 10px 0;">✅ Identified your unique mom-entrepreneur profile</li>
+                                <li style="margin: 10px 0;">✅ Generated AI-powered business recommendations</li>
+                                <li style="margin: 10px 0;">✅ Created your personalized calendar framework</li>
+                                <li style="margin: 10px 0;">✅ Established clear next steps for success</li>
+                                <li style="margin: 10px 0;">✅ Joined a community of successful Smart Moms</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="downloadCalendar()" style="background: var(--soft-gold); color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
+                            Download Your Basic Calendar
+                        </button>
+                        
+                        <button onclick="startOver()" style="background: white; color: var(--sage-green); padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
+                            Create Another Plan
+                        </button>
+                    </div>
+
+                    <div style="background: var(--light-sage); padding: 30px; border-radius: 20px; text-align: center;">
+                        <h3>Thank you for using Smart Mom Method!</h3>
+                        <p>Your journey to an organized life and successful business starts now. You have everything you need to succeed - you just need to take action!</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <button onclick="provideFeedback()" style="background: var(--sage-green); color: white; padding: 15px 30px; border: none; border-radius: 8px; margin: 5px; cursor: pointer;">
+                                Share Your Experience
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // MANDATORY DEBUG CODE - VERIFY FUNCTION EXISTENCE
-        window.addEventListener('DOMContentLoaded', function() {
-            console.log('=== FUNCTION CHECK ===');
-            console.log('handleReturningUser exists:', typeof handleReturningUser !== 'undefined');
-            console.log('showAuthModal exists:', typeof showAuthModal !== 'undefined');
-            console.log('startOnboarding exists:', typeof startOnboarding !== 'undefined');
-            
-            // Test if functions are callable
-            try {
-                if (typeof handleReturningUser === 'function') {
-                    console.log('✅ handleReturningUser is callable');
-                } else {
-                    console.error('❌ handleReturningUser is NOT defined');
-                }
-            } catch (e) {
-                console.error('❌ handleReturningUser error:', e.message);
-            }
-            
-            try {
-                if (typeof showAuthModal === 'function') {
-                    console.log('✅ showAuthModal is callable');
-                } else {
-                    console.error('❌ showAuthModal is NOT defined');
-                }
-            } catch (e) {
-                console.error('❌ showAuthModal error:', e.message);
-            }
-            
-            try {
-                if (typeof startOnboarding === 'function') {
-                    console.log('✅ startOnboarding is callable');
-                } else {
-                    console.error('❌ startOnboarding is NOT defined');
-                }
-            } catch (e) {
-                console.error('❌ startOnboarding error:', e.message);
-            }
-        });
+        // Global Configuration
+        const AIRTABLE_BASE_ID = 'appQUFJzVLlHbB4Fp';
+        const AIRTABLE_TOKEN = 'patje3I65ajVyNTSN.3963cc18c6dc227b6e290d5da83da3bde2f4d089d60d4a0e49787fecdb676f65';
+        const AIRTABLE_TABLE_NAME = 'Users';
+        const WEBHOOK_URL = 'https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form';
+
+        // AI Platform URLs
+        const AI_PLATFORMS = {
+            chatgpt: 'https://chat.openai.com',
+            gemini: 'https://gemini.google.com',
+            claude: 'https://claude.ai'
+        };
+
+        // Global Variables
+        let currentLanguage = 'en';
+        let currentStep = 1;
+        let selectedPath = '';
+        let authMode = 'signup';
+        let currentAIStep = 1;
+        let aiResponses = {};
+
+        // Make variables globally accessible
+        window.currentLanguage = currentLanguage;
+        window.authMode = authMode;
+
+        // AI Realism Instructions
+        const realismInstructions = `
+**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
+- This person is a BEGINNER, not an expert
+- Be brutally honest about challenges and timelines  
+- Don't suggest businesses requiring experience they don't have
+- Focus on DOWN-TO-EARTH, practical solutions only
+- Consider their family constraints and available time
+- If they said "free only," respect that completely
+- Suggest pricing that will actually get clients, not scare them away
+
+**REMEMBER:** A mom with 2 hours/day and no business experience should NOT be suggested:
+- Businesses requiring 40+ hours/week
+- High-skill services they've never done
+- Anything requiring significant upfront investment (if they said free)
+- Complex businesses with steep learning curves
+
+Focus on what's ACTUALLY doable for their situation.
+`;
 
         // DEFINE CRITICAL MODAL FUNCTIONS - FIXED FUNCTIONS
         function startOnboarding() {
@@ -936,7 +2230,6 @@
 
         function showAuthModal(mode) {
             console.log('showAuthModal called with mode:', mode);
-            // Set auth mode if provided
             if (mode) {
                 window.authMode = mode;
             }
@@ -977,7 +2270,6 @@
                 welcomeModal.classList.add('hidden');
             }
             
-            // Create a better input modal instead of using prompt
             const modal = document.createElement('div');
             modal.className = 'auth-modal active';
             modal.id = 'returningUserModal';
@@ -1025,14 +2317,12 @@
             }
         }
 
-        function lookupReturningUser() {
-            console.log('lookupReturningUser called');
+        async function lookupReturningUser() {
             const email = document.getElementById('returningUserEmail').value.trim();
             const errorDiv = document.getElementById('returningUserError');
             const successDiv = document.getElementById('returningUserSuccess');
             const lookupBtn = document.getElementById('lookupBtn');
             
-            // Clear previous messages
             if (errorDiv) errorDiv.classList.add('hidden');
             if (successDiv) successDiv.classList.add('hidden');
             
@@ -1046,17 +2336,75 @@
                 return;
             }
 
-            // Simple demo - just show success for any email
-            if (successDiv) {
-                successDiv.textContent = window.currentLanguage === 'es' ? 
-                    `¡Bienvenida de nuevo! Continuando con tu progreso...` : 
-                    `Welcome back! Continuing with your progress...`;
-                successDiv.classList.remove('hidden');
+            // Validate email format
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!emailValid) {
+                if (errorDiv) {
+                    errorDiv.textContent = window.currentLanguage === 'es' ? 
+                        'Por favor ingresa un correo electrónico válido.' : 
+                        'Please enter a valid email address.';
+                    errorDiv.classList.remove('hidden');
+                }
+                return;
             }
+
+            // Show loading state
+            if (lookupBtn) {
+                lookupBtn.textContent = window.currentLanguage === 'es' ? 'Buscando...' : 'Looking up...';
+                lookupBtn.disabled = true;
+            }
+
+            // Use localStorage for user lookup
+            const localUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+            const userData = localUsers[email];
             
-            setTimeout(() => {
-                closeReturningUserModal();
-            }, 1500);
+            if (userData) {
+                if (successDiv) {
+                    successDiv.textContent = window.currentLanguage === 'es' ? 
+                        `¡Encontrado! Bienvenida de nuevo, ${userData.name || 'Smart Mom'}!` : 
+                        `Found! Welcome back, ${userData.name || 'Smart Mom'}!`;
+                    successDiv.classList.remove('hidden');
+                }
+                
+                setTimeout(() => {
+                    loadUserProgress(userData);
+                    closeReturningUserModal();
+                }, 1500);
+                
+            } else {
+                if (errorDiv) {
+                    errorDiv.textContent = window.currentLanguage === 'es' ? 
+                        'Correo no encontrado. ¿Te gustaría empezar un nuevo viaje?' : 
+                        'Email not found. Would you like to start a new journey?';
+                    errorDiv.classList.remove('hidden');
+                }
+                
+                setTimeout(() => {
+                    if (confirm(window.currentLanguage === 'es' ? 
+                        '¿Quieres empezar desde el principio?' : 
+                        'Would you like to start from the beginning?')) {
+                        closeReturningUserModal();
+                    }
+                }, 2000);
+            }
+
+            // Reset button
+            if (lookupBtn) {
+                lookupBtn.textContent = window.currentLanguage === 'es' ? 'Buscar Mi Progreso' : 'Find My Progress';
+                lookupBtn.disabled = false;
+            }
+        }
+
+        function loadUserProgress(userData) {
+            console.log('Loading user progress:', userData);
+            // Fill in saved data
+            if (userData.name) document.getElementById('user-name').value = userData.name;
+            if (userData.email) document.getElementById('user-email').value = userData.email;
+            if (userData.selectedPath) {
+                selectedPath = userData.selectedPath;
+                selectPath(userData.selectedPath);
+            }
+            // Continue from where they left off
         }
 
         // UTILITY FUNCTIONS
@@ -1068,20 +2416,41 @@
             console.log('changeLanguage called with:', lang);
             window.currentLanguage = lang;
             
-            // Visual feedback
             document.querySelectorAll('.language-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             document.getElementById(`lang-${lang}`).classList.add('active');
             
-            // Here you would update all text content based on language
-            // For demo purposes, we'll just log it
-            console.log('Language changed to:', lang);
+            // Update text content based on language
+            updateLanguageContent(lang);
+        }
+
+        function updateLanguageContent(lang) {
+            const translations = {
+                en: {
+                    welcomeTitle: 'Welcome to Smart Mom Method!',
+                    welcomeDescription: 'Create your personalized interactive calendar and business plan in 6 simple steps.',
+                    mainTitle: 'Smart Mom Method',
+                    mainSubtitle: 'AI-Powered Interactive Calendar & Business Planning for Busy Moms'
+                },
+                es: {
+                    welcomeTitle: '¡Bienvenida al Método Smart Mom!',
+                    welcomeDescription: 'Crea tu calendario interactivo personalizado y plan de negocio en 6 simples pasos.',
+                    mainTitle: 'Método Smart Mom',
+                    mainSubtitle: 'Calendario Interactivo y Planificación de Negocio con IA para Madres Ocupadas'
+                }
+            };
+
+            const text = translations[lang];
+            if (text) {
+                document.getElementById('welcomeTitle').textContent = text.welcomeTitle;
+                document.getElementById('welcomeDescription').textContent = text.welcomeDescription;
+                document.getElementById('mainTitle').textContent = text.mainTitle;
+                document.getElementById('mainSubtitle').textContent = text.mainSubtitle;
+            }
         }
 
         function validateField(field) {
-            console.log('validateField called for:', field.id);
-            // Simple validation demo
             const value = field.value.trim();
             const validationDiv = document.getElementById(field.id + '-validation');
             
@@ -1090,25 +2459,513 @@
                     validationDiv.textContent = 'This field is required';
                     validationDiv.className = 'validation-message';
                 }
+                return false;
             } else {
                 if (validationDiv) {
                     validationDiv.textContent = '✓ Looks good!';
                     validationDiv.className = 'validation-message success';
+                }
+                return true;
+            }
+        }
+
+        function updateCharCount(textarea, maxLength) {
+            const currentLength = textarea.value.length;
+            const counter = document.getElementById(textarea.id + '-counter');
+            if (counter) {
+                counter.textContent = `${currentLength}/${maxLength}`;
+                if (currentLength > maxLength * 0.8) {
+                    counter.style.color = '#e57373';
+                } else {
+                    counter.style.color = 'var(--charcoal)';
                 }
             }
         }
 
         function skipToPaymentOptions() {
             console.log('skipToPaymentOptions called');
-            alert('This would skip to payment options - feature coming soon!');
+            // Hide all sections
+            document.querySelectorAll('.form-section, .step-description, .empowerment-message, .path-selection, #interactiveAIWorkflow, #finalDashboard, #bookingSection, #completionSection').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Show payment options
+            document.getElementById('paymentOptions').classList.remove('hidden');
+            document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Global Variables
-        window.currentLanguage = 'en';
-        window.authMode = 'signup';
+        // PATH SELECTION FUNCTIONS
+        function selectPath(pathType) {
+            selectedPath = pathType;
+            
+            // Clear previous selections
+            document.querySelectorAll('.path-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Select current option
+            const selectedOption = document.querySelector(`[data-path="${pathType}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+            }
+            
+            // Show continue button
+            const continueBtn = document.getElementById('continueBtn');
+            if (continueBtn) {
+                continueBtn.classList.add('visible');
+            }
+            
+            console.log('Path selected:', pathType);
+        }
 
-        // Initialize
-        console.log('Smart Mom Method website loaded successfully!');
+        function showBusinessQuestionnaire() {
+            if (!selectedPath) {
+                alert('Please select a path first');
+                return;
+            }
+            
+            document.getElementById('pathSelection').classList.add('hidden');
+            document.getElementById('businessQuestionnaire').classList.remove('hidden');
+            document.getElementById('businessQuestionnaire').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function proceedWithQuestionnaire() {
+            // Validate required fields based on selected path
+            const userData = collectUserData();
+            if (!userData) return;
+            
+            // Save user data
+            saveUserData(userData);
+            
+            // Generate first AI prompt
+            generateChatGPTPrompt(userData);
+            
+            // Show AI workflow
+            document.getElementById('businessQuestionnaire').classList.add('hidden');
+            document.getElementById('interactiveAIWorkflow').classList.remove('hidden');
+            document.getElementById('interactiveAIWorkflow').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function collectUserData() {
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+            
+            if (!name || !email) {
+                alert('Please fill in your name and email');
+                return null;
+            }
+            
+            const userData = {
+                name,
+                email,
+                selectedPath,
+                investmentLevel: document.getElementById('investment-level')?.value || '',
+                workLocation: document.getElementById('work-location')?.value || '',
+                workStyle: document.getElementById('work-style')?.value || '',
+                cameraComfort: document.getElementById('camera-comfort')?.value || '',
+                incomeTimeline: document.getElementById('income-timeline')?.value || '',
+                totalBudget: document.getElementById('total-budget')?.value || '',
+                familyStructure: document.getElementById('family-structure')?.value || '',
+                dailySchedule: document.getElementById('daily-schedule')?.value || '',
+                learningStyle: document.getElementById('learning-style')?.value || '',
+                workPace: document.getElementById('work-pace')?.value || '',
+                workFrequency: document.getElementById('work-frequency')?.value || '',
+                techComfort: document.getElementById('tech-comfort')?.value || '',
+                currentTechTools: document.getElementById('current-tech-tools')?.value || '',
+                timestamp: new Date().toISOString()
+            };
+            
+            return userData;
+        }
+
+        function saveUserData(userData) {
+            // Save to localStorage
+            const existingUsers = JSON.parse(localStorage.getItem('smartMomUsers') || '{}');
+            existingUsers[userData.email] = userData;
+            localStorage.setItem('smartMomUsers', JSON.stringify(existingUsers));
+            
+            // Send to webhook (with error handling for broken webhook)
+            sendToWebhook(userData);
+        }
+
+        async function sendToWebhook(userData) {
+            try {
+                console.log('Sending data to webhook:', WEBHOOK_URL);
+                
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...userData,
+                        source: 'smart-mom-method-website',
+                        version: '2.0'
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('✅ Webhook sent successfully');
+                } else {
+                    console.warn('⚠️ Webhook failed:', response.status);
+                }
+            } catch (error) {
+                console.warn('⚠️ Webhook error (expected - webhook is broken):', error.message);
+                // Continue normally - this is expected since webhook is marked as BROKEN
+            }
+        }
+
+        // AI WORKFLOW FUNCTIONS
+        function generateChatGPTPrompt(userData) {
+            const prompt = `${realismInstructions}
+
+I'm a mom with these specific details:
+- Name: ${userData.name}
+- Path: ${userData.selectedPath}
+- Investment Level: ${userData.investmentLevel}
+- Work Location: ${userData.workLocation}
+- Family: ${userData.familyStructure}
+- Daily Schedule: ${userData.dailySchedule}
+- Tech Comfort: ${userData.techComfort}
+- Timeline: ${userData.incomeTimeline}
+- Budget: ${userData.totalBudget}
+
+Please suggest 3-5 REALISTIC business ideas that fit my situation. Be brutally honest about what's actually achievable with my constraints. Include specific first steps I can take this week.`;
+
+            document.getElementById('chatgpt-prompt').value = prompt;
+            console.log('ChatGPT prompt generated');
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.select();
+                document.execCommand('copy');
+                
+                // Visual feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }
+        }
+
+        function openChatGPT() {
+            window.open(AI_PLATFORMS.chatgpt, '_blank');
+        }
+
+        function openGemini() {
+            window.open(AI_PLATFORMS.gemini, '_blank');
+        }
+
+        function openClaude() {
+            window.open(AI_PLATFORMS.claude, '_blank');
+        }
+
+        function checkResponseAndEnableNext(stepNumber) {
+            const responseField = document.getElementById(`${stepNumber === 1 ? 'chatgpt' : stepNumber === 2 ? 'gemini-mvp' : 'gemini-pricing'}-response`);
+            const nextButton = document.getElementById(`next-btn-${stepNumber}`);
+            
+            if (responseField && nextButton) {
+                nextButton.disabled = responseField.value.trim().length < 100;
+            }
+        }
+
+        function checkInfographicCode(stepNumber) {
+            const codeField = document.getElementById('gemini-infographic-code');
+            const nextButton = document.getElementById(`next-btn-${stepNumber}`);
+            
+            if (codeField && nextButton) {
+                const code = codeField.value.trim();
+                nextButton.disabled = code.length < 50 || (!code.includes('<') && !code.includes('html'));
+            }
+        }
+
+        function generateNextPrompt(stepNumber) {
+            // Save current response
+            const currentResponse = getCurrentStepResponse(stepNumber - 1);
+            if (currentResponse) {
+                aiResponses[`step${stepNumber - 1}`] = currentResponse;
+            }
+            
+            // Update step status
+            updateStepStatus(stepNumber - 1, 'completed');
+            updateStepStatus(stepNumber, 'current');
+            
+            // Generate next prompt
+            switch(stepNumber) {
+                case 2:
+                    generateGeminiMVPPrompt();
+                    break;
+                case 3:
+                    generateGeminiPricingPrompt();
+                    break;
+                case 4:
+                    generateGeminiInfographicPrompt();
+                    break;
+                case 5:
+                    generateClaudeCalendarPrompt();
+                    break;
+                case 6:
+                    showFinalDashboard();
+                    break;
+            }
+            
+            // Enable copy and open buttons for next step
+            enableStepButtons(stepNumber);
+        }
+
+        function getCurrentStepResponse(stepNumber) {
+            switch(stepNumber) {
+                case 1:
+                    return document.getElementById('chatgpt-response').value;
+                case 2:
+                    return document.getElementById('gemini-mvp-response').value;
+                case 3:
+                    return document.getElementById('gemini-pricing-response').value;
+                case 4:
+                    return document.getElementById('gemini-infographic-code').value;
+                default:
+                    return '';
+            }
+        }
+
+        function updateStepStatus(stepNumber, status) {
+            const container = document.getElementById(`ai-step-${stepNumber}-container`);
+            if (container) {
+                container.className = `ai-step-container ${status}`;
+                
+                const statusElement = container.querySelector('.ai-step-status');
+                if (statusElement) {
+                    statusElement.textContent = status === 'current' ? 'Current Step' : 
+                                              status === 'completed' ? 'Completed' : 'Waiting';
+                }
+            }
+        }
+
+        function enableStepButtons(stepNumber) {
+            const copyBtn = document.getElementById(`copy-${stepNumber === 2 ? 'mvp' : stepNumber === 3 ? 'pricing' : stepNumber === 4 ? 'infographic' : 'claude'}-btn`);
+            const openBtn = document.getElementById(`open-gemini-${stepNumber === 2 ? 'mvp' : stepNumber === 3 ? 'pricing' : stepNumber === 4 ? 'infographic' : 'claude'}-btn`);
+            
+            if (copyBtn) copyBtn.disabled = false;
+            if (openBtn) openBtn.disabled = false;
+        }
+
+        function generateGeminiMVPPrompt() {
+            const chatgptResponse = aiResponses.step1;
+            const prompt = `Based on this ChatGPT business analysis: "${chatgptResponse.substring(0, 500)}..."
+
+Please do a DEEP SEARCH to research and validate these business ideas. Find:
+1. Real market demand data
+2. Competition analysis 
+3. Actual success stories
+4. Required skills/resources
+5. Realistic revenue potential
+
+Focus on what's actually working for moms in 2024/2025. Use Deep Search to get current market data.`;
+
+            document.getElementById('gemini-mvp-prompt').value = prompt;
+        }
+
+        function generateGeminiPricingPrompt() {
+            const mvpResponse = aiResponses.step2;
+            const prompt = `Based on this MVP research: "${mvpResponse.substring(0, 500)}..."
+
+Please do a DEEP SEARCH on pricing strategies for these business types. Research:
+1. Current market rates for similar services
+2. Pricing strategies that work for beginners
+3. How to increase prices over time
+4. What clients actually pay vs. what they're quoted
+5. Seasonal pricing variations
+
+Use Deep Search to find real pricing data from 2024-2025.`;
+
+            document.getElementById('gemini-pricing-prompt').value = prompt;
+        }
+
+        function generateGeminiInfographicPrompt() {
+            const pricingResponse = aiResponses.step3;
+            const prompt = `Based on this pricing research: "${pricingResponse.substring(0, 500)}..."
+
+Create a visual pricing infographic using HTML and CSS. Make it:
+1. Visually appealing with colors and good typography
+2. Show pricing tiers (beginner/intermediate/expert)
+3. Include recommended price ranges
+4. Mobile-responsive design
+5. Easy to understand at a glance
+
+Please provide ONLY the HTML and CSS code that I can copy and use directly.`;
+
+            document.getElementById('gemini-infographic-prompt').value = prompt;
+        }
+
+        function generateClaudeCalendarPrompt() {
+            const userData = collectUserData();
+            const allResponses = Object.values(aiResponses).join('\n\n');
+            
+            const prompt = `Create an interactive calendar for a mom entrepreneur with these details:
+
+USER PROFILE:
+${JSON.stringify(userData, null, 2)}
+
+AI RESEARCH RESULTS:
+${allResponses}
+
+Please create a comprehensive 30-day interactive calendar that includes:
+1. Daily tasks and goals
+2. Business development activities
+3. Family time blocks
+4. Self-care reminders
+5. Progress tracking
+6. Clickable/interactive elements
+
+Make it practical, realistic, and tailored to her specific situation and constraints.`;
+
+            document.getElementById('claude-calendar-prompt').value = prompt;
+        }
+
+        function previewInfographic() {
+            const code = document.getElementById('gemini-infographic-code').value;
+            if (code.trim()) {
+                const previewWindow = window.open('', '_blank');
+                previewWindow.document.write(code);
+                previewWindow.document.close();
+            } else {
+                alert('Please paste the infographic code first');
+            }
+        }
+
+        function confirmCalendarCreation() {
+            updateStepStatus(5, 'completed');
+            updateStepStatus(6, 'current');
+            showFinalDashboard();
+        }
+
+        function goBackToStep(stepNumber) {
+            updateStepStatus(stepNumber + 1, 'pending');
+            updateStepStatus(stepNumber, 'current');
+        }
+
+        function showFinalDashboard() {
+            // Populate final dashboard with all collected data
+            const businessSummary = document.getElementById('business-summary-content');
+            if (businessSummary) {
+                let summary = '<h4>Your Business Plan Summary:</h4>';
+                summary += `<p><strong>Selected Path:</strong> ${selectedPath}</p>`;
+                summary += `<p><strong>ChatGPT Ideas:</strong> ${aiResponses.step1 ? aiResponses.step1.substring(0, 200) + '...' : 'Not completed'}</p>`;
+                summary += `<p><strong>Market Research:</strong> ${aiResponses.step2 ? 'Completed with Gemini Deep Search' : 'Not completed'}</p>`;
+                summary += `<p><strong>Pricing Strategy:</strong> ${aiResponses.step3 ? 'Researched and validated' : 'Not completed'}</p>`;
+                businessSummary.innerHTML = summary;
+            }
+            
+            // Show infographic if available
+            const infographicContainer = document.getElementById('infographic-container');
+            if (infographicContainer && aiResponses.step4) {
+                infographicContainer.innerHTML = aiResponses.step4;
+            }
+            
+            document.getElementById('interactiveAIWorkflow').classList.add('hidden');
+            document.getElementById('finalDashboard').classList.remove('hidden');
+            document.getElementById('finalDashboard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadCompletePackage() {
+            // Create a comprehensive package with all data
+            const packageData = {
+                userData: collectUserData(),
+                selectedPath,
+                aiResponses,
+                timestamp: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(packageData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'smart-mom-method-complete-plan.json';
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        function showPaymentOptions() {
+            document.getElementById('finalDashboard').classList.add('hidden');
+            document.getElementById('paymentOptions').classList.remove('hidden');
+            document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function returnToPlanningProcess() {
+            // Hide payment/booking sections and return to main flow
+            document.getElementById('paymentOptions').classList.add('hidden');
+            document.getElementById('bookingSection').classList.add('hidden');
+            
+            // Show the basic info section
+            document.getElementById('basicInfoSection').classList.remove('hidden');
+            document.getElementById('basicInfoSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadCalendar() {
+            alert('Calendar download feature - this would generate a basic calendar file');
+        }
+
+        function startOver() {
+            // Reset all data and start fresh
+            localStorage.removeItem('smartMomUsers');
+            location.reload();
+        }
+
+        function provideFeedback() {
+            const feedback = prompt('How was your experience with Smart Mom Method? Your feedback helps us improve!');
+            if (feedback) {
+                console.log('User feedback:', feedback);
+                alert('Thank you for your feedback!');
+            }
+        }
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Smart Mom Method website loaded successfully!');
+            
+            // Check for basic info completion to show path selection
+            document.getElementById('user-name').addEventListener('input', checkBasicInfoComplete);
+            document.getElementById('user-email').addEventListener('input', checkBasicInfoComplete);
+            
+            // Auth form submission
+            document.getElementById('authForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Auth form submitted');
+                // Handle authentication here
+                closeAuthModal();
+            });
+        });
+
+        function checkBasicInfoComplete() {
+            const name = document.getElementById('user-name').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+            
+            if (name && email && email.includes('@')) {
+                setTimeout(() => {
+                    document.getElementById('pathSelection').classList.remove('hidden');
+                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            }
+        }
+
+        // Make functions globally accessible
+        window.startOnboarding = startOnboarding;
+        window.showAuthModal = showAuthModal;
+        window.handleReturningUser = handleReturningUser;
+        window.closeAuthModal = closeAuthModal;
+        window.toggleAuthMode = toggleAuthMode;
+        window.lookupReturningUser = lookupReturningUser;
+        window.closeReturningUserModal = closeReturningUserModal;
+
+        console.log('Smart Mom Method - All functions loaded and ready!');
     </script>
 </body>
 </html>
