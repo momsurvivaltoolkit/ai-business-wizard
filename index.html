@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            
             --sage-green: #6B8E6B;
             --warm-cream: #FAF7F0;
             --deep-teal: #2D5B69;
@@ -25,6 +24,7 @@
             --button-next: #2ecc71;
             --button-done: #7f8c8d;
             --button-back: #e74c3c;
+            --success-green: #27ae60;
         }
 
         * {
@@ -263,6 +263,7 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-right: 8px;
+            display: inline-block;
         }
 
         @keyframes spin {
@@ -1089,106 +1090,6 @@
             font-weight: bold;
         }
 
-        /* Final Dashboard */
-        .final-dashboard {
-            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
-            color: white;
-            padding: 50px 40px;
-            border-radius: 24px;
-            margin: 40px 0;
-        }
-
-        .dashboard-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .dashboard-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .dashboard-section {
-            background: white;
-            color: var(--charcoal);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-
-        .dashboard-section h3 {
-            color: var(--sage-green);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .infographic-container {
-            min-height: 300px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            border: 2px dashed #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #666;
-        }
-
-        .calendar-preview {
-            min-height: 300px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            border: 2px dashed #ddd;
-        }
-
-        .business-summary {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .final-actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
-
-        .final-action-btn {
-            background: var(--soft-gold);
-            color: white;
-            padding: 18px 36px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 200px;
-        }
-
-        .final-action-btn:hover {
-            background: #C79660;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
-        }
-
-        .final-action-btn.primary {
-            background: var(--button-next);
-        }
-
         /* Interactive Calendar System */
         .calendar-container {
             background: white;
@@ -1548,6 +1449,85 @@
             background: var(--deep-teal);
         }
 
+        /* Final Dashboard */
+        .final-dashboard {
+            background: linear-gradient(135deg, var(--sage-green), var(--deep-teal));
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 40px 0;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .dashboard-section {
+            background: white;
+            color: var(--charcoal);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-section h3 {
+            color: var(--sage-green);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .business-summary {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .final-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .final-action-btn {
+            background: var(--soft-gold);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .final-action-btn:hover {
+            background: #C79660;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+        }
+
+        .final-action-btn.primary {
+            background: var(--button-next);
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .container {
@@ -1629,11 +1609,6 @@
                 justify-content: space-between;
             }
 
-            #paymentOptions [style*="grid-template-columns"] {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-
             .ai-buttons {
                 flex-direction: column;
             }
@@ -1707,58 +1682,6 @@
 
             .step-number {
                 align-self: flex-start;
-            }
-
-            .prompt-templates {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .template-btn {
-                min-width: 100%;
-                text-align: center;
-            }
-
-            .variable-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .prompt-actions {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .prompt-action-btn {
-                min-width: 100%;
-            }
-
-            .preview-header {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-            }
-
-            .preview-stats {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .checkbox-group {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .context-chips {
-                justify-content: center;
-            }
-
-            .prompt-customizer {
-                padding: 15px;
-            }
-
-            .advanced-options {
-                padding: 10px;
             }
         }
 
@@ -2023,7 +1946,7 @@
                 <div id="interactiveAIWorkflow" class="hidden">
                     <div class="step-description">
                         <h2>AI-Powered Business Plan Creation</h2>
-                        <p>Follow the 5-step process below. Each step builds on the previous one to create your comprehensive business plan and interactive calendar.</p>
+                        <p>Follow the 4-step process below. Each step builds on the previous one to create your comprehensive business plan and interactive calendar.</p>
                     </div>
 
                     <div class="interactive-ai-workflow">
@@ -2052,119 +1975,7 @@
 
                                 <div class="ai-prompt-area">
                                     <label class="ai-prompt-label">Generated Prompt for ChatGPT:</label>
-                                    
-                                    <!-- Interactive Prompt Customizer -->
-                                    <div class="prompt-customizer" id="chatgpt-customizer">
-                                        <div class="prompt-editor">
-                                            <div class="prompt-templates">
-                                                <button class="template-btn active" onclick="selectPromptTemplate('chatgpt', 'realistic')">Realistic Focus</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('chatgpt', 'creative')">Creative Ideas</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('chatgpt', 'practical')">Practical Only</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('chatgpt', 'custom')">Custom</button>
-                                            </div>
-                                            
-                                            <div class="context-variables">
-                                                <div class="variable-grid" id="chatgpt-variables">
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">👤 User Profile</div>
-                                                        <div class="variable-value" id="var-user-profile">Loading...</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">🎯 Selected Path</div>
-                                                        <div class="variable-value" id="var-selected-path">Loading...</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">💰 Investment Level</div>
-                                                        <div class="variable-value" id="var-investment">Loading...</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">⏰ Timeline</div>
-                                                        <div class="variable-value" id="var-timeline">Loading...</div>
-                                                    </div>
-                                                </div>
-                                                <div class="context-chips">
-                                                    <span class="context-chip">Realism Instructions</span>
-                                                    <span class="context-chip dynamic">Family Context</span>
-                                                    <span class="context-chip user">Budget Constraints</span>
-                                                    <span class="context-chip dynamic">Geographic: Lincoln, NE</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="advanced-options" id="chatgpt-advanced">
-                                                <div class="option-group">
-                                                    <label class="option-label">Prompt Tone:</label>
-                                                    <select class="option-select" id="chatgpt-tone" onchange="updatePromptPreview('chatgpt')">
-                                                        <option value="encouraging">Encouraging & Supportive</option>
-                                                        <option value="realistic" selected>Realistic & Honest</option>
-                                                        <option value="detailed">Detailed & Analytical</option>
-                                                        <option value="simple">Simple & Direct</option>
-                                                    </select>
-                                                </div>
-                                                
-                                                <div class="option-group">
-                                                    <label class="option-label">Focus Areas:</label>
-                                                    <div class="checkbox-group">
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="focus-time" checked onchange="updatePromptPreview('chatgpt')">
-                                                            <label for="focus-time">Time Management</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="focus-budget" checked onchange="updatePromptPreview('chatgpt')">
-                                                            <label for="focus-budget">Budget Constraints</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="focus-family" checked onchange="updatePromptPreview('chatgpt')">
-                                                            <label for="focus-family">Family Integration</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="focus-skills" onchange="updatePromptPreview('chatgpt')">
-                                                            <label for="focus-skills">Skill Building</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="option-group">
-                                                    <label class="option-label">Number of Ideas:</label>
-                                                    <select class="option-select" id="chatgpt-ideas" onchange="updatePromptPreview('chatgpt')">
-                                                        <option value="3">3 Ideas (Focused)</option>
-                                                        <option value="5" selected>5 Ideas (Balanced)</option>
-                                                        <option value="7">7 Ideas (Comprehensive)</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="prompt-actions">
-                                                <button class="prompt-action-btn generate" onclick="generateInteractivePrompt('chatgpt')">
-                                                    ⚡ Generate Enhanced Prompt
-                                                </button>
-                                                <button class="prompt-action-btn customize" onclick="toggleAdvancedOptions('chatgpt')">
-                                                    ⚙️ Advanced Options
-                                                </button>
-                                                <button class="prompt-action-btn reset" onclick="resetPromptToDefault('chatgpt')">
-                                                    🔄 Reset to Default
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Enhanced Prompt Preview -->
-                                    <div class="prompt-preview" id="chatgpt-preview">
-                                        <div class="preview-header">
-                                            <div class="preview-title">📋 Enhanced Prompt Preview</div>
-                                            <div class="preview-stats">
-                                                <span id="chatgpt-word-count">0 words</span>
-                                                <span id="chatgpt-char-count">0 characters</span>
-                                                <span id="chatgpt-readability">Readability: Good</span>
-                                            </div>
-                                        </div>
-                                        <div class="prompt-final" id="chatgpt-prompt-final">Click "Generate Enhanced Prompt" to see your customized prompt...</div>
-                                        <div class="prompt-help">
-                                            <strong>💡 Tip:</strong> This enhanced prompt includes your specific family situation, budget constraints, and realistic timelines. 
-                                            It's designed to get more practical, actionable business ideas from ChatGPT.
-                                        </div>
-                                    </div>
-                                    
-                                    <textarea id="chatgpt-prompt" class="ai-prompt-textarea" readonly placeholder="Your enhanced ChatGPT prompt will be generated here..."></textarea>
+                                    <textarea id="chatgpt-prompt" class="ai-prompt-textarea" readonly placeholder="Your ChatGPT prompt will be generated here..."></textarea>
                                 </div>
 
                                 <div class="ai-buttons">
@@ -2209,89 +2020,6 @@
 
                                 <div class="ai-prompt-area">
                                     <label class="ai-prompt-label">Generated Prompt for Gemini (Market Research):</label>
-                                    
-                                    <!-- Interactive Prompt Customizer for Gemini -->
-                                    <div class="prompt-customizer" id="gemini-market-customizer">
-                                        <div class="prompt-editor">
-                                            <div class="prompt-templates">
-                                                <button class="template-btn active" onclick="selectPromptTemplate('gemini-market', 'comprehensive')">Comprehensive Research</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('gemini-market', 'quick')">Quick Validation</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('gemini-market', 'local')">Local Focus</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('gemini-market', 'custom')">Custom</button>
-                                            </div>
-                                            
-                                            <div class="context-variables">
-                                                <div class="variable-grid">
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">🏢 Business Ideas</div>
-                                                        <div class="variable-value" id="var-business-ideas">From ChatGPT response...</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">📍 Location</div>
-                                                        <div class="variable-value">Lincoln, Nebraska</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">🎯 Research Depth</div>
-                                                        <div class="variable-value">Deep Search Enabled</div>
-                                                    </div>
-                                                </div>
-                                                <div class="context-chips">
-                                                    <span class="context-chip">Market Validation</span>
-                                                    <span class="context-chip dynamic">Competition Analysis</span>
-                                                    <span class="context-chip user">Local Market Focus</span>
-                                                    <span class="context-chip dynamic">2024-2025 Data</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="advanced-options" id="gemini-market-advanced" style="display: none;">
-                                                <div class="option-group">
-                                                    <label class="option-label">Research Focus:</label>
-                                                    <div class="checkbox-group">
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="research-demand" checked onchange="updatePromptPreview('gemini-market')">
-                                                            <label for="research-demand">Market Demand</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="research-competition" checked onchange="updatePromptPreview('gemini-market')">
-                                                            <label for="research-competition">Competition Analysis</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="research-pricing" checked onchange="updatePromptPreview('gemini-market')">
-                                                            <label for="research-pricing">Pricing Research</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="research-trends" onchange="updatePromptPreview('gemini-market')">
-                                                            <label for="research-trends">Market Trends</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="prompt-actions">
-                                                <button class="prompt-action-btn generate" onclick="generateInteractivePrompt('gemini-market')">
-                                                    🔍 Generate Research Prompt
-                                                </button>
-                                                <button class="prompt-action-btn customize" onclick="toggleAdvancedOptions('gemini-market')">
-                                                    ⚙️ Research Options
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="prompt-preview" id="gemini-market-preview">
-                                        <div class="preview-header">
-                                            <div class="preview-title">🔍 Market Research Prompt Preview</div>
-                                            <div class="preview-stats">
-                                                <span id="gemini-market-word-count">0 words</span>
-                                                <span id="gemini-market-char-count">0 characters</span>
-                                            </div>
-                                        </div>
-                                        <div class="prompt-final" id="gemini-market-prompt-final">Generate your market research prompt...</div>
-                                        <div class="prompt-help">
-                                            <strong>🎯 Research Tip:</strong> This prompt is optimized for Gemini's Deep Search feature to get the most current and relevant market data.
-                                        </div>
-                                    </div>
-                                    
                                     <textarea id="gemini-market-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 1..."></textarea>
                                 </div>
 
@@ -2338,99 +2066,6 @@
 
                                 <div class="ai-prompt-area">
                                     <label class="ai-prompt-label">Generated Prompt for Gemini (Pricing Research):</label>
-                                    
-                                    <!-- Interactive Prompt Customizer for Pricing -->
-                                    <div class="prompt-customizer" id="gemini-pricing-customizer">
-                                        <div class="prompt-editor">
-                                            <div class="prompt-templates">
-                                                <button class="template-btn active" onclick="selectPromptTemplate('gemini-pricing', 'beginner')">Beginner Pricing</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('gemini-pricing', 'competitive')">Competitive Analysis</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('gemini-pricing', 'progressive')">Growth Pricing</button>
-                                                <button class="template-btn" onclick="selectPromptTemplate('gemini-pricing', 'custom')">Custom</button>
-                                            </div>
-                                            
-                                            <div class="context-variables">
-                                                <div class="variable-grid">
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">📊 Market Data</div>
-                                                        <div class="variable-value" id="var-market-data">From market research...</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">💼 Business Type</div>
-                                                        <div class="variable-value" id="var-business-type">Service-based</div>
-                                                    </div>
-                                                    <div class="variable-item">
-                                                        <div class="variable-label">⏱️ Experience Level</div>
-                                                        <div class="variable-value">Beginner</div>
-                                                    </div>
-                                                </div>
-                                                <div class="context-chips">
-                                                    <span class="context-chip">Beginner-Friendly</span>
-                                                    <span class="context-chip dynamic">Geographic Pricing</span>
-                                                    <span class="context-chip user">Growth Strategy</span>
-                                                    <span class="context-chip dynamic">Market Rates</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="advanced-options" id="gemini-pricing-advanced" style="display: none;">
-                                                <div class="option-group">
-                                                    <label class="option-label">Pricing Strategy Focus:</label>
-                                                    <div class="checkbox-group">
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="pricing-beginner" checked onchange="updatePromptPreview('gemini-pricing')">
-                                                            <label for="pricing-beginner">Beginner Rates</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="pricing-progression" checked onchange="updatePromptPreview('gemini-pricing')">
-                                                            <label for="pricing-progression">Growth Progression</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="pricing-packages" onchange="updatePromptPreview('gemini-pricing')">
-                                                            <label for="pricing-packages">Package Deals</label>
-                                                        </div>
-                                                        <div class="checkbox-item">
-                                                            <input type="checkbox" class="option-checkbox" id="pricing-seasonal" onchange="updatePromptPreview('gemini-pricing')">
-                                                            <label for="pricing-seasonal">Seasonal Pricing</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="option-group">
-                                                    <label class="option-label">Timeline Focus:</label>
-                                                    <select class="option-select" id="pricing-timeline" onchange="updatePromptPreview('gemini-pricing')">
-                                                        <option value="immediate">Immediate (0-3 months)</option>
-                                                        <option value="short" selected>Short-term (3-6 months)</option>
-                                                        <option value="medium">Medium-term (6-12 months)</option>
-                                                        <option value="long">Long-term (1+ years)</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="prompt-actions">
-                                                <button class="prompt-action-btn generate" onclick="generateInteractivePrompt('gemini-pricing')">
-                                                    💰 Generate Pricing Prompt
-                                                </button>
-                                                <button class="prompt-action-btn customize" onclick="toggleAdvancedOptions('gemini-pricing')">
-                                                    ⚙️ Pricing Options
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="prompt-preview" id="gemini-pricing-preview">
-                                        <div class="preview-header">
-                                            <div class="preview-title">💰 Pricing Research Prompt Preview</div>
-                                            <div class="preview-stats">
-                                                <span id="gemini-pricing-word-count">0 words</span>
-                                                <span id="gemini-pricing-char-count">0 characters</span>
-                                            </div>
-                                        </div>
-                                        <div class="prompt-final" id="gemini-pricing-prompt-final">Generate your pricing research prompt...</div>
-                                        <div class="prompt-help">
-                                            <strong>💡 Pricing Tip:</strong> This prompt focuses on realistic beginner pricing that actually gets clients, not scary expert rates.
-                                        </div>
-                                    </div>
-                                    
                                     <textarea id="gemini-pricing-prompt" class="ai-prompt-textarea" readonly placeholder="This prompt will be generated after you complete Step 2..."></textarea>
                                 </div>
 
@@ -2493,21 +2128,6 @@
                                 <div class="ai-buttons">
                                     <button class="ai-btn next" id="finish-workflow-btn" onclick="finishAIWorkflow()" disabled>Complete Workflow</button>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 5: Final Dashboard -->
-                        <div class="ai-step-container pending" id="ai-step-5-container">
-                            <div class="ai-step-header">
-                                <div class="ai-step-title">
-                                    <div class="ai-step-number">5</div>
-                                    <span>Final Dashboard</span>
-                                </div>
-                                <div class="ai-step-status">Waiting</div>
-                            </div>
-                            
-                            <div class="ai-step-content">
-                                <p>Your complete Smart Mom Method plan will be displayed here once all steps are completed.</p>
                             </div>
                         </div>
                     </div>
@@ -2882,9 +2502,9 @@ Task 1: Research Competitors (FREE - 45 minutes)
     <script>
         // ===== AIRTABLE CONFIGURATION =====
         const airtableConfig = {
-            baseId: "appQUFJzVLlHbB4Fp",
-            apiKey: "patje3I65ajVyNTSN.3963cc18c6dc227b6e290d5da83da3bde2f4d089d60d4a0e49787fecdb676f65",
-            apiUrl: "https://api.airtable.com/v0/appQUFJzVLlHbB4Fp"
+            baseId: "appQUF3zVLlHbB4fP",
+            apiKey: "patjes1GsajwyYTSN.39633c18c6dc227b6e290d5da8lda3bde2f4d089d6bd4ae049787fecdb676f65",
+            apiUrl: "https://api.airtable.com/v0/appQUF3zVLlHbB4fP"
         };
 
         const WEBHOOK_URL = 'https://momsurvivaltoolkit.app.n8n.cloud/webhook-test/smart-mom-form';
@@ -2925,1282 +2545,57 @@ Task 1: Research Competitors (FREE - 45 minutes)
 - Anything requiring significant upfront investment (if they said free)
 - Complex businesses with steep learning curves
 
-        Focus on what's ACTUALLY doable for their situation.
+Focus on what's ACTUALLY doable for their situation.
 `;
 
-        // ===== INTERACTIVE AI PROMPT GENERATION SYSTEM =====
+        // ===== ENHANCED CORS PROXY FUNCTIONS =====
         
-        // Prompt Templates
-        const promptTemplates = {
-            'chatgpt': {
-                'realistic': {
-                    name: 'Realistic Focus',
-                    tone: 'realistic',
-                    emphasis: 'practical constraints and realistic timelines',
-                    focusAreas: ['time', 'budget', 'family'],
-                    numberOfIdeas: 5
-                },
-                'creative': {
-                    name: 'Creative Ideas',
-                    tone: 'encouraging',
-                    emphasis: 'creative possibilities and innovation',
-                    focusAreas: ['skills', 'family'],
-                    numberOfIdeas: 7
-                },
-                'practical': {
-                    name: 'Practical Only',
-                    tone: 'simple',
-                    emphasis: 'immediate actionable steps',
-                    focusAreas: ['time', 'budget'],
-                    numberOfIdeas: 3
-                },
-                'custom': {
-                    name: 'Custom',
-                    tone: 'realistic',
-                    emphasis: 'user-defined focus',
-                    focusAreas: ['time', 'budget', 'family'],
-                    numberOfIdeas: 5
-                }
-            },
-            'gemini-market': {
-                'comprehensive': {
-                    name: 'Comprehensive Research',
-                    researchAreas: ['demand', 'competition', 'pricing', 'trends'],
-                    depth: 'deep',
-                    focus: 'complete market analysis'
-                },
-                'quick': {
-                    name: 'Quick Validation',
-                    researchAreas: ['demand', 'competition'],
-                    depth: 'surface',
-                    focus: 'rapid validation'
-                },
-                'local': {
-                    name: 'Local Focus',
-                    researchAreas: ['demand', 'competition', 'pricing'],
-                    depth: 'deep',
-                    focus: 'local market conditions'
-                },
-                'custom': {
-                    name: 'Custom',
-                    researchAreas: ['demand', 'competition'],
-                    depth: 'deep',
-                    focus: 'user-defined research'
-                }
-            },
-            'gemini-pricing': {
-                'beginner': {
-                    name: 'Beginner Pricing',
-                    focus: ['beginner', 'progression'],
-                    timeline: 'short',
-                    emphasis: 'entry-level pricing strategy'
-                },
-                'competitive': {
-                    name: 'Competitive Analysis',
-                    focus: ['beginner', 'progression', 'packages'],
-                    timeline: 'medium',
-                    emphasis: 'competitive positioning'
-                },
-                'progressive': {
-                    name: 'Growth Pricing',
-                    focus: ['progression', 'packages', 'seasonal'],
-                    timeline: 'medium',
-                    emphasis: 'long-term growth strategy'
-                },
-                'custom': {
-                    name: 'Custom',
-                    focus: ['beginner', 'progression'],
-                    timeline: 'short',
-                    emphasis: 'user-defined pricing strategy'
-                }
-            }
-        };
+        const corsProxies = [
+            'https://api.allorigins.win/raw?url=',
+            'https://corsproxy.io/?',
+            'https://cors-anywhere.herokuapp.com/',
+            'https://proxy.cors.sh/',
+            'https://api.codetabs.com/v1/proxy?quest='
+        ];
 
-        // Current prompt configurations
-        let currentPromptConfigs = {
-            'chatgpt': promptTemplates.chatgpt.realistic,
-            'gemini-market': promptTemplates['gemini-market'].comprehensive,
-            'gemini-pricing': promptTemplates['gemini-pricing'].beginner
-        };
-
-        function initializePromptGeneration() {
-            // Update context variables with current user data
-            updateContextVariables();
+        async function corsProxyFetch(url, options = {}, retryCount = 0) {
+            const maxRetries = corsProxies.length;
             
-            // Generate initial prompts
-            generateInteractivePrompt('chatgpt');
-            
-            // Hide advanced options initially
-            document.querySelectorAll('.advanced-options').forEach(el => {
-                el.style.display = 'none';
-            });
-        }
-
-        function updateContextVariables() {
-            // Update ChatGPT variables
-            document.getElementById('var-user-profile').textContent = formData.name || 'Smart Mom';
-            document.getElementById('var-selected-path').textContent = selectedPath || 'Not selected';
-            document.getElementById('var-investment').textContent = formData.investmentLevel || 'Not specified';
-            document.getElementById('var-timeline').textContent = formData.incomeTimeline || 'Not specified';
-            
-            // Update other variables based on AI responses
-            if (aiResponses.step1) {
-                document.getElementById('var-business-ideas').textContent = 
-                    aiResponses.step1.substring(0, 100) + '...';
-            }
-            
-            if (aiResponses.step2) {
-                document.getElementById('var-market-data').textContent = 
-                    aiResponses.step2.substring(0, 100) + '...';
-            }
-        }
-
-        function selectPromptTemplate(aiType, templateKey) {
-            // Update active template button
-            const container = document.getElementById(`${aiType}-customizer`);
-            container.querySelectorAll('.template-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Update current configuration
-            currentPromptConfigs[aiType] = { ...promptTemplates[aiType][templateKey] };
-            
-            // Update UI elements based on template
-            updateUIFromTemplate(aiType, templateKey);
-            
-            // Generate new prompt
-            generateInteractivePrompt(aiType);
-        }
-
-        function updateUIFromTemplate(aiType, templateKey) {
-            const template = promptTemplates[aiType][templateKey];
-            
-            if (aiType === 'chatgpt') {
-                // Update tone selection
-                const toneSelect = document.getElementById('chatgpt-tone');
-                if (toneSelect) toneSelect.value = template.tone;
-                
-                // Update focus area checkboxes
-                ['time', 'budget', 'family', 'skills'].forEach(area => {
-                    const checkbox = document.getElementById(`focus-${area}`);
-                    if (checkbox) {
-                        checkbox.checked = template.focusAreas.includes(area);
-                    }
-                });
-                
-                // Update number of ideas
-                const ideasSelect = document.getElementById('chatgpt-ideas');
-                if (ideasSelect) ideasSelect.value = template.numberOfIdeas.toString();
-            }
-            
-            if (aiType === 'gemini-market') {
-                // Update research focus checkboxes
-                ['demand', 'competition', 'pricing', 'trends'].forEach(area => {
-                    const checkbox = document.getElementById(`research-${area}`);
-                    if (checkbox) {
-                        checkbox.checked = template.researchAreas.includes(area);
-                    }
-                });
-            }
-            
-            if (aiType === 'gemini-pricing') {
-                // Update pricing focus checkboxes
-                ['beginner', 'progression', 'packages', 'seasonal'].forEach(focus => {
-                    const checkbox = document.getElementById(`pricing-${focus}`);
-                    if (checkbox) {
-                        checkbox.checked = template.focus.includes(focus);
-                    }
-                });
-                
-                // Update timeline selection
-                const timelineSelect = document.getElementById('pricing-timeline');
-                if (timelineSelect) timelineSelect.value = template.timeline;
-            }
-        }
-
-        function toggleAdvancedOptions(aiType) {
-            const advancedDiv = document.getElementById(`${aiType}-advanced`);
-            if (advancedDiv) {
-                const isHidden = advancedDiv.style.display === 'none';
-                advancedDiv.style.display = isHidden ? 'block' : 'none';
-                
-                // Update button text
-                const button = event.target;
-                if (button) {
-                    button.textContent = isHidden ? '⚙️ Hide Options' : '⚙️ Advanced Options';
-                }
-            }
-        }
-
-        function generateInteractivePrompt(aiType) {
-            updateContextVariables();
-            
-            let prompt = '';
-            
-            switch(aiType) {
-                case 'chatgpt':
-                    prompt = generateEnhancedChatGPTPrompt();
-                    break;
-                case 'gemini-market':
-                    prompt = generateEnhancedGeminiMarketPrompt();
-                    break;
-                case 'gemini-pricing':
-                    prompt = generateEnhancedGeminiPricingPrompt();
-                    break;
-            }
-            
-            // Update the textarea and preview
-            document.getElementById(`${aiType}-prompt`).value = prompt;
-            updatePromptPreview(aiType, prompt);
-        }
-
-        function generateEnhancedChatGPTPrompt() {
-            const config = currentPromptConfigs.chatgpt;
-            const userData = formData;
-            
-            // Get current settings from UI
-            const tone = document.getElementById('chatgpt-tone')?.value || config.tone;
-            const numberOfIdeas = document.getElementById('chatgpt-ideas')?.value || config.numberOfIdeas;
-            
-            // Get focus areas from checkboxes
-            const focusAreas = [];
-            ['time', 'budget', 'family', 'skills'].forEach(area => {
-                const checkbox = document.getElementById(`focus-${area}`);
-                if (checkbox && checkbox.checked) {
-                    focusAreas.push(area);
-                }
-            });
-            
-            let toneInstructions = '';
-            switch(tone) {
-                case 'encouraging':
-                    toneInstructions = 'Be encouraging and supportive while maintaining realism.';
-                    break;
-                case 'detailed':
-                    toneInstructions = 'Provide detailed, analytical breakdown of each opportunity.';
-                    break;
-                case 'simple':
-                    toneInstructions = 'Keep explanations simple and direct. Focus on immediate next steps.';
-                    break;
-                default:
-                    toneInstructions = 'Be brutally honest about challenges and realistic about timelines.';
-            }
-            
-            let focusInstructions = '';
-            if (focusAreas.includes('time')) {
-                focusInstructions += '\n- Pay special attention to time constraints and family schedules';
-            }
-            if (focusAreas.includes('budget')) {
-                focusInstructions += '\n- Emphasize budget-friendly options and realistic financial expectations';
-            }
-            if (focusAreas.includes('family')) {
-                focusInstructions += '\n- Consider family integration and work-life balance';
-            }
-            if (focusAreas.includes('skills')) {
-                focusInstructions += '\n- Include skill-building recommendations and learning paths';
-            }
-            
-            const prompt = `${realismInstructions}
-
-${toneInstructions}
-
-I'm a mom with these specific details:
-- Name: ${userData.name || 'Smart Mom'}
-- Selected Path: ${selectedPath || 'general business guidance'}
-- Investment Level: ${userData.investmentLevel || 'minimal budget'}
-- Timeline: ${userData.incomeTimeline || 'as soon as possible'}
-- Family Situation: ${userData.familyStructure || 'busy family'}
-- Daily Schedule: ${userData.dailySchedule || 'limited time available'}
-- Location: Lincoln, Nebraska
-
-Please suggest ${numberOfIdeas} REALISTIC business ideas that fit my situation.${focusInstructions}
-
-For each business idea, include:
-1. **Business Overview**: What this actually involves day-to-day
-2. **Realistic Timeline**: Honest timeline to first income
-3. **Investment Required**: Startup costs and ongoing expenses
-4. **First 3 Steps**: Concrete actions I can take this week
-5. **Potential Challenges**: What could go wrong and how to prepare
-6. **Income Potential**: Realistic revenue expectations for year 1
-
-Focus on businesses that:
-- Work with my available time and family obligations
-- Match my investment level (${userData.investmentLevel || 'minimal budget'})
-- Can realistically generate income within my timeline (${userData.incomeTimeline || 'as soon as possible'})
-- Are appropriate for beginners in Lincoln, Nebraska market
-- Have been proven successful by other moms in similar situations
-
-Be specific about Nebraska market conditions and what actually works for mom entrepreneurs in the Midwest in 2024-2025.`;
-
-            return prompt;
-        }
-
-        function generateEnhancedGeminiMarketPrompt() {
-            const config = currentPromptConfigs['gemini-market'];
-            const chatgptResponse = aiResponses.step1 || 'Previous business ideas analysis';
-            
-            // Get research focus areas from checkboxes
-            const researchAreas = [];
-            ['demand', 'competition', 'pricing', 'trends'].forEach(area => {
-                const checkbox = document.getElementById(`research-${area}`);
-                if (checkbox && checkbox.checked) {
-                    researchAreas.push(area);
-                }
-            });
-            
-            let researchInstructions = 'Please conduct a DEEP SEARCH to research:\n';
-            
-            if (researchAreas.includes('demand')) {
-                researchInstructions += '1. **Market Demand Analysis**: Real demand data for these business types in 2024-2025\n';
-            }
-            if (researchAreas.includes('competition')) {
-                researchInstructions += '2. **Competition Analysis**: Who else is doing this in Lincoln, Nebraska area\n';
-            }
-            if (researchAreas.includes('pricing')) {
-                researchInstructions += '3. **Pricing Research**: What people actually charge vs. what clients pay\n';
-            }
-            if (researchAreas.includes('trends')) {
-                researchInstructions += '4. **Market Trends**: Growth patterns and emerging opportunities\n';
-            }
-            
-            const prompt = `Based on this ChatGPT business analysis:
-"${chatgptResponse.substring(0, 500)}..."
-
-${researchInstructions}
-
-**CRITICAL**: Use Deep Search to find current, accurate data from 2024-2025.
-
-Focus specifically on:
-- Lincoln, Nebraska and surrounding Midwest markets
-- Small business and mom entrepreneur success stories
-- Realistic market conditions (not inflated online claims)
-- Seasonal considerations for Nebraska businesses
-- Local business licensing and requirements
-- Competition density and market saturation
-- Economic factors affecting small businesses in Nebraska
-
-For each business idea mentioned, provide:
-- **Market Reality Check**: Is there actual demand in Lincoln, NE?
-- **Competition Level**: How many others are doing this locally?
-- **Success Stories**: Find real examples of moms succeeding in this business
-- **Market Barriers**: What challenges are unique to this market?
-- **Local Advantages**: What makes Lincoln, NE good/bad for this business?
-
-Validate or challenge each business idea with real data, not theoretical possibilities.`;
-
-            return prompt;
-        }
-
-        function generateEnhancedGeminiPricingPrompt() {
-            const config = currentPromptConfigs['gemini-pricing'];
-            const marketResponse = aiResponses.step2 || 'Market research findings';
-            
-            // Get pricing focus areas from checkboxes
-            const pricingFocus = [];
-            ['beginner', 'progression', 'packages', 'seasonal'].forEach(focus => {
-                const checkbox = document.getElementById(`pricing-${focus}`);
-                if (checkbox && checkbox.checked) {
-                    pricingFocus.push(focus);
-                }
-            });
-            
-            const timeline = document.getElementById('pricing-timeline')?.value || config.timeline;
-            
-            let pricingInstructions = 'Please conduct a DEEP SEARCH on pricing strategies focusing on:\n';
-            
-            if (pricingFocus.includes('beginner')) {
-                pricingInstructions += '1. **Beginner Pricing**: Rates that actually get clients (not scare them away)\n';
-            }
-            if (pricingFocus.includes('progression')) {
-                pricingInstructions += '2. **Growth Progression**: How to increase prices over 6-12 months\n';
-            }
-            if (pricingFocus.includes('packages')) {
-                pricingInstructions += '3. **Package Deals**: What packages work better than hourly rates\n';
-            }
-            if (pricingFocus.includes('seasonal')) {
-                pricingInstructions += '4. **Seasonal Pricing**: How demand changes throughout the year\n';
-            }
-            
-            let timelineInstructions = '';
-            switch(timeline) {
-                case 'immediate':
-                    timelineInstructions = 'Focus on pricing that gets immediate clients within 1-3 months.';
-                    break;
-                case 'short':
-                    timelineInstructions = 'Balance quick client acquisition with sustainable pricing over 3-6 months.';
-                    break;
-                case 'medium':
-                    timelineInstructions = 'Plan pricing strategy for 6-12 month business growth.';
-                    break;
-                case 'long':
-                    timelineInstructions = 'Design pricing for long-term business development over 1+ years.';
-                    break;
-            }
-            
-            const prompt = `Based on this market research:
-"${marketResponse.substring(0, 500)}..."
-
-${pricingInstructions}
-
-**TIMELINE FOCUS**: ${timelineInstructions}
-
-Use Deep Search to find real pricing data from 2024-2025. Research:
-
-**Geographic Pricing**:
-- Current market rates in Lincoln, Nebraska and Midwest region
-- How Midwest pricing compares to coastal areas
-- What Nebraska clients actually budget for these services
-
-**Beginner-Specific Pricing**:
-- What successful mom entrepreneurs charge in their first 6 months
-- Common pricing mistakes that kill new businesses
-- How to price competitively without undervaluing yourself
-
-**Practical Pricing Strategy**:
-- Package deals vs. hourly rates effectiveness for beginners
-- Payment structures that work for mom entrepreneurs
-- How to raise prices as you gain experience and testimonials
-
-**Real Market Data**:
-- What clients actually pay (not just what businesses quote)
-- Seasonal demand fluctuations in Nebraska
-- Industry standards for quality and pricing expectations
-
-Provide ACTIONABLE pricing advice for a mom entrepreneur starting in Lincoln, Nebraska, not theoretical pricing models. Include specific dollar amounts and ranges based on current market research.`;
-
-            return prompt;
-        }
-
-        function updatePromptPreview(aiType, prompt = null) {
-            if (!prompt) {
-                generateInteractivePrompt(aiType);
-                return;
-            }
-            
-            // Update preview
-            const previewElement = document.getElementById(`${aiType}-prompt-final`);
-            if (previewElement) {
-                previewElement.textContent = prompt;
-            }
-            
-            // Update statistics
-            const wordCount = prompt.split(/\s+/).length;
-            const charCount = prompt.length;
-            
-            const wordCountElement = document.getElementById(`${aiType}-word-count`);
-            const charCountElement = document.getElementById(`${aiType}-char-count`);
-            
-            if (wordCountElement) wordCountElement.textContent = `${wordCount} words`;
-            if (charCountElement) charCountElement.textContent = `${charCount} characters`;
-            
-            // Update readability (simple calculation)
-            const readabilityElement = document.getElementById(`${aiType}-readability`);
-            if (readabilityElement) {
-                const avgWordsPerSentence = wordCount / (prompt.split(/[.!?]+/).length - 1);
-                let readability = 'Good';
-                if (avgWordsPerSentence > 25) readability = 'Complex';
-                if (avgWordsPerSentence < 15) readability = 'Simple';
-                readabilityElement.textContent = `Readability: ${readability}`;
-            }
-        }
-
-        function resetPromptToDefault(aiType) {
-            // Reset to default template
-            const defaultTemplate = Object.keys(promptTemplates[aiType])[0];
-            selectPromptTemplate(aiType, defaultTemplate);
-            
-            // Reset UI elements
-            updateUIFromTemplate(aiType, defaultTemplate);
-            
-            // Regenerate prompt
-            generateInteractivePrompt(aiType);
-            
-            // Hide advanced options
-            const advancedDiv = document.getElementById(`${aiType}-advanced`);
-            if (advancedDiv) {
-                advancedDiv.style.display = 'none';
-            }
-        }
-
-        // Enhanced version of existing functions
-        function generateChatGPTPrompt(userData) {
-            // Initialize the interactive system
-            initializePromptGeneration();
-            
-            // Generate the enhanced prompt
-            generateInteractivePrompt('chatgpt');
-        }
-
-        function generateGeminiMarketPrompt() {
-            const chatgptResponse = aiResponses.step1;
-            if (chatgptResponse) {
-                generateInteractivePrompt('gemini-market');
-            }
-        }
-
-        function generateGeminiPricingPrompt() {
-            const marketResponse = aiResponses.step2;
-            if (marketResponse) {
-                generateInteractivePrompt('gemini-pricing');
-            }
-        }
-
-        // ===== INTERACTIVE CALENDAR SYSTEM =====
-        
-        function parseCalendarContent(content) {
-            if (!content || content.trim().length < 50) {
-                throw new Error('Calendar content is too short or empty');
+            if (retryCount >= maxRetries) {
+                console.error('All CORS proxies failed');
+                throw new Error('CORS proxy request failed after all retries');
             }
 
-            const weeks = [];
-            const lines = content.split('\n');
-            let currentWeek = null;
-            let currentDay = null;
-            let currentTask = null;
-
-            // Regex patterns from documentation
-            const weekDayPattern = /WEEK (\d+) - DAY (\d+):/;
-            const taskPattern = /Task (\d+): (.*?) \((.*?)\)/;
-            const stepPattern = /- Step (\d+): (.*)/;
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i].trim();
-                if (!line) continue;
-
-                // Check for week/day header
-                const weekDayMatch = line.match(weekDayPattern);
-                if (weekDayMatch) {
-                    const weekNum = parseInt(weekDayMatch[1]);
-                    const dayNum = parseInt(weekDayMatch[2]);
-
-                    // Find or create week
-                    let week = weeks.find(w => w.weekNumber === weekNum);
-                    if (!week) {
-                        week = { weekNumber: weekNum, days: [] };
-                        weeks.push(week);
-                    }
-
-                    // Find or create day
-                    let day = week.days.find(d => d.dayNumber === dayNum);
-                    if (!day) {
-                        day = { dayNumber: dayNum, tasks: [] };
-                        week.days.push(day);
-                    }
-
-                    currentWeek = week;
-                    currentDay = day;
-                    currentTask = null;
-                    continue;
-                }
-
-                // Check for task
-                const taskMatch = line.match(taskPattern);
-                if (taskMatch && currentDay) {
-                    const taskNum = parseInt(taskMatch[1]);
-                    const title = taskMatch[2].trim();
-                    const metaInfo = taskMatch[3].trim();
-                    
-                    // Parse cost and time from meta info
-                    const costMatch = metaInfo.match(/(FREE|PAID|\$\d+)/i);
-                    const timeMatch = metaInfo.match(/(\d+)\s*(minutes?|mins?|hours?|hrs?)/i);
-                    
-                    const task = {
-                        taskNumber: taskNum,
-                        title: title,
-                        cost: costMatch ? costMatch[1] : 'FREE',
-                        time: timeMatch ? `${timeMatch[1]} ${timeMatch[2]}` : '30 minutes',
-                        steps: [],
-                        completed: false
-                    };
-
-                    currentDay.tasks.push(task);
-                    currentTask = task;
-                    continue;
-                }
-
-                // Check for step
-                const stepMatch = line.match(stepPattern);
-                if (stepMatch && currentTask) {
-                    const stepNum = parseInt(stepMatch[1]);
-                    const instruction = stepMatch[2].trim();
-                    
-                    currentTask.steps.push({
-                        stepNumber: stepNum,
-                        instruction: instruction,
-                        completed: false
-                    });
-                    continue;
-                }
-            }
-
-            // Sort weeks and days
-            weeks.sort((a, b) => a.weekNumber - b.weekNumber);
-            weeks.forEach(week => {
-                week.days.sort((a, b) => a.dayNumber - b.dayNumber);
-            });
-
-            return { weeks };
-        }
-
-        function parseAndDisplayCalendar() {
-            const content = document.getElementById('calendarInput').value.trim();
-            
-            if (!content) {
-                alert('Please paste your calendar content first.');
-                return;
-            }
-
-            try {
-                calendarData = parseCalendarContent(content);
-                
-                if (!calendarData.weeks || calendarData.weeks.length === 0) {
-                    throw new Error('No weeks found in calendar content');
-                }
-
-                // Save calendar data
-                localStorage.setItem('smartMomCalendar', JSON.stringify(calendarData));
-                if (currentUser) {
-                    saveCalendarToAirtable(calendarData);
-                }
-
-                // Display the calendar
-                displayInteractiveCalendar();
-                
-                // Hide parse section, show calendar
-                document.getElementById('parseCalendarSection').style.display = 'none';
-                document.getElementById('calendarNavigation').style.display = 'flex';
-                document.getElementById('calendarActions').style.display = 'flex';
-                document.getElementById('calendarEmpty').style.display = 'none';
-                
-                // Show calendar access button now that calendar exists
-                showCalendarAccessButton();
-                
-                alert(`✅ Calendar created successfully!\n\n${calendarData.weeks.length} weeks with ${getTotalTasks()} total tasks loaded.`);
-                
-            } catch (error) {
-                console.error('Calendar parsing error:', error);
-                alert(`❌ Error parsing calendar: ${error.message}\n\nPlease check the format and try again.`);
-            }
-        }
-
-        function displayInteractiveCalendar() {
-            if (!calendarData) return;
-
-            generateWeekSelector();
-            generateCalendarContent();
-            updateCalendarStats();
-            loadCalendarProgress();
-            showWeek(1);
-        }
-
-        function generateWeekSelector() {
-            const weekSelector = document.getElementById('weekSelector');
-            weekSelector.innerHTML = '';
-
-            calendarData.weeks.forEach(week => {
-                const btn = document.createElement('button');
-                btn.className = 'week-btn';
-                btn.textContent = `Week ${week.weekNumber}`;
-                btn.onclick = () => showWeek(week.weekNumber);
-                weekSelector.appendChild(btn);
-            });
-        }
-
-        function generateCalendarContent() {
-            const container = document.getElementById('calendarContent');
-            container.innerHTML = '';
-
-            calendarData.weeks.forEach(week => {
-                const weekDiv = document.createElement('div');
-                weekDiv.className = 'week-content';
-                weekDiv.id = `week-${week.weekNumber}`;
-
-                week.days.forEach(day => {
-                    const dayCard = document.createElement('div');
-                    dayCard.className = 'day-card';
-                    
-                    const dayHeader = document.createElement('div');
-                    dayHeader.className = 'day-header';
-                    
-                    const dayTitle = document.createElement('h3');
-                    dayTitle.className = 'day-title';
-                    dayTitle.textContent = `Day ${day.dayNumber}`;
-                    
-                    const dayProgress = document.createElement('div');
-                    dayProgress.className = 'day-progress';
-                    dayProgress.id = `day-${week.weekNumber}-${day.dayNumber}-progress`;
-                    
-                    dayHeader.appendChild(dayTitle);
-                    dayHeader.appendChild(dayProgress);
-                    dayCard.appendChild(dayHeader);
-                    
-                    const taskList = document.createElement('div');
-                    taskList.className = 'task-list';
-                    
-                    day.tasks.forEach(task => {
-                        const taskCard = createTaskCard(week.weekNumber, day.dayNumber, task);
-                        taskList.appendChild(taskCard);
-                    });
-                    
-                    dayCard.appendChild(taskList);
-                    weekDiv.appendChild(dayCard);
-                });
-
-                container.appendChild(weekDiv);
-            });
-        }
-
-        function createTaskCard(weekNum, dayNum, task) {
-            const taskCard = document.createElement('div');
-            taskCard.className = 'task-card';
-            taskCard.id = `task-${weekNum}-${dayNum}-${task.taskNumber}`;
-            
-            const taskHeader = document.createElement('div');
-            taskHeader.className = 'task-header';
-            
-            const titleSection = document.createElement('div');
-            titleSection.className = 'task-title-section';
-            
-            const title = document.createElement('div');
-            title.className = 'task-title';
-            title.textContent = task.title;
-            
-            const meta = document.createElement('div');
-            meta.className = 'task-meta';
-            
-            const cost = document.createElement('span');
-            cost.className = `task-cost ${task.cost.toLowerCase().includes('free') ? 'cost-free' : 'cost-paid'}`;
-            cost.textContent = task.cost;
-            
-            const time = document.createElement('span');
-            time.className = 'task-time';
-            time.textContent = task.time;
-            
-            meta.appendChild(cost);
-            meta.appendChild(time);
-            titleSection.appendChild(title);
-            titleSection.appendChild(meta);
-            
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.className = 'task-checkbox';
-            checkbox.checked = task.completed;
-            checkbox.onchange = () => toggleTaskCompletion(weekNum, dayNum, task.taskNumber);
-            
-            taskHeader.appendChild(titleSection);
-            taskHeader.appendChild(checkbox);
-            taskCard.appendChild(taskHeader);
-            
-            if (task.steps && task.steps.length > 0) {
-                const stepList = document.createElement('div');
-                stepList.className = 'step-list';
-                
-                task.steps.forEach(step => {
-                    const stepItem = document.createElement('div');
-                    stepItem.className = 'step-item';
-                    stepItem.id = `step-${weekNum}-${dayNum}-${task.taskNumber}-${step.stepNumber}`;
-                    
-                    const stepCheckbox = document.createElement('input');
-                    stepCheckbox.type = 'checkbox';
-                    stepCheckbox.className = 'step-checkbox';
-                    stepCheckbox.checked = step.completed;
-                    stepCheckbox.onchange = () => toggleStepCompletion(weekNum, dayNum, task.taskNumber, step.stepNumber);
-                    
-                    const stepNumber = document.createElement('div');
-                    stepNumber.className = 'step-number';
-                    stepNumber.textContent = step.stepNumber;
-                    
-                    const stepText = document.createElement('div');
-                    stepText.className = 'step-text';
-                    stepText.textContent = step.instruction;
-                    
-                    stepItem.appendChild(stepCheckbox);
-                    stepItem.appendChild(stepNumber);
-                    stepItem.appendChild(stepText);
-                    stepList.appendChild(stepItem);
-                });
-                
-                taskCard.appendChild(stepList);
-            }
-            
-            return taskCard;
-        }
-
-        function showWeek(weekNumber) {
-            currentWeek = weekNumber;
-            
-            // Update week buttons
-            document.querySelectorAll('.week-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === `Week ${weekNumber}`) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Show/hide week content
-            document.querySelectorAll('.week-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            const currentWeekContent = document.getElementById(`week-${weekNumber}`);
-            if (currentWeekContent) {
-                currentWeekContent.classList.add('active');
-                updateWeekProgress(weekNumber);
-            }
-        }
-
-        function toggleTaskCompletion(weekNum, dayNum, taskNum) {
-            if (!calendarData) return;
-            
-            const week = calendarData.weeks.find(w => w.weekNumber === weekNum);
-            const day = week?.days.find(d => d.dayNumber === dayNum);
-            const task = day?.tasks.find(t => t.taskNumber === taskNum);
-            
-            if (task) {
-                task.completed = !task.completed;
-                
-                // If task is completed, mark all steps as completed
-                if (task.completed && task.steps) {
-                    task.steps.forEach(step => {
-                        step.completed = true;
-                        const stepElement = document.getElementById(`step-${weekNum}-${dayNum}-${taskNum}-${step.stepNumber}`);
-                        if (stepElement) {
-                            stepElement.classList.add('completed');
-                            stepElement.querySelector('.step-checkbox').checked = true;
-                        }
-                    });
-                }
-                
-                // Update UI
-                const taskCard = document.getElementById(`task-${weekNum}-${dayNum}-${taskNum}`);
-                if (taskCard) {
-                    taskCard.classList.toggle('completed', task.completed);
-                }
-                
-                updateProgressDisplays();
-                saveCalendarProgress();
-            }
-        }
-
-        function toggleStepCompletion(weekNum, dayNum, taskNum, stepNum) {
-            if (!calendarData) return;
-            
-            const week = calendarData.weeks.find(w => w.weekNumber === weekNum);
-            const day = week?.days.find(d => d.dayNumber === dayNum);
-            const task = day?.tasks.find(t => t.taskNumber === taskNum);
-            const step = task?.steps.find(s => s.stepNumber === stepNum);
-            
-            if (step) {
-                step.completed = !step.completed;
-                
-                // Update step UI
-                const stepElement = document.getElementById(`step-${weekNum}-${dayNum}-${taskNum}-${stepNum}`);
-                if (stepElement) {
-                    stepElement.classList.toggle('completed', step.completed);
-                }
-                
-                // Check if all steps are completed to auto-complete task
-                if (task.steps.every(s => s.completed)) {
-                    task.completed = true;
-                    const taskCard = document.getElementById(`task-${weekNum}-${dayNum}-${taskNum}`);
-                    const taskCheckbox = taskCard?.querySelector('.task-checkbox');
-                    if (taskCard && taskCheckbox) {
-                        taskCard.classList.add('completed');
-                        taskCheckbox.checked = true;
-                    }
-                } else if (task.completed && !step.completed) {
-                    // If unchecking a step, uncheck the task
-                    task.completed = false;
-                    const taskCard = document.getElementById(`task-${weekNum}-${dayNum}-${taskNum}`);
-                    const taskCheckbox = taskCard?.querySelector('.task-checkbox');
-                    if (taskCard && taskCheckbox) {
-                        taskCard.classList.remove('completed');
-                        taskCheckbox.checked = false;
-                    }
-                }
-                
-                updateProgressDisplays();
-                saveCalendarProgress();
-            }
-        }
-
-        function updateProgressDisplays() {
-            updateCalendarStats();
-            updateWeekProgress(currentWeek);
-            
-            // Update day progress for all days
-            calendarData.weeks.forEach(week => {
-                week.days.forEach(day => {
-                    updateDayProgress(week.weekNumber, day.dayNumber);
-                });
-            });
-        }
-
-        function updateCalendarStats() {
-            if (!calendarData) return;
-            
-            const totalTasks = getTotalTasks();
-            const completedTasks = getCompletedTasks();
-            const overallProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-            const currentWeekProgress = getCurrentWeekProgress();
-            
-            document.getElementById('totalTasks').textContent = totalTasks;
-            document.getElementById('completedTasks').textContent = completedTasks;
-            document.getElementById('overallProgress').textContent = `${overallProgress}%`;
-            document.getElementById('currentWeekProgress').textContent = `${currentWeekProgress}%`;
-        }
-
-        function updateWeekProgress(weekNum) {
-            if (!calendarData) return;
-            
-            const week = calendarData.weeks.find(w => w.weekNumber === weekNum);
-            if (!week) return;
-            
-            const weekTasks = week.days.flatMap(day => day.tasks);
-            const completedWeekTasks = weekTasks.filter(task => task.completed);
-            const weekProgress = weekTasks.length > 0 ? Math.round((completedWeekTasks.length / weekTasks.length) * 100) : 0;
-            
-            document.getElementById('progressPercent').textContent = `${weekProgress}%`;
-            document.getElementById('weekProgressText').textContent = `${completedWeekTasks.length} of ${weekTasks.length} tasks completed`;
-            
-            // Update progress circle
-            const progressCircle = document.getElementById('progressCircle');
-            if (progressCircle) {
-                progressCircle.style.background = `conic-gradient(var(--sage-green) ${weekProgress * 3.6}deg, var(--light-sage) 0deg)`;
-            }
-        }
-
-        function updateDayProgress(weekNum, dayNum) {
-            if (!calendarData) return;
-            
-            const week = calendarData.weeks.find(w => w.weekNumber === weekNum);
-            const day = week?.days.find(d => d.dayNumber === dayNum);
-            if (!day) return;
-            
-            const dayTasks = day.tasks;
-            const completedDayTasks = dayTasks.filter(task => task.completed);
-            const dayProgress = dayTasks.length > 0 ? Math.round((completedDayTasks.length / dayTasks.length) * 100) : 0;
-            
-            const progressElement = document.getElementById(`day-${weekNum}-${dayNum}-progress`);
-            if (progressElement) {
-                progressElement.textContent = `${completedDayTasks.length}/${dayTasks.length} tasks (${dayProgress}%)`;
-                progressElement.style.background = dayProgress === 100 ? 'var(--success-green)' : 'var(--light-sage)';
-                progressElement.style.color = dayProgress === 100 ? 'white' : 'var(--sage-green)';
-            }
-        }
-
-        function getTotalTasks() {
-            if (!calendarData) return 0;
-            return calendarData.weeks.reduce((total, week) => {
-                return total + week.days.reduce((dayTotal, day) => dayTotal + day.tasks.length, 0);
-            }, 0);
-        }
-
-        function getCompletedTasks() {
-            if (!calendarData) return 0;
-            return calendarData.weeks.reduce((total, week) => {
-                return total + week.days.reduce((dayTotal, day) => {
-                    return dayTotal + day.tasks.filter(task => task.completed).length;
-                }, 0);
-            }, 0);
-        }
-
-        function getCurrentWeekProgress() {
-            if (!calendarData) return 0;
-            
-            const week = calendarData.weeks.find(w => w.weekNumber === currentWeek);
-            if (!week) return 0;
-            
-            const weekTasks = week.days.flatMap(day => day.tasks);
-            const completedWeekTasks = weekTasks.filter(task => task.completed);
-            return weekTasks.length > 0 ? Math.round((completedWeekTasks.length / weekTasks.length) * 100) : 0;
-        }
-
-        function saveCalendarProgress() {
-            if (!calendarData) return;
-            
-            const progressData = {
-                calendarData: calendarData,
-                currentWeek: currentWeek,
-                lastUpdated: new Date().toISOString()
-            };
-            
-            localStorage.setItem('smartMomCalendarProgress', JSON.stringify(progressData));
-            
-            // Also save to Airtable if user is signed in
-            if (currentUser) {
-                saveCalendarToAirtable(progressData);
-            }
-        }
-
-        function loadCalendarProgress() {
-            const savedProgress = localStorage.getItem('smartMomCalendarProgress');
-            if (savedProgress) {
-                try {
-                    const progressData = JSON.parse(savedProgress);
-                    if (progressData.calendarData) {
-                        calendarData = progressData.calendarData;
-                        currentWeek = progressData.currentWeek || 1;
-                        
-                        // Update UI with loaded progress
-                        updateProgressDisplays();
-                        console.log('Calendar progress loaded from localStorage');
-                    }
-                } catch (error) {
-                    console.error('Error loading calendar progress:', error);
-                }
-            }
-        }
-
-        async function saveCalendarToAirtable(data) {
-            if (!currentUser) return;
+            const proxy = corsProxies[retryCount];
+            const proxiedUrl = proxy + encodeURIComponent(url);
             
             try {
-                const calendarData = {
-                    UserEmail: currentUser.email,
-                    CalendarData: JSON.stringify(data),
-                    LastUpdated: new Date().toISOString()
-                };
-                
-                // Check if calendar record exists
-                const existingResponse = await fetch(
-                    `${airtableConfig.apiUrl}/Calendars?filterByFormula={UserEmail}='${currentUser.email}'`,
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${airtableConfig.apiKey}`,
-                            'Content-Type': 'application/json'
-                        }
+                const response = await fetch(proxiedUrl, {
+                    ...options,
+                    headers: {
+                        ...options.headers,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Origin': window.location.origin
                     }
-                );
-                
-                const existingData = await existingResponse.json();
-                
-                if (existingData.records && existingData.records.length > 0) {
-                    // Update existing
-                    const recordId = existingData.records[0].id;
-                    await updateRecord('Calendars', recordId, calendarData);
-                } else {
-                    // Create new
-                    await createRecord('Calendars', calendarData);
+                });
+
+                if (!response.ok && retryCount < maxRetries - 1) {
+                    console.warn(`Proxy ${retryCount + 1} failed, trying next proxy...`);
+                    return await corsProxyFetch(url, options, retryCount + 1);
                 }
-                
-                console.log('Calendar data saved to Airtable');
+
+                return response;
             } catch (error) {
-                console.error('Error saving calendar to Airtable:', error);
-            }
-        }
-
-        function downloadCalendarProgress() {
-            if (!calendarData) {
-                alert('No calendar data to download.');
-                return;
-            }
-            
-            const stats = {
-                totalTasks: getTotalTasks(),
-                completedTasks: getCompletedTasks(),
-                overallProgress: Math.round((getCompletedTasks() / getTotalTasks()) * 100),
-                lastUpdated: new Date().toLocaleDateString()
-            };
-            
-            let content = `SMART MOM METHOD - CALENDAR PROGRESS REPORT
-Generated: ${new Date().toLocaleDateString()}
-
-=== PROGRESS SUMMARY ===
-Total Tasks: ${stats.totalTasks}
-Completed Tasks: ${stats.completedTasks}
-Overall Progress: ${stats.overallProgress}%
-Last Updated: ${stats.lastUpdated}
-
-=== WEEKLY BREAKDOWN ===
-`;
-
-            calendarData.weeks.forEach(week => {
-                const weekTasks = week.days.flatMap(day => day.tasks);
-                const completedWeekTasks = weekTasks.filter(task => task.completed);
-                const weekProgress = weekTasks.length > 0 ? Math.round((completedWeekTasks.length / weekTasks.length) * 100) : 0;
-                
-                content += `\nWEEK ${week.weekNumber}: ${completedWeekTasks.length}/${weekTasks.length} tasks (${weekProgress}%)\n`;
-                
-                week.days.forEach(day => {
-                    const dayCompletedTasks = day.tasks.filter(task => task.completed);
-                    content += `  Day ${day.dayNumber}: ${dayCompletedTasks.length}/${day.tasks.length} tasks\n`;
-                    
-                    day.tasks.forEach(task => {
-                        const status = task.completed ? '✅' : '⏳';
-                        content += `    ${status} ${task.title}\n`;
-                        
-                        if (task.steps) {
-                            task.steps.forEach(step => {
-                                const stepStatus = step.completed ? '✅' : '⏳';
-                                content += `      ${stepStatus} Step ${step.stepNumber}: ${step.instruction}\n`;
-                            });
-                        }
-                    });
-                });
-            });
-            
-            content += `\n=== NEXT STEPS ===
-1. Continue working through your calendar tasks
-2. Check off completed items regularly
-3. Book a consultation if you need support
-4. Update your progress weekly
-
-Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min
-`;
-            
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `smart-mom-calendar-progress-${new Date().toISOString().split('T')[0]}.txt`;
-            a.click();
-            
-            URL.revokeObjectURL(url);
-        }
-
-        function printCalendar() {
-            if (!calendarData) {
-                alert('No calendar data to print.');
-                return;
-            }
-            
-            const printWindow = window.open('', '_blank');
-            const printContent = generatePrintableCalendar();
-            
-            printWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Smart Mom Method Calendar</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 20px; }
-                        .week { page-break-before: always; margin-bottom: 30px; }
-                        .week:first-child { page-break-before: auto; }
-                        .day { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; }
-                        .task { margin-bottom: 15px; padding: 10px; background: #f9f9f9; }
-                        .step { margin-left: 20px; margin-bottom: 5px; }
-                        .checkbox { width: 15px; height: 15px; margin-right: 10px; }
-                        h1, h2, h3 { color: #6B8E6B; }
-                        .completed { text-decoration: line-through; opacity: 0.7; }
-                    </style>
-                </head>
-                <body>
-                    ${printContent}
-                </body>
-                </html>
-            `);
-            
-            printWindow.document.close();
-            printWindow.print();
-        }
-
-        function generatePrintableCalendar() {
-            let content = '<h1>Smart Mom Method - Interactive Calendar</h1>';
-            content += `<p>Generated: ${new Date().toLocaleDateString()}</p>`;
-            content += `<p>Progress: ${getCompletedTasks()}/${getTotalTasks()} tasks completed</p>`;
-            
-            calendarData.weeks.forEach(week => {
-                content += `<div class="week">`;
-                content += `<h2>Week ${week.weekNumber}</h2>`;
-                
-                week.days.forEach(day => {
-                    content += `<div class="day">`;
-                    content += `<h3>Day ${day.dayNumber}</h3>`;
-                    
-                    day.tasks.forEach(task => {
-                        const taskClass = task.completed ? 'task completed' : 'task';
-                        content += `<div class="${taskClass}">`;
-                        content += `<input type="checkbox" class="checkbox" ${task.completed ? 'checked' : ''}> `;
-                        content += `<strong>${task.title}</strong> (${task.cost} - ${task.time})`;
-                        
-                        if (task.steps) {
-                            task.steps.forEach(step => {
-                                const stepClass = step.completed ? 'step completed' : 'step';
-                                content += `<div class="${stepClass}">`;
-                                content += `<input type="checkbox" class="checkbox" ${step.completed ? 'checked' : ''}> `;
-                                content += `Step ${step.stepNumber}: ${step.instruction}`;
-                                content += `</div>`;
-                            });
-                        }
-                        
-                        content += `</div>`;
-                    });
-                    
-                    content += `</div>`;
-                });
-                
-                content += `</div>`;
-            });
-            
-            return content;
-        }
-
-        function resetCalendarProgress() {
-            if (!calendarData) return;
-            
-            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-                calendarData.weeks.forEach(week => {
-                    week.days.forEach(day => {
-                        day.tasks.forEach(task => {
-                            task.completed = false;
-                            if (task.steps) {
-                                task.steps.forEach(step => {
-                                    step.completed = false;
-                                });
-                            }
-                        });
-                    });
-                });
-                
-                // Update UI
-                document.querySelectorAll('.task-card').forEach(card => {
-                    card.classList.remove('completed');
-                    card.querySelector('.task-checkbox').checked = false;
-                });
-                
-                document.querySelectorAll('.step-item').forEach(step => {
-                    step.classList.remove('completed');
-                    step.querySelector('.step-checkbox').checked = false;
-                });
-                
-                updateProgressDisplays();
-                saveCalendarProgress();
-                
-                alert('Calendar progress has been reset.');
-            }
-        }
-
-        function showInteractiveCalendar() {
-            // Hide other sections and show calendar
-            document.querySelectorAll('.form-section, .step-description, .empowerment-message, .path-selection, #businessQuestionnaire, #successMessage, #interactiveAIWorkflow, #finalDashboard, #paymentOptions').forEach(el => {
-                el.classList.add('hidden');
-            });
-            
-            document.getElementById('interactiveCalendarDisplay').classList.remove('hidden');
-            document.getElementById('interactiveCalendarDisplay').scrollIntoView({ behavior: 'smooth' });
-            
-            // Load existing calendar data if available
-            const savedCalendar = localStorage.getItem('smartMomCalendar');
-            if (savedCalendar) {
-                try {
-                    calendarData = JSON.parse(savedCalendar);
-                    displayInteractiveCalendar();
-                    document.getElementById('parseCalendarSection').style.display = 'none';
-                    document.getElementById('calendarNavigation').style.display = 'flex';
-                    document.getElementById('calendarActions').style.display = 'flex';
-                    document.getElementById('calendarEmpty').style.display = 'none';
-                } catch (error) {
-                    console.error('Error loading saved calendar:', error);
+                console.warn(`Proxy ${retryCount + 1} failed:`, error.message);
+                if (retryCount < maxRetries - 1) {
+                    return await corsProxyFetch(url, options, retryCount + 1);
                 }
+                throw error;
             }
         }
 
-        // ===== AIRTABLE API FUNCTIONS =====
+        // ===== AIRTABLE API FUNCTIONS (WITH ENHANCED CORS) =====
         
-        // Password hashing function
         async function hashPassword(password) {
             const encoder = new TextEncoder();
             const data = encoder.encode(password);
@@ -4210,10 +2605,9 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
                 .join('');
         }
 
-        // Find user by email
         async function findUserByEmail(email) {
             try {
-                const response = await fetch(
+                const response = await corsProxyFetch(
                     `${airtableConfig.apiUrl}/Users?filterByFormula={Email}='${email}'`,
                     {
                         headers: {
@@ -4223,10 +2617,6 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
                     }
                 );
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
                 const data = await response.json();
                 return data.records[0] || null;
             } catch (error) {
@@ -4235,81 +2625,17 @@ Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-
             }
         }
 
-        // Create new record
-       // CORS proxy wrapper function
-async function corsProxyFetch(url, options = {}) {
-    const proxyUrl = 'https://api.allorigins.win/raw?url=';
-    const proxiedUrl = proxyUrl + encodeURIComponent(url);
-    
-    try {
-        return await fetch(proxiedUrl, {
-            ...options,
-            headers: {
-                ...options.headers,
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-    } catch (error) {
-        console.log('Primary proxy failed, trying fallback...');
-        try {
-            return await fetch('https://cors-anywhere.herokuapp.com/' + url, options);
-        } catch (fallbackError) {
-            console.error('Both proxies failed:', fallbackError);
-            throw error;
-        }
-    }
-}
+        async function createRecord(table, fields) {
+            try {
+                const response = await corsProxyFetch(`${airtableConfig.apiUrl}/${table}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${airtableConfig.apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fields })
+                });
 
-// Create new record (CORS proxy version)
-async function createRecord(table, fields) {
-    try {
-        const response = await corsProxyFetch(`https://api.airtable.com/v0/appQUF3zVLlHbB4fP/${table}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer patjes1GsajwyYTSN.39633c18c6dc227b6e290d5da8lda3bde2f4d089d6bd4ae049787fecdb676f65',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ fields })
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error creating record:', error);
-        throw error;
-    }
-}
-
-// Update existing record (CORS proxy version)
-async function updateRecord(table, recordId, fields) {
-    try {
-        const response = await corsProxyFetch(`https://api.airtable.com/v0/appQUF3zVLlHbB4fP/${table}/${recordId}`, {
-            method: 'PATCH',
-            headers: {
-                'Authorization': 'Bearer patjes1GsajwyYTSN.39633c18c6dc227b6e290d5da8lda3bde2f4d089d6bd4ae049787fecdb676f65',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ fields })
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error updating record:', error);
-        throw error;
-    }
-}
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
                 return await response.json();
             } catch (error) {
                 console.error('Error creating record:', error);
@@ -4317,25 +2643,17 @@ async function updateRecord(table, recordId, fields) {
             }
         }
 
-        // Update existing record
         async function updateRecord(table, recordId, fields) {
             try {
-                const response = await fetch(
-                    `${airtableConfig.apiUrl}/${table}/${recordId}`,
-                    {
-                        method: 'PATCH',
-                        headers: {
-                            'Authorization': `Bearer ${airtableConfig.apiKey}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ fields })
-                    }
-                );
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
+                const response = await corsProxyFetch(`${airtableConfig.apiUrl}/${table}/${recordId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${airtableConfig.apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fields })
+                });
+
                 return await response.json();
             } catch (error) {
                 console.error('Error updating record:', error);
@@ -4343,7 +2661,6 @@ async function updateRecord(table, recordId, fields) {
             }
         }
 
-        // Create user account
         async function createUser(email, password, name) {
             try {
                 const hashedPassword = await hashPassword(password);
@@ -4360,7 +2677,6 @@ async function updateRecord(table, recordId, fields) {
                 const result = await createRecord('Users', userData);
                 console.log('User created successfully:', result);
                 
-                // Set current user
                 currentUser = {
                     id: result.id,
                     email: email,
@@ -4368,9 +2684,7 @@ async function updateRecord(table, recordId, fields) {
                     displayName: name
                 };
                 
-                // Update session
                 updateUserSession(currentUser);
-                
                 return result;
             } catch (error) {
                 console.error('Error creating user:', error);
@@ -4378,7 +2692,6 @@ async function updateRecord(table, recordId, fields) {
             }
         }
 
-        // Sign in user
         async function signIn(email, password) {
             try {
                 const user = await findUserByEmail(email);
@@ -4391,7 +2704,6 @@ async function updateRecord(table, recordId, fields) {
                     throw new Error('Invalid password');
                 }
 
-                // Set current user
                 currentUser = {
                     id: user.id,
                     email: email,
@@ -4399,10 +2711,7 @@ async function updateRecord(table, recordId, fields) {
                     displayName: user.fields.Name
                 };
 
-                // Update session
                 updateUserSession(currentUser);
-                
-                // Load user progress
                 await loadUserProgress(email);
                 
                 return user;
@@ -4412,8 +2721,9 @@ async function updateRecord(table, recordId, fields) {
             }
         }
 
-        // Save user progress
         async function saveProgress(userEmail, data) {
+            if (!userEmail || !currentUser) return;
+            
             try {
                 const progressData = {
                     UserEmail: userEmail,
@@ -4424,8 +2734,7 @@ async function updateRecord(table, recordId, fields) {
                     Language: currentLanguage
                 };
 
-                // Check if progress already exists for this user
-                const existingResponse = await fetch(
+                const existingResponse = await corsProxyFetch(
                     `${airtableConfig.apiUrl}/Progress?filterByFormula={UserEmail}='${userEmail}'`,
                     {
                         headers: {
@@ -4438,16 +2747,13 @@ async function updateRecord(table, recordId, fields) {
                 const existingData = await existingResponse.json();
                 
                 if (existingData.records && existingData.records.length > 0) {
-                    // Update existing record
                     const recordId = existingData.records[0].id;
                     return await updateRecord('Progress', recordId, progressData);
                 } else {
-                    // Create new record
                     return await createRecord('Progress', progressData);
                 }
             } catch (error) {
                 console.error('Error saving progress:', error);
-                // Still save to localStorage as backup
                 localStorage.setItem('smartMomProgress', JSON.stringify({
                     userEmail,
                     data,
@@ -4458,11 +2764,10 @@ async function updateRecord(table, recordId, fields) {
             }
         }
 
-        // Load user progress
         async function loadUserProgress(userEmail) {
             try {
-              const response = await corsProxyFetch(
-    `${airtableConfig.apiUrl}/Progress?filterByFormula={userEmail}='${userEmail}'`,
+                const response = await corsProxyFetch(
+                    `${airtableConfig.apiUrl}/Progress?filterByFormula={UserEmail}='${userEmail}'`,
                     {
                         headers: {
                             'Authorization': `Bearer ${airtableConfig.apiKey}`,
@@ -4476,17 +2781,14 @@ async function updateRecord(table, recordId, fields) {
                 if (data.records && data.records.length > 0) {
                     const progressRecord = data.records[0].fields;
                     
-                    // Restore form data
                     if (progressRecord.FormData) {
                         formData = JSON.parse(progressRecord.FormData);
                         restoreFormData(formData);
                     }
                     
-                    // Restore current step and path
                     currentStep = progressRecord.CurrentStep || 1;
                     selectedPath = progressRecord.SelectedPath || '';
                     
-                    // Update UI
                     updateProgressDisplay();
                     showReturningUserStatus(progressRecord.LastSaved);
                     
@@ -4495,7 +2797,6 @@ async function updateRecord(table, recordId, fields) {
                 }
             } catch (error) {
                 console.error('Error loading progress:', error);
-                // Try to load from localStorage as backup
                 const localProgress = localStorage.getItem('smartMomProgress');
                 if (localProgress) {
                     const parsed = JSON.parse(localProgress);
@@ -4510,32 +2811,45 @@ async function updateRecord(table, recordId, fields) {
             }
         }
 
-        // Submit testimonial
-        async function submitTestimonial(testimonial, userName, selectedPath) {
+        async function sendToWebhook(data) {
             try {
-                const testimonialData = {
-                    UserEmail: currentUser ? currentUser.email : 'anonymous',
-                    UserName: userName || 'Anonymous',
-                    Testimonial: testimonial,
-                    SelectedPath: selectedPath,
-                    SubmittedAt: new Date().toISOString()
-                };
-
-                const result = await createRecord('Testimonials', testimonialData);
-                
-             await sendToWebhook({
-                    trigger: 'testimonial',
-                    testimonial: testimonial,
-                    user_name: userName,
-                    selected_path: selectedPath,
-                    timestamp: new Date().toISOString()
+                const response = await corsProxyFetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...data,
+                        source: 'smart-mom-method-website',
+                        version: '2.0'
+                    })
                 });
-                
-                return result;
+
+                if (response.ok) {
+                    console.log('📧 Webhook sent successfully!');
+                    return true;
+                } else {
+                    console.warn('⚠️ Webhook failed:', response.status);
+                    return false;
+                }
             } catch (error) {
-                console.error('Error submitting testimonial:', error);
-                throw error;
+                console.warn('⚠️ Webhook error:', error.message);
+                return false;
             }
+        }
+
+        async function sendWelcomeEmail(name, email) {
+            const welcomeData = {
+                trigger: 'welcome_email',
+                name: name,
+                email: email,
+                timestamp: new Date().toISOString(),
+                language: currentLanguage,
+                source: 'smart-mom-method-website'
+            };
+            
+            return await sendToWebhook(welcomeData);
         }
 
         // ===== USER SESSION MANAGEMENT =====
@@ -4543,10 +2857,8 @@ async function updateRecord(table, recordId, fields) {
         function updateUserSession(user) {
             currentUser = user;
             
-            // Update localStorage for session persistence
             localStorage.setItem('smartMomUser', JSON.stringify(user));
             
-            // Update UI
             document.getElementById('userStatusBar').classList.remove('hidden');
             document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
             document.getElementById('userDisplayName').textContent = user.name;
@@ -4555,7 +2867,6 @@ async function updateRecord(table, recordId, fields) {
             document.getElementById('statusBadge').className = 'status-badge signed-in';
             document.getElementById('signOutBtn').style.display = 'block';
             
-            // Hide save progress button
             const saveBtn = document.querySelector('[onclick="showAuthModal(\'signup\')"]');
             if (saveBtn) saveBtn.style.display = 'none';
         }
@@ -4572,7 +2883,6 @@ async function updateRecord(table, recordId, fields) {
                     localStorage.removeItem('smartMomUser');
                 }
             } else {
-                // Show user status bar in guest mode
                 document.getElementById('userStatusBar').classList.remove('hidden');
             }
         }
@@ -4582,7 +2892,6 @@ async function updateRecord(table, recordId, fields) {
             localStorage.removeItem('smartMomUser');
             localStorage.removeItem('smartMomProgress');
             
-            // Reset UI to guest mode
             document.getElementById('userAvatar').textContent = '?';
             document.getElementById('userDisplayName').textContent = 'Guest User';
             document.getElementById('userStatusText').textContent = 'Progress will not be saved';
@@ -4590,16 +2899,13 @@ async function updateRecord(table, recordId, fields) {
             document.getElementById('statusBadge').className = 'status-badge guest';
             document.getElementById('signOutBtn').style.display = 'none';
             
-            // Show save progress button
             const saveBtn = document.querySelector('[onclick="showAuthModal(\'signup\')"]');
             if (saveBtn) saveBtn.style.display = 'block';
             
-            // Reset form
             document.querySelectorAll('.form-control').forEach(field => {
                 field.value = '';
             });
             
-            // Reset progress
             currentStep = 1;
             selectedPath = '';
             formData = {};
@@ -4671,6 +2977,129 @@ async function updateRecord(table, recordId, fields) {
             successDiv.classList.remove('hidden');
         }
 
+        // ===== FORM HANDLING =====
+        
+        function validateField(field) {
+            const validation = document.getElementById(field.id + '-validation');
+            let isValid = true;
+            let message = '';
+
+            if (field.required && !field.value.trim()) {
+                isValid = false;
+                message = 'This field is required';
+            } else if (field.type === 'email' && field.value && !isValidEmail(field.value)) {
+                isValid = false;
+                message = 'Please enter a valid email address';
+            } else if (field.id === 'user-name' && field.value && field.value.length < 2) {
+                isValid = false;
+                message = 'Name must be at least 2 characters';
+            }
+
+            if (validation) {
+                validation.textContent = message;
+                validation.className = isValid ? 'validation-message success' : 'validation-message';
+            }
+
+            formData[field.id] = field.value;
+            
+            if (currentUser) {
+                saveProgress(currentUser.email, formData);
+            }
+
+            return isValid;
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function updateCharCount(textarea, maxLength) {
+            const counter = document.getElementById(textarea.id + '-counter');
+            if (counter) {
+                const current = textarea.value.length;
+                counter.textContent = `${current}/${maxLength}`;
+                
+                if (current > maxLength) {
+                    counter.style.color = '#e57373';
+                    textarea.style.borderColor = '#e57373';
+                } else {
+                    counter.style.color = '';
+                    textarea.style.borderColor = '';
+                }
+            }
+            
+            formData[textarea.id] = textarea.value;
+            
+            if (currentUser) {
+                saveProgress(currentUser.email, formData);
+            }
+        }
+
+        function restoreFormData(data) {
+            Object.keys(data).forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = data[fieldId];
+                    
+                    if (field.type === 'textarea' && field.oninput) {
+                        field.oninput();
+                    }
+                }
+            });
+        }
+
+        // ===== PROGRESS MANAGEMENT =====
+        
+        function updateProgressDisplay() {
+            const stepCounter = document.getElementById('stepCounter');
+            const progressFill = document.getElementById('progressFill');
+            
+            if (stepCounter) {
+                stepCounter.textContent = `Step ${currentStep} of 6`;
+            }
+            
+            if (progressFill) {
+                const percentage = (currentStep / 6) * 100;
+                progressFill.style.width = `${percentage}%`;
+            }
+
+            // Update step indicators
+            for (let i = 1; i <= 6; i++) {
+                const stepElement = document.getElementById(`step-${i}`);
+                if (stepElement) {
+                    stepElement.classList.remove('active', 'completed', 'pending');
+                    
+                    if (i < currentStep) {
+                        stepElement.classList.add('completed');
+                    } else if (i === currentStep) {
+                        stepElement.classList.add('active');
+                    } else {
+                        stepElement.classList.add('pending');
+                    }
+                }
+            }
+        }
+
+        function showReturningUserStatus(lastSaved) {
+            if (lastSaved) {
+                const lastSavedDate = new Date(lastSaved);
+                const now = new Date();
+                const diffTime = Math.abs(now - lastSavedDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                let timeText = '';
+                if (diffDays === 1) {
+                    timeText = 'yesterday';
+                } else if (diffDays < 7) {
+                    timeText = `${diffDays} days ago`;
+                } else {
+                    timeText = 'recently';
+                }
+                
+                document.getElementById('userStatusText').textContent = `Last saved ${timeText}`;
+            }
+        }
+
         // ===== MODAL FUNCTIONS =====
         
         function startOnboarding() {
@@ -4680,71 +3109,6 @@ async function updateRecord(table, recordId, fields) {
         function handleReturningUser() {
             document.getElementById('welcomeModal').classList.add('hidden');
             showAuthModal('signin');
-        }
-
-               
-       // ===== WEBHOOK FUNCTIONS =====
-async function corsProxyFetch(url, options = {}) {
-    const proxyUrl = 'https://api.allorigins.win/raw?url=';
-    const proxiedUrl = proxyUrl + encodeURIComponent(url);
-    
-    try {
-        return await fetch(proxiedUrl, {
-            ...options,
-            headers: {
-                ...options.headers,
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
-    } catch (error) {
-        console.log('Primary proxy failed, trying fallback...');
-        try {
-            return await fetch('https://cors-anywhere.herokuapp.com/' + url, options);
-        } catch (fallbackError) {
-            console.error('Both proxies failed:', fallbackError);
-            throw error;
-        }
-    }
-}
-
-async function sendToWebhook(data) {
-    try {
-        const response = await corsProxyFetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                ...data,
-                source: 'smart-mom-method-website',
-                version: '2.0'
-            })
-        });
-
-        if (response.ok) {
-            console.log('📧 Webhook sent successfully!');
-            return true;
-        } else {
-            console.warn('⚠️ Webhook failed:', response.status);
-            return false;
-        }
-    } catch (error) {
-        console.warn('⚠️ Webhook error (expected - webhook may be broken):', error.message);
-        return false;
-    }
-}
-        async function sendWelcomeEmail(name, email) {
-            const welcomeData = {
-                trigger: 'welcome_email',
-                name: name,
-                email: email,
-                timestamp: new Date().toISOString(),
-                language: currentLanguage,
-                source: 'smart-mom-method-website'
-            };
-            
-            return await sendToWebhook(welcomeData);
         }
 
         // ===== UTILITY FUNCTIONS =====
@@ -4761,9 +3125,7 @@ async function sendToWebhook(data) {
             });
             document.getElementById(`lang-${lang}`).classList.add('active');
             
-            // Save language preference
             localStorage.setItem('smartMomLanguage', lang);
-            
             updateLanguageContent(lang);
         }
 
@@ -4779,191 +3141,51 @@ async function sendToWebhook(data) {
                     mainSubtitle: 'AI-Powered Interactive Calendar & Business Planning for Busy Moms',
                     freeBadge: '100% Free',
                     ctaButton: 'Start Your Free Interactive Calendar & Business Plan Now',
-                    ctaSubtext: 'No email required to browse • Full process takes 25-30 minutes',
-                    stepDescTitle: "Let's Get Started",
-                    stepDescText: "First, let's get to know you better so we can create the perfect interactive calendar and business plan for your unique situation.",
-                    empowermentTitle: "You're Already Successful!",
-                    empowermentText: "Managing a family is running a complex organization. You have negotiation skills, time management expertise, and crisis resolution abilities that most CEOs would envy. Now let's channel that into YOUR organized life and successful business!",
-                    basicInfoTitle: 'Basic Information',
-                    nameLabel: 'Your Name:',
-                    emailLabel: 'Your Email:',
-                    pathSelectionTitle: 'What brings you here today? Choose your main focus:',
-                    pathTitle1: 'Life Organization',
-                    pathDesc1: 'I need help organizing my daily life, family schedules, and home systems',
-                    pathTitle2: 'Business Launch',
-                    pathDesc2: 'I want to start a business or create passive income streams',
-                    pathTitle3: 'Both Life & Business',
-                    pathDesc3: 'I need life organization AND want to start a business',
-                    continueBtnText: 'Continue With Selected Path',
-                    businessQuestionnaireTitle: 'Tell Us More About Your Situation',
-                    familyStructureLabel: 'Family structure & ages:',
-                    dailyScheduleLabel: 'Describe your typical daily schedule:',
-                    investmentLabel: 'Investment level for business:',
-                    incomeTimelineLabel: 'Timeline to first income:',
-                    proceedBtnText: 'Start AI-Powered Analysis'
+                    ctaSubtext: 'No email required to browse • Full process takes 25-30 minutes'
                 },
                 es: {
                     welcomeTitle: '¡Bienvenida al Método Smart Mom!',
-                    welcomeDescription: 'Crea tu calendario interactivo personalizado y plan de negocio en 6 simples pasos. Este proceso tomará aproximadamente 25-30 minutos y generará un calendario interactivo completo y plan adaptado específicamente para madres ocupadas como tú.',
+                    welcomeDescription: 'Crea tu calendario interactivo personalizado y plan de negocio en 6 simples pasos. Este proceso tomará aproximadamente 25-30 minutos y generará un calendario interactivo integral y un plan diseñado específicamente para madres ocupadas como tú.',
                     welcomeStart: 'Comenzar',
                     welcomeCreate: 'Crear Cuenta y Guardar Progreso',
-                    welcomeReturning: 'Soy usuaria que regresa',
+                    welcomeReturning: 'Soy usuario que regresa',
                     mainTitle: 'Método Smart Mom',
-                    mainSubtitle: 'Calendario Interactivo y Planificación de Negocio con IA para Madres Ocupadas',
+                    mainSubtitle: 'Calendario Interactivo y Planificación de Negocios con IA para Madres Ocupadas',
                     freeBadge: '100% Gratis',
                     ctaButton: 'Comienza Tu Calendario Interactivo y Plan de Negocio Gratis Ahora',
-                    ctaSubtext: 'No se requiere correo para navegar • El proceso completo toma 25-30 minutos',
-                    stepDescTitle: 'Comencemos',
-                    stepDescText: 'Primero, vamos a conocerte mejor para crear el calendario interactivo perfecto y plan de negocio para tu situación única.',
-                    empowermentTitle: '¡Ya Eres Exitosa!',
-                    empowermentText: 'Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora vamos a canalizar eso hacia TU vida organizada y negocio exitoso!',
-                    basicInfoTitle: 'Información Básica',
-                    nameLabel: 'Tu Nombre:',
-                    emailLabel: 'Tu Correo Electrónico:',
-                    pathSelectionTitle: '¿Qué te trae aquí hoy? Elige tu enfoque principal:',
-                    pathTitle1: 'Organización de Vida',
-                    pathDesc1: 'Necesito ayuda organizando mi vida diaria, horarios familiares y sistemas del hogar',
-                    pathTitle2: 'Lanzamiento de Negocio',
-                    pathDesc2: 'Quiero iniciar un negocio o crear fuentes de ingresos pasivos',
-                    pathTitle3: 'Vida y Negocio',
-                    pathDesc3: 'Necesito organización de vida Y quiero iniciar un negocio',
-                    continueBtnText: 'Continuar Con el Camino Seleccionado',
-                    businessQuestionnaireTitle: 'Cuéntanos Más Sobre Tu Situación',
-                    familyStructureLabel: 'Estructura familiar y edades:',
-                    dailyScheduleLabel: 'Describe tu horario diario típico:',
-                    investmentLabel: 'Nivel de inversión para negocio:',
-                    incomeTimelineLabel: 'Cronograma para primeros ingresos:',
-                    proceedBtnText: 'Comenzar Análisis con IA'
+                    ctaSubtext: 'No se requiere email para navegar • El proceso completo toma 25-30 minutos'
                 }
             };
 
-            const text = translations[lang];
-            if (text) {
-                // Update all translatable elements
-                Object.keys(text).forEach(key => {
+            const t = translations[lang];
+            if (t) {
+                Object.keys(t).forEach(key => {
                     const element = document.getElementById(key);
                     if (element) {
-                        if (element.tagName === 'INPUT' && element.placeholder) {
-                            // Don't change input text, just placeholder if needed
-                        } else {
-                            element.textContent = text[key];
-                        }
+                        element.textContent = t[key];
                     }
                 });
-                
-                console.log('Language content updated to:', lang);
             }
         }
 
-        function validateField(field) {
-            const value = field.value.trim();
-            const validationDiv = document.getElementById(field.id + '-validation');
-            
-            if (field.required && value.length === 0) {
-                if (validationDiv) {
-                    validationDiv.textContent = 'This field is required';
-                    validationDiv.className = 'validation-message';
-                }
-                return false;
-            } else if (field.type === 'email' && value && !value.includes('@')) {
-                if (validationDiv) {
-                    validationDiv.textContent = 'Please enter a valid email address';
-                    validationDiv.className = 'validation-message';
-                }
-                return false;
-            } else {
-                if (validationDiv) {
-                    validationDiv.textContent = '✓ Looks good!';
-                    validationDiv.className = 'validation-message success';
-                }
-                return true;
-            }
-        }
-
-        function updateCharCount(textarea, maxLength) {
-            const currentLength = textarea.value.length;
-            const counter = document.getElementById(textarea.id + '-counter');
-            if (counter) {
-                counter.textContent = `${currentLength}/${maxLength}`;
-                if (currentLength > maxLength * 0.8) {
-                    counter.style.color = '#e57373';
-                } else {
-                    counter.style.color = 'var(--charcoal)';
-                }
-            }
-        }
-
-        function updateProgressDisplay() {
-            // Update step counter
-            document.getElementById('stepCounter').textContent = `Step ${currentStep} of 6`;
-            
-            // Update progress bar
-            const progressFill = document.getElementById('progressFill');
-            progressFill.style.width = `${(currentStep / 6) * 100}%`;
-            
-            // Update step indicators
-            for (let i = 1; i <= 6; i++) {
-                const stepElement = document.getElementById(`step-${i}`);
-                if (stepElement) {
-                    stepElement.className = i < currentStep ? 'progress-step completed' :
-                                           i === currentStep ? 'progress-step active' :
-                                           'progress-step pending';
-                }
-            }
-        }
-
-        function showReturningUserStatus(lastSaved) {
-            const date = new Date(lastSaved).toLocaleDateString();
-            const welcomeBack = document.createElement('div');
-            welcomeBack.style.cssText = `
-                background: var(--light-sage);
-                padding: 20px;
-                border-radius: 12px;
-                margin: 20px 0;
-                text-align: center;
-                border: 2px solid var(--sage-green);
-            `;
-            welcomeBack.innerHTML = `
-                <h3 style="color: var(--sage-green); margin-bottom: 10px;">Welcome Back!</h3>
-                <p>Your progress from ${date} has been restored. You can continue where you left off.</p>
-            `;
-            
-            document.querySelector('.content').insertBefore(welcomeBack, document.querySelector('.form-section'));
-        }
-
-        function restoreFormData(data) {
-            Object.keys(data).forEach(key => {
-                const field = document.getElementById(key);
-                if (field) {
-                    field.value = data[key];
-                    validateField(field);
-                }
-            });
-        }
-
-        // ===== PATH SELECTION FUNCTIONS =====
+        // ===== PATH SELECTION =====
         
-        function selectPath(pathType) {
-            selectedPath = pathType;
+        function selectPath(path) {
+            selectedPath = path;
             
-            // Clear previous selections
             document.querySelectorAll('.path-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
-            // Select current option
-            const selectedOption = document.querySelector(`[data-path="${pathType}"]`);
-            if (selectedOption) {
-                selectedOption.classList.add('selected');
-            }
+            document.querySelector(`[data-path="${path}"]`).classList.add('selected');
             
-            // Show continue button
             const continueBtn = document.getElementById('continueBtn');
-            if (continueBtn) {
-                continueBtn.classList.add('visible');
-            }
+            continueBtn.classList.add('visible');
             
-            console.log('Path selected:', pathType);
+            formData.selectedPath = path;
+            if (currentUser) {
+                saveProgress(currentUser.email, formData);
+            }
         }
 
         function showBusinessQuestionnaire() {
@@ -4977,134 +3199,288 @@ async function sendToWebhook(data) {
             
             document.getElementById('pathSelection').classList.add('hidden');
             document.getElementById('businessQuestionnaire').classList.remove('hidden');
+            
             document.getElementById('businessQuestionnaire').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ===== FORM PROCESSING =====
-        
-        function collectFormData() {
-            const name = document.getElementById('user-name').value.trim();
-            const email = document.getElementById('user-email').value.trim();
-            
-            if (!name || !email) {
-                alert('Please fill in your name and email');
-                return null;
-            }
-            
-            const userData = {
-                name,
-                email,
-                selectedPath,
-                familyStructure: document.getElementById('family-structure')?.value || '',
-                dailySchedule: document.getElementById('daily-schedule')?.value || '',
-                investmentLevel: document.getElementById('investment-level')?.value || '',
-                incomeTimeline: document.getElementById('income-timeline')?.value || '',
-                timestamp: new Date().toISOString()
-            };
-            
-            return userData;
-        }
+        function proceedWithQuestionnaire() {
+            const requiredFields = ['family-structure', 'daily-schedule', 'investment-level', 'income-timeline'];
+            let allValid = true;
 
-        async function proceedWithQuestionnaire() {
-            const userData = collectFormData();
-            if (!userData) return;
-            
-            // Disable button and show loading
-            const proceedBtn = document.getElementById('proceedBtn');
-            const originalText = proceedBtn.innerHTML;
-            proceedBtn.disabled = true;
-            proceedBtn.innerHTML = '<div class="loading-spinner"></div>Saving your information...';
-            
-            try {
-                // Send welcome email
-                await sendWelcomeEmail(userData.name, userData.email);
-                
-                // Save to Airtable (if user is signed in)
-                if (currentUser) {
-                    await saveProgress(currentUser.email, userData);
-                } else {
-                    // Save to localStorage for guest users
-                    localStorage.setItem('smartMomGuestData', JSON.stringify(userData));
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!validateField(field)) {
+                    allValid = false;
                 }
-                
-                // Send to webhook
-                await sendToWebhook({
-                    trigger: 'form_submission',
-                    ...userData
-                });
-                
-                // Update form data
-                formData = userData;
-                
-                // Initialize interactive prompt generation system
-                initializePromptGeneration();
-                
-                // Generate first AI prompt with enhanced system
-                generateChatGPTPrompt(userData);
-                
-                // Show AI workflow instead of success message
-                currentStep = 4;
-                updateProgressDisplay();
-                
-                document.getElementById('businessQuestionnaire').classList.add('hidden');
-                document.getElementById('interactiveAIWorkflow').classList.remove('hidden');
-                document.getElementById('interactiveAIWorkflow').scrollIntoView({ behavior: 'smooth' });
-                
-            } catch (error) {
-                console.error('Error processing form:', error);
-                alert('There was an error saving your information. Please try again.');
-            } finally {
-                // Reset button
-                proceedBtn.disabled = false;
-                proceedBtn.innerHTML = originalText;
-            }
-        }
+            });
 
-        function proceedToAIWorkflow() {
-            currentStep = 5;
+            if (!allValid) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            currentStep = 4;
             updateProgressDisplay();
             
-            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('businessQuestionnaire').classList.add('hidden');
             document.getElementById('interactiveAIWorkflow').classList.remove('hidden');
+            
+            generateInitialChatGPTPrompt();
             document.getElementById('interactiveAIWorkflow').scrollIntoView({ behavior: 'smooth' });
         }
 
         // ===== AI WORKFLOW FUNCTIONS =====
         
-        function generateChatGPTPrompt(userData) {
+        function generateInitialChatGPTPrompt() {
+            const name = document.getElementById('user-name').value;
+            const familyStructure = document.getElementById('family-structure').value;
+            const dailySchedule = document.getElementById('daily-schedule').value;
+            const investmentLevel = document.getElementById('investment-level').value;
+            const incomeTimeline = document.getElementById('income-timeline').value;
+
             const prompt = `${realismInstructions}
 
-I'm a mom with these specific details:
-- Name: ${userData.name}
-- Path: ${userData.selectedPath}
-- Investment Level: ${userData.investmentLevel}
-- Timeline: ${userData.incomeTimeline}
-- Family: ${userData.familyStructure}
-- Daily Schedule: ${userData.dailySchedule}
+**USER PROFILE:**
+- Name: ${name}
+- Selected Path: ${selectedPath}
+- Family Structure: ${familyStructure}
+- Daily Schedule: ${dailySchedule}
+- Investment Level: ${investmentLevel}
+- Income Timeline: ${incomeTimeline}
+- Language: ${currentLanguage}
 
-Please suggest 3-5 REALISTIC business ideas that fit my situation. Be brutally honest about what's actually achievable with my constraints. Include specific first steps I can take this week.
+**TASK:** Generate 3-5 REALISTIC business ideas that fit this person's actual situation. Be extremely practical and consider their time constraints, family obligations, and budget limitations. 
 
-Focus on businesses that:
-- Work with my available time and family obligations
-- Match my investment level and timeline
-- Can realistically generate income
-- Are appropriate for beginners
+For each business idea, include:
+1. Business name/concept
+2. Why it fits their situation
+3. Realistic time investment required
+4. Startup costs (respect their budget!)
+5. Potential monthly income (be conservative)
+6. First steps to get started
 
-For each idea, include:
-1. What the business actually involves day-to-day
-2. Realistic timeline to first income
-3. Startup costs and ongoing expenses
-4. First 3 concrete steps to start
-5. Potential challenges and how to overcome them`;
+Remember: This person is a BEGINNER. Don't suggest anything they couldn't realistically start and manage with their current situation.`;
 
             document.getElementById('chatgpt-prompt').value = prompt;
-            console.log('ChatGPT prompt generated');
         }
 
+        function checkResponseAndEnableNext(step) {
+            const responseField = document.getElementById(step === 1 ? 'chatgpt-response' : 
+                                                     step === 2 ? 'gemini-market-response' : 
+                                                     'gemini-pricing-response');
+            const nextBtn = document.getElementById(`next-btn-${step}`);
+            
+            if (responseField.value.trim().length > 100) {
+                nextBtn.disabled = false;
+                aiResponses[step] = responseField.value;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        function generateNextPrompt(nextStep) {
+            if (nextStep === 2) {
+                generateGeminiMarketPrompt();
+                goToStep(2);
+            } else if (nextStep === 3) {
+                generateGeminiPricingPrompt();
+                goToStep(3);
+            } else if (nextStep === 4) {
+                generateClaudeCalendarPrompt();
+                goToStep(4);
+            }
+        }
+
+        function generateGeminiMarketPrompt() {
+            const chatGptResponse = document.getElementById('chatgpt-response').value;
+            
+            const prompt = `Analyze the market for these business ideas from ChatGPT:
+
+${chatGptResponse}
+
+Please research and provide:
+1. Market size and trends for each business idea
+2. Target customer demographics
+3. Competition analysis
+4. Market opportunities and challenges
+5. Geographic considerations
+6. Seasonal factors
+7. Growth potential
+
+Use Deep Search to get current, accurate market data. Focus on realistic, actionable insights for a beginner entrepreneur.`;
+
+            document.getElementById('gemini-market-prompt').value = prompt;
+            document.getElementById('copy-market-btn').disabled = false;
+            document.getElementById('open-gemini-market-btn').disabled = false;
+        }
+
+        function generateGeminiPricingPrompt() {
+            const marketResponse = document.getElementById('gemini-market-response').value;
+            
+            const prompt = `Based on this market research:
+
+${marketResponse}
+
+Research and provide detailed pricing strategies:
+1. Competitive pricing analysis for each business idea
+2. Recommended pricing tiers (basic, standard, premium)
+3. Value proposition for each pricing level
+4. Payment models (hourly, project-based, subscription, etc.)
+5. Pricing psychology considerations
+6. Local market pricing factors
+7. How to justify prices to customers
+8. Pricing mistakes to avoid
+
+Use Deep Search to find current pricing data. Focus on prices that will actually attract customers while ensuring profitability.`;
+
+            document.getElementById('gemini-pricing-prompt').value = prompt;
+            document.getElementById('copy-pricing-btn').disabled = false;
+            document.getElementById('open-gemini-pricing-btn').disabled = false;
+        }
+
+        function generateClaudeCalendarPrompt() {
+            const chatGptResponse = document.getElementById('chatgpt-response').value;
+            const marketResponse = document.getElementById('gemini-market-response').value;
+            const pricingResponse = document.getElementById('gemini-pricing-response').value;
+            
+            const name = document.getElementById('user-name').value;
+            const familyStructure = document.getElementById('family-structure').value;
+            const dailySchedule = document.getElementById('daily-schedule').value;
+
+            const prompt = `Create an interactive 12-week business launch calendar for ${name}.
+
+**CONTEXT:**
+Family Situation: ${familyStructure}
+Daily Schedule: ${dailySchedule}
+Selected Path: ${selectedPath}
+
+**BUSINESS IDEAS FROM CHATGPT:**
+${chatGptResponse}
+
+**MARKET RESEARCH FROM GEMINI:**
+${marketResponse}
+
+**PRICING STRATEGY FROM GEMINI:**
+${pricingResponse}
+
+**REQUIREMENTS:**
+Create a comprehensive 12-week interactive calendar with:
+- Daily actionable tasks (15-60 minutes each)
+- Step-by-step instructions for each task
+- Mix of FREE and low-cost activities
+- Progress tracking capabilities
+- Realistic timeline considering family obligations
+- Tasks organized by week and day
+- Both life organization AND business building tasks
+
+Format as a complete interactive HTML artifact with:
+- Week navigation
+- Task checkboxes
+- Progress tracking
+- Mobile-responsive design
+- Professional styling
+- Calendar that works without external dependencies
+
+Make it practical, actionable, and realistic for a busy mom!`;
+
+            document.getElementById('claude-calendar-prompt').value = prompt;
+            document.getElementById('copy-claude-btn').disabled = false;
+            document.getElementById('open-claude-btn').disabled = false;
+        }
+
+        function goToStep(step) {
+            // Update step containers
+            for (let i = 1; i <= 4; i++) {
+                const container = document.getElementById(`ai-step-${i}-container`);
+                const status = container.querySelector('.ai-step-status');
+                
+                if (i < step) {
+                    container.className = 'ai-step-container completed';
+                    status.textContent = 'Completed';
+                } else if (i === step) {
+                    container.className = 'ai-step-container current';
+                    status.textContent = 'Current Step';
+                } else {
+                    container.className = 'ai-step-container pending';
+                    status.textContent = 'Waiting';
+                }
+            }
+            
+            currentAIStep = step;
+        }
+
+        function goBackToStep(step) {
+            goToStep(step);
+        }
+
+        function checkCalendarCodeAndEnableFinish() {
+            const calendarCode = document.getElementById('claude-calendar-code').value;
+            const finishBtn = document.getElementById('finish-workflow-btn');
+            
+            if (calendarCode.trim().length > 500) {
+                finishBtn.disabled = false;
+                aiResponses.calendarCode = calendarCode;
+            } else {
+                finishBtn.disabled = true;
+            }
+        }
+
+        function finishAIWorkflow() {
+            const calendarCode = document.getElementById('claude-calendar-code').value;
+            
+            if (calendarCode.trim().length < 500) {
+                alert('Please paste the complete calendar code from Claude');
+                return;
+            }
+
+            currentStep = 6;
+            updateProgressDisplay();
+            
+            // Save calendar data
+            calendarData = calendarCode;
+            localStorage.setItem('smartMomCalendar', calendarCode);
+            
+            // Show calendar access button
+            document.getElementById('calendarAccessBtn').style.display = 'block';
+            
+            // Hide AI workflow and show final dashboard
+            document.getElementById('interactiveAIWorkflow').classList.add('hidden');
+            document.getElementById('finalDashboard').classList.remove('hidden');
+            
+            // Populate dashboard
+            populateFinalDashboard();
+            
+            document.getElementById('finalDashboard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function populateFinalDashboard() {
+            // Populate business summary
+            if (aiResponses[1]) {
+                document.getElementById('business-summary-content').innerHTML = 
+                    `<p><strong>Business Ideas:</strong></p><pre style="white-space: pre-wrap; font-family: inherit;">${aiResponses[1].substring(0, 1000)}...</pre>`;
+            }
+            
+            // Populate market research
+            if (aiResponses[2]) {
+                document.getElementById('market-research-summary').innerHTML = 
+                    `<p><strong>Market Analysis:</strong></p><pre style="white-space: pre-wrap; font-family: inherit;">${aiResponses[2].substring(0, 1000)}...</pre>`;
+            }
+            
+            // Populate pricing strategy
+            if (aiResponses[3]) {
+                document.getElementById('pricing-strategy-summary').innerHTML = 
+                    `<p><strong>Pricing Strategy:</strong></p><pre style="white-space: pre-wrap; font-family: inherit;">${aiResponses[3].substring(0, 1000)}...</pre>`;
+            }
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        
         function copyToClipboard(elementId) {
             const element = document.getElementById(elementId);
-            if (element) {
-                element.select();
+            element.select();
+            element.setSelectionRange(0, 99999);
+            
+            try {
                 document.execCommand('copy');
                 
                 // Visual feedback
@@ -5112,10 +3488,14 @@ For each idea, include:
                 const originalText = button.textContent;
                 button.textContent = 'Copied!';
                 button.style.background = '#27ae60';
+                
                 setTimeout(() => {
                     button.textContent = originalText;
                     button.style.background = '';
                 }, 2000);
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+                alert('Please manually copy the text');
             }
         }
 
@@ -5131,532 +3511,388 @@ For each idea, include:
             window.open(AI_PLATFORMS.claude, '_blank');
         }
 
-        function checkResponseAndEnableNext(stepNumber) {
-            let responseField;
-            if (stepNumber === 1) {
-                responseField = document.getElementById('chatgpt-response');
-            } else if (stepNumber === 2) {
-                responseField = document.getElementById('gemini-market-response');
-            } else if (stepNumber === 3) {
-                responseField = document.getElementById('gemini-pricing-response');
-            }
-            
-            const nextButton = document.getElementById(`next-btn-${stepNumber}`);
-            
-            if (responseField && nextButton) {
-                const hasContent = responseField.value.trim().length > 100;
-                nextButton.disabled = !hasContent;
-                
-                if (hasContent) {
-                    nextButton.style.background = '#27ae60';
-                    nextButton.style.opacity = '1';
-                } else {
-                    nextButton.style.background = '#95a5a6';
-                    nextButton.style.opacity = '0.5';
-                }
-            }
-        }
-
-        function checkCalendarCodeAndEnableFinish() {
-            const codeField = document.getElementById('claude-calendar-code');
-            const finishButton = document.getElementById('finish-workflow-btn');
-            
-            if (codeField && finishButton) {
-                const code = codeField.value.trim();
-                const isValidCode = code.length > 200 && 
-                                  (code.includes('<') || code.includes('calendar') || code.includes('schedule'));
-                finishButton.disabled = !isValidCode;
-                
-                if (isValidCode) {
-                    finishButton.style.background = '#27ae60';
-                    finishButton.style.opacity = '1';
-                } else {
-                    finishButton.style.background = '#95a5a6';
-                    finishButton.style.opacity = '0.5';
-                }
-            }
-        }
-
-        function generateNextPrompt(stepNumber) {
-            // Save current response
-            const currentResponse = getCurrentStepResponse(stepNumber - 1);
-            if (currentResponse) {
-                aiResponses[`step${stepNumber - 1}`] = currentResponse;
-            }
-            
-            // Update step status
-            updateAIStepStatus(stepNumber - 1, 'completed');
-            updateAIStepStatus(stepNumber, 'current');
-            
-            // Generate next prompt
-            switch(stepNumber) {
-                case 2:
-                    generateGeminiMarketPrompt();
-                    break;
-                case 3:
-                    generateGeminiPricingPrompt();
-                    break;
-                case 4:
-                    generateClaudeCalendarPrompt();
-                    break;
-            }
-            
-            // Enable copy and open buttons for next step
-            enableStepButtons(stepNumber);
-            
-            // Scroll to next step
-            document.getElementById(`ai-step-${stepNumber}-container`).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function getCurrentStepResponse(stepNumber) {
-            switch(stepNumber) {
-                case 1:
-                    return document.getElementById('chatgpt-response').value;
-                case 2:
-                    return document.getElementById('gemini-market-response').value;
-                case 3:
-                    return document.getElementById('gemini-pricing-response').value;
-                case 4:
-                    return document.getElementById('claude-calendar-code').value;
-                default:
-                    return '';
-            }
-        }
-
-        function updateAIStepStatus(stepNumber, status) {
-            const container = document.getElementById(`ai-step-${stepNumber}-container`);
-            if (container) {
-                container.className = `ai-step-container ${status}`;
-                
-                const statusElement = container.querySelector('.ai-step-status');
-                if (statusElement) {
-                    statusElement.textContent = status === 'current' ? 'Current Step' : 
-                                              status === 'completed' ? 'Completed' : 'Waiting';
-                }
-            }
-        }
-
-        function enableStepButtons(stepNumber) {
-            const copyBtnId = stepNumber === 2 ? 'copy-market-btn' : 
-                             stepNumber === 3 ? 'copy-pricing-btn' : 
-                             stepNumber === 4 ? 'copy-claude-btn' : '';
-            
-            const openBtnId = stepNumber === 2 ? 'open-gemini-market-btn' : 
-                             stepNumber === 3 ? 'open-gemini-pricing-btn' : 
-                             stepNumber === 4 ? 'open-claude-btn' : '';
-            
-            const copyBtn = document.getElementById(copyBtnId);
-            const openBtn = document.getElementById(openBtnId);
-            
-            if (copyBtn) copyBtn.disabled = false;
-            if (openBtn) openBtn.disabled = false;
-        }
-
-        function generateGeminiMarketPrompt() {
-            const chatgptResponse = aiResponses.step1;
-            const prompt = `Based on this ChatGPT business analysis: "${chatgptResponse.substring(0, 500)}..."
-
-Please do a DEEP SEARCH to research and validate these business ideas. Find:
-1. Real market demand data for ${new Date().getFullYear()}
-2. Competition analysis in Lincoln, Nebraska area
-3. Actual success stories from similar moms
-4. Required skills/resources breakdown
-5. Realistic revenue potential with examples
-
-Focus on what's actually working for mom entrepreneurs in 2024/2025. Use Deep Search to get current market data and validate these specific business ideas.
-
-Pay special attention to:
-- Local market conditions in Nebraska
-- Current economic climate impact
-- Real pricing that customers pay (not just what businesses charge)
-- Seasonal considerations
-- Time investment vs. income reality`;
-
-            document.getElementById('gemini-market-prompt').value = prompt;
-        }
-
-        function generateGeminiPricingPrompt() {
-            const marketResponse = aiResponses.step2;
-            const prompt = `Based on this market research: "${marketResponse.substring(0, 500)}..."
-
-Please do a DEEP SEARCH on pricing strategies for these specific business types. Research:
-1. Current market rates in Nebraska/Midwest for similar services
-2. Pricing strategies that actually work for mom entrepreneurs
-3. How successful moms price their services (beginner → expert progression)
-4. What clients actually pay vs. what they're quoted
-5. Seasonal pricing variations and demand cycles
-
-Use Deep Search to find real pricing data from 2024-2025. Include:
-- Beginner pricing that gets clients (not scares them away)
-- 6-month and 1-year pricing progression paths
-- Package deals vs. hourly rates effectiveness
-- Geographic pricing differences (Midwest vs. coastal)
-- What pricing mistakes to avoid as a beginner
-
-Focus on ACTIONABLE pricing advice for someone just starting out.`;
-
-            document.getElementById('gemini-pricing-prompt').value = prompt;
-        }
-
-        function generateClaudeCalendarPrompt() {
-            const userData = formData;
-            const allResponses = Object.values(aiResponses).join('\n\n');
-            
-            const prompt = `Create an interactive 12-week calendar for a mom entrepreneur with these details:
-
-USER PROFILE:
-${JSON.stringify(userData, null, 2)}
-
-AI RESEARCH RESULTS:
-${allResponses}
-
-Please create a comprehensive 12-week interactive calendar that includes:
-
-**STRUCTURE:**
-- Week-by-week breakdown (WEEK 1 through WEEK 12)
-- Daily tasks (maximum 4 tasks per day)
-- Each task should have 3-7 specific steps
-
-**TASK FORMAT:**
-Task 1: [Task Title] ([FREE/PAID $X] - [X minutes])
-- Step 1: [Exact instruction]
-- Step 2: [Exact instruction]
-- Step 3: [Exact instruction]
-
-**REQUIREMENTS:**
-1. Make it realistic for her family situation and available time
-2. Include both business development AND life organization tasks
-3. Balance free activities with small investments as budget allows
-4. Include accountability check-ins and progress celebrations
-5. Add self-care and family time blocks
-6. Make each step actionable and specific
-
-**PROGRESSION:**
-- Weeks 1-2: Foundation and setup
-- Weeks 3-6: Building momentum and habits
-- Weeks 7-10: Growth and optimization
-- Weeks 11-12: Evaluation and next steps
-
-Make it practical, achievable, and tailored to her specific constraints and goals.`;
-
-            document.getElementById('claude-calendar-prompt').value = prompt;
-        }
-
-        function goBackToStep(stepNumber) {
-            updateAIStepStatus(stepNumber + 1, 'pending');
-            updateAIStepStatus(stepNumber, 'current');
-            
-            // Scroll to previous step
-            document.getElementById(`ai-step-${stepNumber}-container`).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function finishAIWorkflow() {
-            // Save final calendar response
-            const calendarCode = document.getElementById('claude-calendar-code').value.trim();
-            aiResponses.calendar = calendarCode;
-            
-            // Update final step
-            updateAIStepStatus(4, 'completed');
-            updateAIStepStatus(5, 'current');
-            
-            // Parse and set up calendar if code provided
-            if (calendarCode && calendarCode.length > 200) {
-                try {
-                    calendarData = parseCalendarContent(calendarCode);
-                    localStorage.setItem('smartMomCalendar', JSON.stringify(calendarData));
-                    
-                    if (currentUser) {
-                        saveCalendarToAirtable({ calendarData, currentWeek: 1 });
-                    }
-                    
-                    // Show calendar access button now that calendar exists
-                    showCalendarAccessButton();
-                } catch (error) {
-                    console.error('Error parsing calendar in workflow:', error);
-                }
-            }
-            
-            // Show final dashboard
+        // ===== CALENDAR FUNCTIONS =====
+        
+        function showInteractiveCalendar() {
             currentStep = 5;
             updateProgressDisplay();
             
-            populateFinalDashboard();
-            
             document.getElementById('interactiveAIWorkflow').classList.add('hidden');
-            document.getElementById('finalDashboard').classList.remove('hidden');
-            document.getElementById('finalDashboard').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showCalendarAccessButton() {
-            const calendarBtn = document.getElementById('calendarAccessBtn');
-            if (calendarBtn) {
-                calendarBtn.style.display = 'inline-block';
-            }
-        }
-
-        function hideCalendarAccessButton() {
-            const calendarBtn = document.getElementById('calendarAccessBtn');
-            if (calendarBtn) {
-                calendarBtn.style.display = 'none';
-            }
-        }
-
-        function checkForExistingCalendar() {
-            // Check if user has existing calendar data
+            document.getElementById('finalDashboard').classList.add('hidden');
+            document.getElementById('interactiveCalendarDisplay').classList.remove('hidden');
+            
+            // Load calendar if we have data
             const savedCalendar = localStorage.getItem('smartMomCalendar');
-            if (savedCalendar) {
-                try {
-                    const parsedCalendar = JSON.parse(savedCalendar);
-                    if (parsedCalendar && parsedCalendar.weeks && parsedCalendar.weeks.length > 0) {
-                        calendarData = parsedCalendar;
-                        showCalendarAccessButton();
-                    }
-                } catch (error) {
-                    console.error('Error checking existing calendar:', error);
-                }
-            }
-        }
-
-        function populateFinalDashboard() {
-            // Populate business summary
-            const businessSummary = document.getElementById('business-summary-content');
-            if (businessSummary && aiResponses.step1) {
-                businessSummary.innerHTML = `
-                    <h4>Selected Path: ${selectedPath}</h4>
-                    <div style="max-height: 300px; overflow-y: auto;">
-                        <strong>Business Ideas (ChatGPT Analysis):</strong>
-                        <p>${aiResponses.step1.substring(0, 500)}...</p>
-                    </div>
-                `;
+            if (savedCalendar || calendarData) {
+                document.getElementById('calendarInput').value = savedCalendar || calendarData;
+                parseAndDisplayCalendar();
             }
             
-            // Populate market research
-            const marketSummary = document.getElementById('market-research-summary');
-            if (marketSummary && aiResponses.step2) {
-                marketSummary.innerHTML = `
-                    <div style="max-height: 300px; overflow-y: auto;">
-                        <strong>Market Validation Results:</strong>
-                        <p>${aiResponses.step2.substring(0, 500)}...</p>
-                    </div>
-                `;
+            document.getElementById('interactiveCalendarDisplay').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function parseAndDisplayCalendar() {
+            const calendarInput = document.getElementById('calendarInput').value;
+            
+            if (!calendarInput.trim()) {
+                alert('Please paste your calendar content first');
+                return;
             }
-            
-            // Populate pricing strategy
-            const pricingSummary = document.getElementById('pricing-strategy-summary');
-            if (pricingSummary && aiResponses.step3) {
-                pricingSummary.innerHTML = `
-                    <div style="max-height: 300px; overflow-y: auto;">
-                        <strong>Pricing Research Results:</strong>
-                        <p>${aiResponses.step3.substring(0, 500)}...</p>
-                    </div>
-                `;
-            }
-        }
 
-        function previewCalendar() {
-            const calendarCode = aiResponses.calendar;
-            if (calendarCode && calendarCode.trim()) {
-                const previewWindow = window.open('', '_blank', 'width=800,height=600');
-                previewWindow.document.write(calendarCode);
-                previewWindow.document.close();
-            } else {
-                alert('Calendar code not available. Please complete the AI workflow first.');
-            }
-        }
-
-        function downloadCompletePackage() {
-            // Create a comprehensive package with all data
-            const packageData = {
-                userData: formData,
-                selectedPath,
-                aiResponses,
-                timestamp: new Date().toISOString(),
-                language: currentLanguage
-            };
-            
-            const dataStr = `SMART MOM METHOD - COMPLETE PLAN
-Generated: ${new Date().toLocaleDateString()}
-
-=== USER PROFILE ===
-Name: ${formData.name}
-Email: ${formData.email}
-Selected Path: ${selectedPath}
-Family Structure: ${formData.familyStructure}
-Daily Schedule: ${formData.dailySchedule}
-Investment Level: ${formData.investmentLevel}
-Income Timeline: ${formData.incomeTimeline}
-
-=== AI ANALYSIS RESULTS ===
-
---- BUSINESS IDEAS (ChatGPT) ---
-${aiResponses.step1 || 'Not completed'}
-
---- MARKET RESEARCH (Gemini) ---
-${aiResponses.step2 || 'Not completed'}
-
---- PRICING STRATEGY (Gemini) ---
-${aiResponses.step3 || 'Not completed'}
-
---- INTERACTIVE CALENDAR (Claude) ---
-${aiResponses.calendar || 'Not completed'}
-
-=== NEXT STEPS ===
-1. Review your personalized business ideas
-2. Validate market research findings
-3. Implement pricing strategy
-4. Use your interactive calendar to take action
-5. Book a free consultation if needed
-
-=== CONTACT ===
-Need help? Book a free call: https://calendly.com/momsurvivaltoolkit/free-smart-mom-call-30-min
-
-Generated by Smart Mom Method - https://smartmommethod.com
-            `;
-            
-            const dataBlob = new Blob([dataStr], {type: 'text/plain'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `smart-mom-method-plan-${formData.name.replace(/\s+/g, '-').toLowerCase()}-${new Date().toISOString().split('T')[0]}.txt`;
-            a.click();
-            
-            URL.revokeObjectURL(url);
-        }
-
-        function showCompletion() {
-            currentStep = 6;
-            updateProgressDisplay();
-            
-            document.getElementById('successMessage').classList.add('hidden');
-            
-            const completionHtml = `
-                <div style="background: linear-gradient(135deg, var(--sage-green), var(--deep-teal)); color: white; padding: 60px 40px; text-align: center; border-radius: 24px; margin: 40px 0;">
-                    <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px;">🎉 Process Complete!</h2>
-                    <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">Your Smart Mom Method profile has been created successfully!</p>
-                    
-                    <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
-                        <h3 style="margin-bottom: 15px;">Your Information is Saved:</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="margin: 10px 0;">📊 Profile data stored in Airtable database</li>
-                            <li style="margin: 10px 0;">📧 Welcome email sent to your inbox</li>
-                            <li style="margin: 10px 0;">🔒 Data securely encrypted and backed up</li>
-                            <li style="margin: 10px 0;">💾 Progress automatically saved for return visits</li>
-                        </ul>
-                    </div>
-
-                    <button onclick="testAirtableConnection()" style="background: var(--soft-gold); color: white; padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
-                        Test Airtable Connection
-                    </button>
-                    
-                    <button onclick="startOver()" style="background: white; color: var(--sage-green); padding: 20px 40px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin: 10px;">
-                        Start New Session
-                    </button>
-                </div>
-            `;
-            
-            document.querySelector('.content').innerHTML = completionHtml;
-        }
-
-        // ===== TESTING FUNCTIONS =====
-        
-        async function testAirtableConnection() {
-            const testButton = event.target;
-            const originalText = testButton.textContent;
-            testButton.disabled = true;
-            testButton.innerHTML = '<div class="loading-spinner"></div>Testing connection...';
-            
             try {
-                // Test basic API connection
-                const response = await fetch(`${airtableConfig.apiUrl}/Users?maxRecords=1`, {
-                    headers: {
-                        'Authorization': `Bearer ${airtableConfig.apiKey}`,
-                        'Content-Type': 'application/json'
+                // Simple calendar parser - you could make this more sophisticated
+                const weeks = parseCalendarContent(calendarInput);
+                
+                if (weeks.length === 0) {
+                    alert('Could not parse calendar content. Please check the format.');
+                    return;
+                }
+
+                displayCalendarNavigation(weeks);
+                displayCalendarContent(weeks);
+                updateCalendarStats(weeks);
+                
+                // Hide parse section, show calendar
+                document.getElementById('parseCalendarSection').style.display = 'none';
+                document.getElementById('calendarNavigation').style.display = 'flex';
+                document.getElementById('calendarActions').style.display = 'flex';
+                document.getElementById('calendarEmpty').style.display = 'none';
+                
+                // Save parsed calendar
+                localStorage.setItem('smartMomParsedCalendar', JSON.stringify(weeks));
+                
+            } catch (error) {
+                console.error('Error parsing calendar:', error);
+                alert('Error parsing calendar. Please check the format and try again.');
+            }
+        }
+
+        function parseCalendarContent(content) {
+            const weeks = [];
+            const lines = content.split('\n').filter(line => line.trim());
+            
+            let currentWeek = null;
+            let currentDay = null;
+            let currentTask = null;
+            
+            lines.forEach(line => {
+                line = line.trim();
+                
+                if (line.match(/WEEK \d+/i)) {
+                    if (currentWeek) weeks.push(currentWeek);
+                    currentWeek = {
+                        number: parseInt(line.match(/\d+/)[0]),
+                        days: []
+                    };
+                } else if (line.match(/DAY \d+/i)) {
+                    if (currentDay) currentWeek.days.push(currentDay);
+                    currentDay = {
+                        number: parseInt(line.match(/\d+/)[0]),
+                        tasks: []
+                    };
+                } else if (line.match(/Task \d+:/i)) {
+                    if (currentTask) currentDay.tasks.push(currentTask);
+                    currentTask = {
+                        title: line.replace(/Task \d+:\s*/i, ''),
+                        steps: [],
+                        completed: false
+                    };
+                } else if (line.match(/^-\s+Step \d+:/i)) {
+                    if (currentTask) {
+                        currentTask.steps.push({
+                            text: line.replace(/^-\s+Step \d+:\s*/i, ''),
+                            completed: false
+                        });
                     }
+                }
+            });
+            
+            // Add final items
+            if (currentTask) currentDay.tasks.push(currentTask);
+            if (currentDay) currentWeek.days.push(currentDay);
+            if (currentWeek) weeks.push(currentWeek);
+            
+            return weeks;
+        }
+
+        function displayCalendarNavigation(weeks) {
+            const weekSelector = document.getElementById('weekSelector');
+            weekSelector.innerHTML = '';
+            
+            weeks.forEach((week, index) => {
+                const btn = document.createElement('button');
+                btn.className = `week-btn ${index === 0 ? 'active' : ''}`;
+                btn.textContent = `W${week.number}`;
+                btn.onclick = () => switchToWeek(index, weeks);
+                weekSelector.appendChild(btn);
+            });
+        }
+
+        function displayCalendarContent(weeks) {
+            const calendarContent = document.getElementById('calendarContent');
+            calendarContent.innerHTML = '';
+            
+            weeks.forEach((week, weekIndex) => {
+                const weekDiv = document.createElement('div');
+                weekDiv.className = `week-content ${weekIndex === 0 ? 'active' : ''}`;
+                weekDiv.id = `week-${weekIndex}`;
+                
+                week.days.forEach(day => {
+                    const dayCard = document.createElement('div');
+                    dayCard.className = 'day-card';
+                    
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'day-header';
+                    dayHeader.innerHTML = `
+                        <div class="day-title">Day ${day.number}</div>
+                        <div class="day-progress">0 of ${day.tasks.length} completed</div>
+                    `;
+                    
+                    const taskList = document.createElement('div');
+                    taskList.className = 'task-list';
+                    
+                    day.tasks.forEach((task, taskIndex) => {
+                        const taskCard = document.createElement('div');
+                        taskCard.className = 'task-card';
+                        
+                        taskCard.innerHTML = `
+                            <div class="task-header">
+                                <div class="task-title-section">
+                                    <div class="task-title">${task.title}</div>
+                                    <div class="task-meta">
+                                        <span class="task-cost cost-free">FREE</span>
+                                        <span class="task-time">30-60 minutes</span>
+                                    </div>
+                                </div>
+                                <input type="checkbox" class="task-checkbox" 
+                                       onchange="toggleTask(${weekIndex}, ${day.number - 1}, ${taskIndex})">
+                            </div>
+                            <div class="step-list">
+                                ${task.steps.map((step, stepIndex) => `
+                                    <div class="step-item">
+                                        <input type="checkbox" class="step-checkbox" 
+                                               onchange="toggleStep(${weekIndex}, ${day.number - 1}, ${taskIndex}, ${stepIndex})">
+                                        <div class="step-number">${stepIndex + 1}</div>
+                                        <div class="step-text">${step.text}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        
+                        taskList.appendChild(taskCard);
+                    });
+                    
+                    dayCard.appendChild(dayHeader);
+                    dayCard.appendChild(taskList);
+                    weekDiv.appendChild(dayCard);
                 });
                 
-                if (response.ok) {
-                    const data = await response.json();
-                    alert(`✅ Airtable connection successful!\n\nBase ID: ${airtableConfig.baseId}\nRecords found: ${data.records.length}\nAPI Status: Connected`);
+                calendarContent.appendChild(weekDiv);
+            });
+        }
+
+        function switchToWeek(weekIndex, weeks) {
+            document.querySelectorAll('.week-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.week-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelectorAll('.week-btn')[weekIndex].classList.add('active');
+            document.getElementById(`week-${weekIndex}`).classList.add('active');
+            
+            updateWeekProgress(weekIndex, weeks);
+        }
+
+        function updateWeekProgress(weekIndex, weeks) {
+            const week = weeks[weekIndex];
+            let totalTasks = 0;
+            let completedTasks = 0;
+            
+            week.days.forEach(day => {
+                totalTasks += day.tasks.length;
+                completedTasks += day.tasks.filter(task => task.completed).length;
+            });
+            
+            const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            
+            document.getElementById('progressPercent').textContent = `${percentage}%`;
+            document.getElementById('weekProgressText').textContent = `${completedTasks} of ${totalTasks} tasks completed`;
+        }
+
+        function updateCalendarStats(weeks) {
+            let totalTasks = 0;
+            let completedTasks = 0;
+            
+            weeks.forEach(week => {
+                week.days.forEach(day => {
+                    totalTasks += day.tasks.length;
+                    completedTasks += day.tasks.filter(task => task.completed).length;
+                });
+            });
+            
+            const overallProgress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            
+            document.getElementById('totalTasks').textContent = totalTasks;
+            document.getElementById('completedTasks').textContent = completedTasks;
+            document.getElementById('overallProgress').textContent = `${overallProgress}%`;
+        }
+
+        function toggleTask(weekIndex, dayIndex, taskIndex) {
+            const savedCalendar = JSON.parse(localStorage.getItem('smartMomParsedCalendar') || '[]');
+            
+            if (savedCalendar[weekIndex] && savedCalendar[weekIndex].days[dayIndex] && savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex]) {
+                savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].completed = !savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].completed;
+                localStorage.setItem('smartMomParsedCalendar', JSON.stringify(savedCalendar));
+                
+                // Update UI
+                const taskCard = event.target.closest('.task-card');
+                if (savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].completed) {
+                    taskCard.classList.add('completed');
                 } else {
-                    alert(`❌ Airtable connection failed!\n\nStatus: ${response.status}\nError: ${response.statusText}`);
+                    taskCard.classList.remove('completed');
                 }
-            } catch (error) {
-                alert(`❌ Connection error!\n\nError: ${error.message}`);
-            } finally {
-                testButton.disabled = false;
-                testButton.textContent = originalText;
+                
+                updateCalendarStats(savedCalendar);
+                updateWeekProgress(weekIndex, savedCalendar);
             }
         }
 
-        function startOver() {
-            if (confirm('Are you sure you want to start over? This will clear all your data.')) {
-                // Clear all data
-                currentUser = null;
-                formData = {};
-                selectedPath = '';
-                currentStep = 1;
+        function toggleStep(weekIndex, dayIndex, taskIndex, stepIndex) {
+            const savedCalendar = JSON.parse(localStorage.getItem('smartMomParsedCalendar') || '[]');
+            
+            if (savedCalendar[weekIndex] && savedCalendar[weekIndex].days[dayIndex] && 
+                savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex] && 
+                savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].steps[stepIndex]) {
                 
-                // Clear storage
-                localStorage.removeItem('smartMomUser');
-                localStorage.removeItem('smartMomProgress');
-                localStorage.removeItem('smartMomGuestData');
+                savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].steps[stepIndex].completed = 
+                    !savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].steps[stepIndex].completed;
                 
-                // Reload page
+                localStorage.setItem('smartMomParsedCalendar', JSON.stringify(savedCalendar));
+                
+                // Update UI
+                const stepItem = event.target.closest('.step-item');
+                if (savedCalendar[weekIndex].days[dayIndex].tasks[taskIndex].steps[stepIndex].completed) {
+                    stepItem.classList.add('completed');
+                } else {
+                    stepItem.classList.remove('completed');
+                }
+            }
+        }
+
+        function downloadCalendarProgress() {
+            const savedCalendar = JSON.parse(localStorage.getItem('smartMomParsedCalendar') || '[]');
+            const userData = {
+                name: document.getElementById('user-name').value,
+                email: document.getElementById('user-email').value,
+                selectedPath: selectedPath,
+                calendarProgress: savedCalendar,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(userData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `smart-mom-calendar-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function printCalendar() {
+            window.print();
+        }
+
+        function resetCalendarProgress() {
+            if (confirm('Are you sure you want to reset all calendar progress? This cannot be undone.')) {
+                localStorage.removeItem('smartMomParsedCalendar');
                 location.reload();
             }
         }
 
+        function downloadCompletePackage() {
+            const completePackage = {
+                userData: {
+                    name: document.getElementById('user-name').value,
+                    email: document.getElementById('user-email').value,
+                    selectedPath: selectedPath,
+                    formData: formData
+                },
+                aiResponses: aiResponses,
+                calendarData: calendarData,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(completePackage, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `smart-mom-complete-package-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function previewCalendar() {
+            if (calendarData) {
+                const newWindow = window.open('', '_blank');
+                newWindow.document.write(calendarData);
+            } else {
+                alert('No calendar data available');
+            }
+        }
+
+        // ===== PAYMENT FUNCTIONS =====
+        
         function skipToPaymentOptions() {
-            // Hide all main sections
-            document.querySelectorAll('.form-section, .step-description, .empowerment-message, .path-selection, #businessQuestionnaire, #successMessage').forEach(el => {
-                el.classList.add('hidden');
+            document.querySelectorAll('.main-card .content > div').forEach(section => {
+                section.classList.add('hidden');
             });
             
-            // Show payment options
             document.getElementById('paymentOptions').classList.remove('hidden');
             document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
         }
 
         function returnToPlanningProcess() {
-            // Hide payment sections
             document.getElementById('paymentOptions').classList.add('hidden');
             
-            // Show the basic info section
-            document.getElementById('basicInfoSection').classList.remove('hidden');
-            document.getElementById('basicInfoSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // ===== EVENT HANDLERS =====
-        
-        function checkBasicInfoComplete() {
-            const name = document.getElementById('user-name').value.trim();
-            const email = document.getElementById('user-email').value.trim();
-            
-            if (name && email && email.includes('@')) {
-                // Save basic info and show path selection
-                formData.name = name;
-                formData.email = email;
-                
-                // Send welcome email
-                sendWelcomeEmail(name, email);
-                
-                currentStep = 2;
-                updateProgressDisplay();
-                
-                setTimeout(() => {
-                    document.getElementById('pathSelection').classList.remove('hidden');
-                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
-                }, 500);
+            // Show the appropriate section based on current step
+            if (currentStep === 1) {
+                document.getElementById('basicInfoSection').classList.remove('hidden');
+            } else if (currentStep === 2) {
+                document.getElementById('pathSelection').classList.remove('hidden');
+            } else if (currentStep === 3) {
+                document.getElementById('businessQuestionnaire').classList.remove('hidden');
+            } else if (currentStep === 4) {
+                document.getElementById('interactiveAIWorkflow').classList.remove('hidden');
+            } else if (currentStep === 5) {
+                document.getElementById('interactiveCalendarDisplay').classList.remove('hidden');
+            } else if (currentStep === 6) {
+                document.getElementById('finalDashboard').classList.remove('hidden');
             }
         }
 
-        // ===== AUTH FORM HANDLER =====
+        // ===== SUCCESS FUNCTIONS =====
+        
+        function proceedToAIWorkflow() {
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('interactiveAIWorkflow').classList.remove('hidden');
+            generateInitialChatGPTPrompt();
+            document.getElementById('interactiveAIWorkflow').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function startOver() {
+            if (confirm('Are you sure you want to start over? This will clear all your progress.')) {
+                localStorage.removeItem('smartMomProgress');
+                localStorage.removeItem('smartMomCalendar');
+                localStorage.removeItem('smartMomParsedCalendar');
+                location.reload();
+            }
+        }
+
+        // ===== FORM SUBMISSION =====
         
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Smart Mom Method - Airtable Integration loaded!');
-            
-            // Check for existing session
             checkExistingSession();
             
             // Load saved language
@@ -5664,126 +3900,111 @@ Generated by Smart Mom Method - https://smartmommethod.com
             if (savedLanguage) {
                 changeLanguage(savedLanguage);
             }
-            
-            // Setup form validation
-            document.getElementById('user-name').addEventListener('input', checkBasicInfoComplete);
-            document.getElementById('user-email').addEventListener('input', checkBasicInfoComplete);
-            
-            // Setup auth form
-            document.getElementById('authForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const submitBtn = document.getElementById('authSubmitBtn');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<div class="loading-spinner"></div>Processing...';
-                
-                try {
-                    const email = document.getElementById('authEmail').value;
-                    const password = document.getElementById('authPassword').value;
+
+            // Continue button click handler
+            document.addEventListener('click', function(event) {
+                if (event.target.closest('.continue-btn, .btn-current')) {
+                    const nameField = document.getElementById('user-name');
+                    const emailField = document.getElementById('user-email');
                     
-                    if (authMode === 'signup') {
-                        const name = document.getElementById('authName').value;
-                        const confirmPassword = document.getElementById('authConfirmPassword').value;
-                        
-                        if (password !== confirmPassword) {
-                            throw new Error('Passwords do not match');
-                        }
-                        
-                        if (password.length < 6) {
-                            throw new Error('Password must be at least 6 characters');
-                        }
-                        
-                        // Check if user already exists
-                        const existingUser = await findUserByEmail(email);
-                        if (existingUser) {
-                            throw new Error('An account with this email already exists');
-                        }
+                    if (!nameField.value.trim() || !emailField.value.trim()) {
+                        nameField.focus();
+                        alert('Please fill in your name and email to continue');
+                        return;
+                    }
+                    
+                    if (!validateField(nameField) || !validateField(emailField)) {
+                        return;
+                    }
+                    
+                    // Move to path selection
+                    currentStep = 2;
+                    updateProgressDisplay();
+                    
+                    document.getElementById('basicInfoSection').style.display = 'none';
+                    document.getElementById('pathSelection').classList.remove('hidden');
+                    document.getElementById('pathSelection').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            // Auth form submission
+            document.getElementById('authForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                
+                const email = document.getElementById('authEmail').value;
+                const password = document.getElementById('authPassword').value;
+                const name = document.getElementById('authName').value;
+                const confirmPassword = document.getElementById('authConfirmPassword').value;
+                
+                clearAuthMessages();
+                
+                if (authMode === 'signup') {
+                    if (!name.trim()) {
+                        showAuthError('Name is required');
+                        return;
+                    }
+                    
+                    if (password !== confirmPassword) {
+                        showAuthError('Passwords do not match');
+                        return;
+                    }
+                    
+                    if (password.length < 6) {
+                        showAuthError('Password must be at least 6 characters');
+                        return;
+                    }
+                    
+                    try {
+                        document.getElementById('authSubmitBtn').disabled = true;
+                        document.getElementById('authSubmitText').innerHTML = '<span class="loading-spinner"></span>Creating Account...';
                         
                         await createUser(email, password, name);
+                        await sendWelcomeEmail(name, email);
+                        
                         showAuthSuccess('Account created successfully!');
                         
                         setTimeout(() => {
                             closeAuthModal();
                         }, 2000);
                         
-                    } else {
+                    } catch (error) {
+                        showAuthError(error.message || 'Failed to create account');
+                    } finally {
+                        document.getElementById('authSubmitBtn').disabled = false;
+                        document.getElementById('authSubmitText').textContent = 'Create Account';
+                    }
+                } else {
+                    try {
+                        document.getElementById('authSubmitBtn').disabled = true;
+                        document.getElementById('authSubmitText').innerHTML = '<span class="loading-spinner"></span>Signing In...';
+                        
                         await signIn(email, password);
+                        
                         showAuthSuccess('Signed in successfully!');
                         
                         setTimeout(() => {
                             closeAuthModal();
-                        }, 2000);
+                        }, 1500);
+                        
+                    } catch (error) {
+                        showAuthError(error.message || 'Failed to sign in');
+                    } finally {
+                        document.getElementById('authSubmitBtn').disabled = false;
+                        document.getElementById('authSubmitText').textContent = 'Sign In';
                     }
-                    
-                } catch (error) {
-                    showAuthError(error.message);
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
                 }
             });
         });
 
-        // Make functions globally accessible
-        window.startOnboarding = startOnboarding;
-        window.showAuthModal = showAuthModal;
-        window.handleReturningUser = handleReturningUser;
-        window.closeAuthModal = closeAuthModal;
-        window.toggleAuthMode = toggleAuthMode;
-        window.signOut = signOut;
-        window.changeLanguage = changeLanguage;
-        window.validateField = validateField;
-        window.updateCharCount = updateCharCount;
-        window.selectPath = selectPath;
-        window.showBusinessQuestionnaire = showBusinessQuestionnaire;
-        window.proceedWithQuestionnaire = proceedWithQuestionnaire;
-        window.proceedToAIWorkflow = proceedToAIWorkflow;
-        window.testAirtableConnection = testAirtableConnection;
-        window.startOver = startOver;
-        window.skipToPaymentOptions = skipToPaymentOptions;
-        window.returnToPlanningProcess = returnToPlanningProcess;
-        window.scrollToForm = scrollToForm;
+        // ===== WINDOW LOAD =====
         
-        // AI Workflow Functions
-        window.generateChatGPTPrompt = generateChatGPTPrompt;
-        window.copyToClipboard = copyToClipboard;
-        window.openChatGPT = openChatGPT;
-        window.openGemini = openGemini;
-        window.openClaude = openClaude;
-        window.checkResponseAndEnableNext = checkResponseAndEnableNext;
-        window.checkCalendarCodeAndEnableFinish = checkCalendarCodeAndEnableFinish;
-        window.generateNextPrompt = generateNextPrompt;
-        window.goBackToStep = goBackToStep;
-        window.finishAIWorkflow = finishAIWorkflow;
-        window.previewCalendar = previewCalendar;
-        window.downloadCompletePackage = downloadCompletePackage;
-        
-        // Calendar System Functions
-        window.parseAndDisplayCalendar = parseAndDisplayCalendar;
-        window.showInteractiveCalendar = showInteractiveCalendar;
-        window.showWeek = showWeek;
-        window.toggleTaskCompletion = toggleTaskCompletion;
-        window.toggleStepCompletion = toggleStepCompletion;
-        window.downloadCalendarProgress = downloadCalendarProgress;
-        window.printCalendar = printCalendar;
-        window.resetCalendarProgress = resetCalendarProgress;
-        
-        // Interactive AI Prompt Generation Functions
-        window.selectPromptTemplate = selectPromptTemplate;
-        window.toggleAdvancedOptions = toggleAdvancedOptions;
-        window.generateInteractivePrompt = generateInteractivePrompt;
-        window.updatePromptPreview = updatePromptPreview;
-        window.resetPromptToDefault = resetPromptToDefault;
-        window.initializePromptGeneration = initializePromptGeneration;
-        window.updateContextVariables = updateContextVariables;
-        
-        // Calendar Access Management Functions
-        window.showCalendarAccessButton = showCalendarAccessButton;
-        window.hideCalendarAccessButton = hideCalendarAccessButton;
-        window.checkForExistingCalendar = checkForExistingCalendar;
-
-        console.log('🚀 Smart Mom Method with complete Airtable integration ready!');
+        window.addEventListener('load', function() {
+            // Check if user has completed setup
+            const savedCalendar = localStorage.getItem('smartMomParsedCalendar');
+            if (savedCalendar) {
+                document.getElementById('calendarAccessBtn').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
