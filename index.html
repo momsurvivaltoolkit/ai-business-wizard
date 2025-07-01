@@ -1082,9 +1082,10 @@
             margin: 16px 0;
             font-size: 14px;
             text-align: left;
-            max-height: 120px;
+            max-height: 200px;
             overflow-y: auto;
             word-wrap: break-word;
+            white-space: pre-wrap;
         }
 
         .ai-platform .response-area {
@@ -1880,8 +1881,9 @@
                                 </div>
                                 
                                 <div style="margin: 16px 0;">
-                                    <button class="copy-btn" onclick="copyPrompt('chatgpt')">Copy Prompt</button>
-                                    <button class="open-ai-btn" onclick="openAI('chatgpt')">Open ChatGPT</button>
+                                    <button class="copy-btn" onclick="copyPrompt('chatgpt')" id="copyChatGPTBtn">Copy Prompt</button>
+                                    <button class="copy-btn" onclick="viewFullPrompt('chatgpt')" style="background: var(--deep-teal);" id="viewChatGPTBtn">View Full Prompt</button>
+                                    <button class="open-ai-btn" onclick="openAI('chatgpt')" id="openChatGPTBtn">Open ChatGPT</button>
                                 </div>
                                 
                                 <label>Paste ChatGPT's response here:</label>
@@ -1916,12 +1918,13 @@
                                     <label>Choose your favorite business idea from ChatGPT:</label>
                                     <input type="text" id="selected-business-idea" class="form-control" 
                                            placeholder="Type or paste your chosen business idea here..."
-                                           onchange="updateGeminiPrompt(this.value)">
+                                           onchange="updateGeminiPrompt(this.value)" oninput="updateGeminiPrompt(this.value)">
                                 </div>
                                 
                                 <div style="margin: 16px 0;">
-                                    <button class="copy-btn" onclick="copyPrompt('gemini')">Copy Prompt</button>
-                                    <button class="open-ai-btn" onclick="openAI('gemini')">Open Gemini</button>
+                                    <button class="copy-btn" onclick="copyPrompt('gemini')" id="copyGeminiBtn">Copy Prompt</button>
+                                    <button class="copy-btn" onclick="viewFullPrompt('gemini')" style="background: var(--deep-teal);" id="viewGeminiBtn">View Full Prompt</button>
+                                    <button class="open-ai-btn" onclick="openAI('gemini')" id="openGeminiBtn">Open Gemini</button>
                                 </div>
                                 
                                 <label>Paste Gemini's market research here:</label>
@@ -1953,8 +1956,9 @@
                                 </div>
                                 
                                 <div style="margin: 16px 0;">
-                                    <button class="copy-btn" onclick="copyPrompt('claude')">Copy Prompt</button>
-                                    <button class="open-ai-btn" onclick="openAI('claude')">Open Claude</button>
+                                    <button class="copy-btn" onclick="copyPrompt('claude')" id="copyClaudeBtn">Copy Prompt</button>
+                                    <button class="copy-btn" onclick="viewFullPrompt('claude')" style="background: var(--deep-teal);" id="viewClaudeBtn">View Full Prompt</button>
+                                    <button class="open-ai-btn" onclick="openAI('claude')" id="openClaudeBtn">Open Claude</button>
                                 </div>
                                 
                                 <label>Paste Claude's calendar here:</label>
@@ -2124,7 +2128,16 @@
                 stepDesc10Title: "Your Complete Business Plan",
                 stepDesc10Text: "Congratulations! Here's your complete personalized business plan and next steps.",
                 chooseInvestmentLevel: "Choose your investment level...",
-                chooseTimeline: "Choose your timeline..."
+                chooseTimeline: "Choose your timeline...",
+                copyChatGPTBtn: "Copy Prompt",
+                openChatGPTBtn: "Open ChatGPT",
+                viewChatGPTBtn: "View Full Prompt",
+                copyGeminiBtn: "Copy Prompt", 
+                openGeminiBtn: "Open Gemini",
+                viewGeminiBtn: "View Full Prompt",
+                copyClaudeBtn: "Copy Prompt",
+                openClaudeBtn: "Open Claude",
+                viewClaudeBtn: "View Full Prompt"
             },
             es: {
                 welcomeTitle: "¡Bienvenida al Método Smart Mom!",
@@ -2217,7 +2230,16 @@
                 stepDesc10Title: "Tu Plan de Negocio Completo",
                 stepDesc10Text: "¡Felicitaciones! Aquí está tu plan de negocio personalizado completo y próximos pasos.",
                 chooseInvestmentLevel: "Elige tu nivel de inversión...",
-                chooseTimeline: "Elige tu cronograma..."
+                chooseTimeline: "Elige tu cronograma...",
+                copyChatGPTBtn: "Copiar",
+                openChatGPTBtn: "Abrir ChatGPT",
+                viewChatGPTBtn: "Ver Prompt Completo",
+                copyGeminiBtn: "Copiar",
+                openGeminiBtn: "Abrir Gemini",
+                viewGeminiBtn: "Ver Prompt Completo",
+                copyClaudeBtn: "Copiar",
+                openClaudeBtn: "Abrir Claude",
+                viewClaudeBtn: "Ver Prompt Completo"
             }
         };
 
@@ -3361,7 +3383,14 @@ Balance both goals each week. Make tasks specific, actionable, and realistic for
                 formData['selected-business-idea'] = businessIdea;
                 if (currentUser) saveUserProgress();
             }
-            document.getElementById('geminiPrompt').textContent = generateGeminiPrompt();
+            
+            const prompt = generateGeminiPrompt();
+            const promptElement = document.getElementById('geminiPrompt');
+            
+            if (promptElement) {
+                promptElement.textContent = prompt;
+                console.log('Gemini prompt updated, length:', prompt.length);
+            }
         }
 
         function updateClaudePrompt() {
@@ -3383,11 +3412,24 @@ Balance both goals each week. Make tasks specific, actionable, and realistic for
                     break;
             }
             
-            navigator.clipboard.writeText(promptText).then(() => {
-                alert('Prompt copied to clipboard!');
-            }).catch(() => {
-                alert('Please manually copy the prompt text');
-            });
+            // Ensure we have a complete prompt
+            if (!promptText || promptText.trim().length < 50) {
+                alert('Please complete the required steps first to generate a complete prompt.');
+                return;
+            }
+            
+            // Try to copy to clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(promptText).then(() => {
+                    alert(`Complete ${platform.toUpperCase()} prompt copied to clipboard! (${promptText.length} characters)`);
+                }).catch(() => {
+                    // Fallback: show prompt in alert for manual copy
+                    alert('Clipboard not available. Here is the complete prompt to copy manually:\n\n' + promptText);
+                });
+            } else {
+                // Fallback for older browsers
+                alert('Here is the complete prompt to copy manually:\n\n' + promptText);
+            }
         }
 
         function openAI(platform) {
@@ -3407,6 +3449,38 @@ Balance both goals each week. Make tasks specific, actionable, and realistic for
             aiResponses[platform] = response;
             if (currentUser) {
                 saveUserProgress();
+            }
+        }
+
+        function viewFullPrompt(platform) {
+            let promptText = '';
+            let title = '';
+            
+            switch (platform) {
+                case 'chatgpt':
+                    promptText = generateChatGPTPrompt();
+                    title = 'Complete ChatGPT Prompt';
+                    break;
+                case 'gemini':
+                    promptText = generateGeminiPrompt();
+                    title = 'Complete Gemini Prompt';
+                    break;
+                case 'claude':
+                    promptText = generateClaudePrompt();
+                    title = 'Complete Claude Prompt';
+                    break;
+            }
+            
+            if (!promptText || promptText.trim().length < 50) {
+                alert('Please complete the required steps first to generate a complete prompt.');
+                return;
+            }
+            
+            // Show the full prompt in an alert with copy option
+            const result = confirm(`${title}\n\n${promptText}\n\n--- END OF PROMPT ---\n\nClick OK to copy this prompt to clipboard, or Cancel to close.`);
+            
+            if (result) {
+                copyPrompt(platform);
             }
         }
 
@@ -3594,6 +3668,7 @@ Balance both goals each week. Make tasks specific, actionable, and realistic for
         window.copyPrompt = copyPrompt;
         window.openAI = openAI;
         window.saveAIResponse = saveAIResponse;
+        window.viewFullPrompt = viewFullPrompt;
         window.updateGeminiPrompt = updateGeminiPrompt;
         window.viewCompleteProfile = viewCompleteProfile;
         window.startOver = startOver;
