@@ -1758,6 +1758,11 @@
             </div>
         </div>
 
+        <!-- Connection Status Notice -->
+        <div id="connectionNotice" class="hidden" style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 14px;">
+            <strong>📡 Connection Notice:</strong> Server connection unavailable. Your data will be stored locally on this device.
+        </div>
+
         <!-- Language Selection -->
         <div class="language-selector">
             <h2 id="languageTitle">Choose Your Language / Elige Tu Idioma</h2>
@@ -2548,7 +2553,10 @@ Task 1: Research Competitors (FREE - 45 minutes)
 Focus on what's ACTUALLY doable for their situation.
 `;
 
-        // ===== ENHANCED CORS PROXY FUNCTIONS =====
+        // ===== CORS FALLBACK SYSTEM =====
+        
+        // Flag to track if we should use local storage fallback
+        let useLocalStorageOnly = false;
         
         const corsProxies = [
             'https://api.allorigins.win/raw?url=',
@@ -2559,11 +2567,17 @@ Focus on what's ACTUALLY doable for their situation.
         ];
 
         async function corsProxyFetch(url, options = {}, retryCount = 0) {
+            // If we've determined CORS is completely broken, skip attempts
+            if (useLocalStorageOnly) {
+                throw new Error('CORS_DISABLED');
+            }
+            
             const maxRetries = corsProxies.length;
             
             if (retryCount >= maxRetries) {
-                console.error('All CORS proxies failed');
-                throw new Error('CORS proxy request failed after all retries');
+                console.warn('All CORS proxies failed, switching to local storage mode');
+                useLocalStorageOnly = true;
+                throw new Error('CORS_FAILED');
             }
 
             const proxy = corsProxies[retryCount];
@@ -2576,7 +2590,8 @@ Focus on what's ACTUALLY doable for their situation.
                         ...options.headers,
                         'X-Requested-With': 'XMLHttpRequest',
                         'Origin': window.location.origin
-                    }
+                    },
+                    timeout: 5000 // 5 second timeout
                 });
 
                 if (!response.ok && retryCount < maxRetries - 1) {
@@ -2591,6 +2606,41 @@ Focus on what's ACTUALLY doable for their situation.
                     return await corsProxyFetch(url, options, retryCount + 1);
                 }
                 throw error;
+            }
+        }
+
+        // Local storage user management (fallback system)
+        function getLocalUsers() {
+            try {
+                return JSON.parse(localStorage.getItem('smartMomUsers') || '[]');
+            } catch {
+                return [];
+            }
+        }
+
+        function saveLocalUser(userData) {
+            try {
+                const users = getLocalUsers();
+                users.push(userData);
+                localStorage.setItem('smartMomUsers', JSON.stringify(users));
+                return userData;
+            } catch (error) {
+                console.error('Error saving user locally:', error);
+                throw error;
+            }
+        }
+
+        function findLocalUser(email, password = null) {
+            try {
+                const users = getLocalUsers();
+                return users.find(user => {
+                    if (password) {
+                        return user.email === email && user.password === password;
+                    }
+                    return user.email === email;
+                });
+            } catch {
+                return null;
             }
         }
 
@@ -2663,29 +2713,75 @@ Focus on what's ACTUALLY doable for their situation.
 
         async function createUser(email, password, name) {
             try {
+                // First try Airtable if CORS is working
+                if (!useLocalStorageOnly) {
+                    try {
+                        const hashedPassword = await hashPassword(password);
+                        
+                        const userData = {
+                            Name: name,
+                            Email: email,
+                            Password: hashedPassword,
+                            CreatedAt: new Date().toISOString(),
+                            Language: currentLanguage,
+                            Provider: 'email'
+                        };
+
+                        const result = await createRecord('Users', userData);
+                        console.log('User created successfully in Airtable:', result);
+                        
+                        currentUser = {
+                            id: result.id,
+                            email: email,
+                            name: name,
+                            displayName: name,
+                            source: 'airtable'
+                        };
+                        
+                        updateUserSession(currentUser);
+                        return result;
+                    } catch (error) {
+                        console.warn('Airtable creation failed, falling back to local storage:', error);
+                        useLocalStorageOnly = true;
+                    }
+                }
+                
+                // Fallback to local storage
+                console.log('Using local storage for user creation');
                 const hashedPassword = await hashPassword(password);
                 
+                // Check if user already exists locally
+                if (findLocalUser(email)) {
+                    throw new Error('User already exists');
+                }
+                
                 const userData = {
-                    Name: name,
-                    Email: email,
-                    Password: hashedPassword,
-                    CreatedAt: new Date().toISOString(),
-                    Language: currentLanguage,
-                    Provider: 'email'
+                    id: Date.now().toString(),
+                    name: name,
+                    email: email,
+                    password: hashedPassword,
+                    createdAt: new Date().toISOString(),
+                    language: currentLanguage,
+                    source: 'local'
                 };
-
-                const result = await createRecord('Users', userData);
-                console.log('User created successfully:', result);
+                
+                saveLocalUser(userData);
                 
                 currentUser = {
-                    id: result.id,
+                    id: userData.id,
                     email: email,
                     name: name,
-                    displayName: name
+                    displayName: name,
+                    source: 'local'
                 };
                 
                 updateUserSession(currentUser);
-                return result;
+                
+                // Show info about local storage
+                showAuthSuccess('Account created successfully! (Note: Using local storage since server is unavailable)');
+                
+                return userData;
+                
             } catch (error) {
                 console.error('Error creating user:', error);
                 throw error;
@@ -2694,27 +2790,57 @@ Focus on what's ACTUALLY doable for their situation.
 
         async function signIn(email, password) {
             try {
-                const user = await findUserByEmail(email);
-                if (!user) {
-                    throw new Error('User not found');
-                }
+                // First try Airtable if CORS is working
+                if (!useLocalStorageOnly) {
+                    try {
+                        const user = await findUserByEmail(email);
+                        if (user) {
+                            const hashedPassword = await hashPassword(password);
+                            if (user.fields.Password === hashedPassword) {
+                                currentUser = {
+                                    id: user.id,
+                                    email: email,
+                                    name: user.fields.Name,
+                                    displayName: user.fields.Name,
+                                    source: 'airtable'
+                                };
 
+                                updateUserSession(currentUser);
+                                await loadUserProgress(email);
+                                
+                                return user;
+                            } else {
+                                throw new Error('Invalid password');
+                            }
+                        }
+                    } catch (error) {
+                        console.warn('Airtable sign-in failed, trying local storage:', error);
+                        useLocalStorageOnly = true;
+                    }
+                }
+                
+                // Fallback to local storage
+                console.log('Using local storage for sign-in');
                 const hashedPassword = await hashPassword(password);
-                if (user.fields.Password !== hashedPassword) {
-                    throw new Error('Invalid password');
+                const localUser = findLocalUser(email, hashedPassword);
+                
+                if (!localUser) {
+                    throw new Error('Invalid email or password');
                 }
 
                 currentUser = {
-                    id: user.id,
+                    id: localUser.id,
                     email: email,
-                    name: user.fields.Name,
-                    displayName: user.fields.Name
+                    name: localUser.name,
+                    displayName: localUser.name,
+                    source: 'local'
                 };
 
                 updateUserSession(currentUser);
-                await loadUserProgress(email);
+                loadLocalProgress(email);
                 
-                return user;
+                return localUser;
+                
             } catch (error) {
                 console.error('Error signing in:', error);
                 throw error;
@@ -2724,43 +2850,71 @@ Focus on what's ACTUALLY doable for their situation.
         async function saveProgress(userEmail, data) {
             if (!userEmail || !currentUser) return;
             
-            try {
-                const progressData = {
-                    UserEmail: userEmail,
-                    FormData: JSON.stringify(data),
-                    CurrentStep: currentStep,
-                    SelectedPath: selectedPath,
-                    LastSaved: new Date().toISOString(),
-                    Language: currentLanguage
-                };
+            // Always save to local storage as backup
+            const localProgress = {
+                userEmail,
+                data,
+                currentStep,
+                selectedPath,
+                lastSaved: new Date().toISOString(),
+                language: currentLanguage
+            };
+            
+            localStorage.setItem('smartMomProgress', JSON.stringify(localProgress));
+            
+            // Try to save to Airtable if available
+            if (!useLocalStorageOnly && currentUser.source === 'airtable') {
+                try {
+                    const progressData = {
+                        UserEmail: userEmail,
+                        FormData: JSON.stringify(data),
+                        CurrentStep: currentStep,
+                        SelectedPath: selectedPath,
+                        LastSaved: new Date().toISOString(),
+                        Language: currentLanguage
+                    };
 
-                const existingResponse = await corsProxyFetch(
-                    `${airtableConfig.apiUrl}/Progress?filterByFormula={UserEmail}='${userEmail}'`,
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${airtableConfig.apiKey}`,
-                            'Content-Type': 'application/json'
+                    const existingResponse = await corsProxyFetch(
+                        `${airtableConfig.apiUrl}/Progress?filterByFormula={UserEmail}='${userEmail}'`,
+                        {
+                            headers: {
+                                'Authorization': `Bearer ${airtableConfig.apiKey}`,
+                                'Content-Type': 'application/json'
+                            }
                         }
-                    }
-                );
+                    );
 
-                const existingData = await existingResponse.json();
-                
-                if (existingData.records && existingData.records.length > 0) {
-                    const recordId = existingData.records[0].id;
-                    return await updateRecord('Progress', recordId, progressData);
-                } else {
-                    return await createRecord('Progress', progressData);
+                    const existingData = await existingResponse.json();
+                    
+                    if (existingData.records && existingData.records.length > 0) {
+                        const recordId = existingData.records[0].id;
+                        return await updateRecord('Progress', recordId, progressData);
+                    } else {
+                        return await createRecord('Progress', progressData);
+                    }
+                } catch (error) {
+                    console.warn('Could not save to Airtable, using local storage only:', error);
+                    useLocalStorageOnly = true;
+                }
+            }
+        }
+
+        function loadLocalProgress(userEmail) {
+            try {
+                const localProgress = localStorage.getItem('smartMomProgress');
+                if (localProgress) {
+                    const parsed = JSON.parse(localProgress);
+                    if (parsed.userEmail === userEmail) {
+                        formData = parsed.data || {};
+                        currentStep = parsed.currentStep || 1;
+                        selectedPath = parsed.selectedPath || '';
+                        restoreFormData(formData);
+                        updateProgressDisplay();
+                        showReturningUserStatus(parsed.lastSaved);
+                    }
                 }
             } catch (error) {
-                console.error('Error saving progress:', error);
-                localStorage.setItem('smartMomProgress', JSON.stringify({
-                    userEmail,
-                    data,
-                    currentStep,
-                    selectedPath,
-                    lastSaved: new Date().toISOString()
-                }));
+                console.error('Error loading local progress:', error);
             }
         }
 
@@ -2835,6 +2989,15 @@ Focus on what's ACTUALLY doable for their situation.
                 }
             } catch (error) {
                 console.warn('⚠️ Webhook error:', error.message);
+                // Save webhook data locally for manual processing
+                const webhookData = {
+                    ...data,
+                    timestamp: new Date().toISOString(),
+                    failed: true
+                };
+                const existingWebhooks = JSON.parse(localStorage.getItem('failedWebhooks') || '[]');
+                existingWebhooks.push(webhookData);
+                localStorage.setItem('failedWebhooks', JSON.stringify(existingWebhooks));
                 return false;
             }
         }
@@ -2849,7 +3012,11 @@ Focus on what's ACTUALLY doable for their situation.
                 source: 'smart-mom-method-website'
             };
             
-            return await sendToWebhook(welcomeData);
+            const sent = await sendToWebhook(welcomeData);
+            if (!sent) {
+                console.log('Welcome email webhook failed, but user account was created successfully');
+            }
+            return sent;
         }
 
         // ===== USER SESSION MANAGEMENT =====
@@ -2862,9 +3029,25 @@ Focus on what's ACTUALLY doable for their situation.
             document.getElementById('userStatusBar').classList.remove('hidden');
             document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
             document.getElementById('userDisplayName').textContent = user.name;
-            document.getElementById('userStatusText').textContent = `Signed in as ${user.email}`;
-            document.getElementById('statusBadge').textContent = 'Signed In';
-            document.getElementById('statusBadge').className = 'status-badge signed-in';
+            
+            // Show different status based on data source
+            if (user.source === 'local') {
+                document.getElementById('userStatusText').textContent = `Local account: ${user.email}`;
+                document.getElementById('statusBadge').textContent = 'Local Mode';
+                document.getElementById('statusBadge').className = 'status-badge guest';
+                
+                // Add info icon for local mode
+                const infoIcon = document.createElement('span');
+                infoIcon.innerHTML = ' ℹ️';
+                infoIcon.title = 'Using local storage - data not synced to server';
+                infoIcon.style.cursor = 'help';
+                document.getElementById('statusBadge').appendChild(infoIcon);
+            } else {
+                document.getElementById('userStatusText').textContent = `Signed in as ${user.email}`;
+                document.getElementById('statusBadge').textContent = 'Signed In';
+                document.getElementById('statusBadge').className = 'status-badge signed-in';
+            }
+            
             document.getElementById('signOutBtn').style.display = 'block';
             
             const saveBtn = document.querySelector('[onclick="showAuthModal(\'signup\')"]');
@@ -2877,13 +3060,53 @@ Focus on what's ACTUALLY doable for their situation.
                 try {
                     currentUser = JSON.parse(savedUser);
                     updateUserSession(currentUser);
-                    loadUserProgress(currentUser.email);
+                    
+                    // Load progress based on user source
+                    if (currentUser.source === 'local') {
+                        loadLocalProgress(currentUser.email);
+                        showConnectionNotice();
+                    } else {
+                        loadUserProgress(currentUser.email);
+                    }
                 } catch (error) {
                     console.error('Error restoring session:', error);
                     localStorage.removeItem('smartMomUser');
+                    document.getElementById('userStatusBar').classList.remove('hidden');
                 }
             } else {
                 document.getElementById('userStatusBar').classList.remove('hidden');
+            }
+        }
+
+        function showConnectionNotice() {
+            if (useLocalStorageOnly) {
+                document.getElementById('connectionNotice').classList.remove('hidden');
+            }
+        }
+
+        function hideConnectionNotice() {
+            document.getElementById('connectionNotice').classList.add('hidden');
+        }
+
+        // Test CORS connection on page load
+        async function testCorsConnection() {
+            if (useLocalStorageOnly) {
+                showConnectionNotice();
+                return;
+            }
+
+            try {
+                // Try a simple request to test CORS
+                await corsProxyFetch('https://jsonplaceholder.typicode.com/posts/1', {
+                    method: 'GET'
+                });
+                
+                console.log('CORS connection working');
+                hideConnectionNotice();
+            } catch (error) {
+                console.warn('CORS connection failed, switching to local mode');
+                useLocalStorageOnly = true;
+                showConnectionNotice();
             }
         }
 
@@ -3895,6 +4118,9 @@ Make it practical, actionable, and realistic for a busy mom!`;
         document.addEventListener('DOMContentLoaded', function() {
             checkExistingSession();
             
+            // Test CORS on page load
+            setTimeout(testCorsConnection, 1000);
+            
             // Load saved language
             const savedLanguage = localStorage.getItem('smartMomLanguage');
             if (savedLanguage) {
@@ -3959,16 +4185,43 @@ Make it practical, actionable, and realistic for a busy mom!`;
                         document.getElementById('authSubmitText').innerHTML = '<span class="loading-spinner"></span>Creating Account...';
                         
                         await createUser(email, password, name);
+                        
+                        // Try to send welcome email (optional)
                         await sendWelcomeEmail(name, email);
                         
-                        showAuthSuccess('Account created successfully!');
+                        if (currentUser.source === 'local') {
+                            showAuthSuccess('Account created successfully! Your data will be stored locally on this device.');
+                        } else {
+                            showAuthSuccess('Account created successfully!');
+                        }
                         
                         setTimeout(() => {
                             closeAuthModal();
                         }, 2000);
                         
                     } catch (error) {
-                        showAuthError(error.message || 'Failed to create account');
+                        let errorMessage = 'Failed to create account';
+                        
+                        if (error.message === 'User already exists') {
+                            errorMessage = 'An account with this email already exists';
+                        } else if (error.message.includes('CORS') || error.message.includes('fetch')) {
+                            errorMessage = 'Server connection failed. Your account will be stored locally.';
+                            
+                            // Try local creation as fallback
+                            try {
+                                useLocalStorageOnly = true;
+                                await createUser(email, password, name);
+                                showAuthSuccess('Account created successfully! Your data will be stored locally on this device.');
+                                setTimeout(() => {
+                                    closeAuthModal();
+                                }, 2000);
+                                return;
+                            } catch (localError) {
+                                errorMessage = localError.message || 'Failed to create account';
+                            }
+                        }
+                        
+                        showAuthError(errorMessage);
                     } finally {
                         document.getElementById('authSubmitBtn').disabled = false;
                         document.getElementById('authSubmitText').textContent = 'Create Account';
@@ -3980,14 +4233,39 @@ Make it practical, actionable, and realistic for a busy mom!`;
                         
                         await signIn(email, password);
                         
-                        showAuthSuccess('Signed in successfully!');
+                        if (currentUser.source === 'local') {
+                            showAuthSuccess('Signed in successfully! Using local data.');
+                        } else {
+                            showAuthSuccess('Signed in successfully!');
+                        }
                         
                         setTimeout(() => {
                             closeAuthModal();
                         }, 1500);
                         
                     } catch (error) {
-                        showAuthError(error.message || 'Failed to sign in');
+                        let errorMessage = 'Failed to sign in';
+                        
+                        if (error.message === 'Invalid email or password' || error.message === 'User not found' || error.message === 'Invalid password') {
+                            errorMessage = 'Invalid email or password';
+                        } else if (error.message.includes('CORS') || error.message.includes('fetch')) {
+                            errorMessage = 'Server connection failed. Checking local accounts...';
+                            
+                            // Try local sign-in as fallback
+                            try {
+                                useLocalStorageOnly = true;
+                                await signIn(email, password);
+                                showAuthSuccess('Signed in successfully! Using local data.');
+                                setTimeout(() => {
+                                    closeAuthModal();
+                                }, 1500);
+                                return;
+                            } catch (localError) {
+                                errorMessage = 'Invalid email or password (local account not found)';
+                            }
+                        }
+                        
+                        showAuthError(errorMessage);
                     } finally {
                         document.getElementById('authSubmitBtn').disabled = false;
                         document.getElementById('authSubmitText').textContent = 'Sign In';
