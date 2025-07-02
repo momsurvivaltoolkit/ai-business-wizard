@@ -1940,16 +1940,16 @@
                 <div id="step9Content" class="step-content hidden">
                     <div class="step-description">
                         <h2 id="stepDesc9Title">Calendar Creation</h2>
-                        <p id="stepDesc9Text">Finally, we'll use Claude to create your personalized 12-week implementation calendar.</p>
+                        <p id="stepDesc9Text">Finally, we'll use Claude to create your personalized 12-week implementation calendar with ADHD-friendly features.</p>
                     </div>
 
                     <div class="ai-section">
-                        <h2>📅 Claude Calendar Creator</h2>
+                        <h2>📅 Claude Interactive Calendar Creator</h2>
                         
                         <div class="ai-workflow">
                             <div class="ai-platform">
                                 <div class="icon">🗓️</div>
-                                <h3>Step 3: Implementation Calendar</h3>
+                                <h3>Step 3: ADHD-Friendly Interactive Calendar</h3>
                                 
                                 <div class="prompt-box" id="claudePrompt">
                                     Complete Steps 7 and 8 first...
@@ -1961,9 +1961,21 @@
                                     <button class="open-ai-btn" onclick="openAI('claude')" id="openClaudeBtn">Open Claude</button>
                                 </div>
                                 
-                                <label>Paste Claude's calendar here:</label>
+                                <div style="background: var(--light-sage); padding: 16px; border-radius: 8px; margin: 16px 0;">
+                                    <p style="font-size: 14px; color: var(--charcoal); margin: 0;">
+                                        <strong>🎯 What Claude Will Create:</strong><br>
+                                        • Interactive daily calendar with checkboxes<br>
+                                        • Maximum 4 tasks per day (ADHD-friendly)<br>
+                                        • Each task broken into 3-7 tiny steps<br>
+                                        • Visual progress tracking with emojis<br>
+                                        • Built-in breaks and transitions<br>
+                                        • Color-coded for easy scanning
+                                    </p>
+                                </div>
+                                
+                                <label>Paste Claude's interactive calendar here:</label>
                                 <textarea class="response-area" id="claude-response" 
-                                          placeholder="Copy and paste the 12-week calendar from Claude here..."
+                                          placeholder="Copy and paste the complete 84-day interactive calendar from Claude here..."
                                           onchange="saveAIResponse('claude', this.value)"></textarea>
                             </div>
                         </div>
@@ -1980,21 +1992,36 @@
                     <!-- Success Message -->
                     <div id="finalSuccessMessage" class="success-message">
                         <h2>🎉 Congratulations!</h2>
-                        <p>Your Smart Mom Method profile and business plan have been created successfully!</p>
+                        <p>Your Smart Mom Method interactive calendar and business plan have been created successfully!</p>
                         
                         <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 16px; margin: 30px 0;">
                             <h3 style="margin-bottom: 15px;">What You've Accomplished:</h3>
                             <ul style="list-style: none; padding: 0; text-align: left;">
-                                <li style="margin: 10px 0;">✅ Completed comprehensive business assessment</li>
-                                <li style="margin: 10px 0;">✅ Received AI-generated business ideas</li>
+                                <li style="margin: 10px 0;">✅ Completed comprehensive assessment</li>
+                                <li style="margin: 10px 0;">✅ Received AI-generated ideas customized to your situation</li>
                                 <li style="margin: 10px 0;">✅ Got market research insights</li>
-                                <li style="margin: 10px 0;">✅ Created your implementation calendar</li>
+                                <li style="margin: 10px 0;">✅ Created your ADHD-friendly interactive calendar</li>
                                 <li style="margin: 10px 0;">✅ Your progress is automatically saved</li>
                             </ul>
                         </div>
 
+                        <div style="background: rgba(255,255,255,0.2); padding: 24px; border-radius: 12px; margin: 24px 0;">
+                            <h3 style="margin-bottom: 12px;">📋 How to Use Your Calendar:</h3>
+                            <ol style="list-style: decimal; padding-left: 20px; text-align: left;">
+                                <li style="margin: 8px 0;">Copy your calendar from the Claude response box above</li>
+                                <li style="margin: 8px 0;">Paste it into a document (Google Docs, Word, or Notes app)</li>
+                                <li style="margin: 8px 0;">Print it out or keep it digital - whatever works for you!</li>
+                                <li style="margin: 8px 0;">Check off tasks as you complete them</li>
+                                <li style="margin: 8px 0;">Remember: Maximum 4 tasks per day to avoid overwhelm</li>
+                            </ol>
+                        </div>
+
                         <div class="success-actions">
-                            <button class="success-btn primary" onclick="viewCompleteProfile()">
+                            <button class="success-btn primary" onclick="downloadCalendar()">
+                                Download Calendar Instructions
+                            </button>
+                            
+                            <button class="success-btn" onclick="viewCompleteProfile()">
                                 View Complete Profile
                             </button>
                             
@@ -2124,7 +2151,7 @@
                 stepDesc8Title: "Market Research",
                 stepDesc8Text: "Now we'll use Google Gemini to research the market for your chosen business idea.",
                 stepDesc9Title: "Calendar Creation",
-                stepDesc9Text: "Finally, we'll use Claude to create your personalized 12-week implementation calendar.",
+                stepDesc9Text: "Finally, we'll use Claude to create your personalized 12-week implementation calendar with ADHD-friendly features.",
                 stepDesc10Title: "Your Complete Business Plan",
                 stepDesc10Text: "Congratulations! Here's your complete personalized business plan and next steps.",
                 chooseInvestmentLevel: "Choose your investment level...",
@@ -2226,7 +2253,7 @@
                 stepDesc8Title: "Investigación de Mercado",
                 stepDesc8Text: "Ahora usaremos Google Gemini para investigar el mercado de tu idea de negocio elegida.",
                 stepDesc9Title: "Creación de Calendario",
-                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas.",
+                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas con características amigables para TDAH.",
                 stepDesc10Title: "Tu Plan de Negocio Completo",
                 stepDesc10Text: "¡Felicitaciones! Aquí está tu plan de negocio personalizado completo y próximos pasos.",
                 chooseInvestmentLevel: "Elige tu nivel de inversión...",
@@ -3287,91 +3314,161 @@ Focus on realistic strategies for managing both life organization and business d
             const businessIdea = document.getElementById('selected-business-idea').value.trim();
             const marketResearch = aiResponses.gemini || 'No research provided';
             const userData = {
+                name: formData['user-name'] || 'Not specified',
                 dailySchedule: formData['daily-schedule'] || 'Not specified',
                 investmentLevel: formData['investment-level'] || 'Not specified',
-                familyStructure: formData['family-structure'] || 'Not specified'
+                familyStructure: formData['family-structure'] || 'Not specified',
+                incomeTimeline: formData['income-timeline'] || 'Not specified'
             };
             
-            // PATH-AWARE PROMPTS
-            if (selectedPath === 'life-organization') {
-                return `Create a detailed 12-week implementation plan for this home organization system: ${businessIdea}
+            // Base prompt with ADHD-specific instructions
+            let basePrompt = `**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
+- This person is a BEGINNER, not an expert
+- Be brutally honest about challenges and timelines  
+- Don't suggest tasks requiring experience they don't have
+- Focus on DOWN-TO-EARTH, practical solutions only
+- Consider their family constraints and available time
+- If they said "free only," respect that completely
 
-Research Context: ${marketResearch.substring(0, 500)}...
+**CRITICAL: Design this calendar for ADHD, Autism, and Executive Function challenges**
 
-User Constraints:
-- Daily Schedule: ${userData.dailySchedule}
+DAILY STRUCTURE RULES:
+- MAXIMUM 4 tasks per day (never exceed this number)
+- Each task broken into 3-7 specific sub-steps
+- No vague instructions - be extremely detailed
+- Include exact links to platforms/tools needed
+- Specify if account creation required (FREE vs PAID with exact costs)
+- Add time estimates including thinking/processing time
+- Build in 15-minute buffer between tasks
+
+TASK FORMAT EXAMPLE:
+✅ Task 1: Create Instagram Business Account (FREE - 30 minutes)
+  □ Step 1: Go to instagram.com/business (click this exact link)
+  □ Step 2: Click "Create account" → Select "Business Account"  
+  □ Step 3: Choose username: [yourname] + "business" or "coaching"
+  □ Step 4: Upload profile photo (phone selfie works perfectly)
+  □ Step 5: Write bio: "I help [your target audience] achieve [specific result]"
+  □ Step 6: Add contact info: your email and phone
+
+**USER PROFILE:**
+- Name: ${userData.name}
 - Family Situation: ${userData.familyStructure}
-- Focus: Home and Life Organization ONLY
+- Daily Schedule: ${userData.dailySchedule}
+- Investment Level: ${userData.investmentLevel}
+- Income Timeline: ${userData.incomeTimeline}
 
-Format as a 12-week plan with this structure:
+**CHOSEN SOLUTION:** ${businessIdea}
 
-Week 1: [Organization Focus Area]
-- [Specific organization task 1]
-- [Specific organization task 2]
-- [Specific organization task 3]
+**RESEARCH INSIGHTS:** 
+${marketResearch.substring(0, 800)}...
 
-Week 2: [Organization Focus Area]
-- [Specific organization task 1]
-- [Specific organization task 2]
-- [Specific organization task 3]
+`;
+            
+            // PATH-AWARE SECTIONS
+            if (selectedPath === 'life-organization') {
+                basePrompt += `
+**FOCUS: HOME & LIFE ORGANIZATION ONLY**
 
-[Continue for all 12 weeks]
+Include in your calendar:
+- Decluttering systems with exact room-by-room instructions
+- Morning/evening routine optimization
+- Kids' activity organization systems
+- Meal planning and prep strategies
+- Household management tools
+- Time-blocking techniques for busy moms
+- Paper/digital organization systems
+- Family command center setup
 
-Make tasks specific, actionable, and realistic for someone with family obligations. Focus on decluttering, organizing systems, routines, and home management. No business tasks - this is purely about creating an organized, efficient home and life.`;
+NO business tasks - this is purely about creating an organized, efficient home and life.`;
             
             } else if (selectedPath === 'business-launch') {
-                return `Create a detailed 12-week business implementation calendar for: ${businessIdea}
+                basePrompt += `
+**FOCUS: BUSINESS LAUNCH**
 
-Market Research Context: ${marketResearch.substring(0, 500)}...
+**SOCIAL MEDIA BUSINESS REQUIREMENTS:**
+If this is a social media business, include:
+- SEO-optimized title ideas (10 options)
+- Current viral hashtags for the niche
+- 30-day content calendar with post ideas
+- Platform-specific posting schedules
+- Engagement strategies for each platform
 
-User Constraints:
-- Daily Schedule: ${userData.dailySchedule}
-- Investment Level: ${userData.investmentLevel}
-- Family Situation: ${userData.familyStructure}
-
-Format as a 12-week plan with this structure:
-
-Week 1: [Business Focus Area]
-- [Specific business task 1]
-- [Specific business task 2]
-- [Specific business task 3]
-
-Week 2: [Business Focus Area]
-- [Specific business task 1]
-- [Specific business task 2]
-- [Specific business task 3]
-
-[Continue for all 12 weeks]
-
-Make tasks specific, actionable, and realistic for someone with family obligations. Include milestones and progress markers. Consider time management and work-life balance.`;
+**PLATFORM INTEGRATION REQUIREMENTS:**
+For each platform/tool mentioned:
+- Direct clickable links
+- Step-by-step account creation (with screenshots description)
+- Exact costs (FREE vs $X/month)
+- What to look for on each page
+- Common troubleshooting tips`;
             
             } else {
-                return `Create a detailed 12-week integrated plan for both home organization AND business development: ${businessIdea}
+                basePrompt += `
+**FOCUS: INTEGRATED LIFE ORGANIZATION + BUSINESS**
 
-Research Context: ${marketResearch.substring(0, 500)}...
-
-User Constraints:
-- Daily Schedule: ${userData.dailySchedule}
-- Investment Level: ${userData.investmentLevel}
-- Family Situation: ${userData.familyStructure}
-- Focus: Both Life Organization AND Business
-
-Format as a 12-week plan with this structure:
-
-Week 1: [Combined Focus Area]
-- [Home organization task]
-- [Business development task]
-- [Integration/synergy task]
-
-Week 2: [Combined Focus Area]
-- [Home organization task]
-- [Business development task]
-- [Integration/synergy task]
-
-[Continue for all 12 weeks]
-
-Balance both goals each week. Make tasks specific, actionable, and realistic for someone managing both home organization and business development with family obligations.`;
+Balance both goals by including:
+- Morning routines that prep for both home and business
+- Time-blocking that accommodates family and work
+- Systems that serve dual purposes (organized home = professional backdrop)
+- Business tasks that can involve kids appropriately
+- Evening routines that close both home and business loops`;
             }
+            
+            // Add final formatting instructions
+            basePrompt += `
+
+**12-WEEK DETAILED BREAKDOWN:**
+Format each day EXACTLY like this for parsing:
+
+WEEK 1 - DAY 1:
+🌟 Today's Focus: [Main Theme]
+⏰ Total Time Needed: [X hours with buffers]
+
+Task 1: [Task Title] (FREE/PAID $X - X minutes)
+🎯 Goal: [One sentence goal]
+- [ ] Step 1: [Exact instruction with link if needed]
+- [ ] Step 2: [Exact instruction with link if needed]
+- [ ] Step 3: [Exact instruction with link if needed]
+- [ ] Step 4: [Exact instruction with link if needed]
+💡 Tip: [Helpful hint for ADHD/executive function]
+
+Task 2: [Task Title] (FREE/PAID $X - X minutes)
+🎯 Goal: [One sentence goal]
+- [ ] Step 1: [Exact instruction with link if needed]
+- [ ] Step 2: [Exact instruction with link if needed]
+- [ ] Step 3: [Exact instruction with link if needed]
+💡 Tip: [Helpful hint for ADHD/executive function]
+
+Task 3: [Task Title] (FREE/PAID $X - X minutes)
+🎯 Goal: [One sentence goal]
+- [ ] Step 1: [Exact instruction with link if needed]
+- [ ] Step 2: [Exact instruction with link if needed]
+- [ ] Step 3: [Exact instruction with link if needed]
+💡 Tip: [Helpful hint for ADHD/executive function]
+
+📊 Daily Progress Check:
+- [ ] Completed Task 1
+- [ ] Completed Task 2
+- [ ] Completed Task 3
+🎉 Celebrate: [Specific celebration/reward suggestion]
+
+[Continue this EXACT format for all 84 days - 7 days × 12 weeks]
+
+**VISUAL ELEMENTS TO INCLUDE:**
+- Use emojis as visual markers (🌟 for focus, ⏰ for time, 🎯 for goals, 💡 for tips)
+- Include checkboxes [ ] for every sub-step
+- Add celebration prompts for task completion
+- Include energy level indicators (🔥 High Energy Needed, 💚 Low Energy OK)
+- Add "Brain Break" reminders between tasks
+
+**REMEMBER:**
+- Be extremely specific (no "research" - say "Google 'virtual assistant rates Lincoln Nebraska' and write down top 3 results")
+- Include comfort breaks and transition time
+- Account for executive dysfunction days with built-in flexibility
+- Make success inevitable with tiny, specific steps
+
+Generate the COMPLETE 12-week calendar with all 84 days following this EXACT format.`;
+            
+            return basePrompt;
         }
 
         function updateChatGPTPrompt() {
@@ -3501,6 +3598,68 @@ Balance both goals each week. Make tasks specific, actionable, and realistic for
 
         // ===== COMPLETION FUNCTIONS =====
         
+        function downloadCalendar() {
+            const calendar = aiResponses.claude || 'No calendar generated yet';
+            const userName = formData['user-name'] || 'Smart Mom';
+            const selectedIdea = formData['selected-business-idea'] || 'Your chosen solution';
+            
+            const instructions = `SMART MOM METHOD - INTERACTIVE CALENDAR INSTRUCTIONS
+            
+Hello ${userName}!
+
+Your personalized 12-week interactive calendar has been created for: ${selectedIdea}
+
+HOW TO USE YOUR CALENDAR:
+
+1. SAVE YOUR CALENDAR:
+   - Copy everything from the Claude response box
+   - Paste into Google Docs, Microsoft Word, or Apple Notes
+   - Save with a name like "My Smart Mom Calendar - ${new Date().toLocaleDateString()}"
+
+2. DAILY USE:
+   - Check off each sub-step as you complete it
+   - Maximum 4 tasks per day (this is important!)
+   - Take the suggested breaks between tasks
+   - Use the visual emojis as guides:
+     🌟 = Today's main focus
+     ⏰ = Time needed (including breaks)
+     🎯 = Your goal for this task
+     💡 = Helpful tips for ADHD/executive function
+     📊 = Daily progress check
+     🎉 = Celebration/reward
+
+3. TIPS FOR SUCCESS:
+   - Print weekly pages if that helps you focus
+   - Use colorful pens/highlighters for completed tasks
+   - Don't skip the celebration rewards!
+   - If you miss a day, just continue the next day
+   - Adjust timing based on your energy levels
+
+4. ACCOUNTABILITY:
+   - Share your daily wins in our community
+   - Take photos of completed checklist pages
+   - Track your streaks (but be kind to yourself!)
+
+Remember: This calendar is designed for real moms with ADHD, autism, and executive function challenges. 
+Every task is broken down into tiny, manageable steps. You've got this!
+
+Need support? Book a free consultation call or join our community.
+
+---
+YOUR CALENDAR CONTENT:
+${calendar}`;
+            
+            const blob = new Blob([instructions], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `smart-mom-calendar-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
         function completeAssessment() {
             currentStep = TOTAL_STEPS;
             showCurrentStep();
@@ -3680,6 +3839,7 @@ Balance both goals each week. Make tasks specific, actionable, and realistic for
         window.backToMainPage = backToMainPage;
         window.openStripeLink = openStripeLink;
         window.openCalendlyLink = openCalendlyLink;
+        window.downloadCalendar = downloadCalendar;
 
         console.log('Smart Mom Method: All functions loaded successfully - Enhanced with Payment System');
     </script>
