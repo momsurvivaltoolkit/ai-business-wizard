@@ -2042,7 +2042,7 @@
                         <div class="ai-workflow">
                             <div class="ai-platform">
                                 <div class="icon">🗓️</div>
-                                <h3>Step 3: ADHD-Friendly Interactive Calendar</h3>
+                                <h3>Step 3: Easy-to-Follow Interactive Calendar</h3>
                                 
                                 <div class="prompt-box" id="claudePrompt">
                                     Complete Steps 7 and 8 first...
@@ -2058,7 +2058,7 @@
                                     <p style="font-size: 14px; color: var(--charcoal); margin: 0;">
                                         <strong>🎯 What Claude Will Create:</strong><br>
                                         • Interactive daily calendar with checkboxes<br>
-                                        • Maximum 4 tasks per day (ADHD-friendly)<br>
+                                        • Maximum 4 tasks per day (prevents overwhelm)<br>
                                         • Each task broken into 3-7 tiny steps<br>
                                         • Visual progress tracking with emojis<br>
                                         • Built-in breaks and transitions<br>
@@ -2093,7 +2093,7 @@
                                 <li style="margin: 10px 0;">✅ Completed comprehensive assessment</li>
                                 <li style="margin: 10px 0;" id="accomplishment2">✅ Received AI-generated ideas customized to your situation</li>
                                 <li style="margin: 10px 0;" id="accomplishment3">✅ Got market research insights</li>
-                                <li style="margin: 10px 0;">✅ Created your ADHD-friendly interactive calendar</li>
+                                <li style="margin: 10px 0;">✅ Created your easy-to-follow interactive calendar</li>
                                 <li style="margin: 10px 0;">✅ Your progress is automatically saved</li>
                             </ul>
                         </div>
@@ -2244,7 +2244,7 @@
                 stepDesc8Title: "Market Research",
                 stepDesc8Text: "Now we'll use Google Gemini to research the market for your chosen business idea.",
                 stepDesc9Title: "Calendar Creation",
-                stepDesc9Text: "Finally, we'll use Claude to create your personalized 12-week implementation calendar with ADHD-friendly features.",
+                stepDesc9Text: "Finally, we'll use Claude to create your personalized 12-week implementation calendar with easy-to-follow daily tasks.",
                 stepDesc10Title: "Your Complete Business Plan",
                 stepDesc10Text: "Congratulations! Here's your complete personalized business plan and next steps.",
                 chooseInvestmentLevel: "Choose your investment level...",
@@ -2346,7 +2346,7 @@
                 stepDesc8Title: "Investigación de Mercado",
                 stepDesc8Text: "Ahora usaremos Google Gemini para investigar el mercado de tu idea de negocio elegida.",
                 stepDesc9Title: "Creación de Calendario",
-                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas con características amigables para TDAH.",
+                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas con tareas diarias fáciles de seguir.",
                 stepDesc10Title: "Tu Plan de Negocio Completo",
                 stepDesc10Text: "¡Felicitaciones! Aquí está tu plan de negocio personalizado completo y próximos pasos.",
                 chooseInvestmentLevel: "Elige tu nivel de inversión...",
@@ -3538,7 +3538,7 @@ Focus on realistic strategies for managing both life organization and business d
                 organizationTimeline: formData['organization-timeline'] || 'Not specified'
             };
             
-            // Base prompt with ADHD-specific instructions
+            // Base prompt with universal design instructions
             let basePrompt = `**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
 - This person is a BEGINNER, not an expert
 - Be brutally honest about challenges and timelines  
@@ -3547,7 +3547,7 @@ Focus on realistic strategies for managing both life organization and business d
 - Consider their family constraints and available time
 - If they said "free only," respect that completely
 
-**CRITICAL: Design this calendar for ADHD, Autism, and Executive Function challenges**
+**CRITICAL: Design this calendar for maximum clarity and ease of use**
 
 DAILY STRUCTURE RULES:
 - MAXIMUM 4 tasks per day (never exceed this number)
@@ -3653,7 +3653,7 @@ Task 2: [Task Title] (FREE/PAID $X - X minutes)
 - [ ] Step 1: [Exact instruction with link if needed]
 - [ ] Step 2: [Exact instruction with link if needed]
 - [ ] Step 3: [Exact instruction with link if needed]
-💡 Tip: [Helpful hint for ADHD/executive function]
+💡 Tip: [Helpful hint for better focus and success]
 
 Task 3: [Task Title] (FREE/PAID $X - X minutes)
 🎯 Goal: [One sentence goal]
@@ -3879,7 +3879,7 @@ HOW TO USE YOUR CALENDAR:
      🌟 = Today's main focus
      ⏰ = Time needed (including breaks)
      🎯 = Your goal for this task
-     💡 = Helpful tips for ADHD/executive function
+     💡 = Helpful tips for staying focused
      📊 = Daily progress check
      🎉 = Celebration/reward
 
@@ -3895,8 +3895,8 @@ HOW TO USE YOUR CALENDAR:
    - Take photos of completed checklist pages
    - Track your streaks (but be kind to yourself!)
 
-Remember: This calendar is designed for real moms with ADHD, autism, and executive function challenges. 
-Every task is broken down into tiny, manageable steps. You've got this!
+Remember: This calendar is designed for real moms who need clear, manageable steps. 
+Every task is broken down into tiny, achievable actions. You've got this!
 
 Need support? Book a free consultation call or join our community.
 
