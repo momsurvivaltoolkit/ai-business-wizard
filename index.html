@@ -960,6 +960,7 @@
             border-radius: 20px;
             border: 2px solid var(--light-sage);
             box-shadow: 0 4px 16px rgba(107, 142, 107, 0.08);
+            display: block !important;
         }
 
         .form-section h2 {
@@ -1440,10 +1441,22 @@
 
         .hidden {
             display: none !important;
+            visibility: hidden;
         }
 
+        /* Path-specific content styling */
         .path-specific-content {
-            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .path-specific-content.hidden {
+            display: none !important;
+            visibility: hidden;
+        }
+        
+        .path-specific-content:not(.hidden) {
+            display: block !important;
+            visibility: visible;
         }
     </style>
 </head>
@@ -1831,125 +1844,136 @@
 
                 <!-- Step 6: Investment & Timeline OR Organization Goals -->
                 <div id="step6Content" class="step-content hidden">
-                    <!-- Life Organization Path -->
-                    <div id="lifeOrganizationQuestions" class="path-specific-content hidden">
-                        <div class="step-description">
-                            <h2 id="stepDesc6TitleLife">Organization Goals & Timeline</h2>
-                            <p id="stepDesc6TextLife">Let's understand your organization priorities and how quickly you want to see results.</p>
-                        </div>
-
-                        <div class="form-section">
-                            <h2 id="organizationGoalsTitle">Your Organization Goals</h2>
-                            
-                            <div class="form-group">
-                                <label id="organizationPriorityLabel">What's your biggest organization challenge? <span class="required">*</span></label>
-                                <select id="organization-priority" class="form-control" onchange="validateField(this)">
-                                    <option value="" data-en="Choose your main challenge..." data-es="Elige tu desafío principal...">Choose your main challenge...</option>
-                                    <option value="daily-chaos" data-en="Daily schedule chaos - need morning/evening routines" data-es="Caos en horario diario - necesito rutinas mañana/noche">Daily schedule chaos - need morning/evening routines</option>
-                                    <option value="home-clutter" data-en="Home clutter - need decluttering systems" data-es="Desorden en casa - necesito sistemas de orden">Home clutter - need decluttering systems</option>
-                                    <option value="meal-planning" data-en="Meal planning - need food organization" data-es="Planificación de comidas - necesito organización de alimentos">Meal planning - need food organization</option>
-                                    <option value="kids-activities" data-en="Kids' activities - need family scheduling" data-es="Actividades de niños - necesito horarios familiares">Kids' activities - need family scheduling</option>
-                                    <option value="paper-digital" data-en="Paper/digital mess - need filing systems" data-es="Desorden papel/digital - necesito sistemas de archivo">Paper/digital mess - need filing systems</option>
-                                    <option value="all-above" data-en="All of the above - need complete overhaul" data-es="Todo lo anterior - necesito renovación completa">All of the above - need complete overhaul</option>
-                                </select>
-                                <div class="validation-message" id="organization-priority-validation"></div>
+                    <div id="step6Container">
+                        <!-- Life Organization Path -->
+                        <div id="lifeOrganizationQuestions" class="path-specific-content hidden">
+                            <div class="step-description">
+                                <h2 id="stepDesc6TitleLife">Organization Goals & Timeline</h2>
+                                <p id="stepDesc6TextLife">Let's understand your organization priorities and how quickly you want to see results.</p>
                             </div>
 
-                            <div class="form-group">
-                                <label id="organizationTimelineLabel">How soon do you want an organized home? <span class="required">*</span></label>
-                                <select id="organization-timeline" class="form-control" onchange="validateField(this)">
-                                    <option value="" data-en="Choose your timeline..." data-es="Elige tu cronograma...">Choose your timeline...</option>
-                                    <option value="urgent" data-en="Urgent - within 30 days" data-es="Urgente - en 30 días">Urgent - within 30 days</option>
-                                    <option value="moderate" data-en="Moderate - within 3 months" data-es="Moderado - en 3 meses">Moderate - within 3 months</option>
-                                    <option value="relaxed" data-en="Relaxed - within 6 months" data-es="Relajado - en 6 meses">Relaxed - within 6 months</option>
-                                    <option value="gradual" data-en="Gradual - take my time" data-es="Gradual - tomarme mi tiempo">Gradual - take my time</option>
-                                </select>
-                                <div class="validation-message" id="organization-timeline-validation"></div>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="form-section" style="display: block;">
+                                <h2 id="organizationGoalsTitle">Your Organization Goals</h2>
+                                
+                                <div class="form-group">
+                                    <label id="organizationPriorityLabel">What's your biggest organization challenge? <span class="required">*</span></label>
+                                    <select id="organization-priority" class="form-control" onchange="validateField(this)">
+                                        <option value="" data-en="Choose your main challenge..." data-es="Elige tu desafío principal...">Choose your main challenge...</option>
+                                        <option value="daily-chaos" data-en="Daily schedule chaos - need morning/evening routines" data-es="Caos en horario diario - necesito rutinas mañana/noche">Daily schedule chaos - need morning/evening routines</option>
+                                        <option value="home-clutter" data-en="Home clutter - need decluttering systems" data-es="Desorden en casa - necesito sistemas de orden">Home clutter - need decluttering systems</option>
+                                        <option value="meal-planning" data-en="Meal planning - need food organization" data-es="Planificación de comidas - necesito organización de alimentos">Meal planning - need food organization</option>
+                                        <option value="kids-activities" data-en="Kids' activities - need family scheduling" data-es="Actividades de niños - necesito horarios familiares">Kids' activities - need family scheduling</option>
+                                        <option value="paper-digital" data-en="Paper/digital mess - need filing systems" data-es="Desorden papel/digital - necesito sistemas de archivo">Paper/digital mess - need filing systems</option>
+                                        <option value="all-above" data-en="All of the above - need complete overhaul" data-es="Todo lo anterior - necesito renovación completa">All of the above - need complete overhaul</option>
+                                    </select>
+                                    <div class="validation-message" id="organization-priority-validation"></div>
+                                </div>
 
-                    <!-- Business Launch Path -->
-                    <div id="businessLaunchQuestions" class="path-specific-content hidden">
-                        <div class="step-description">
-                            <h2 id="stepDesc6Title">Investment & Timeline</h2>
-                            <p id="stepDesc6Text">Understanding your budget and timeline helps us recommend realistic business options.</p>
-                        </div>
-
-                        <div class="form-section">
-                            <h2 id="investmentTitle">Investment Level & Timeline</h2>
-                            
-                            <div class="form-group">
-                                <label id="investmentLevelLabel">How much can you invest to start? <span class="required">*</span></label>
-                                <select id="investment-level" class="form-control" onchange="validateField(this)">
-                                    <option value="" id="chooseInvestmentLevel">Choose your investment level...</option>
-                                    <option value="no-money" data-en="No money to invest ($0)" data-es="Sin dinero para invertir ($0)">No money to invest ($0)</option>
-                                    <option value="minimal" data-en="Minimal investment ($1-$500)" data-es="Inversión mínima ($1-$500)">Minimal investment ($1-$500)</option>
-                                    <option value="moderate" data-en="Moderate investment ($500-$2000)" data-es="Inversión moderada ($500-$2000)">Moderate investment ($500-$2000)</option>
-                                    <option value="flexible" data-en="Flexible budget ($2000+)" data-es="Presupuesto flexible ($2000+)">Flexible budget ($2000+)</option>
-                                </select>
-                                <div class="validation-message" id="investment-level-validation"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label id="incomeTimelineLabel">When do you need income? <span class="required">*</span></label>
-                                <select id="income-timeline" class="form-control" onchange="validateField(this)">
-                                    <option value="" id="chooseTimeline">Choose your timeline...</option>
-                                    <option value="immediate" data-en="Need income immediately (0-3 months)" data-es="Necesito ingresos inmediatamente (0-3 meses)">Need income immediately (0-3 months)</option>
-                                    <option value="moderate" data-en="Income needed soon (3-6 months)" data-es="Necesito ingresos pronto (3-6 meses)">Income needed soon (3-6 months)</option>
-                                    <option value="patient" data-en="Can wait for income (6-12 months)" data-es="Puedo esperar ingresos (6-12 meses)">Can wait for income (6-12 months)</option>
-                                    <option value="long-term" data-en="Long-term planning (12+ months)" data-es="Planificación a largo plazo (12+ meses)">Long-term planning (12+ months)</option>
-                                </select>
-                                <div class="validation-message" id="income-timeline-validation"></div>
+                                <div class="form-group">
+                                    <label id="organizationTimelineLabel">How soon do you want an organized home? <span class="required">*</span></label>
+                                    <select id="organization-timeline" class="form-control" onchange="validateField(this)">
+                                        <option value="" data-en="Choose your timeline..." data-es="Elige tu cronograma...">Choose your timeline...</option>
+                                        <option value="urgent" data-en="Urgent - within 30 days" data-es="Urgente - en 30 días">Urgent - within 30 days</option>
+                                        <option value="moderate" data-en="Moderate - within 3 months" data-es="Moderado - en 3 meses">Moderate - within 3 months</option>
+                                        <option value="relaxed" data-en="Relaxed - within 6 months" data-es="Relajado - en 6 meses">Relaxed - within 6 months</option>
+                                        <option value="gradual" data-en="Gradual - take my time" data-es="Gradual - tomarme mi tiempo">Gradual - take my time</option>
+                                    </select>
+                                    <div class="validation-message" id="organization-timeline-validation"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Both Path -->
-                    <div id="bothPathQuestions" class="path-specific-content hidden">
-                        <div class="step-description">
-                            <h2 id="stepDesc6TitleBoth">Goals, Investment & Timeline</h2>
-                            <p id="stepDesc6TextBoth">Let's understand both your organization goals and business timeline.</p>
+                        <!-- Business Launch Path -->
+                        <div id="businessLaunchQuestions" class="path-specific-content hidden">
+                            <div class="step-description">
+                                <h2 id="stepDesc6Title">Investment & Timeline</h2>
+                                <p id="stepDesc6Text">Understanding your budget and timeline helps us recommend realistic business options.</p>
+                            </div>
+
+                            <div class="form-section" style="display: block;">
+                                <h2 id="investmentTitle">Investment Level & Timeline</h2>
+                                
+                                <div class="form-group">
+                                    <label id="investmentLevelLabel">How much can you invest to start? <span class="required">*</span></label>
+                                    <select id="investment-level" class="form-control" onchange="validateField(this)">
+                                        <option value="" id="chooseInvestmentLevel">Choose your investment level...</option>
+                                        <option value="no-money" data-en="No money to invest ($0)" data-es="Sin dinero para invertir ($0)">No money to invest ($0)</option>
+                                        <option value="minimal" data-en="Minimal investment ($1-$500)" data-es="Inversión mínima ($1-$500)">Minimal investment ($1-$500)</option>
+                                        <option value="moderate" data-en="Moderate investment ($500-$2000)" data-es="Inversión moderada ($500-$2000)">Moderate investment ($500-$2000)</option>
+                                        <option value="flexible" data-en="Flexible budget ($2000+)" data-es="Presupuesto flexible ($2000+)">Flexible budget ($2000+)</option>
+                                    </select>
+                                    <div class="validation-message" id="investment-level-validation"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="incomeTimelineLabel">When do you need income? <span class="required">*</span></label>
+                                    <select id="income-timeline" class="form-control" onchange="validateField(this)">
+                                        <option value="" id="chooseTimeline">Choose your timeline...</option>
+                                        <option value="immediate" data-en="Need income immediately (0-3 months)" data-es="Necesito ingresos inmediatamente (0-3 meses)">Need income immediately (0-3 months)</option>
+                                        <option value="moderate" data-en="Income needed soon (3-6 months)" data-es="Necesito ingresos pronto (3-6 meses)">Income needed soon (3-6 months)</option>
+                                        <option value="patient" data-en="Can wait for income (6-12 months)" data-es="Puedo esperar ingresos (6-12 meses)">Can wait for income (6-12 months)</option>
+                                        <option value="long-term" data-en="Long-term planning (12+ months)" data-es="Planificación a largo plazo (12+ meses)">Long-term planning (12+ months)</option>
+                                    </select>
+                                    <div class="validation-message" id="income-timeline-validation"></div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-section">
-                            <h2 id="bothGoalsTitle">Organization & Business Goals</h2>
-                            
-                            <div class="form-group">
-                                <label id="bothPriorityLabel">What needs attention first? <span class="required">*</span></label>
-                                <select id="both-priority" class="form-control" onchange="validateField(this)">
-                                    <option value="" data-en="Choose your priority..." data-es="Elige tu prioridad...">Choose your priority...</option>
-                                    <option value="organize-first" data-en="Get organized first, then start business" data-es="Organizarme primero, luego comenzar negocio">Get organized first, then start business</option>
-                                    <option value="business-first" data-en="Start earning quickly, organize as I go" data-es="Empezar a ganar rápido, organizar mientras avanzo">Start earning quickly, organize as I go</option>
-                                    <option value="simultaneous" data-en="Work on both simultaneously" data-es="Trabajar en ambos simultáneamente">Work on both simultaneously</option>
-                                    <option value="integrated" data-en="Create business from organization skills" data-es="Crear negocio de habilidades de organización">Create business from organization skills</option>
-                                </select>
-                                <div class="validation-message" id="both-priority-validation"></div>
+                        <!-- Both Path -->
+                        <div id="bothPathQuestions" class="path-specific-content hidden">
+                            <div class="step-description">
+                                <h2 id="stepDesc6TitleBoth">Goals, Investment & Timeline</h2>
+                                <p id="stepDesc6TextBoth">Let's understand both your organization goals and business timeline.</p>
                             </div>
 
-                            <div class="form-group">
-                                <label id="bothInvestmentLabel">Business investment available? <span class="required">*</span></label>
-                                <select id="both-investment" class="form-control" onchange="validateField(this)">
-                                    <option value="" data-en="Choose investment level..." data-es="Elige nivel de inversión...">Choose investment level...</option>
-                                    <option value="no-money" data-en="No money to invest ($0)" data-es="Sin dinero para invertir ($0)">No money to invest ($0)</option>
-                                    <option value="minimal" data-en="Minimal investment ($1-$500)" data-es="Inversión mínima ($1-$500)">Minimal investment ($1-$500)</option>
-                                    <option value="moderate" data-en="Moderate investment ($500-$2000)" data-es="Inversión moderada ($500-$2000)">Moderate investment ($500-$2000)</option>
-                                    <option value="flexible" data-en="Flexible budget ($2000+)" data-es="Presupuesto flexible ($2000+)">Flexible budget ($2000+)</option>
-                                </select>
-                                <div class="validation-message" id="both-investment-validation"></div>
-                            </div>
+                            <div class="form-section" style="display: block;">
+                                <h2 id="bothGoalsTitle">Organization & Business Goals</h2>
+                                
+                                <div class="form-group">
+                                    <label id="bothPriorityLabel">What needs attention first? <span class="required">*</span></label>
+                                    <select id="both-priority" class="form-control" onchange="validateField(this)">
+                                        <option value="" data-en="Choose your priority..." data-es="Elige tu prioridad...">Choose your priority...</option>
+                                        <option value="organize-first" data-en="Get organized first, then start business" data-es="Organizarme primero, luego comenzar negocio">Get organized first, then start business</option>
+                                        <option value="business-first" data-en="Start earning quickly, organize as I go" data-es="Empezar a ganar rápido, organizar mientras avanzo">Start earning quickly, organize as I go</option>
+                                        <option value="simultaneous" data-en="Work on both simultaneously" data-es="Trabajar en ambos simultáneamente">Work on both simultaneously</option>
+                                        <option value="integrated" data-en="Create business from organization skills" data-es="Crear negocio de habilidades de organización">Create business from organization skills</option>
+                                    </select>
+                                    <div class="validation-message" id="both-priority-validation"></div>
+                                </div>
 
-                            <div class="form-group">
-                                <label id="bothTimelineLabel">Timeline for both goals? <span class="required">*</span></label>
-                                <select id="both-timeline" class="form-control" onchange="validateField(this)">
-                                    <option value="" data-en="Choose your timeline..." data-es="Elige tu cronograma...">Choose your timeline...</option>
-                                    <option value="urgent" data-en="Urgent - need results in 30 days" data-es="Urgente - necesito resultados en 30 días">Urgent - need results in 30 days</option>
-                                    <option value="moderate" data-en="Moderate - 3-6 months is fine" data-es="Moderado - 3-6 meses está bien">Moderate - 3-6 months is fine</option>
-                                    <option value="patient" data-en="Patient - 6-12 months works" data-es="Paciente - 6-12 meses funciona">Patient - 6-12 months works</option>
-                                    <option value="flexible" data-en="Flexible - quality over speed" data-es="Flexible - calidad sobre velocidad">Flexible - quality over speed</option>
-                                </select>
-                                <div class="validation-message" id="both-timeline-validation"></div>
+                                <div class="form-group">
+                                    <label id="bothInvestmentLabel">Business investment available? <span class="required">*</span></label>
+                                    <select id="both-investment" class="form-control" onchange="validateField(this)">
+                                        <option value="" data-en="Choose investment level..." data-es="Elige nivel de inversión...">Choose investment level...</option>
+                                        <option value="no-money" data-en="No money to invest ($0)" data-es="Sin dinero para invertir ($0)">No money to invest ($0)</option>
+                                        <option value="minimal" data-en="Minimal investment ($1-$500)" data-es="Inversión mínima ($1-$500)">Minimal investment ($1-$500)</option>
+                                        <option value="moderate" data-en="Moderate investment ($500-$2000)" data-es="Inversión moderada ($500-$2000)">Moderate investment ($500-$2000)</option>
+                                        <option value="flexible" data-en="Flexible budget ($2000+)" data-es="Presupuesto flexible ($2000+)">Flexible budget ($2000+)</option>
+                                    </select>
+                                    <div class="validation-message" id="both-investment-validation"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="bothTimelineLabel">Timeline for both goals? <span class="required">*</span></label>
+                                    <select id="both-timeline" class="form-control" onchange="validateField(this)">
+                                        <option value="" data-en="Choose your timeline..." data-es="Elige tu cronograma...">Choose your timeline...</option>
+                                        <option value="urgent" data-en="Urgent - need results in 30 days" data-es="Urgente - necesito resultados en 30 días">Urgent - need results in 30 days</option>
+                                        <option value="moderate" data-en="Moderate - 3-6 months is fine" data-es="Moderado - 3-6 meses está bien">Moderate - 3-6 months is fine</option>
+                                        <option value="patient" data-en="Patient - 6-12 months works" data-es="Paciente - 6-12 meses funciona">Patient - 6-12 months works</option>
+                                        <option value="flexible" data-en="Flexible - quality over speed" data-es="Flexible - calidad sobre velocidad">Flexible - quality over speed</option>
+                                    </select>
+                                    <div class="validation-message" id="both-timeline-validation"></div>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Fallback message if no path is selected -->
+                        <div id="noPathSelectedMessage" style="display: none; padding: 40px; text-align: center; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; margin: 20px 0;">
+                            <h3 style="color: #856404; margin-bottom: 10px;">Path Not Selected</h3>
+                            <p style="color: #856404;">Please go back to Step 3 and select your path (Life Organization, Business Launch, or Both).</p>
+                            <button class="nav-btn back" onclick="currentStep = 3; showCurrentStep();" style="margin-top: 20px;">
+                                ← Go to Path Selection
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -2693,6 +2717,11 @@
         // ===== PROGRESS MANAGEMENT =====
         
         function saveUserProgress() {
+            // Ensure selectedPath is in formData
+            if (selectedPath) {
+                formData.selectedPath = selectedPath;
+            }
+            
             const progressData = {
                 currentStep,
                 selectedPath,
@@ -2701,6 +2730,8 @@
                 currentLanguage,
                 timestamp: new Date().toISOString()
             };
+            
+            console.log('Saving progress - Selected path:', selectedPath);
             
             localStorage.setItem('smartMomProgress', JSON.stringify(progressData));
             
@@ -2736,6 +2767,13 @@
                     formData = data.formData || {};
                     aiResponses = data.aiResponses || {};
                     currentLanguage = data.currentLanguage || 'en';
+                    
+                    // Ensure selectedPath is also in formData
+                    if (selectedPath && !formData.selectedPath) {
+                        formData.selectedPath = selectedPath;
+                    }
+                    
+                    console.log('Loaded progress - Selected path:', selectedPath);
                     
                     if (currentLanguage !== 'en') {
                         changeLanguage(currentLanguage);
@@ -2790,6 +2828,11 @@
                 }
                 // Update path-specific content
                 updatePathSpecificContent();
+                
+                // If we're on step 6, show the path-specific questions
+                if (currentStep === 6) {
+                    showPathSpecificQuestions();
+                }
             }
         }
 
@@ -2956,7 +2999,32 @@
             
             // Show path-specific questions for Step 6
             if (currentStep === 6) {
-                showPathSpecificQuestions();
+                // Make sure we have the selected path from formData if not in variable
+                if (!selectedPath && formData.selectedPath) {
+                    selectedPath = formData.selectedPath;
+                }
+                
+                // Last resort - check localStorage directly
+                if (!selectedPath) {
+                    const saved = localStorage.getItem('smartMomProgress');
+                    if (saved) {
+                        try {
+                            const data = JSON.parse(saved);
+                            if (data.selectedPath) {
+                                selectedPath = data.selectedPath;
+                                formData.selectedPath = data.selectedPath;
+                            }
+                        } catch (e) {
+                            console.error('Error checking saved path:', e);
+                        }
+                    }
+                }
+                
+                console.log('Step 6 - Selected path:', selectedPath);
+                // Add a small delay to ensure DOM is ready
+                setTimeout(() => {
+                    showPathSpecificQuestions();
+                }, 100);
             }
             
             updateProgressDisplay();
@@ -2975,25 +3043,74 @@
         }
 
         function showPathSpecificQuestions() {
+            console.log('Showing path-specific questions for:', selectedPath);
+            
             // Hide all path-specific content first
             document.querySelectorAll('.path-specific-content').forEach(content => {
                 content.classList.add('hidden');
+                content.style.display = 'none';
             });
+            
+            // Also hide the no path message initially
+            const noPathMessage = document.getElementById('noPathSelectedMessage');
+            if (noPathMessage) {
+                noPathMessage.style.display = 'none';
+            }
+            
+            // If no path is selected, show warning
+            if (!selectedPath) {
+                console.error('No path selected!');
+                if (noPathMessage) {
+                    noPathMessage.style.display = 'block';
+                }
+                return;
+            }
             
             // Show the appropriate questions based on selected path
             if (selectedPath === 'life-organization') {
-                document.getElementById('lifeOrganizationQuestions').classList.remove('hidden');
+                const lifeQuestions = document.getElementById('lifeOrganizationQuestions');
+                if (lifeQuestions) {
+                    lifeQuestions.classList.remove('hidden');
+                    lifeQuestions.style.display = 'block';
+                    console.log('Life organization questions shown');
+                } else {
+                    console.error('Life organization questions element not found!');
+                }
             } else if (selectedPath === 'business-launch') {
-                document.getElementById('businessLaunchQuestions').classList.remove('hidden');
+                const businessQuestions = document.getElementById('businessLaunchQuestions');
+                if (businessQuestions) {
+                    businessQuestions.classList.remove('hidden');
+                    businessQuestions.style.display = 'block';
+                    console.log('Business launch questions shown');
+                } else {
+                    console.error('Business launch questions element not found!');
+                }
             } else if (selectedPath === 'both') {
-                document.getElementById('bothPathQuestions').classList.remove('hidden');
+                const bothQuestions = document.getElementById('bothPathQuestions');
+                if (bothQuestions) {
+                    bothQuestions.classList.remove('hidden');
+                    bothQuestions.style.display = 'block';
+                    console.log('Both path questions shown');
+                } else {
+                    console.error('Both path questions element not found!');
+                }
             }
         }
 
         function nextStep() {
             if (validateCurrentStep()) {
                 if (currentStep < TOTAL_STEPS) {
+                    // Save progress before moving to next step
+                    saveUserProgress();
+                    
                     currentStep++;
+                    
+                    // Extra logging for debugging step 6
+                    if (currentStep === 6) {
+                        console.log('Moving to step 6, selectedPath is:', selectedPath);
+                        console.log('FormData selectedPath:', formData.selectedPath);
+                    }
+                    
                     showCurrentStep();
                     saveUserProgress();
                     scrollToCurrentStep();
@@ -3048,38 +3165,67 @@
                     break;
                 
                 case 6:
+                    if (!selectedPath) {
+                        alert('Please go back and select a path first');
+                        return false;
+                    }
+                    
                     if (selectedPath === 'life-organization') {
-                        const orgPriority = document.getElementById('organization-priority').value;
-                        const orgTimeline = document.getElementById('organization-timeline').value;
+                        const orgPriority = document.getElementById('organization-priority');
+                        const orgTimeline = document.getElementById('organization-timeline');
+                        
                         if (!orgPriority || !orgTimeline) {
+                            console.error('Life organization fields not found!');
+                            showPathSpecificQuestions(); // Try to show them
+                            alert('There was an issue loading the form. Please refresh the page or contact support.');
+                            return false;
+                        }
+                        
+                        if (!orgPriority.value || !orgTimeline.value) {
                             alert('Please select both your organization priority and timeline');
                             return false;
                         }
                         // Save these values for the prompts
-                        formData['organization-priority'] = orgPriority;
-                        formData['organization-timeline'] = orgTimeline;
+                        formData['organization-priority'] = orgPriority.value;
+                        formData['organization-timeline'] = orgTimeline.value;
                     } else if (selectedPath === 'business-launch') {
-                        const investment = document.getElementById('investment-level').value;
-                        const timeline = document.getElementById('income-timeline').value;
+                        const investment = document.getElementById('investment-level');
+                        const timeline = document.getElementById('income-timeline');
+                        
                         if (!investment || !timeline) {
+                            console.error('Business fields not found!');
+                            showPathSpecificQuestions(); // Try to show them
+                            alert('There was an issue loading the form. Please refresh the page or contact support.');
+                            return false;
+                        }
+                        
+                        if (!investment.value || !timeline.value) {
                             alert('Please select both investment level and income timeline');
                             return false;
                         }
                     } else if (selectedPath === 'both') {
-                        const priority = document.getElementById('both-priority').value;
-                        const investment = document.getElementById('both-investment').value;
-                        const timeline = document.getElementById('both-timeline').value;
+                        const priority = document.getElementById('both-priority');
+                        const investment = document.getElementById('both-investment');
+                        const timeline = document.getElementById('both-timeline');
+                        
                         if (!priority || !investment || !timeline) {
+                            console.error('Both path fields not found!');
+                            showPathSpecificQuestions(); // Try to show them
+                            alert('There was an issue loading the form. Please refresh the page or contact support.');
+                            return false;
+                        }
+                        
+                        if (!priority.value || !investment.value || !timeline.value) {
                             alert('Please answer all questions about your goals and timeline');
                             return false;
                         }
                         // Save these values for the prompts
-                        formData['both-priority'] = priority;
-                        formData['both-investment'] = investment;
-                        formData['both-timeline'] = timeline;
+                        formData['both-priority'] = priority.value;
+                        formData['both-investment'] = investment.value;
+                        formData['both-timeline'] = timeline.value;
                         // Also save as standard fields for compatibility
-                        formData['investment-level'] = investment;
-                        formData['income-timeline'] = timeline;
+                        formData['investment-level'] = investment.value;
+                        formData['income-timeline'] = timeline.value;
                     }
                     break;
                 
@@ -3264,9 +3410,9 @@
             document.querySelector(`[data-path="${path}"]`).classList.add('selected');
             
             formData.selectedPath = path;
-            if (currentUser) {
-                saveUserProgress();
-            }
+            
+            // Save progress immediately after path selection
+            saveUserProgress();
             
             // Update step descriptions based on selected path
             updatePathSpecificContent();
@@ -3983,12 +4129,19 @@ ${calendar}`;
         // ===== INITIALIZATION =====
         
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Smart Mom Method: Initializing...');
+            
             checkExistingSession();
             
             const savedLanguage = localStorage.getItem('smartMomLanguage');
             if (savedLanguage) {
                 changeLanguage(savedLanguage);
             }
+            
+            // Debug logging
+            console.log('Current step:', currentStep);
+            console.log('Selected path:', selectedPath);
+            console.log('Form data:', formData);
             
             showCurrentStep();
 
