@@ -2081,12 +2081,14 @@
                                 <div style="background: var(--light-sage); padding: 16px; border-radius: 8px; margin: 16px 0;">
                                     <p style="font-size: 14px; color: var(--charcoal); margin: 0;">
                                         <strong>🎯 What Claude Will Create:</strong><br>
-                                        • Interactive daily calendar with checkboxes<br>
-                                        • Maximum 4 tasks per day (prevents overwhelm)<br>
-                                        • Each task broken into 3-7 tiny steps<br>
-                                        • Visual progress tracking with emojis<br>
-                                        • Built-in breaks and transitions<br>
-                                        • Color-coded for easy scanning
+                                        • Complete 84-day interactive calendar (12 weeks × 7 days)<br>
+                                        • Maximum 3 tasks per day with checkboxes for each step<br>
+                                        • ADHD-friendly format with emojis and clear structure<br>
+                                        • Built-in breaks, celebrations, and energy level indicators<br>
+                                        • Exact time estimates including buffer time<br>
+                                        • Free resources and step-by-step instructions<br>
+                                        • Daily victory checks and tomorrow's prep<br>
+                                        • Color-coded sections for easy visual scanning
                                     </p>
                                 </div>
                                 
@@ -2129,7 +2131,7 @@
                                 <li style="margin: 8px 0;">Paste it into a document (Google Docs, Word, or Notes app)</li>
                                 <li style="margin: 8px 0;">Print it out or keep it digital - whatever works for you!</li>
                                 <li style="margin: 8px 0;">Check off tasks as you complete them</li>
-                                <li style="margin: 8px 0;">Remember: Maximum 4 tasks per day to avoid overwhelm</li>
+                                <li style="margin: 8px 0;">Remember: Maximum 3 tasks per day to avoid overwhelm</li>
                             </ol>
                         </div>
 
@@ -3684,152 +3686,240 @@ Focus on realistic strategies for managing both life organization and business d
                 organizationTimeline: formData['organization-timeline'] || 'Not specified'
             };
             
-            // Base prompt with universal design instructions
-            let basePrompt = `**CRITICAL INSTRUCTIONS - BE EXTREMELY REALISTIC:**
-- This person is a BEGINNER, not an expert
-- Be brutally honest about challenges and timelines  
-- Don't suggest tasks requiring experience they don't have
-- Focus on DOWN-TO-EARTH, practical solutions only
-- Consider their family constraints and available time
-- If they said "free only," respect that completely
+            // Enhanced base prompt with better formatting instructions
+            let basePrompt = `CREATE AN INTERACTIVE 12-WEEK CALENDAR FOR ADHD/NEURODIVERGENT-FRIENDLY SUCCESS
 
-**CRITICAL: Design this calendar for maximum clarity and ease of use**
+**CRITICAL SUCCESS RULES:**
+✅ MAXIMUM 3 tasks per day (NEVER exceed this - it causes overwhelm)
+✅ Each task = 3-7 tiny, specific sub-steps with checkboxes
+✅ Include exact time estimates (realistic + 25% buffer time)
+✅ Visual emojis for instant recognition and dopamine hits
+✅ Built-in celebration rewards (essential for motivation)
+✅ Free resources only (unless they specifically said they have budget)
 
-DAILY STRUCTURE RULES:
-- MAXIMUM 4 tasks per day (never exceed this number)
-- Each task broken into 3-7 specific sub-steps
-- No vague instructions - be extremely detailed
-- Include exact links to platforms/tools needed
-- Specify if account creation required (FREE vs PAID with exact costs)
-- Add time estimates including thinking/processing time
-- Build in 15-minute buffer between tasks
+**USER CONTEXT:**
+Name: ${userData.name}
+Family: ${userData.familyStructure}
+Daily Schedule: ${userData.dailySchedule}
+Budget: ${userData.investmentLevel}
+Timeline: ${userData.incomeTimeline}
 
-TASK FORMAT EXAMPLE:
-✅ Task 1: Create Instagram Business Account (FREE - 30 minutes)
-  □ Step 1: Go to instagram.com/business (click this exact link)
-  □ Step 2: Click "Create account" → Select "Business Account"  
-  □ Step 3: Choose username: [yourname] + "business" or "coaching"
-  □ Step 4: Upload profile photo (phone selfie works perfectly)
-  □ Step 5: Write bio: "I help [your target audience] achieve [specific result]"
-  □ Step 6: Add contact info: your email and phone
+**CHOSEN FOCUS:** ${businessIdea}
 
-**USER PROFILE:**
-- Name: ${userData.name}
-- Family Situation: ${userData.familyStructure}
-- Daily Schedule: ${userData.dailySchedule}
-- Investment Level: ${userData.investmentLevel}
-- Income Timeline: ${userData.incomeTimeline}
+**RESEARCH DATA:** ${marketResearch.substring(0, 600)}
 
-**CHOSEN SOLUTION:** ${businessIdea}
+**MANDATORY FORMAT - Copy this EXACTLY:**
 
-**RESEARCH INSIGHTS:** 
-${marketResearch.substring(0, 800)}...
+# 12-Week Interactive Calendar: ${businessIdea}
+
+## WEEK 1 - FOUNDATION & SETUP
+### DAY 1 - Monday
+🌟 **Today's Focus:** [Clear, motivating daily theme]
+⏰ **Total Time:** [X minutes including breaks]
+🧠 **Energy Level:** [High/Medium/Low energy needed]
+
+**Task 1: [Specific Action Title] (FREE - X minutes)**
+🎯 **Goal:** [One clear sentence about what this accomplishes]
+□ **Step 1:** [Extremely specific instruction with exact website/link]
+□ **Step 2:** [What button to click, what to type, etc.]
+□ **Step 3:** [Include screenshot descriptions if helpful]
+□ **Step 4:** [Troubleshooting tip or what to expect]
+□ **Step 5:** [Final verification step]
+💡 **ADHD Tip:** [Specific focus/executive function help]
+
+**Task 2: [Specific Action Title] (FREE - X minutes)**
+🎯 **Goal:** [One clear sentence]
+□ **Step 1:** [Break down into smallest possible actions]
+□ **Step 2:** [Include copy-paste templates when possible]
+□ **Step 3:** [Mention common mistakes to avoid]
+□ **Step 4:** [Include transition time to next task]
+💡 **ADHD Tip:** [Momentum-building suggestion]
+
+**Task 3: [Specific Action Title] (FREE - X minutes)**
+🎯 **Goal:** [One clear sentence]
+□ **Step 1:** [Account for decision fatigue]
+□ **Step 2:** [Provide exact templates/examples]
+□ **Step 3:** [Include "good enough" benchmarks]
+□ **Step 4:** [Set up for tomorrow's success]
+💡 **ADHD Tip:** [Closure and transition help]
+
+**🎯 Daily Win Check:**
+□ I completed Task 1 ✨
+□ I completed Task 2 ✨  
+□ I completed Task 3 ✨
+□ I took breaks between tasks ✨
+
+**🎉 Today's Celebration:** [Specific reward suggestion like "favorite tea" or "10-minute walk"]
+
+**📝 Tomorrow's Prep:** [One tiny thing to set up for tomorrow]
+
+---
+
+### DAY 2 - Tuesday
+[Continue same format...]
+
+**CONTINUE THIS EXACT FORMAT FOR ALL 84 DAYS (7 days × 12 weeks)**
+
+**ESSENTIAL DESIGN ELEMENTS:**
+- Use checkboxes □ for every sub-step (critical for dopamine feedback)
+- Include 🧠 Energy Level indicators for each day
+- Add 💡 ADHD Tips for executive function support
+- Include 🎉 Daily celebrations (motivation maintenance)
+- Provide exact links, templates, and copy-paste content
+- Account for "brain fog" days with simpler alternatives
+- Include sensory breaks and movement prompts
+- End each day with tomorrow's prep (reduces anxiety)
+
+**WEEKLY STRUCTURE:**
+- Week 1-2: Foundation & Basic Setup
+- Week 3-4: Content Creation & Systems  
+- Week 5-6: Launch Preparation
+- Week 7-8: Soft Launch & Testing
+- Week 9-10: Optimization & Growth
+- Week 11-12: Scaling & Long-term Planning
 
 `;
             
-            // PATH-AWARE SECTIONS
+            // PATH-AWARE SECTIONS with enhanced focus
             if (selectedPath === 'life-organization') {
                 basePrompt += `
-**FOCUS: HOME & LIFE ORGANIZATION ONLY**
+**PATH FOCUS: HOME & LIFE ORGANIZATION MASTERY**
 
-Include in your calendar:
-- Decluttering systems with exact room-by-room instructions
-- Morning/evening routine optimization
-- Kids' activity organization systems
-- Meal planning and prep strategies
-- Household management tools
-- Time-blocking techniques for busy moms
-- Paper/digital organization systems
-- Family command center setup
+**SPECIFIC ORGANIZATION SYSTEMS TO BUILD:**
+- Kitchen command center with meal planning station
+- Morning routine automation (15-minute max)
+- Evening reset routine (10-minute max)  
+- Kids' activity coordination system
+- Paper/digital filing that actually works
+- Decluttering method that prevents re-accumulation
+- Family calendar synchronization
+- Household task delegation systems
 
-NO business tasks - this is purely about creating an organized, efficient home and life.`;
+**SUCCESS METRICS FOR EACH WEEK:**
+- Week 1-2: Basic systems in place
+- Week 3-4: Routines becoming automatic
+- Week 5-6: Family buy-in and participation
+- Week 7-8: Systems working without constant oversight
+- Week 9-10: Optimization and fine-tuning
+- Week 11-12: Long-term maintenance and seasonal adjustments
+
+**NO BUSINESS TASKS** - Focus purely on home organization mastery.`;
             
             } else if (selectedPath === 'business-launch') {
                 basePrompt += `
-**FOCUS: BUSINESS LAUNCH**
+**PATH FOCUS: BUSINESS LAUNCH FOR BUSY MOMS**
 
-**SOCIAL MEDIA BUSINESS REQUIREMENTS:**
-If this is a social media business, include:
-- SEO-optimized title ideas (10 options)
-- Current viral hashtags for the niche
-- 30-day content calendar with post ideas
-- Platform-specific posting schedules
-- Engagement strategies for each platform
+**ESSENTIAL BUSINESS BUILDING BLOCKS:**
+- Free platform setup (social media, basic website)
+- Content creation systems that work with family life
+- Client acquisition strategies for beginners
+- Pricing and service delivery frameworks
+- Basic bookkeeping and legal protection
+- Time-blocking for business growth around family
+- Community building and networking
+- Revenue optimization tactics
 
-**PLATFORM INTEGRATION REQUIREMENTS:**
-For each platform/tool mentioned:
-- Direct clickable links
-- Step-by-step account creation (with screenshots description)
-- Exact costs (FREE vs $X/month)
-- What to look for on each page
-- Common troubleshooting tips`;
+**MILESTONE PROGRESSION:**
+- Week 1-2: Foundation setup and market validation
+- Week 3-4: Content creation and audience building
+- Week 5-6: Service/product development and testing
+- Week 7-8: Soft launch and first customers
+- Week 9-10: Feedback integration and optimization
+- Week 11-12: Scaling systems and growth planning
+
+**FOCUS ON REALISTIC INCOME GOALS** based on their timeline: ${userData.incomeTimeline}`;
             
             } else {
                 basePrompt += `
-**FOCUS: INTEGRATED LIFE ORGANIZATION + BUSINESS**
+**PATH FOCUS: INTEGRATED LIFE + BUSINESS MASTERY**
 
-Balance both goals by including:
-- Morning routines that prep for both home and business
-- Time-blocking that accommodates family and work
-- Systems that serve dual purposes (organized home = professional backdrop)
-- Business tasks that can involve kids appropriately
-- Evening routines that close both home and business loops`;
+**SYNERGISTIC SYSTEMS TO BUILD:**
+- Morning routines that prep both home and business
+- Organized spaces that double as professional backdrops
+- Time-blocking that honors both family and business needs
+- Systems that teach kids about entrepreneurship
+- Evening routines that close both home and business loops
+- Family involvement in age-appropriate business tasks
+- Organization skills that become sellable services
+
+**DUAL SUCCESS METRICS:**
+Each week should advance BOTH life organization AND business goals:
+- Week 1-2: Basic home systems + business foundation
+- Week 3-4: Routine automation + content creation
+- Week 5-6: Family systems + audience building
+- Week 7-8: Advanced organization + soft business launch
+- Week 9-10: System optimization + customer acquisition
+- Week 11-12: Maintenance mastery + business scaling
+
+**PRIORITY BALANCE** based on their choice: ${userData.bothPriority || 'simultaneous development'}`;
             }
             
-            // Add final formatting instructions
+            // Enhanced final formatting with more specific instructions
             basePrompt += `
 
-**12-WEEK DETAILED BREAKDOWN:**
-Format each day EXACTLY like this for parsing:
+**CRITICAL: USE THIS EXACT INTERACTIVE FORMAT FOR ALL 84 DAYS**
 
-WEEK 1 - DAY 1:
-🌟 Today's Focus: [Main Theme]
-⏰ Total Time Needed: [X hours with buffers]
+Never use this broken format. Instead, use the enhanced format below:
 
-Task 1: [Task Title] (FREE/PAID $X - X minutes)
-🎯 Goal: [One sentence goal]
-- [ ] Step 1: [Exact instruction with link if needed]
-- [ ] Step 2: [Exact instruction with link if needed]
-- [ ] Step 3: [Exact instruction with link if needed]
-- [ ] Step 4: [Exact instruction with link if needed]
-💡 Tip: [Helpful hint for ADHD/executive function]
+## WEEK [X] - [THEME NAME]
+### DAY [X] - [Weekday]
+🌟 **Today's Focus:** [Motivating daily theme that builds on yesterday]
+⏰ **Total Time:** [Realistic time + 25% buffer]
+🧠 **Energy Level:** [High/Medium/Low - match tasks to typical energy]
 
-Task 2: [Task Title] (FREE/PAID $X - X minutes)
-🎯 Goal: [One sentence goal]
-- [ ] Step 1: [Exact instruction with link if needed]
-- [ ] Step 2: [Exact instruction with link if needed]
-- [ ] Step 3: [Exact instruction with link if needed]
-💡 Tip: [Helpful hint for better focus and success]
+**✅ Task 1: [Action-Oriented Title] (FREE - [X] minutes)**
+🎯 **Goal:** [One clear sentence about the outcome]
+□ **Step 1:** [Smallest possible first action with exact instructions]
+□ **Step 2:** [Include decision-making criteria and examples]
+□ **Step 3:** [Provide copy-paste templates when possible]
+□ **Step 4:** [Include quality checkpoints and "good enough" standards]
+□ **Step 5:** [Set up transition to next task]
+💡 **ADHD Win:** [Specific tip for executive function or motivation]
 
-Task 3: [Task Title] (FREE/PAID $X - X minutes)
-🎯 Goal: [One sentence goal]
-- [ ] Step 1: [Exact instruction with link if needed]
-- [ ] Step 2: [Exact instruction with link if needed]
-- [ ] Step 3: [Exact instruction with link if needed]
-💡 Tip: [Helpful hint for ADHD/executive function]
+**✅ Task 2: [Action-Oriented Title] (FREE - [X] minutes)**
+🎯 **Goal:** [One clear sentence about the outcome]
+□ **Step 1:** [Break down cognitive load with specific examples]
+□ **Step 2:** [Include links, apps, or tools with exact instructions]
+□ **Step 3:** [Address common sticking points proactively]
+□ **Step 4:** [Include progress celebration micro-moments]
+💡 **ADHD Win:** [Momentum and focus maintenance strategy]
 
-📊 Daily Progress Check:
-- [ ] Completed Task 1
-- [ ] Completed Task 2
-- [ ] Completed Task 3
-🎉 Celebrate: [Specific celebration/reward suggestion]
+**✅ Task 3: [Action-Oriented Title] (FREE - [X] minutes)**
+🎯 **Goal:** [One clear sentence about the outcome]
+□ **Step 1:** [Account for decision fatigue with simplified choices]
+□ **Step 2:** [Provide exact scripts for difficult conversations]
+□ **Step 3:** [Include environmental setup for success]
+□ **Step 4:** [Create closure and transition to personal time]
+💡 **ADHD Win:** [Completion and transition support]
 
-[Continue this EXACT format for all 84 days - 7 days × 12 weeks]
+**🎯 Daily Victory Check:**
+□ ✨ I completed Task 1 and feel proud
+□ ✨ I completed Task 2 and built momentum  
+□ ✨ I completed Task 3 and created progress
+□ ✨ I took breaks and honored my energy
+□ ✨ I'm ready for tomorrow's success
 
-**VISUAL ELEMENTS TO INCLUDE:**
-- Use emojis as visual markers (🌟 for focus, ⏰ for time, 🎯 for goals, 💡 for tips)
-- Include checkboxes [ ] for every sub-step
-- Add celebration prompts for task completion
-- Include energy level indicators (🔥 High Energy Needed, 💚 Low Energy OK)
-- Add "Brain Break" reminders between tasks
+**🎉 Today's Celebration:** [Specific, achievable reward like "favorite music for 10 minutes"]
 
-**REMEMBER:**
-- Be extremely specific (no "research" - say "Google 'virtual assistant rates Lincoln Nebraska' and write down top 3 results")
-- Include comfort breaks and transition time
-- Account for executive dysfunction days with built-in flexibility
-- Make success inevitable with tiny, specific steps
+**📝 Tomorrow Setup:** [One tiny preparation to reduce tomorrow's resistance]
 
-Generate the COMPLETE 12-week calendar with all 84 days following this EXACT format.`;
+**🧘 Evening Transition:** [Simple way to close today and shift to family time]
+
+---
+
+**REPEAT THIS EXACT FORMAT FOR ALL 84 DAYS**
+
+**NEURODIVERGENT-FRIENDLY REQUIREMENTS:**
+- Every task stays under 45 minutes (attention span consideration)
+- Include "brain break" reminders between tasks
+- Provide alternatives for high-stimulation days
+- Build in flexibility for executive dysfunction
+- Use consistent visual formatting for pattern recognition
+- Include sensory regulation tips throughout
+- Address rejection sensitivity with positive framing
+- Create dopamine hits with micro-celebrations
+
+**FINAL INSTRUCTION:** Generate the complete 84-day calendar using ONLY the enhanced format above. Each day should build logically on the previous day while respecting the user's family constraints and available time.`;
             
             return basePrompt;
         }
@@ -4019,7 +4109,7 @@ HOW TO USE YOUR CALENDAR:
 
 2. DAILY USE:
    - Check off each sub-step as you complete it
-   - Maximum 4 tasks per day (this is important!)
+   - Maximum 3 tasks per day (this is important!)
    - Take the suggested breaks between tasks
    - Use the visual emojis as guides:
      🌟 = Today's main focus
