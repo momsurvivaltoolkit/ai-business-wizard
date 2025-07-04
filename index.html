@@ -1075,6 +1075,7 @@
             font-size: 1.3rem;
         }
 
+        /* UPDATED: Increased height for Claude prompt box */
         .ai-platform .prompt-box {
             background: var(--warm-cream);
             border: 1px solid var(--light-sage);
@@ -1083,7 +1084,7 @@
             margin: 16px 0;
             font-size: 14px;
             text-align: left;
-            max-height: 200px;
+            max-height: 400px; /* Increased from 200px */
             overflow-y: auto;
             word-wrap: break-word;
             white-space: pre-wrap;
@@ -2845,4 +2846,1110 @@
             
             localStorage.setItem('smartMomUser', JSON.stringify(user));
             
-            document.getElementById('userStatusBar').classList.
+            document.getElementById('userStatusBar').classList.remove('hidden');
+            document.getElementById('userDisplayName').textContent = user.displayName || 'Guest User';
+            
+            const userAvatar = document.getElementById('userAvatar');
+            userAvatar.textContent = user.displayName ? user.displayName.charAt(0).toUpperCase() : '?';
+            
+            const statusBadge = document.getElementById('statusBadge');
+            const statusText = document.getElementById('userStatusText');
+            const signOutBtn = document.getElementById('signOutBtn');
+            
+            if (user.status === 'synced') {
+                statusBadge.textContent = 'Signed In';
+                statusBadge.classList.remove('guest');
+                statusBadge.classList.add('signed-in');
+                statusText.textContent = 'Progress is being saved';
+                signOutBtn.style.display = 'inline-block';
+            } else {
+                statusBadge.textContent = 'Local Storage';
+                statusBadge.classList.add('guest');
+                statusBadge.classList.remove('signed-in');
+                statusText.textContent = 'Progress saved locally only';
+                signOutBtn.style.display = 'inline-block';
+            }
+        }
+
+        function showConnectionNotice() {
+            const notice = document.getElementById('connectionNotice');
+            if (notice) {
+                notice.classList.remove('hidden');
+                setTimeout(() => {
+                    notice.classList.add('hidden');
+                }, 5000);
+            }
+        }
+
+        function signOut() {
+            if (confirm('Are you sure you want to sign out? Your progress will be saved locally.')) {
+                currentUser = null;
+                localStorage.removeItem('smartMomUser');
+                
+                document.getElementById('userStatusBar').classList.add('hidden');
+                document.getElementById('signOutBtn').style.display = 'none';
+                
+                showAuthModal('signin');
+            }
+        }
+
+        // ===== FORM VALIDATION =====
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            const validationMsg = document.getElementById(`${field.id}-validation`);
+            
+            if (!value) {
+                if (validationMsg) {
+                    validationMsg.textContent = currentLanguage === 'es' ? 'Este campo es requerido' : 'This field is required';
+                    validationMsg.classList.remove('success');
+                }
+                return false;
+            }
+            
+            if (field.type === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    if (validationMsg) {
+                        validationMsg.textContent = currentLanguage === 'es' ? 'Por favor ingresa un email válido' : 'Please enter a valid email';
+                        validationMsg.classList.remove('success');
+                    }
+                    return false;
+                }
+            }
+            
+            if (validationMsg) {
+                validationMsg.textContent = '';
+                validationMsg.classList.add('success');
+            }
+            
+            formData[field.id] = value;
+            saveUserProgress();
+            return true;
+        }
+
+        function updateCharCounter(textarea) {
+            const maxLength = parseInt(textarea.getAttribute('maxlength'));
+            const currentLength = textarea.value.length;
+            const remaining = maxLength - currentLength;
+            const counter = document.getElementById(`${textarea.id}-counter`);
+            
+            if (counter) {
+                const text = currentLanguage === 'es' ? 
+                    `${remaining} caracteres restantes` : 
+                    `${remaining} characters remaining`;
+                counter.textContent = text;
+            }
+        }
+
+        function validateCurrentStep() {
+            const stepValidations = {
+                1: () => true, // Language selection doesn't need validation
+                2: () => {
+                    const name = document.getElementById('user-name');
+                    const email = document.getElementById('user-email');
+                    return validateField(name) && validateField(email);
+                },
+                3: () => selectedPath !== '',
+                4: () => validateField(document.getElementById('family-structure')),
+                5: () => validateField(document.getElementById('daily-schedule')),
+                6: () => {
+                    if (selectedPath === 'life-organization') {
+                        return validateField(document.getElementById('organization-priority')) &&
+                               validateField(document.getElementById('organization-timeline'));
+                    } else if (selectedPath === 'business-launch') {
+                        return validateField(document.getElementById('investment-level')) &&
+                               validateField(document.getElementById('income-timeline'));
+                    } else if (selectedPath === 'both') {
+                        return validateField(document.getElementById('both-priority')) &&
+                               validateField(document.getElementById('both-investment')) &&
+                               validateField(document.getElementById('both-timeline'));
+                    }
+                    return false;
+                },
+                7: () => true, // AI steps are optional
+                8: () => true,
+                9: () => true,
+                10: () => true
+            };
+            
+            return stepValidations[currentStep] ? stepValidations[currentStep]() : true;
+        }
+
+        // ===== NAVIGATION =====
+        
+        function showCurrentStep() {
+            // Hide all step contents
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Show current step content
+            const currentContent = document.getElementById(`step${currentStep}Content`);
+            if (currentContent) {
+                currentContent.classList.remove('hidden');
+                
+                // Show consultation options on step 2
+                if (currentStep === 2) {
+                    setTimeout(() => showConsultationOptions(), 500);
+                } else {
+                    hideConsultationOptions();
+                }
+                
+                // Show path-specific questions on step 6
+                if (currentStep === 6) {
+                    showPathSpecificQuestions();
+                }
+            }
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+            
+            // Update AI prompts when reaching those steps
+            if (currentStep === 7) {
+                generateChatGPTPrompt();
+            } else if (currentStep === 9) {
+                generateClaudePrompt();
+            }
+            
+            // Scroll to top of content
+            scrollToCurrentStep();
+        }
+
+        function showPathSpecificQuestions() {
+            // Hide all path-specific content first
+            document.querySelectorAll('.path-specific-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Hide the no path selected message
+            document.getElementById('noPathSelectedMessage').style.display = 'none';
+            
+            // Show the appropriate questions based on selected path
+            if (selectedPath === 'life-organization') {
+                document.getElementById('lifeOrganizationQuestions').classList.remove('hidden');
+            } else if (selectedPath === 'business-launch') {
+                document.getElementById('businessLaunchQuestions').classList.remove('hidden');
+            } else if (selectedPath === 'both') {
+                document.getElementById('bothPathQuestions').classList.remove('hidden');
+            } else {
+                // No path selected, show the message
+                document.getElementById('noPathSelectedMessage').style.display = 'block';
+            }
+        }
+
+        function updateNavigationButtons() {
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            backBtn.disabled = currentStep === 1;
+            
+            if (currentStep === TOTAL_STEPS) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.style.display = 'block';
+                nextBtn.textContent = currentLanguage === 'es' ? 'Siguiente Paso →' : 'Next Step →';
+            }
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) {
+                alert(currentLanguage === 'es' ? 
+                      'Por favor completa todos los campos requeridos antes de continuar.' : 
+                      'Please complete all required fields before continuing.');
+                return;
+            }
+            
+            if (currentStep < TOTAL_STEPS) {
+                currentStep++;
+                updateProgressDisplay();
+                showCurrentStep();
+                saveUserProgress();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgressDisplay();
+                showCurrentStep();
+                saveUserProgress();
+            }
+        }
+
+        function updateProgressDisplay() {
+            // Update step counter
+            const stepCounter = document.getElementById('stepCounter');
+            stepCounter.textContent = currentLanguage === 'es' ? 
+                `Paso ${currentStep} de ${TOTAL_STEPS}` : 
+                `Step ${currentStep} of ${TOTAL_STEPS}`;
+            
+            // Update progress fill
+            const progressFill = document.getElementById('progressFill');
+            const progressPercentage = (currentStep / TOTAL_STEPS) * 100;
+            progressFill.style.width = `${progressPercentage}%`;
+            
+            // Update progress steps
+            for (let i = 1; i <= TOTAL_STEPS; i++) {
+                const stepElement = document.getElementById(`step-${i}`);
+                if (stepElement) {
+                    stepElement.classList.remove('active', 'completed', 'pending');
+                    
+                    if (i < currentStep) {
+                        stepElement.classList.add('completed');
+                    } else if (i === currentStep) {
+                        stepElement.classList.add('active');
+                    } else {
+                        stepElement.classList.add('pending');
+                    }
+                }
+            }
+        }
+
+        function scrollToCurrentStep() {
+            const progressContainer = document.querySelector('.progress-container');
+            if (progressContainer) {
+                progressContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ===== PATH SELECTION =====
+        
+        function selectPath(path) {
+            selectedPath = path;
+            formData.selectedPath = path;
+            
+            // Update visual selection
+            document.querySelectorAll('.path-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            const selectedOption = document.querySelector(`[data-path="${path}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+            }
+            
+            // Update path-specific content
+            updatePathSpecificContent();
+            
+            saveUserProgress();
+        }
+
+        function updatePathSpecificContent() {
+            // Update step 6 title based on path
+            const stepText6 = document.getElementById('stepText6');
+            if (stepText6) {
+                if (selectedPath === 'life-organization') {
+                    stepText6.textContent = currentLanguage === 'es' ? 'Metas' : 'Goals';
+                } else {
+                    stepText6.textContent = currentLanguage === 'es' ? 'Inversión' : 'Investment';
+                }
+            }
+            
+            // Update step visibility based on path
+            updateStepVisibility();
+        }
+
+        function updateStepVisibility() {
+            // For life organization path, hide steps 7-8 (business AI steps)
+            if (selectedPath === 'life-organization') {
+                document.getElementById('step-7').style.display = 'none';
+                document.getElementById('step-8').style.display = 'none';
+            } else {
+                document.getElementById('step-7').style.display = 'flex';
+                document.getElementById('step-8').style.display = 'flex';
+            }
+        }
+
+        // ===== AI PROMPT GENERATION =====
+        
+        function generateChatGPTPrompt() {
+            const prompt = `I'm a mom with the following situation:
+
+Name: ${formData['user-name'] || 'Not provided'}
+Family Structure: ${formData['family-structure'] || 'Not provided'}
+Daily Schedule: ${formData['daily-schedule'] || 'Not provided'}
+Investment Level: ${formData['investment-level'] || formData['both-investment'] || 'Not specified'}
+Income Timeline: ${formData['income-timeline'] || formData['both-timeline'] || 'Not specified'}
+
+Please suggest 5 specific business ideas that:
+1. Fit my schedule and family situation
+2. Match my investment level
+3. Can generate income within my timeline
+4. Are realistic for a busy mom
+5. Include both online and offline options
+
+For each idea, please provide:
+- Business name
+- Brief description
+- Startup steps
+- Income potential
+- Why it's perfect for my situation`;
+
+            document.getElementById('chatgptPrompt').textContent = prompt;
+        }
+
+        function updateGeminiPrompt(businessIdea) {
+            if (!businessIdea) return;
+            
+            const prompt = `Please provide detailed market research for this business idea: "${businessIdea}"
+
+Include:
+1. Target market analysis
+2. Competition overview
+3. Pricing strategies
+4. Marketing channels
+5. Growth potential
+6. Common challenges and solutions
+7. First month action plan
+
+Focus on practical, actionable information for a mom starting with limited time and budget.`;
+
+            document.getElementById('geminiPrompt').textContent = prompt;
+        }
+
+        // UPDATED CLAUDE PROMPT GENERATION
+        function generateClaudePrompt() {
+            // Extract family size from family structure
+            const familyStructure = formData['family-structure'] || '';
+            const familySizeMatch = familyStructure.match(/(\d+)\s*(people|person|family|members?|kids?|children)/i);
+            const familySize = familySizeMatch ? parseInt(familySizeMatch[1]) : 4; // Default to 4 if not found
+
+            const prompt = `You are creating a personalized 84-day (12 weeks) interactive HTML calendar for a busy mom. This calendar must be extremely detailed, broken down into small manageable steps with checkboxes for each task.
+
+USER PROFILE:
+- Name: ${formData['user-name'] || 'Not provided'}
+- Email: ${formData['user-email'] || 'Not provided'}
+- Family Structure: ${formData['family-structure'] || 'Not provided'}
+- Daily Schedule: ${formData['daily-schedule'] || 'Not provided'}
+- Selected Path: ${selectedPath}
+- Language: ${currentLanguage}
+- Number of People in Household: ${familySize}
+
+${selectedPath === 'life-organization' ? `
+- Organization Priority: ${formData['organization-priority'] || 'Not specified'}
+- Organization Timeline: ${formData['organization-timeline'] || 'Not specified'}
+` : ''}
+
+${selectedPath === 'business-launch' ? `
+- Investment Level: ${formData['investment-level'] || 'Not specified'}
+- Income Timeline: ${formData['income-timeline'] || 'Not specified'}
+- Business Ideas from ChatGPT: ${aiResponses.chatgpt || 'Not provided'}
+- Market Research from Gemini: ${aiResponses.gemini || 'Not provided'}
+- Selected Business Idea: ${formData['selected-business-idea'] || 'Not specified'}
+` : ''}
+
+${selectedPath === 'both' ? `
+- Priority Focus: ${formData['both-priority'] || 'Not specified'}
+- Investment Available: ${formData['both-investment'] || 'Not specified'}
+- Timeline: ${formData['both-timeline'] || 'Not specified'}
+- Business Ideas from ChatGPT: ${aiResponses.chatgpt || 'Not provided'}
+- Market Research from Gemini: ${aiResponses.gemini || 'Not provided'}
+- Selected Business Idea: ${formData['selected-business-idea'] || 'Not specified'}
+` : ''}
+
+CRITICAL REQUIREMENTS:
+
+1. **NO DECISIONS NEEDED** - Every choice is already made
+2. **Maximum 3 Tasks Per Day** with complete details
+3. **Everything Pre-Selected** - Meals, recipes, items to buy, which drawer to organize
+4. **Visual Results** - Show before/after or completion visuals
+5. **Instant Rewards** - Serotonin hits after each micro-step
+
+MEAL PLANNING SPECIFICS:
+
+Based on household size of ${familySize} people, create rotating 2-week meal plans with EXACT recipes:
+
+**Week A Meals:**
+- Monday: Spaghetti with Meat Sauce
+  * 1 lb ground beef
+  * 1 jar Prego sauce (24 oz)
+  * 1 box spaghetti
+  * Garlic bread (frozen)
+  * Bagged salad
+  * Cook time: 20 min
+
+- Tuesday: Rotisserie Chicken Dinner
+  * 1 pre-cooked rotisserie chicken (from store)
+  * 2 bags microwave vegetables
+  * 1 box instant mashed potatoes
+  * 1 can gravy
+  * Prep time: 10 min
+
+[Continue with all meals...]
+
+GROCERY LIST (Every Tuesday 10 AM):
+
+**Weekly Shopping List for Family of ${familySize}:**
+
+□ **Produce Section:**
+  - Bananas (${familySize > 3 ? '2 bunches' : '1 bunch'})
+  - Apples (1 bag)
+  - Baby carrots (1 bag)
+  - Bagged salad (${familySize > 3 ? '3 bags' : '2 bags'})
+  - Tomatoes (${familySize > 3 ? '6' : '4'})
+  - Onions (1 bag)
+
+□ **Proteins:**
+  - Ground beef (${familySize > 3 ? '3 lbs' : '2 lbs'})
+  - Rotisserie chicken (${familySize > 4 ? '2' : '1'})
+  - Eggs (${familySize > 3 ? '24 count' : '18 count'})
+  - Lunch meat (${familySize > 3 ? '1.5 lbs' : '1 lb'})
+  - Frozen chicken nuggets (${familySize > 3 ? '2 bags' : '1 bag'})
+
+[Continue with complete list...]
+
+💰 Estimated cost: ${familySize > 4 ? '200-250' : familySize > 2 ? '150-200' : '100-150'}
+
+ORGANIZATION TASK EXAMPLES:
+
+**Day 3 - Kitchen Junk Drawer (15 min total)**
+
+□ Get supplies ready (1 min):
+  - 1 small trash bag
+  - 1 donation box
+  - Wet paper towels
+
+□ Empty the drawer by the stove (2 min):
+  - Dump EVERYTHING on counter
+  - Take photo of the mess 📸
+
+□ Throw away these items (3 min):
+  - Test each pen - toss if dry
+  - Old batteries (put in battery recycling bag)
+  - Takeout menus over 6 months old
+  - Anything broken or mystery items
+  - Expired coupons
+
+□ Keep ONLY these (2 min):
+  - 3 working pens (test them!)
+  - 1 pair scissors
+  - Roll of tape
+  - Phone charger
+  - Fresh batteries
+  - Rubber bands (max 10)
+
+□ Relocate these items (3 min):
+  - Bills → kitchen counter basket
+  - Kids' items → their backpacks
+  - Tools → hall closet toolbox
+  - Coins → coin jar
+  - Important papers → file folder
+
+□ Clean & organize (3 min):
+  - Wipe drawer with wet paper towel
+  - Put items back in this order:
+    * Pens on left
+    * Scissors in middle
+    * Tape on right
+    * Batteries in back
+
+□ Victory celebration (1 min):
+  - Take "after" photo 📸
+  - Send to best friend with "I DID IT!"
+  - Victory dance to favorite song 💃
+
+✅ Reward: Your favorite drink + 5 min social media break
+
+${selectedPath === 'business-launch' || selectedPath === 'both' ? `
+BUSINESS SETUP TASKS:
+
+**Week 2, Day 3 - Create Business Email (10 min)**
+
+□ Open Gmail on computer (1 min):
+  - Go to gmail.com
+  - Click "Create account"
+  - Choose "For my personal use"
+
+□ Fill in details (3 min):
+  - First name: ${formData['user-name']?.split(' ')[0] || 'Your first name'}
+  - Last name: ${formData['user-name']?.split(' ')[1] || 'Your last name'} 
+  - Username: ${formData['user-name']?.toLowerCase().replace(' ', '') || 'yourname'}business@gmail.com
+  - Password: [YourPetName][BirthYear]!
+  - Confirm password: Same as above
+
+□ Complete setup (3 min):
+  - Phone number: Your cell
+  - Recovery email: ${formData['user-email'] || 'your personal email'}
+  - Birthday: Your real birthday
+  - Gender: Your choice
+
+□ Verification (2 min):
+  - Enter code from text message
+  - Click "Verify"
+
+□ Save credentials (1 min):
+  - Write in phone notes app
+  - Title: "Business Email Info"
+  - Save username & password
+  - Screenshot this note
+
+✅ Reward: You have a professional email! Post "Started my business!" on Facebook!
+
+**Week 3, Day 1 - Free Business Website (20 min)**
+
+□ Open Carrd.co (2 min):
+  - Go to carrd.co
+  - Click "Get Started for Free"
+  - Sign up with business email
+
+□ Choose template (3 min):
+  - Click "Templates"
+  - Choose "Argon" template
+  - Click "Use This Template"
+
+□ Add your content (10 min):
+  - Heading: "${formData['user-name'] || 'Your Name'} Solutions"
+  - Subheading: "${formData['selected-business-idea'] || 'Your Service'}"
+  - About text: "Hi! I'm ${formData['user-name']?.split(' ')[0] || 'Name'}, a mom of ${familySize - 1} helping other moms with ${formData['selected-business-idea'] || 'your service'}."
+  - Services: List 3 specific things you do
+  - Contact: Your business email
+  - Add your phone (optional)
+
+□ Customize colors (3 min):
+  - Click paintbrush icon
+  - Primary color: #6B8E6B (sage green)
+  - Secondary: #D4A574 (gold)
+  - Font: Keep default
+
+□ Publish site (2 min):
+  - Click "Publish"
+  - URL: ${formData['user-name']?.toLowerCase().replace(' ', '-') || 'yourname'}.carrd.co
+  - Confirm and publish
+  - Copy your URL
+
+✅ Reward: Text 3 friends "Check out my new website!" with link
+` : ''}
+
+CALENDAR FORMAT:
+
+Create the full 84-day calendar as an interactive HTML document with:
+- Inline CSS (calming colors: #6B8E6B sage green, #FAF7F0 cream, #2D5B69 teal)
+- JavaScript for checkbox functionality
+- Progress tracking that shows % complete
+- Celebration animations every 7 days
+- Print-friendly format
+- Mobile responsive design
+
+DAILY STRUCTURE EXAMPLE:
+
+**Day 15 - Tuesday - "Kitchen Victory Day" 🍳**
+
+Morning Energy: ⚡⚡⚡ High
+Today's Focus: ${selectedPath === 'life-organization' ? 'Meal prep system' : 'Client outreach'}
+
+**☀️ Morning Task (8:30 AM - After school drop-off)**
+Kitchen Command Center Setup (20 min)
+
+□ Prep (2 min):
+  - Play upbeat music 🎵
+  - Get coffee ready ☕
+  - Set phone timer
+
+□ Clear counter left of sink (5 min):
+  - Put dishes in dishwasher
+  - Throw away old papers
+  - Wipe with Clorox wipe
+  - Before photo! 📸
+
+□ Create meal planning spot (8 min):
+  - Hang whiteboard (Command strips)
+  - Write "This Week's Dinners"
+  - Add Mon-Sun columns
+  - Fill in Week A meals from above
+
+□ Set up lunch station (5 min):
+  - Lunch boxes on counter
+  - Snack bin next to them
+  - Water bottles lined up
+  - "After" photo! 📸
+
+✅ Mini-reward: Dance to one song! 💃
+
+**🌤️ Afternoon Task (2:00 PM - Quiet time)**
+${selectedPath === 'business-launch' || selectedPath === 'both' ? 
+`Business Building: First Client Outreach (15 min)
+
+□ Open phone contacts (1 min)
+□ Find 3 mom friends
+□ Copy this exact message:
+  "Hey [Name]! Quick question - I just started helping moms with ${formData['selected-business-idea'] || '[your service]'}. Do you know anyone who might need help with this? I'm offering a free 30-min trial to my first 5 clients! 💕"
+□ Send to all 3 friends
+□ Post in 1 mom Facebook group:
+  "Local mom here! I'm starting to offer ${formData['selected-business-idea'] || '[your service]'}. First 5 moms get a free trial! Comment 'INFO' below 👇"
+
+✅ Reward: Favorite afternoon treat!` : 
+`Quick Toy Pick-up (15 min)
+
+□ Get laundry basket (1 min)
+□ Set timer for 10 minutes
+□ Race-collect all visible toys
+□ Sort while kids nap:
+  - Bedroom toys → kids' room
+  - Living room toys → toy box
+  - Broken → trash
+□ Wipe toy box top
+
+✅ Reward: 15-min Netflix break!`}
+
+**🌙 Evening Task (8:00 PM - Kids in bed)**
+Tomorrow's Success Setup (10 min)
+
+□ Kitchen prep (3 min):
+  - Set out breakfast bowls
+  - Lunch boxes on counter
+  - Coffee mug by maker
+
+□ Check tomorrow (3 min):
+  - Look at calendar
+  - Set 2 phone alarms
+  - Lay out your outfit
+
+□ Victory check (4 min):
+  - Check off today's tasks ✓
+  - High-five mirror self
+  - Text accountability buddy: "Day 15 done!"
+
+✅ End reward: Guilt-free scrolling time!
+
+**Daily Wins Tracker:**
+⭐ Did my tasks (even if not perfect)
+⭐ Was kind to myself
+⭐ Tomorrow is ready
+
+Remember: Progress > Perfection! 🌟
+
+WEEKLY THEMES:
+
+Week 1: "Gentle Start" - 2 tasks per day only
+Week 2: "Finding Rhythm" - Building habits
+Week 3: "Quick Wins" - Visible results
+Week 4: "Celebration" - Consolidate & rest
+Week 5: "Level Up" - Adding third daily task
+Week 6: "Systems Rock" - Making it automatic
+Week 7: "Halfway Hero" - Major celebration!
+Week 8: "Flexibility" - Handling disruptions
+Week 9: "Big Progress" - Seeing transformation
+Week 10: "Teaching Time" - Family involvement
+Week 11: "Almost There" - Fine-tuning
+Week 12: "Victory Lap" - Celebrate & plan ahead
+
+Create the complete 84-day calendar following this exact format. Every task broken down into tiny steps with checkboxes. All decisions pre-made. Maximum hand-holding and encouragement!`;
+
+            document.getElementById('claudePrompt').textContent = prompt;
+        }
+
+        function copyPrompt(platform) {
+            const promptElement = document.getElementById(`${platform}Prompt`);
+            const promptText = promptElement.textContent;
+            
+            navigator.clipboard.writeText(promptText).then(() => {
+                const copyBtn = document.querySelector(`#copy${platform.charAt(0).toUpperCase() + platform.slice(1)}Btn`);
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = currentLanguage === 'es' ? '¡Copiado!' : 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function viewFullPrompt(platform) {
+            const promptElement = document.getElementById(`${platform}Prompt`);
+            const promptText = promptElement.textContent;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                padding: 20px;
+            `;
+            
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                max-width: 800px;
+                max-height: 80vh;
+                overflow-y: auto;
+                position: relative;
+            `;
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = '×';
+            closeBtn.style.cssText = `
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+            `;
+            closeBtn.onclick = () => modal.remove();
+            
+            const pre = document.createElement('pre');
+            pre.style.cssText = `
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                font-family: monospace;
+                font-size: 14px;
+                line-height: 1.5;
+            `;
+            pre.textContent = promptText;
+            
+            content.appendChild(closeBtn);
+            content.appendChild(pre);
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+        }
+
+        function openAI(platform) {
+            const urls = {
+                chatgpt: 'https://chat.openai.com',
+                gemini: 'https://gemini.google.com',
+                claude: 'https://claude.ai'
+            };
+            
+            window.open(urls[platform], '_blank');
+        }
+
+        function saveAIResponse(platform, response) {
+            aiResponses[platform] = response;
+            saveUserProgress();
+        }
+
+        // ===== LANGUAGE MANAGEMENT =====
+        
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button states
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            // Update all content
+            updateLanguageContent(lang);
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+            
+            // Update progress display
+            updateProgressDisplay();
+            
+            // Save progress
+            saveUserProgress();
+        }
+
+        // ===== AUTH MODAL FUNCTIONS =====
+        
+        function showAuthModal(mode = 'signup') {
+            authMode = mode;
+            const modal = document.getElementById('authModal');
+            const form = document.getElementById('authForm');
+            
+            // Reset form
+            form.reset();
+            hideAuthMessages();
+            
+            // Update UI based on mode
+            const authTitle = document.getElementById('authTitle');
+            const authSubmitText = document.getElementById('authSubmitText');
+            const authSwitchText = document.getElementById('authSwitchText');
+            const authSwitchLink = document.getElementById('authSwitchLink');
+            const nameField = document.getElementById('authName');
+            const confirmPasswordField = document.getElementById('authConfirmPassword');
+            
+            if (mode === 'signin') {
+                authTitle.textContent = currentLanguage === 'es' ? 'Iniciar Sesión' : 'Sign In';
+                authSubmitText.textContent = currentLanguage === 'es' ? 'Iniciar Sesión' : 'Sign In';
+                authSwitchText.textContent = currentLanguage === 'es' ? '¿No tienes cuenta?' : "Don't have an account?";
+                authSwitchLink.textContent = currentLanguage === 'es' ? 'Crear Cuenta' : 'Create Account';
+                nameField.style.display = 'none';
+                confirmPasswordField.style.display = 'none';
+            } else {
+                authTitle.textContent = currentLanguage === 'es' ? 'Crear Tu Cuenta' : 'Create Your Account';
+                authSubmitText.textContent = currentLanguage === 'es' ? 'Crear Cuenta' : 'Create Account';
+                authSwitchText.textContent = currentLanguage === 'es' ? '¿Ya tienes cuenta?' : 'Already have an account?';
+                authSwitchLink.textContent = currentLanguage === 'es' ? 'Iniciar Sesión' : 'Sign In';
+                nameField.style.display = 'block';
+                confirmPasswordField.style.display = 'block';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            hideAuthMessages();
+        }
+
+        function toggleAuthMode() {
+            authMode = authMode === 'signup' ? 'signin' : 'signup';
+            showAuthModal(authMode);
+        }
+
+        function showAuthError(message) {
+            const errorDiv = document.getElementById('authError');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+            hideAuthSuccess();
+        }
+
+        function showAuthSuccess(message) {
+            const successDiv = document.getElementById('authSuccess');
+            successDiv.textContent = message;
+            successDiv.classList.remove('hidden');
+            hideAuthError();
+        }
+
+        function hideAuthError() {
+            document.getElementById('authError').classList.add('hidden');
+        }
+
+        function hideAuthSuccess() {
+            document.getElementById('authSuccess').classList.add('hidden');
+        }
+
+        function hideAuthMessages() {
+            hideAuthError();
+            hideAuthSuccess();
+        }
+
+        // ===== INITIALIZATION =====
+        
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading-spinner"></span>' + 
+                (currentLanguage === 'es' ? 'Procesando...' : 'Processing...');
+            
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            const name = document.getElementById('authName').value;
+            const confirmPassword = document.getElementById('authConfirmPassword').value;
+            
+            try {
+                if (authMode === 'signup') {
+                    if (password !== confirmPassword) {
+                        throw new Error(currentLanguage === 'es' ? 
+                            'Las contraseñas no coinciden' : 
+                            'Passwords do not match');
+                    }
+                    
+                    if (password.length < 6) {
+                        throw new Error(currentLanguage === 'es' ? 
+                            'La contraseña debe tener al menos 6 caracteres' : 
+                            'Password must be at least 6 characters');
+                    }
+                    
+                    await createUser(email, password, name);
+                    showAuthSuccess(currentLanguage === 'es' ? 
+                        '¡Cuenta creada exitosamente!' : 
+                        'Account created successfully!');
+                    
+                    setTimeout(() => {
+                        closeAuthModal();
+                        startOnboarding();
+                    }, 1500);
+                    
+                } else {
+                    await signIn(email, password);
+                    showAuthSuccess(currentLanguage === 'es' ? 
+                        '¡Bienvenida de vuelta!' : 
+                        'Welcome back!');
+                    
+                    setTimeout(() => {
+                        closeAuthModal();
+                    }, 1500);
+                }
+            } catch (error) {
+                showAuthError(error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+
+        function startOnboarding() {
+            document.getElementById('welcomeModal').classList.add('hidden');
+            document.getElementById('userStatusBar').classList.remove('hidden');
+            currentStep = 1;
+            updateProgressDisplay();
+            showCurrentStep();
+        }
+
+        function handleReturningUser() {
+            document.getElementById('welcomeModal').classList.add('hidden');
+            showAuthModal('signin');
+        }
+
+        // ===== FINAL STEP FUNCTIONS =====
+        
+        function downloadCalendar() {
+            const instructions = `
+Smart Mom Method - Calendar Instructions
+
+1. Copy your calendar from the Claude response box
+2. Open a new document:
+   - Google Docs (docs.google.com)
+   - Microsoft Word
+   - Apple Notes
+   - Any text editor
+
+3. Paste your calendar into the document
+
+4. Save the document with a memorable name like:
+   "My Smart Mom Calendar - ${new Date().toLocaleDateString()}"
+
+5. Optional: Print your calendar and put it on your fridge!
+
+Tips for Success:
+- Check off tasks as you complete them
+- Remember: Maximum 3 tasks per day
+- It's okay to skip a day - just continue the next day
+- Celebrate your wins, no matter how small!
+
+You've got this, mama! 🌟
+            `;
+            
+            const blob = new Blob([instructions], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Smart_Mom_Calendar_Instructions.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        function viewCompleteProfile() {
+            const profile = `
+SMART MOM METHOD - YOUR COMPLETE PROFILE
+========================================
+
+Personal Information:
+- Name: ${formData['user-name'] || 'Not provided'}
+- Email: ${formData['user-email'] || 'Not provided'}
+
+Family & Schedule:
+- Family Structure: ${formData['family-structure'] || 'Not provided'}
+- Daily Schedule: ${formData['daily-schedule'] || 'Not provided'}
+
+Selected Path: ${selectedPath}
+
+${selectedPath === 'life-organization' ? `
+Organization Goals:
+- Priority: ${formData['organization-priority'] || 'Not specified'}
+- Timeline: ${formData['organization-timeline'] || 'Not specified'}
+` : ''}
+
+${selectedPath === 'business-launch' || selectedPath === 'both' ? `
+Business Goals:
+- Investment Level: ${formData['investment-level'] || formData['both-investment'] || 'Not specified'}
+- Income Timeline: ${formData['income-timeline'] || formData['both-timeline'] || 'Not specified'}
+- Selected Business: ${formData['selected-business-idea'] || 'Not specified'}
+` : ''}
+
+Created on: ${new Date().toLocaleString()}
+            `;
+            
+            alert(profile);
+        }
+
+        function startOver() {
+            if (confirm(currentLanguage === 'es' ? 
+                '¿Estás segura de que quieres comenzar de nuevo? Tu progreso actual se guardará.' : 
+                'Are you sure you want to start over? Your current progress will be saved.')) {
+                currentStep = 1;
+                selectedPath = '';
+                formData = {};
+                aiResponses = { chatgpt: '', gemini: '', claude: '' };
+                
+                // Reset form fields
+                document.querySelectorAll('.form-control').forEach(field => {
+                    field.value = '';
+                });
+                
+                // Reset path selection
+                document.querySelectorAll('.path-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                updateProgressDisplay();
+                showCurrentStep();
+                saveUserProgress();
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize progress display
+            updateProgressDisplay();
+            
+            // Check for returning user
+            const savedUser = localStorage.getItem('smartMomUser');
+            if (savedUser) {
+                try {
+                    const userData = JSON.parse(savedUser);
+                    updateUserSession(userData);
+                    loadUserProgress();
+                    document.getElementById('welcomeModal').classList.add('hidden');
+                } catch (error) {
+                    console.error('Error loading user session:', error);
+                }
+            }
+            
+            // Auth form submission
+            document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+            
+            // Click outside modal to close
+            document.getElementById('authModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAuthModal();
+                }
+            });
+            
+            // Progress step clicks
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.addEventListener('click', function() {
+                    if (index + 1 <= currentStep) {
+                        currentStep = index + 1;
+                        updateProgressDisplay();
+                        showCurrentStep();
+                        saveUserProgress();
+                    }
+                });
+            });
+        });
+
+        // Auto-save on input change
+        document.querySelectorAll('.form-control').forEach(field => {
+            field.addEventListener('input', function() {
+                formData[field.id] = field.value;
+                if (field.type === 'textarea') {
+                    updateCharCounter(field);
+                }
+                saveUserProgress();
+            });
+        });
+    </script>
+</body>
+</html>
