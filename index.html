@@ -9,21 +9,21 @@
     
     <style>
         :root {
-            --sage-green: #6B8E6B;
-            --warm-cream: #FAF7F0;
-            --deep-teal: #2D5B69;
+            --sage-green: #556B2F;
+            --warm-cream: #FCFBF8;
+            --deep-teal: #343A40;
             --charcoal: #2C3E50;
-            --soft-gold: #D4A574;
-            --light-sage: #E8F5E8;
-            --sage-alpha: rgba(107, 142, 107, 0.1);
-            --teal-alpha: rgba(45, 91, 105, 0.1);
-            --gold-alpha: rgba(212, 165, 116, 0.1);
+            --soft-gold: #BC6C25;
+            --light-sage: #EAEBE1;
+            --sage-alpha: rgba(85, 107, 47, 0.1);
+            --teal-alpha: rgba(52, 58, 64, 0.1);
+            --gold-alpha: rgba(188, 108, 37, 0.1);
             --step-current: #3498db;
             --step-completed: #27ae60;
             --step-pending: #95a5a6;
-            --button-next: #2ecc71;
+            --button-next: #556B2F;
             --button-done: #7f8c8d;
-            --button-back: #e74c3c;
+            --button-back: #BC6C25;
             --success-green: #27ae60;
         }
 
@@ -53,7 +53,7 @@
             padding: 16px 20px;
             border-radius: 12px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 16px rgba(107, 142, 107, 0.08);
+            box-shadow: 0 4px 16px rgba(85, 107, 47, 0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -200,7 +200,7 @@
         }
 
         .auth-button {
-            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
+            background: linear-gradient(135deg, var(--sage-green), #455A26);
             color: white;
             padding: 18px 36px;
             border: none;
@@ -213,7 +213,7 @@
 
         .auth-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.35);
+            box-shadow: 0 12px 32px rgba(85, 107, 47, 0.35);
         }
 
         .auth-button:disabled {
@@ -341,14 +341,14 @@
         }
 
         .welcome-btn.primary {
-            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
+            background: linear-gradient(135deg, var(--sage-green), #455A26);
             color: white;
-            box-shadow: 0 8px 24px rgba(107, 142, 107, 0.3);
+            box-shadow: 0 8px 24px rgba(85, 107, 47, 0.3);
         }
 
         .welcome-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.4);
+            box-shadow: 0 12px 32px rgba(85, 107, 47, 0.4);
         }
 
         .welcome-btn.secondary {
@@ -367,7 +367,7 @@
         }
 
         .welcome-btn.auth:hover {
-            background: #C79660;
+            background: #A15D1F;
             transform: translateY(-2px);
         }
 
@@ -422,7 +422,7 @@
 
         .service-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(107, 142, 107, 0.2);
+            box-shadow: 0 15px 40px rgba(85, 107, 47, 0.2);
             border-color: var(--sage-green);
         }
 
@@ -491,7 +491,7 @@
         }
 
         .service-button {
-            background: linear-gradient(135deg, var(--sage-green), #5A7A5A);
+            background: linear-gradient(135deg, var(--sage-green), #455A26);
             color: white;
             padding: 16px 32px;
             border: none;
@@ -506,11 +506,11 @@
 
         .service-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(107, 142, 107, 0.35);
+            box-shadow: 0 12px 32px rgba(85, 107, 47, 0.35);
         }
 
         .service-button.premium {
-            background: linear-gradient(135deg, var(--soft-gold), #C79660);
+            background: linear-gradient(135deg, var(--soft-gold), #A15D1F);
         }
 
         .premium-nav-buttons {
@@ -629,7 +629,7 @@
         }
 
         .premium-access-btn {
-            background: linear-gradient(135deg, var(--soft-gold), #C79660);
+            background: linear-gradient(135deg, var(--soft-gold), #A15D1F);
             color: white;
             padding: 18px 36px;
             border: none;
@@ -638,12 +638,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+            box-shadow: 0 8px 24px rgba(188, 108, 37, 0.3);
         }
 
         .premium-access-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(212, 165, 116, 0.4);
+            box-shadow: 0 12px 32px rgba(188, 108, 37, 0.4);
         }
 
         /* Language Selection */
@@ -684,12 +684,12 @@
             font-weight: 600;
             transition: all 0.3s ease;
             min-width: 200px;
-            box-shadow: 0 6px 20px rgba(107, 142, 107, 0.25);
+            box-shadow: 0 6px 20px rgba(85, 107, 47, 0.25);
         }
 
         .language-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(107, 142, 107, 0.35);
+            box-shadow: 0 10px 30px rgba(85, 107, 47, 0.35);
         }
 
         .language-btn.active {
@@ -886,9 +886,9 @@
         }
 
         .btn-current {
-            background: linear-gradient(135deg, var(--soft-gold), #C79660);
+            background: linear-gradient(135deg, var(--soft-gold), #A15D1F);
             color: white;
-            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+            box-shadow: 0 8px 24px rgba(188, 108, 37, 0.3);
             font-size: 1.2rem;
             padding: 20px 40px;
             border-radius: 50px;
@@ -900,7 +900,7 @@
 
         .btn-current:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(212, 165, 116, 0.4);
+            box-shadow: 0 12px 32px rgba(188, 108, 37, 0.4);
         }
 
         .content {
@@ -1027,6 +1027,54 @@
             margin-top: 4px;
         }
 
+        /* NEW: Time Availability Styles */
+        .time-availability-section {
+            background: linear-gradient(135deg, var(--sage-alpha), var(--gold-alpha));
+            border: 2px solid var(--sage-green);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--light-sage);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--sage-green);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin: 0;
+            padding: 0;
+        }
+
+        .checkbox-item.checked {
+            background: var(--light-sage);
+            border-color: var(--sage-green);
+        }
+
         /* AI Workflow Section */
         .ai-section {
             background: linear-gradient(135deg, var(--sage-alpha), var(--teal-alpha));
@@ -1113,7 +1161,7 @@
         }
 
         .copy-btn:hover {
-            background: #5A7A5A;
+            background: #455A26;
         }
 
         .open-ai-btn {
@@ -1168,7 +1216,7 @@
 
         .path-option:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(107, 142, 107, 0.2);
+            box-shadow: 0 15px 40px rgba(85, 107, 47, 0.2);
             border-color: var(--sage-green);
         }
 
@@ -1176,7 +1224,7 @@
             border-color: var(--soft-gold);
             background: white;
             transform: translateY(-3px);
-            box-shadow: 0 12px 36px rgba(212, 165, 116, 0.25);
+            box-shadow: 0 12px 36px rgba(188, 108, 37, 0.25);
         }
 
         .path-icon {
@@ -1290,13 +1338,13 @@
         }
 
         .success-btn:hover {
-            background: #C79660;
+            background: #A15D1F;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.3);
+            box-shadow: 0 8px 24px rgba(188, 108, 37, 0.3);
         }
 
         .success-btn.primary {
-            background: var(--button-next);
+            background: var(--sage-green);
         }
 
         /* Step Content Areas */
@@ -1437,6 +1485,14 @@
             .premium-nav-btn {
                 min-width: 100%;
                 max-width: 300px;
+            }
+
+            .time-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1684,7 +1740,7 @@
             </div>
 
             <div class="content">
-                <!-- Premium Access Button (NEW) -->
+                <!-- Premium Access Button -->
                 <div class="premium-access-container">
                     <button class="premium-access-btn" onclick="showPremiumServices()">
                         <span id="viewPremiumServices">💎 View Premium Services</span>
@@ -1733,7 +1789,7 @@
                         </div>
                     </div>
 
-                    <!-- Free Consultation Options (NEW) -->
+                    <!-- Free Consultation Options -->
                     <div id="consultationOptions" class="consultation-options">
                         <div class="consultation-header">
                             <h3 id="consultationTitle">Free Consultation Options</h3>
@@ -1820,11 +1876,11 @@
                     </div>
                 </div>
 
-                <!-- Step 5: Daily Schedule -->
+                <!-- Step 5: Daily Schedule & Time Availability -->
                 <div id="step5Content" class="step-content hidden">
                     <div class="step-description">
-                        <h2 id="stepDesc5Title">Daily Schedule</h2>
-                        <p id="stepDesc5Text">Your daily routine determines what's realistic for your business and organization goals.</p>
+                        <h2 id="stepDesc5Title">Daily Schedule & Time Availability</h2>
+                        <p id="stepDesc5Text">Your daily routine and available time determine what's realistic for your business and organization goals.</p>
                     </div>
 
                     <div class="form-section">
@@ -1839,6 +1895,71 @@
                                 <span id="daily-schedule-counter">1000 characters remaining</span>
                             </div>
                             <div class="validation-message" id="daily-schedule-validation"></div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Time Availability Section -->
+                    <div class="time-availability-section">
+                        <h2 id="timeAvailabilityTitle">⏰ Time Availability for Your Goals</h2>
+                        <p id="timeAvailabilityDescription">Help us create a realistic calendar by telling us how much time you can commit and when you're available to work on your goals.</p>
+                        
+                        <div class="time-grid">
+                            <div class="form-group">
+                                <label id="hoursPerDayLabel">How many hours per day can you dedicate? <span class="required">*</span></label>
+                                <select id="hours-per-day" class="form-control" onchange="validateField(this)">
+                                    <option value="" id="chooseHoursOption">Choose your available time...</option>
+                                    <option value="15-30-minutes" data-en="15-30 minutes per day" data-es="15-30 minutos por día">15-30 minutes per day</option>
+                                    <option value="30-60-minutes" data-en="30-60 minutes per day" data-es="30-60 minutos por día">30-60 minutes per day</option>
+                                    <option value="1-2-hours" data-en="1-2 hours per day" data-es="1-2 horas por día">1-2 hours per day</option>
+                                    <option value="2-3-hours" data-en="2-3 hours per day" data-es="2-3 horas por día">2-3 hours per day</option>
+                                    <option value="3-4-hours" data-en="3-4 hours per day" data-es="3-4 horas por día">3-4 hours per day</option>
+                                    <option value="4-plus-hours" data-en="4+ hours per day" data-es="4+ horas por día">4+ hours per day</option>
+                                    <option value="varies-daily" data-en="Varies daily" data-es="Varía diariamente">Varies daily</option>
+                                </select>
+                                <div class="validation-message" id="hours-per-day-validation"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label id="preferredTimesLabel">What times work best for you? <span class="required">*</span> (Select all that apply)</label>
+                                <div class="checkbox-group" id="preferred-times-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-early-morning" value="early-morning" onchange="updateTimePreferences()">
+                                        <label for="time-early-morning" id="timeEarlyMorning">Early Morning (5-7 AM)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-morning" value="morning" onchange="updateTimePreferences()">
+                                        <label for="time-morning" id="timeMorning">Morning (7-11 AM)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-midday" value="midday" onchange="updateTimePreferences()">
+                                        <label for="time-midday" id="timeMidday">Midday (11 AM-2 PM)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-afternoon" value="afternoon" onchange="updateTimePreferences()">
+                                        <label for="time-afternoon" id="timeAfternoon">Afternoon (2-5 PM)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-evening" value="evening" onchange="updateTimePreferences()">
+                                        <label for="time-evening" id="timeEvening">Evening (5-8 PM)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-night" value="night" onchange="updateTimePreferences()">
+                                        <label for="time-night" id="timeNight">Night (8-11 PM)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="time-late-night" value="late-night" onchange="updateTimePreferences()">
+                                        <label for="time-late-night" id="timeLateNight">Late Night (11 PM+)</label>
+                                    </div>
+                                </div>
+                                <div class="validation-message" id="preferred-times-validation"></div>
+                                <input type="hidden" id="preferred-times" />
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; margin-top: 24px;">
+                            <p style="font-size: 14px; color: var(--charcoal); margin: 0;">
+                                <strong>💡 Why this matters:</strong> <span id="timeAvailabilityWhy">We'll create a calendar that matches your actual availability. If you can dedicate 2 hours daily, we'll create bigger tasks to reach your goals faster. If you only have 30 minutes, we'll break everything into tiny, manageable steps.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -2058,7 +2179,7 @@
                 <div id="step9Content" class="step-content hidden">
                     <div class="step-description">
                         <h2 id="stepDesc9Title">Calendar Creation</h2>
-                        <p id="stepDesc9Text">Finally, we'll use Claude to create your personalized 12-week implementation calendar with ADHD-friendly features.</p>
+                        <p id="stepDesc9Text">Finally, we'll use Claude to create your personalized 12-week implementation calendar with time-optimized daily tasks.</p>
                     </div>
 
                     <div class="ai-section">
@@ -2067,7 +2188,7 @@
                         <div class="ai-workflow">
                             <div class="ai-platform">
                                 <div class="icon">🗓️</div>
-                                <h3>Step 3: Easy-to-Follow Interactive Calendar</h3>
+                                <h3>Step 3: Time-Optimized Interactive Calendar</h3>
                                 
                                 <div class="prompt-box" id="claudePrompt">
                                     Complete Steps 7 and 8 first...
@@ -2083,7 +2204,7 @@
                                     <p style="font-size: 14px; color: var(--charcoal); margin: 0;">
                                         <strong>🎯 What Claude Will Create:</strong><br>
                                         • Complete 84-day interactive calendar (12 weeks × 7 days)<br>
-                                        • Maximum 3 tasks per day with checkboxes for each step<br>
+                                        • <strong>Tasks sized to your available time</strong> - bigger tasks if you have more time, tiny steps if you're limited<br>
                                         • ADHD-friendly format with emojis and clear structure<br>
                                         • Built-in breaks, celebrations, and energy level indicators<br>
                                         • Exact time estimates including buffer time<br>
@@ -2120,7 +2241,7 @@
                                 <li style="margin: 10px 0;">✅ Completed comprehensive assessment</li>
                                 <li style="margin: 10px 0;" id="accomplishment2">✅ Received AI-generated ideas customized to your situation</li>
                                 <li style="margin: 10px 0;" id="accomplishment3">✅ Got market research insights</li>
-                                <li style="margin: 10px 0;">✅ Created your easy-to-follow interactive calendar</li>
+                                <li style="margin: 10px 0;">✅ Created your time-optimized interactive calendar</li>
                                 <li style="margin: 10px 0;">✅ Your progress is automatically saved</li>
                             </ul>
                         </div>
@@ -2132,7 +2253,7 @@
                                 <li style="margin: 8px 0;">Paste it into a document (Google Docs, Word, or Notes app)</li>
                                 <li style="margin: 8px 0;">Print it out or keep it digital - whatever works for you!</li>
                                 <li style="margin: 8px 0;">Check off tasks as you complete them</li>
-                                <li style="margin: 8px 0;">Remember: Maximum 3 tasks per day to avoid overwhelm</li>
+                                <li style="margin: 8px 0;">Tasks are sized to your available time - no overwhelm!</li>
                             </ol>
                         </div>
 
@@ -2257,10 +2378,23 @@
                 stepDesc4Text: "Understanding your family situation helps us create realistic recommendations that fit your actual life.",
                 familyStructureTitle: "Tell Us About Your Family",
                 familyStructureLabel: "Describe your family structure:",
-                stepDesc5Title: "Daily Schedule",
-                stepDesc5Text: "Your daily routine determines what's realistic for your business and organization goals.",
+                stepDesc5Title: "Daily Schedule & Time Availability",
+                stepDesc5Text: "Your daily routine and available time determine what's realistic for your business and organization goals.",
                 dailyScheduleTitle: "Describe Your Typical Day",
                 dailyScheduleLabel: "What does your typical daily schedule look like?",
+                timeAvailabilityTitle: "⏰ Time Availability for Your Goals",
+                timeAvailabilityDescription: "Help us create a realistic calendar by telling us how much time you can commit and when you're available to work on your goals.",
+                hoursPerDayLabel: "How many hours per day can you dedicate?",
+                preferredTimesLabel: "What times work best for you? (Select all that apply)",
+                timeAvailabilityWhy: "We'll create a calendar that matches your actual availability. If you can dedicate 2 hours daily, we'll create bigger tasks to reach your goals faster. If you only have 30 minutes, we'll break everything into tiny, manageable steps.",
+                chooseHoursOption: "Choose your available time...",
+                timeEarlyMorning: "Early Morning (5-7 AM)",
+                timeMorning: "Morning (7-11 AM)",
+                timeMidday: "Midday (11 AM-2 PM)",
+                timeAfternoon: "Afternoon (2-5 PM)",
+                timeEvening: "Evening (5-8 PM)",
+                timeNight: "Night (8-11 PM)",
+                timeLateNight: "Late Night (11 PM+)",
                 stepDesc6Title: "Investment & Timeline",
                 stepDesc6Text: "Understanding your budget and timeline helps us recommend realistic business options.",
                 investmentTitle: "Investment Level & Timeline",
@@ -2271,7 +2405,7 @@
                 stepDesc8Title: "Market Research",
                 stepDesc8Text: "Now we'll use Google Gemini to research the market for your chosen business idea.",
                 stepDesc9Title: "Calendar Creation",
-                stepDesc9Text: "Finally, we'll use Claude to create your personalized 12-week implementation calendar with easy-to-follow daily tasks.",
+                stepDesc9Text: "Finally, we'll use Claude to create your personalized 12-week implementation calendar with time-optimized daily tasks.",
                 stepDesc10Title: "Your Complete Business Plan",
                 stepDesc10Text: "Congratulations! Here's your complete personalized business plan and next steps.",
                 chooseInvestmentLevel: "Choose your investment level...",
@@ -2359,10 +2493,23 @@
                 stepDesc4Text: "Entender tu situación familiar nos ayuda a crear recomendaciones realistas que se ajusten a tu vida real.",
                 familyStructureTitle: "Cuéntanos Sobre Tu Familia",
                 familyStructureLabel: "Describe la estructura de tu familia:",
-                stepDesc5Title: "Horario Diario",
-                stepDesc5Text: "Tu rutina diaria determina qué es realista para tus objetivos de negocio y organización.",
+                stepDesc5Title: "Horario Diario y Disponibilidad de Tiempo",
+                stepDesc5Text: "Tu rutina diaria y tiempo disponible determinan qué es realista para tus objetivos de negocio y organización.",
                 dailyScheduleTitle: "Describe Tu Día Típico",
                 dailyScheduleLabel: "¿Cómo se ve tu horario diario típico?",
+                timeAvailabilityTitle: "⏰ Disponibilidad de Tiempo para Tus Metas",
+                timeAvailabilityDescription: "Ayúdanos a crear un calendario realista diciéndonos cuánto tiempo puedes comprometer y cuándo estás disponible para trabajar en tus metas.",
+                hoursPerDayLabel: "¿Cuántas horas por día puedes dedicar?",
+                preferredTimesLabel: "¿Qué horarios funcionan mejor para ti? (Selecciona todos los que apliquen)",
+                timeAvailabilityWhy: "Crearemos un calendario que coincida con tu disponibilidad real. Si puedes dedicar 2 horas diarias, crearemos tareas más grandes para alcanzar tus metas más rápido. Si solo tienes 30 minutos, dividiremos todo en pasos pequeños y manejables.",
+                chooseHoursOption: "Elige tu tiempo disponible...",
+                timeEarlyMorning: "Madrugada (5-7 AM)",
+                timeMorning: "Mañana (7-11 AM)",
+                timeMidday: "Mediodía (11 AM-2 PM)",
+                timeAfternoon: "Tarde (2-5 PM)",
+                timeEvening: "Noche (5-8 PM)",
+                timeNight: "Noche tardía (8-11 PM)",
+                timeLateNight: "Muy tarde (11 PM+)",
                 stepDesc6Title: "Inversión y Cronograma",
                 stepDesc6Text: "Entender tu presupuesto y cronograma nos ayuda a recomendar opciones de negocio realistas.",
                 investmentTitle: "Nivel de Inversión y Cronograma",
@@ -2373,7 +2520,7 @@
                 stepDesc8Title: "Investigación de Mercado",
                 stepDesc8Text: "Ahora usaremos Google Gemini para investigar el mercado de tu idea de negocio elegida.",
                 stepDesc9Title: "Creación de Calendario",
-                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas con tareas diarias fáciles de seguir.",
+                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas con tareas diarias optimizadas en tiempo.",
                 stepDesc10Title: "Tu Plan de Negocio Completo",
                 stepDesc10Text: "¡Felicitaciones! Aquí está tu plan de negocio personalizado completo y próximos pasos.",
                 chooseInvestmentLevel: "Elige tu nivel de inversión...",
@@ -2447,7 +2594,7 @@
                         'selected-business-idea': 'Type or paste your chosen business idea here...',
                         'chatgpt-response': 'Copy and paste the business ideas from ChatGPT here...',
                         'gemini-response': 'Copy and paste the market research from Gemini here...',
-                        'claude-response': 'Copy and paste the 12-week calendar from Claude here...'
+                        'claude-response': 'Copy and paste the complete 84-day interactive calendar from Claude here...'
                     },
                     es: {
                         'family-structure': 'Cuéntanos sobre el tamaño de tu familia, edades de los niños, sistema de apoyo, situación de pareja, etc. Sé tan detallada como quieras - esto nos ayuda a darte mejores recomendaciones.',
@@ -2455,7 +2602,7 @@
                         'selected-business-idea': 'Escribe o pega tu idea de negocio elegida aquí...',
                         'chatgpt-response': 'Copia y pega las ideas de negocio de ChatGPT aquí...',
                         'gemini-response': 'Copia y pega la investigación de mercado de Gemini aquí...',
-                        'claude-response': 'Copia y pega el calendario de 12 semanas de Claude aquí...'
+                        'claude-response': 'Copia y pega el calendario interactivo completo de 84 días de Claude aquí...'
                     }
                 };
                 
@@ -2475,7 +2622,71 @@
             return translations[currentLanguage][key] || key;
         }
 
-        // ===== NEW PAYMENT SYSTEM FUNCTIONS =====
+        // ===== NEW TIME AVAILABILITY FUNCTIONS =====
+        
+        function updateTimePreferences() {
+            const checkboxes = document.querySelectorAll('#preferred-times-group input[type="checkbox"]');
+            const selectedTimes = [];
+            
+            checkboxes.forEach(checkbox => {
+                const item = checkbox.parentNode;
+                if (checkbox.checked) {
+                    selectedTimes.push(checkbox.value);
+                    item.classList.add('checked');
+                } else {
+                    item.classList.remove('checked');
+                }
+            });
+            
+            // Save to hidden field and formData
+            document.getElementById('preferred-times').value = selectedTimes.join(',');
+            formData['preferred-times'] = selectedTimes.join(',');
+            saveUserProgress();
+            
+            // Clear validation if at least one is selected
+            if (selectedTimes.length > 0) {
+                const validation = document.getElementById('preferred-times-validation');
+                if (validation) {
+                    validation.textContent = '';
+                    validation.classList.add('success');
+                }
+            }
+        }
+
+        function validateTimeAvailability() {
+            const hoursPerDay = document.getElementById('hours-per-day').value;
+            const preferredTimes = document.getElementById('preferred-times').value;
+            
+            let isValid = true;
+            
+            // Validate hours per day
+            if (!hoursPerDay) {
+                const validation = document.getElementById('hours-per-day-validation');
+                if (validation) {
+                    validation.textContent = currentLanguage === 'es' ? 
+                        'Por favor selecciona tu disponibilidad de tiempo' : 
+                        'Please select your time availability';
+                    validation.classList.remove('success');
+                }
+                isValid = false;
+            }
+            
+            // Validate preferred times
+            if (!preferredTimes) {
+                const validation = document.getElementById('preferred-times-validation');
+                if (validation) {
+                    validation.textContent = currentLanguage === 'es' ? 
+                        'Por favor selecciona al menos un horario preferido' : 
+                        'Please select at least one preferred time';
+                    validation.classList.remove('success');
+                }
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // ===== PAYMENT SYSTEM FUNCTIONS =====
 
         function showPremiumServices() {
             document.getElementById('premiumServicesSection').classList.add('active');
@@ -2795,12 +3006,28 @@
             Object.keys(formData).forEach(fieldId => {
                 const field = document.getElementById(fieldId);
                 if (field) {
-                    field.value = formData[fieldId];
+                    if (field.type === 'checkbox') {
+                        field.checked = formData[fieldId] === 'true' || formData[fieldId] === true;
+                    } else {
+                        field.value = formData[fieldId];
+                    }
                     if (field.type === 'textarea') {
                         updateCharCounter(field);
                     }
                 }
             });
+            
+            // Restore time preferences checkboxes
+            if (formData['preferred-times']) {
+                const selectedTimes = formData['preferred-times'].split(',');
+                selectedTimes.forEach(time => {
+                    const checkbox = document.getElementById(`time-${time}`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        checkbox.parentNode.classList.add('checked');
+                    }
+                });
+            }
             
             // Restore path-specific fields if they exist
             const pathSpecificFields = [
@@ -2952,7 +3179,11 @@
                 },
                 3: () => selectedPath !== '',
                 4: () => validateField(document.getElementById('family-structure')),
-                5: () => validateField(document.getElementById('daily-schedule')),
+                5: () => {
+                    const scheduleValid = validateField(document.getElementById('daily-schedule'));
+                    const timeValid = validateTimeAvailability();
+                    return scheduleValid && timeValid;
+                },
                 6: () => {
                     if (selectedPath === 'life-organization') {
                         return validateField(document.getElementById('organization-priority')) &&
@@ -3169,22 +3400,23 @@
 Name: ${formData['user-name'] || 'Not provided'}
 Family Structure: ${formData['family-structure'] || 'Not provided'}
 Daily Schedule: ${formData['daily-schedule'] || 'Not provided'}
+Time Availability: ${formData['hours-per-day'] || 'Not specified'} during ${formData['preferred-times'] || 'Not specified'} times
 Investment Level: ${formData['investment-level'] || formData['both-investment'] || 'Not specified'}
 Income Timeline: ${formData['income-timeline'] || formData['both-timeline'] || 'Not specified'}
 
 Please suggest 5 specific business ideas that:
 1. Fit my schedule and family situation
-2. Match my investment level
+2. Match my investment level and time availability
 3. Can generate income within my timeline
-4. Are realistic for a busy mom
+4. Are realistic for a busy mom with ${formData['hours-per-day'] || 'limited'} time availability
 5. Include both online and offline options
 
 For each idea, please provide:
 - Business name
 - Brief description
-- Startup steps
+- Startup steps that fit my time constraints
 - Income potential
-- Why it's perfect for my situation`;
+- Why it's perfect for my situation and time availability`;
 
             document.getElementById('chatgptPrompt').textContent = prompt;
         }
@@ -3194,16 +3426,20 @@ For each idea, please provide:
             
             const prompt = `Please provide detailed market research for this business idea: "${businessIdea}"
 
+Consider the following constraints:
+- Time availability: ${formData['hours-per-day'] || 'Not specified'}
+- Preferred working times: ${formData['preferred-times'] || 'Not specified'}
+
 Include:
 1. Target market analysis
 2. Competition overview
 3. Pricing strategies
-4. Marketing channels
+4. Marketing channels that work with limited time
 5. Growth potential
 6. Common challenges and solutions
-7. First month action plan
+7. First month action plan optimized for ${formData['hours-per-day'] || 'limited'} time availability
 
-Focus on practical, actionable information for a mom starting with limited time and budget.`;
+Focus on practical, actionable information for a mom with specific time constraints.`;
 
             document.getElementById('geminiPrompt').textContent = prompt;
         }
@@ -3215,7 +3451,11 @@ Focus on practical, actionable information for a mom starting with limited time 
             const familySizeMatch = familyStructure.match(/(\d+)\s*(people|person|family|members?|kids?|children)/i);
             const familySize = familySizeMatch ? parseInt(familySizeMatch[1]) : 4; // Default to 4 if not found
 
-            const prompt = `You are creating a personalized 84-day (12 weeks) interactive HTML calendar for a busy mom. This calendar must be extremely detailed, broken down into small manageable steps with checkboxes for each task.
+            // Get time availability info
+            const hoursPerDay = formData['hours-per-day'] || 'not-specified';
+            const preferredTimes = formData['preferred-times'] || 'not-specified';
+
+            const prompt = `You are creating a personalized 84-day (12 weeks) interactive HTML calendar for a busy mom. This calendar must be extremely detailed, broken down into manageable steps with checkboxes for each task, and OPTIMIZED FOR HER SPECIFIC TIME AVAILABILITY.
 
 USER PROFILE:
 - Name: ${formData['user-name'] || 'Not provided'}
@@ -3225,6 +3465,10 @@ USER PROFILE:
 - Selected Path: ${selectedPath}
 - Language: ${currentLanguage}
 - Number of People in Household: ${familySize}
+
+CRITICAL TIME CONSTRAINTS:
+- Available Time Per Day: ${hoursPerDay}
+- Preferred Working Times: ${preferredTimes}
 
 ${selectedPath === 'life-organization' ? `
 - Organization Priority: ${formData['organization-priority'] || 'Not specified'}
@@ -3248,10 +3492,65 @@ ${selectedPath === 'both' ? `
 - Selected Business Idea: ${formData['selected-business-idea'] || 'Not specified'}
 ` : ''}
 
-CRITICAL REQUIREMENTS:
+CRITICAL REQUIREMENTS - TIME OPTIMIZATION:
+
+**${hoursPerDay === '15-30-minutes' ? 'MICRO-TASK FORMAT (15-30 min/day):' : 
+   hoursPerDay === '30-60-minutes' ? 'SHORT-TASK FORMAT (30-60 min/day):' :
+   hoursPerDay === '1-2-hours' ? 'STANDARD-TASK FORMAT (1-2 hours/day):' :
+   hoursPerDay === '2-3-hours' ? 'INTENSIVE-TASK FORMAT (2-3 hours/day):' :
+   hoursPerDay === '3-4-hours' ? 'POWER-TASK FORMAT (3-4 hours/day):' :
+   hoursPerDay === '4-plus-hours' ? 'ACCELERATED-TASK FORMAT (4+ hours/day):' :
+   'FLEXIBLE-TASK FORMAT (Variable time):'
+}**
+
+${hoursPerDay === '15-30-minutes' ? `
+- Maximum 1-2 tiny tasks per day (5-15 minutes each)
+- Break everything into micro-steps
+- Focus on quick wins and momentum
+- Tasks should be completable during kids' snack time
+` : hoursPerDay === '30-60-minutes' ? `
+- Maximum 2-3 small tasks per day (10-20 minutes each)
+- Moderate steps that fit into brief free periods
+- Balance quick wins with meaningful progress
+- Tasks designed for naptime or early morning
+` : hoursPerDay === '1-2-hours' ? `
+- 2-4 tasks per day (15-30 minutes each)
+- Standard steps with good momentum
+- Mix of organizational and action tasks
+- Perfect for dedicated morning or evening blocks
+` : hoursPerDay === '2-3-hours' ? `
+- 3-5 substantial tasks per day (20-40 minutes each)
+- Bigger chunks that create significant progress
+- Can include planning + execution in same day
+- Great for major organization overhauls
+` : hoursPerDay === '3-4-hours' ? `
+- 4-6 power tasks per day (30-60 minutes each)
+- Large projects broken into meaningful segments
+- Can tackle multiple areas simultaneously
+- Accelerated timeline with major transformations
+` : hoursPerDay === '4-plus-hours' ? `
+- 5-8 intensive tasks per day (30-90 minutes each)
+- Complete room transformations in single days
+- Multiple business tasks can be completed daily
+- Fast-track to goals with comprehensive daily work
+` : `
+- Flexible daily task load based on available time
+- Include options for different time constraints
+- Scale tasks up/down based on daily availability
+`}
+
+**TIMING OPTIMIZATION:**
+- Schedule tasks during her preferred times: ${preferredTimes}
+- If early morning (5-7 AM): Focus on planning, prep, quiet organizational tasks
+- If morning (7-11 AM): Best for high-energy tasks, decision-making, calls
+- If midday (11 AM-2 PM): Great for errands, organizing, business tasks
+- If afternoon (2-5 PM): Good for creative work, content creation, follow-ups  
+- If evening (5-8 PM): Family time integration, light organizing, planning
+- If night (8-11 PM): Quiet tasks, online work, planning tomorrow
+- If late night (11 PM+): Only light tasks, planning, digital organization
 
 1. **NO DECISIONS NEEDED** - Every choice is already made
-2. **Maximum 3 Tasks Per Day** with complete details
+2. **TIME-SPECIFIC TASKS** - Sized exactly for her available time
 3. **Everything Pre-Selected** - Meals, recipes, items to buy, which drawer to organize
 4. **Visual Results** - Show before/after or completion visuals
 5. **Instant Rewards** - Serotonin hits after each micro-step
@@ -3278,7 +3577,7 @@ Based on household size of ${familySize} people, create rotating 2-week meal pla
 
 [Continue with all meals...]
 
-GROCERY LIST (Every Tuesday 10 AM):
+GROCERY LIST (Scheduled for her preferred time):
 
 **Weekly Shopping List for Family of ${familySize}:**
 
@@ -3290,135 +3589,138 @@ GROCERY LIST (Every Tuesday 10 AM):
   - Tomatoes (${familySize > 3 ? '6' : '4'})
   - Onions (1 bag)
 
-□ **Proteins:**
-  - Ground beef (${familySize > 3 ? '3 lbs' : '2 lbs'})
-  - Rotisserie chicken (${familySize > 4 ? '2' : '1'})
-  - Eggs (${familySize > 3 ? '24 count' : '18 count'})
-  - Lunch meat (${familySize > 3 ? '1.5 lbs' : '1 lb'})
-  - Frozen chicken nuggets (${familySize > 3 ? '2 bags' : '1 bag'})
-
 [Continue with complete list...]
 
 💰 Estimated cost: ${familySize > 4 ? '200-250' : familySize > 2 ? '150-200' : '100-150'}
 
 ORGANIZATION TASK EXAMPLES:
 
+${hoursPerDay === '15-30-minutes' ? `
 **Day 3 - Kitchen Junk Drawer (15 min total)**
 
 □ Get supplies ready (1 min):
   - 1 small trash bag
-  - 1 donation box
   - Wet paper towels
 
-□ Empty the drawer by the stove (2 min):
-  - Dump EVERYTHING on counter
-  - Take photo of the mess 📸
+□ Empty just the front half of drawer (2 min):
+  - Take photo of mess 📸
 
-□ Throw away these items (3 min):
-  - Test each pen - toss if dry
-  - Old batteries (put in battery recycling bag)
-  - Takeout menus over 6 months old
-  - Anything broken or mystery items
-  - Expired coupons
+□ Throw away obvious trash (3 min):
+  - Test 2 pens - toss if dry
+  - Expired coupons only
+  - Obviously broken items
 
-□ Keep ONLY these (2 min):
-  - 3 working pens (test them!)
+□ Keep ONLY essentials (2 min):
+  - 2 working pens
   - 1 pair scissors
   - Roll of tape
-  - Phone charger
-  - Fresh batteries
-  - Rubber bands (max 10)
 
-□ Relocate these items (3 min):
-  - Bills → kitchen counter basket
-  - Kids' items → their backpacks
-  - Tools → hall closet toolbox
-  - Coins → coin jar
-  - Important papers → file folder
+□ Put back neatly (2 min):
+  - Pens on left
+  - Scissors in middle
 
-□ Clean & organize (3 min):
-  - Wipe drawer with wet paper towel
-  - Put items back in this order:
-    * Pens on left
-    * Scissors in middle
-    * Tape on right
-    * Batteries in back
-
-□ Victory celebration (1 min):
+□ Victory photo & treat (5 min):
   - Take "after" photo 📸
-  - Send to best friend with "I DID IT!"
-  - Victory dance to favorite song 💃
+  - Enjoy favorite snack
 
-✅ Reward: Your favorite drink + 5 min social media break
+✅ Reward: 15-min TV break + proud text to friend
+` : hoursPerDay === '1-2-hours' ? `
+**Day 3 - Complete Kitchen Organization (90 min total)**
+
+□ Phase 1: Declutter (30 min):
+  - Empty 3 drawers completely
+  - Sort into keep/donate/trash piles
+  - Take before photos
+
+□ Phase 2: Deep Clean (20 min):
+  - Wipe all drawer interiors
+  - Clean organizer trays
+
+□ Phase 3: Organize (25 min):
+  - Use drawer dividers
+  - Label each section
+  - Return items by category
+
+□ Phase 4: Systems (15 min):
+  - Create "homes" for new items
+  - Set up daily maintenance routine
+  - Take after photos
+
+✅ Reward: Kitchen dance party + social media post
+` : `
+**Day 3 - Kitchen Command Center Setup (${hoursPerDay === '2-3-hours' ? '2.5 hours' : hoursPerDay === '3-4-hours' ? '3 hours' : '4+ hours'} total)**
+
+□ Complete kitchen audit (45 min):
+  - Inventory all cabinets and drawers
+  - Photo documentation of current state
+  - Create priority list
+
+□ Major decluttering session (60-90 min):
+  - Empty all cabinets
+  - Sort into detailed categories
+  - Donation bags ready
+
+□ Deep cleaning (30-45 min):
+  - Clean all surfaces
+  - Organize cleaning supplies
+
+□ System implementation (60+ min):
+  - Install new organizers
+  - Create labeling system
+  - Set up meal planning center
+
+✅ Reward: Order favorite takeout + family celebration
+`}
 
 ${selectedPath === 'business-launch' || selectedPath === 'both' ? `
 BUSINESS SETUP TASKS:
 
-**Week 2, Day 3 - Create Business Email (10 min)**
+${hoursPerDay === '15-30-minutes' ? `
+**Week 2, Day 3 - Create Business Email (15 min)**
 
-□ Open Gmail on computer (1 min):
+□ Open Gmail (2 min):
   - Go to gmail.com
   - Click "Create account"
-  - Choose "For my personal use"
 
-□ Fill in details (3 min):
-  - First name: ${formData['user-name']?.split(' ')[0] || 'Your first name'}
-  - Last name: ${formData['user-name']?.split(' ')[1] || 'Your last name'} 
-  - Username: ${formData['user-name']?.toLowerCase().replace(' ', '') || 'yourname'}business@gmail.com
-  - Password: [YourPetName][BirthYear]!
-  - Confirm password: Same as above
+□ Fill basics only (5 min):
+  - First name: ${formData['user-name']?.split(' ')[0] || 'Your name'}
+  - Username: ${formData['user-name']?.toLowerCase().replace(' ', '') || 'yourname'}biz@gmail.com
+  - Simple password
 
-□ Complete setup (3 min):
-  - Phone number: Your cell
-  - Recovery email: ${formData['user-email'] || 'your personal email'}
-  - Birthday: Your real birthday
-  - Gender: Your choice
+□ Save & verify (5 min):
+  - Write down info
+  - Verify phone number
 
-□ Verification (2 min):
-  - Enter code from text message
-  - Click "Verify"
+□ Victory (3 min):
+  - Screenshot confirmation
+  - Text friend "I started!"
 
-□ Save credentials (1 min):
-  - Write in phone notes app
-  - Title: "Business Email Info"
-  - Save username & password
-  - Screenshot this note
+✅ Reward: Favorite drink + 10-min social media
+` : `
+**Week 2, Day 3 - Complete Business Setup (${hoursPerDay === '1-2-hours' ? '90 min' : '2+ hours'})**
 
-✅ Reward: You have a professional email! Post "Started my business!" on Facebook!
+□ Business email creation (20 min):
+  - Professional Gmail setup
+  - Password manager entry
+  - Signature creation
 
-**Week 3, Day 1 - Free Business Website (20 min)**
+□ Website builder start (${hoursPerDay === '1-2-hours' ? '40 min' : '60 min'}):
+  - Carrd.co free account
+  - Template selection
+  - Basic content entry
 
-□ Open Carrd.co (2 min):
-  - Go to carrd.co
-  - Click "Get Started for Free"
-  - Sign up with business email
+□ Social media presence (${hoursPerDay === '1-2-hours' ? '30 min' : '45 min'}):
+  - Business Facebook page
+  - Instagram account
+  - LinkedIn profile update
 
-□ Choose template (3 min):
-  - Click "Templates"
-  - Choose "Argon" template
-  - Click "Use This Template"
+□ First marketing action (${hoursPerDay === '1-2-hours' ? '20 min' : '30 min'}):
+  - Post in 3 local mom groups
+  - Message 5 potential clients
+  - Create content calendar
 
-□ Add your content (10 min):
-  - Heading: "${formData['user-name'] || 'Your Name'} Solutions"
-  - Subheading: "${formData['selected-business-idea'] || 'Your Service'}"
-  - About text: "Hi! I'm ${formData['user-name']?.split(' ')[0] || 'Name'}, a mom of ${familySize - 1} helping other moms with ${formData['selected-business-idea'] || 'your service'}."
-  - Services: List 3 specific things you do
-  - Contact: Your business email
-  - Add your phone (optional)
-
-□ Customize colors (3 min):
-  - Click paintbrush icon
-  - Primary color: #6B8E6B (sage green)
-  - Secondary: #D4A574 (gold)
-  - Font: Keep default
-
-□ Publish site (2 min):
-  - Click "Publish"
-  - URL: ${formData['user-name']?.toLowerCase().replace(' ', '-') || 'yourname'}.carrd.co
-  - Confirm and publish
-  - Copy your URL
-
-✅ Reward: Text 3 friends "Check out my new website!" with link
+✅ Reward: Celebrate with family + success post
+`}
 ` : ''}
 
 CALENDAR FORMAT:
@@ -3430,6 +3732,7 @@ Create the full 84-day calendar as an interactive HTML document with:
 - Celebration animations every 7 days
 - Print-friendly format
 - Mobile responsive design
+- **TIME-SPECIFIC task scheduling based on her preferred times**
 
 DAILY STRUCTURE EXAMPLE:
 
@@ -3437,104 +3740,105 @@ DAILY STRUCTURE EXAMPLE:
 
 Morning Energy: ⚡⚡⚡ High
 Today's Focus: ${selectedPath === 'life-organization' ? 'Meal prep system' : 'Client outreach'}
+Available Time: ${hoursPerDay}
+Best Time Slot: ${preferredTimes}
 
-**☀️ Morning Task (8:30 AM - After school drop-off)**
-Kitchen Command Center Setup (20 min)
+${hoursPerDay === '15-30-minutes' ? `
+**☀️ ${preferredTimes.includes('morning') ? 'Morning' : preferredTimes.includes('evening') ? 'Evening' : 'Preferred'} Task (15 min)**
+Quick Kitchen Win
 
-□ Prep (2 min):
-  - Play upbeat music 🎵
-  - Get coffee ready ☕
+□ Set timer for 15 minutes (1 min)
+□ Clear one small counter space (5 min)
+□ Wipe down with favorite cleaner (3 min)
+□ Put 5 items in proper homes (4 min)
+□ Victory dance + photo (2 min)
+
+✅ Reward: Favorite snack + proud moment!
+` : hoursPerDay === '1-2-hours' ? `
+**☀️ Morning Block (45 min - ${preferredTimes.includes('morning') ? 'Perfect timing!' : 'Adapted for your schedule'})**
+Kitchen Command Center Setup
+
+□ Prep (5 min):
+  - Play energizing music 🎵
+  - Get supplies ready
   - Set phone timer
 
-□ Clear counter left of sink (5 min):
-  - Put dishes in dishwasher
-  - Throw away old papers
-  - Wipe with Clorox wipe
+□ Clear & clean main counter (15 min):
+  - Move everything to table temporarily
+  - Deep clean surface
   - Before photo! 📸
 
-□ Create meal planning spot (8 min):
-  - Hang whiteboard (Command strips)
-  - Write "This Week's Dinners"
-  - Add Mon-Sun columns
-  - Fill in Week A meals from above
+□ Create meal planning station (20 min):
+  - Hang whiteboard with Command strips
+  - Add weekly meal planner sections
+  - Stock with markers and eraser
 
-□ Set up lunch station (5 min):
-  - Lunch boxes on counter
-  - Snack bin next to them
-  - Water bottles lined up
-  - "After" photo! 📸
+□ Victory setup (5 min):
+  - After photo! 📸
+  - Update family on progress
+  - Plan tomorrow's task
 
-✅ Mini-reward: Dance to one song! 💃
+✅ Reward: Special coffee + 15-min break
 
-**🌤️ Afternoon Task (2:00 PM - Quiet time)**
-${selectedPath === 'business-launch' || selectedPath === 'both' ? 
-`Business Building: First Client Outreach (15 min)
+**🌤️ Afternoon Block (30 min - During kids' quiet time)**
+Tomorrow's Prep
 
-□ Open phone contacts (1 min)
-□ Find 3 mom friends
-□ Copy this exact message:
-  "Hey [Name]! Quick question - I just started helping moms with ${formData['selected-business-idea'] || '[your service]'}. Do you know anyone who might need help with this? I'm offering a free 30-min trial to my first 5 clients! 💕"
-□ Send to all 3 friends
-□ Post in 1 mom Facebook group:
-  "Local mom here! I'm starting to offer ${formData['selected-business-idea'] || '[your service]'}. First 5 moms get a free trial! Comment 'INFO' below 👇"
+□ Menu planning (15 min):
+  - Choose 3 meals from master list
+  - Check ingredients needed
+  - Add to shopping list
 
-✅ Reward: Favorite afternoon treat!` : 
-`Quick Toy Pick-up (15 min)
+□ Kitchen systems (15 min):
+  - Set up breakfast station
+  - Prep lunch boxes
+  - Quick tidy of organized areas
 
-□ Get laundry basket (1 min)
-□ Set timer for 10 minutes
-□ Race-collect all visible toys
-□ Sort while kids nap:
-  - Bedroom toys → kids' room
-  - Living room toys → toy box
-  - Broken → trash
-□ Wipe toy box top
+✅ Reward: Guilt-free Netflix time!
+` : `
+**☀️ Extended Morning Session (2+ hours - Your power time!)**
+Complete Kitchen Transformation
 
-✅ Reward: 15-min Netflix break!`}
+□ Phase 1: Total Declutter (45 min):
+  - Empty all drawers and cabinets
+  - Sort into detailed categories
+  - Take comprehensive before photos
+  - Fill donation bags
 
-**🌙 Evening Task (8:00 PM - Kids in bed)**
-Tomorrow's Success Setup (10 min)
+□ Phase 2: Deep Clean Everything (30 min):
+  - Wipe all surfaces inside and out
+  - Clean organizer tools
+  - Vacuum/sweep thoroughly
 
-□ Kitchen prep (3 min):
-  - Set out breakfast bowls
-  - Lunch boxes on counter
-  - Coffee mug by maker
+□ Phase 3: System Implementation (60+ min):
+  - Install new drawer organizers
+  - Create labeled zones for everything
+  - Set up meal planning command center
+  - Implement new storage solutions
 
-□ Check tomorrow (3 min):
-  - Look at calendar
-  - Set 2 phone alarms
-  - Lay out your outfit
+□ Phase 4: Family Integration (15 min):
+  - Walk family through new systems
+  - Assign maintenance responsibilities
+  - Celebrate the transformation!
 
-□ Victory check (4 min):
-  - Check off today's tasks ✓
-  - High-five mirror self
-  - Text accountability buddy: "Day 15 done!"
-
-✅ End reward: Guilt-free scrolling time!
-
-**Daily Wins Tracker:**
-⭐ Did my tasks (even if not perfect)
-⭐ Was kind to myself
-⭐ Tomorrow is ready
-
-Remember: Progress > Perfection! 🌟
+✅ Reward: Order favorite takeout + family movie night!
+`}
 
 WEEKLY THEMES:
 
-Week 1: "Gentle Start" - 2 tasks per day only
-Week 2: "Finding Rhythm" - Building habits
-Week 3: "Quick Wins" - Visible results
-Week 4: "Celebration" - Consolidate & rest
-Week 5: "Level Up" - Adding third daily task
+Week 1: "Gentle Start" - Building habits at ${hoursPerDay} pace
+Week 2: "Finding Rhythm" - Optimizing for your time slots
+Week 3: "Quick Wins" - Visible results in your timeframe
+Week 4: "Celebration" - Consolidate & appreciate progress
+Week 5: "Level Up" - Expanding within time constraints
 Week 6: "Systems Rock" - Making it automatic
 Week 7: "Halfway Hero" - Major celebration!
-Week 8: "Flexibility" - Handling disruptions
-Week 9: "Big Progress" - Seeing transformation
+Week 8: "Flexibility" - Adapting when time changes
+Week 9: "Big Progress" - Seeing major transformation
 Week 10: "Teaching Time" - Family involvement
-Week 11: "Almost There" - Fine-tuning
+Week 11: "Almost There" - Fine-tuning systems
 Week 12: "Victory Lap" - Celebrate & plan ahead
 
-Create the complete 84-day calendar following this exact format. Every task broken down into tiny steps with checkboxes. All decisions pre-made. Maximum hand-holding and encouragement!`;
+Create the complete 84-day calendar following this exact format, with tasks perfectly sized for ${hoursPerDay} and scheduled during ${preferredTimes}. Every task broken down into tiny steps with checkboxes. All decisions pre-made. Maximum hand-holding and encouragement optimized for her specific time availability!`;
 
             document.getElementById('claudePrompt').textContent = prompt;
         }
@@ -3819,7 +4123,8 @@ Smart Mom Method - Calendar Instructions
 
 Tips for Success:
 - Check off tasks as you complete them
-- Remember: Maximum 3 tasks per day
+- Tasks are sized to your available time: ${formData['hours-per-day'] || 'your schedule'}
+- Scheduled for your best times: ${formData['preferred-times'] || 'your preferences'}
 - It's okay to skip a day - just continue the next day
 - Celebrate your wins, no matter how small!
 
@@ -3849,6 +4154,10 @@ Personal Information:
 Family & Schedule:
 - Family Structure: ${formData['family-structure'] || 'Not provided'}
 - Daily Schedule: ${formData['daily-schedule'] || 'Not provided'}
+
+Time Availability:
+- Hours Per Day: ${formData['hours-per-day'] || 'Not specified'}
+- Preferred Times: ${formData['preferred-times'] || 'Not specified'}
 
 Selected Path: ${selectedPath}
 
@@ -3883,6 +4192,12 @@ Created on: ${new Date().toLocaleString()}
                 // Reset form fields
                 document.querySelectorAll('.form-control').forEach(field => {
                     field.value = '';
+                });
+                
+                // Reset checkboxes
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.parentNode.classList.remove('checked');
                 });
                 
                 // Reset path selection
@@ -3941,14 +4256,14 @@ Created on: ${new Date().toLocaleString()}
         });
 
         // Auto-save on input change
-        document.querySelectorAll('.form-control').forEach(field => {
-            field.addEventListener('input', function() {
-                formData[field.id] = field.value;
-                if (field.type === 'textarea') {
-                    updateCharCounter(field);
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('form-control')) {
+                formData[e.target.id] = e.target.value;
+                if (e.target.type === 'textarea') {
+                    updateCharCounter(e.target);
                 }
                 saveUserProgress();
-            });
+            }
         });
     </script>
 </body>
