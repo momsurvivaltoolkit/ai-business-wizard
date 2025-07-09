@@ -1980,7 +1980,7 @@
                                 <div class="form-group">
                                     <label id="organizationPriorityLabel">What's your biggest organization challenge? <span class="required">*</span></label>
                                     <select id="organization-priority" class="form-control" onchange="validateField(this)">
-                                        <option value="" data-en="Choose your main challenge..." data-es="Elige tu desafío principal...">Choose your main challenge...</option>
+                                        <option value="" data-en="Choose your main challenge..." data-es="Elige su desafío principal...">Choose your main challenge...</option>
                                         <option value="daily-chaos" data-en="Daily schedule chaos - need morning/evening routines" data-es="Caos en horario diario - necesito rutinas mañana/noche">Daily schedule chaos - need morning/evening routines</option>
                                         <option value="home-clutter" data-en="Home clutter - need decluttering systems" data-es="Desorden en casa - necesito sistemas de orden">Home clutter - need decluttering systems</option>
                                         <option value="meal-planning" data-en="Meal planning - need food organization" data-es="Planificación de comidas - necesito organización de alimentos">Meal planning - need food organization</option>
@@ -1994,7 +1994,7 @@
                                 <div class="form-group">
                                     <label id="organizationTimelineLabel">How soon do you want an organized home? <span class="required">*</span></label>
                                     <select id="organization-timeline" class="form-control" onchange="validateField(this)">
-                                        <option value="" data-en="Choose your timeline..." data-es="Elige tu cronograma...">Choose your timeline...</option>
+                                        <option value="" data-en="Choose your timeline..." data-es="Elige su cronograma...">Choose your timeline...</option>
                                         <option value="urgent" data-en="Urgent - within 30 days" data-es="Urgente - en 30 días">Urgent - within 30 days</option>
                                         <option value="moderate" data-en="Moderate - within 3 months" data-es="Moderado - en 3 meses">Moderate - within 3 months</option>
                                         <option value="relaxed" data-en="Relaxed - within 6 months" data-es="Relajado - en 6 meses">Relaxed - within 6 months</option>
@@ -2054,11 +2054,11 @@
                                 <div class="form-group">
                                     <label id="bothPriorityLabel">What needs attention first? <span class="required">*</span></label>
                                     <select id="both-priority" class="form-control" onchange="validateField(this)">
-                                        <option value="" data-en="Choose your priority..." data-es="Elige tu prioridad...">Choose your priority...</option>
-                                        <option value="organize-first" data-en="Get organized first, then start business" data-es="Organizarme primero, luego comenzar negocio">Get organized first, then start business</option>
+                                        <option value="" data-en="Choose your priority..." data-es="Elige su prioridad...">Choose your priority...</option>
+                                        <option value="organize-first" data-en="Get organized first, then start business" data-es="Organizarme primero, luego comenzar emprendimiento">Get organized first, then start business</option>
                                         <option value="business-first" data-en="Start earning quickly, organize as I go" data-es="Empezar a ganar rápido, organizar mientras avanzo">Start earning quickly, organize as I go</option>
                                         <option value="simultaneous" data-en="Work on both simultaneously" data-es="Trabajar en ambos simultáneamente">Work on both simultaneously</option>
-                                        <option value="integrated" data-en="Create business from organization skills" data-es="Crear negocio de habilidades de organización">Create business from organization skills</option>
+                                        <option value="integrated" data-en="Create business from organization skills" data-es="Crear emprendimiento de habilidades de organización">Create business from organization skills</option>
                                     </select>
                                     <div class="validation-message" id="both-priority-validation"></div>
                                 </div>
@@ -2078,7 +2078,7 @@
                                 <div class="form-group">
                                     <label id="bothTimelineLabel">Timeline for both goals? <span class="required">*</span></label>
                                     <select id="both-timeline" class="form-control" onchange="validateField(this)">
-                                        <option value="" data-en="Choose your timeline..." data-es="Elige tu cronograma...">Choose your timeline...</option>
+                                        <option value="" data-en="Choose your timeline..." data-es="Elige su cronograma...">Choose your timeline...</option>
                                         <option value="urgent" data-en="Urgent - need results in 30 days" data-es="Urgente - necesito resultados en 30 días">Urgent - need results in 30 days</option>
                                         <option value="moderate" data-en="Moderate - 3-6 months is fine" data-es="Moderado - 3-6 meses está bien">Moderate - 3-6 months is fine</option>
                                         <option value="patient" data-en="Patient - 6-12 months works" data-es="Paciente - 6-12 meses funciona">Patient - 6-12 months works</option>
@@ -2418,25 +2418,40 @@
                 viewGeminiBtn: "View Full Prompt",
                 copyClaudeBtn: "Copy Prompt",
                 openClaudeBtn: "Open Claude",
-                viewClaudeBtn: "View Full Prompt"
+                viewClaudeBtn: "View Full Prompt",
+                selectedIdeaLabel: "Choose your favorite business idea from ChatGPT:",
+                completePlease: "Please complete all required fields before continuing.",
+                fieldRequired: "This field is required",
+                validEmail: "Please enter a valid email",
+                timeSelectOne: "Please select at least one preferred time",
+                timeSelectHours: "Please select your time availability",
+                charactersRemaining: "characters remaining",
+                nextStep: "Next Step →",
+                previousStep: "← Previous Step",
+                successMainText: "Your Smart Mom Method interactive calendar and business plan have been created successfully!",
+                accomplishment2: "✅ Received AI-generated ideas customized to your situation",
+                accomplishment3: "✅ Got market research insights",
+                // AI Prompts
+                chatgptPromptTemplate: "I'm a mom with the following situation:\n\nName: {name}\nFamily Structure: {familyStructure}\nDaily Schedule: {dailySchedule}\nTime Availability: {timeAvailability} during {preferredTimes} times\nInvestment Level: {investmentLevel}\nIncome Timeline: {incomeTimeline}\n\nPlease suggest 5 specific business ideas that:\n1. Fit my schedule and family situation\n2. Match my investment level and time availability\n3. Can generate income within my timeline\n4. Are realistic for a busy mom with {timeAvailability} time availability\n5. Include both online and offline options\n\nFor each idea, please provide:\n- Business name\n- Brief description\n- Startup steps that fit my time constraints\n- Income potential\n- Why it's perfect for my situation and time availability",
+                geminiPromptTemplate: "Please provide detailed market research for this business idea: \"{businessIdea}\"\n\nConsider the following constraints:\n- Time availability: {timeAvailability}\n- Preferred working times: {preferredTimes}\n\nInclude:\n1. Target market analysis\n2. Competition overview\n3. Pricing strategies\n4. Marketing channels that work with limited time\n5. Growth potential\n6. Common challenges and solutions\n7. First month action plan optimized for {timeAvailability} time availability\n\nFocus on practical, actionable information for a mom with specific time constraints."
             },
             es: {
-                welcomeTitle: "¡Bienvenida al Método Smart Mom!",
-                welcomeDescription: "Crea tu calendario interactivo personalizado y plan de negocio en 10 pasos completos. Este proceso tomará aproximadamente 30-40 minutos y generará un calendario interactivo completo y estrategia de negocio diseñada específicamente para madres ocupadas como tú.",
+                welcomeTitle: "¡Bienvenida al Método Mamá Estratégica!",
+                welcomeDescription: "Cree su calendario interactivo personalizado y plan de emprendimiento en 10 pasos completos. Este proceso tomará aproximadamente 30-40 minutos y generará un calendario interactivo completo y estrategia de emprendimiento diseñada específicamente para madres ocupadas como usted.",
                 welcomeStart: "Comenzar",
                 welcomeCreate: "Crear Cuenta y Guardar Progreso", 
-                welcomeReturning: "Soy usuario que regresa",
-                mainTitle: "Método Smart Mom",
-                mainSubtitle: "Calendario Interactivo y Planificación de Negocios con IA para Madres Ocupadas",
+                welcomeReturning: "Soy usuaria que regresa",
+                mainTitle: "Método Mamá Estratégica",
+                mainSubtitle: "Calendario Interactivo y Planificación de Emprendimientos con IA para Madres Ocupadas",
                 freeBadge: "100% Gratis",
-                ctaButton: "Comienza Tu Calendario Interactivo y Plan de Negocio Gratis Ahora",
+                ctaButton: "Comience Su Calendario Interactivo y Plan de Emprendimiento Gratis Ahora",
                 ctaSubtext: "No se requiere email para navegar • El proceso completo toma 30 minutos",
                 languageTitle: "Choose Your Language / Elige Tu Idioma",
                 viewPremiumServices: "💎 Ver Servicios Premium",
-                premiumServicesTitle: "Servicios Premium Smart Mom",
-                premiumServicesDescription: "Obtén calendarios personalizados, entrenamiento y soporte continuo para acelerar tu éxito",
+                premiumServicesTitle: "Servicios Premium Mamá Estratégica",
+                premiumServicesDescription: "Obtenga calendarios personalizados, entrenamiento y soporte continuo para acelerar su éxito",
                 lifeCalendarTitle: "Calendario de Organización de Vida",
-                lifeCalendarDescription: "Plan personalizado de organización del hogar de 12 semanas con tareas semanales, guías de orden y optimización de rutinas familiares.",
+                lifeCalendarDescription: "Plan personalizado de organización del hogar de 12 semanas con tareas semanales, guías de organización y optimización de rutinas familiares.",
                 lifeCalendarFeature1: "Calendario personalizado de 12 semanas",
                 lifeCalendarFeature2: "Sistemas de organización del hogar",
                 lifeCalendarFeature3: "Optimización de rutinas familiares",
@@ -2449,60 +2464,60 @@
                 lifeTrainingFeature3: "Estrategias avanzadas de organización",
                 lifeTrainingFeature4: "Soporte por email por 30 días",
                 getLifeTraining: "Obtener Entrenamiento de Vida",
-                businessCalendarTitle: "Calendario de Lanzamiento de Negocio",
-                businessCalendarDescription: "Plan de implementación de negocio de 12 semanas con investigación de mercado, guía de lanzamiento paso a paso y estrategias de optimización de ingresos.",
-                businessCalendarFeature1: "Calendario de negocio personalizado",
-                businessCalendarFeature2: "Insights de investigación de mercado",
+                businessCalendarTitle: "Calendario de Lanzamiento de Emprendimiento",
+                businessCalendarDescription: "Plan de implementación de emprendimiento de 12 semanas con investigación de mercado, guía de lanzamiento paso a paso y estrategias de optimización de ingresos.",
+                businessCalendarFeature1: "Calendario de emprendimiento personalizado",
+                businessCalendarFeature2: "Análisis de investigación de mercado",
                 businessCalendarFeature3: "Guía de estrategia de lanzamiento",
                 businessCalendarFeature4: "Consejos de optimización de ingresos",
-                getBusinessCalendar: "Obtener Calendario de Negocio",
-                businessTrainingTitle: "Programa Completo de Entrenamiento de Negocio",
-                businessTrainingDescription: "Entrenamiento completo de negocio con calendario más mentoría personal, estrategias avanzadas y soporte continuo de negocio.",
-                businessTrainingFeature1: "Todo en Calendario de Negocio",
-                businessTrainingFeature2: "Mentoría personal de negocio",
+                getBusinessCalendar: "Obtener Calendario de Emprendimiento",
+                businessTrainingTitle: "Programa Completo de Entrenamiento de Emprendimiento",
+                businessTrainingDescription: "Entrenamiento completo de emprendimiento con calendario más mentoría personal, estrategias avanzadas y soporte continuo de emprendimiento.",
+                businessTrainingFeature1: "Todo en Calendario de Emprendimiento",
+                businessTrainingFeature2: "Mentoría personal de emprendimiento",
                 businessTrainingFeature3: "Estrategias avanzadas de crecimiento",
                 businessTrainingFeature4: "Soporte por email por 60 días",
-                getBusinessTraining: "Obtener Entrenamiento de Negocio",
+                getBusinessTraining: "Obtener Entrenamiento de Emprendimiento",
                 backToAssessment: "← Volver a Evaluación",
                 backToMainPage: "Volver a Página Principal",
-                consultationTitle: "Opciones de Consulta Gratis",
-                consultationDescription: "¿Lista para acelerar tu éxito? Reserva una llamada de consulta gratis (opcional)",
-                smartMomCallTitle: "Llamada Smart Mom Gratis (30 min)",
+                consultationTitle: "Opciones de Consulta Gratuita",
+                consultationDescription: "¿Lista para acelerar su éxito? Reserve una llamada de consulta gratuita (opcional)",
+                smartMomCallTitle: "Llamada Mamá Estratégica Gratuita (30 min)",
                 smartMomCallDescription: "Perfecta para preguntas de organización de vida, ayuda con horarios familiares y estrategias de manejo del hogar.",
-                bookSmartMomCall: "Reservar Llamada Smart Mom",
+                bookSmartMomCall: "Reservar Llamada Mamá Estratégica",
                 strategyCallTitle: "Llamada de Estrategia (30 min)",
-                strategyCallDescription: "Enfocada en planificación de negocio, estrategias de ingresos y orientación empresarial para madres ocupadas.",
+                strategyCallDescription: "Enfocada en planificación de emprendimiento, estrategias de ingresos y orientación empresarial para madres ocupadas.",
                 bookStrategyCall: "Reservar Llamada de Estrategia",
                 stepDesc2Title: "Información Básica",
-                stepDesc2Text: "Conozcámonos mejor para crear el calendario interactivo y plan de negocio perfecto para tu situación única.",
-                basicInfoTitle: "Tu Información",
-                nameLabel: "Tu Nombre:",
-                emailLabel: "Tu Email:",
-                empowermentTitle: "¡Ya Eres Exitosa!",
-                empowermentText: "Manejar una familia es dirigir una organización compleja. Tienes habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalicemos eso hacia TU vida organizada y negocio exitoso!",
-                stepDesc3Title: "Elige Tu Enfoque",
-                stepDesc3Text: "¿Qué te trae aquí hoy? Elige tu enfoque principal para que podamos personalizar tu experiencia.",
-                pathSelectionTitle: "Selecciona Tu Camino:",
+                stepDesc2Text: "Conozcámonos mejor para crear el calendario interactivo y plan de emprendimiento perfecto para su situación única.",
+                basicInfoTitle: "Su Información",
+                nameLabel: "Su Nombre:",
+                emailLabel: "Su Email:",
+                empowermentTitle: "¡Usted Ya Es Exitosa!",
+                empowermentText: "Manejar una familia es dirigir una organización compleja. Usted tiene habilidades de negociación, experiencia en gestión del tiempo y capacidades de resolución de crisis que la mayoría de los CEOs envidiarían. ¡Ahora canalicemos eso hacia SU vida organizada y emprendimiento exitoso!",
+                stepDesc3Title: "Elija Su Enfoque",
+                stepDesc3Text: "¿Qué la trae aquí hoy? Elija su enfoque principal para que podamos personalizar su experiencia.",
+                pathSelectionTitle: "Seleccione Su Camino:",
                 pathTitle1: "Organización de Vida",
                 pathDesc1: "Necesito ayuda organizando mi vida diaria, horarios familiares y sistemas del hogar",
-                pathTitle2: "Lanzamiento de Negocio",
-                pathDesc2: "Quiero comenzar un negocio o crear fuentes de ingresos pasivos",
-                pathTitle3: "Vida y Negocio",
-                pathDesc3: "Necesito organización de vida Y quiero comenzar un negocio",
+                pathTitle2: "Lanzamiento de Emprendimiento",
+                pathDesc2: "Quiero comenzar un emprendimiento o crear fuentes de ingresos pasivos",
+                pathTitle3: "Vida y Emprendimiento",
+                pathDesc3: "Necesito organización de vida Y quiero comenzar un emprendimiento",
                 stepDesc4Title: "Estructura Familiar",
-                stepDesc4Text: "Entender tu situación familiar nos ayuda a crear recomendaciones realistas que se ajusten a tu vida real.",
-                familyStructureTitle: "Cuéntanos Sobre Tu Familia",
-                familyStructureLabel: "Describe la estructura de tu familia:",
+                stepDesc4Text: "Entender su situación familiar nos ayuda a crear recomendaciones realistas que se ajusten a su vida real.",
+                familyStructureTitle: "Cuéntenos Sobre Su Familia",
+                familyStructureLabel: "Describa la estructura de su familia:",
                 stepDesc5Title: "Horario Diario y Disponibilidad de Tiempo",
-                stepDesc5Text: "Tu rutina diaria y tiempo disponible determinan qué es realista para tus objetivos de negocio y organización.",
-                dailyScheduleTitle: "Describe Tu Día Típico",
-                dailyScheduleLabel: "¿Cómo se ve tu horario diario típico?",
-                timeAvailabilityTitle: "⏰ Disponibilidad de Tiempo para Tus Metas",
-                timeAvailabilityDescription: "Ayúdanos a crear un calendario realista diciéndonos cuánto tiempo puedes comprometer y cuándo estás disponible para trabajar en tus metas.",
-                hoursPerDayLabel: "¿Cuántas horas por día puedes dedicar?",
-                preferredTimesLabel: "¿Qué horarios funcionan mejor para ti? (Selecciona todos los que apliquen)",
-                timeAvailabilityWhy: "Crearemos un calendario que coincida con tu disponibilidad real. Si puedes dedicar 2 horas diarias, crearemos tareas más grandes para alcanzar tus metas más rápido. Si solo tienes 30 minutos, dividiremos todo en pasos pequeños y manejables.",
-                chooseHoursOption: "Elige tu tiempo disponible...",
+                stepDesc5Text: "Su rutina diaria y tiempo disponible determinan qué es realista para sus objetivos de emprendimiento y organización.",
+                dailyScheduleTitle: "Describa Su Día Típico",
+                dailyScheduleLabel: "¿Cómo se ve su horario diario típico?",
+                timeAvailabilityTitle: "⏰ Disponibilidad de Tiempo para Sus Metas",
+                timeAvailabilityDescription: "Ayúdenos a crear un calendario realista diciéndonos cuánto tiempo puede comprometer y cuándo está disponible para trabajar en sus metas.",
+                hoursPerDayLabel: "¿Cuántas horas por día puede dedicar?",
+                preferredTimesLabel: "¿Qué horarios funcionan mejor para usted? (Seleccione todos los que apliquen)",
+                timeAvailabilityWhy: "Crearemos un calendario que coincida con su disponibilidad real. Si puede dedicar 2 horas diarias, crearemos tareas más grandes para alcanzar sus metas más rápido. Si solo tiene 30 minutos, dividiremos todo en pasos pequeños y manejables.",
+                chooseHoursOption: "Elija su tiempo disponible...",
                 timeEarlyMorning: "Madrugada (5-7 AM)",
                 timeMorning: "Mañana (7-11 AM)",
                 timeMidday: "Mediodía (11 AM-2 PM)",
@@ -2511,20 +2526,20 @@
                 timeNight: "Noche tardía (8-11 PM)",
                 timeLateNight: "Muy tarde (11 PM+)",
                 stepDesc6Title: "Inversión y Cronograma",
-                stepDesc6Text: "Entender tu presupuesto y cronograma nos ayuda a recomendar opciones de negocio realistas.",
+                stepDesc6Text: "Entender su presupuesto y cronograma nos ayuda a recomendar opciones de emprendimiento realistas.",
                 investmentTitle: "Nivel de Inversión y Cronograma",
-                investmentLevelLabel: "¿Cuánto puedes invertir para comenzar?",
-                incomeTimelineLabel: "¿Cuándo necesitas ingresos?",
-                stepDesc7Title: "Ideas de Negocio con IA",
-                stepDesc7Text: "Usaremos ChatGPT para generar ideas de negocio personalizadas basadas en tu situación específica.",
+                investmentLevelLabel: "¿Cuánto puede invertir para comenzar?",
+                incomeTimelineLabel: "¿Cuándo necesita ingresos?",
+                stepDesc7Title: "Ideas de Emprendimiento con IA",
+                stepDesc7Text: "Usaremos ChatGPT para generar ideas de emprendimiento personalizadas basadas en su situación específica.",
                 stepDesc8Title: "Investigación de Mercado",
-                stepDesc8Text: "Ahora usaremos Google Gemini para investigar el mercado de tu idea de negocio elegida.",
+                stepDesc8Text: "Ahora usaremos Google Gemini para investigar el mercado de su idea de emprendimiento elegida.",
                 stepDesc9Title: "Creación de Calendario",
-                stepDesc9Text: "Finalmente, usaremos Claude para crear tu calendario de implementación personalizado de 12 semanas con tareas diarias optimizadas en tiempo.",
-                stepDesc10Title: "Tu Plan de Negocio Completo",
-                stepDesc10Text: "¡Felicitaciones! Aquí está tu plan de negocio personalizado completo y próximos pasos.",
-                chooseInvestmentLevel: "Elige tu nivel de inversión...",
-                chooseTimeline: "Elige tu cronograma...",
+                stepDesc9Text: "Finalmente, usaremos Claude para crear su calendario de implementación personalizado de 12 semanas con tareas diarias optimizadas en tiempo.",
+                stepDesc10Title: "Su Plan de Emprendimiento Completo",
+                stepDesc10Text: "¡Felicitaciones! Aquí está su plan de emprendimiento personalizado completo y próximos pasos.",
+                chooseInvestmentLevel: "Elija su nivel de inversión...",
+                chooseTimeline: "Elija su cronograma...",
                 copyChatGPTBtn: "Copiar",
                 openChatGPTBtn: "Abrir ChatGPT",
                 viewChatGPTBtn: "Ver Prompt Completo",
@@ -2533,7 +2548,22 @@
                 viewGeminiBtn: "Ver Prompt Completo",
                 copyClaudeBtn: "Copiar",
                 openClaudeBtn: "Abrir Claude",
-                viewClaudeBtn: "Ver Prompt Completo"
+                viewClaudeBtn: "Ver Prompt Completo",
+                selectedIdeaLabel: "Elija su idea de emprendimiento favorita de ChatGPT:",
+                completePlease: "Por favor complete todos los campos requeridos antes de continuar.",
+                fieldRequired: "Este campo es requerido",
+                validEmail: "Por favor ingrese un email válido",
+                timeSelectOne: "Por favor seleccione al menos un horario preferido",
+                timeSelectHours: "Por favor seleccione su disponibilidad de tiempo",
+                charactersRemaining: "caracteres restantes",
+                nextStep: "Siguiente Paso →",
+                previousStep: "← Paso Anterior",
+                successMainText: "¡Su calendario interactivo y plan de emprendimiento del Método Mamá Estratégica han sido creados exitosamente!",
+                accomplishment2: "✅ Recibió ideas generadas por IA personalizadas para su situación",
+                accomplishment3: "✅ Obtuvo análisis de investigación de mercado",
+                // AI Prompts in Spanish
+                chatgptPromptTemplate: "Soy una mamá con la siguiente situación:\n\nNombre: {name}\nEstructura Familiar: {familyStructure}\nHorario Diario: {dailySchedule}\nDisponibilidad de Tiempo: {timeAvailability} durante horarios {preferredTimes}\nNivel de Inversión: {investmentLevel}\nCronograma de Ingresos: {incomeTimeline}\n\nPor favor sugiera 5 ideas específicas de emprendimiento que:\n1. Se ajusten a mi horario y situación familiar\n2. Coincidan con mi nivel de inversión y disponibilidad de tiempo\n3. Puedan generar ingresos dentro de mi cronograma\n4. Sean realistas para una mamá ocupada con {timeAvailability} de disponibilidad de tiempo\n5. Incluyan opciones tanto en línea como presenciales\n\nPara cada idea, por favor proporcione:\n- Nombre del emprendimiento\n- Descripción breve\n- Pasos de inicio que se ajusten a mis limitaciones de tiempo\n- Potencial de ingresos\n- Por qué es perfecta para mi situación y disponibilidad de tiempo",
+                geminiPromptTemplate: "Por favor proporcione investigación de mercado detallada para esta idea de emprendimiento: \"{businessIdea}\"\n\nConsidere las siguientes limitaciones:\n- Disponibilidad de tiempo: {timeAvailability}\n- Horarios preferidos de trabajo: {preferredTimes}\n\nIncluya:\n1. Análisis del mercado objetivo\n2. Panorama de la competencia\n3. Estrategias de precios\n4. Canales de marketing que funcionen con tiempo limitado\n5. Potencial de crecimiento\n6. Desafíos comunes y soluciones\n7. Plan de acción del primer mes optimizado para {timeAvailability} de disponibilidad de tiempo\n\nEnfóquese en información práctica y accionable para una mamá con limitaciones específicas de tiempo."
             }
         };
 
@@ -2563,27 +2593,53 @@
                     const stepDesc6TitleLife = document.getElementById('stepDesc6TitleLife');
                     if (stepDesc6TitleLife) stepDesc6TitleLife.textContent = 'Metas y Cronograma de Organización';
                     const stepDesc6TextLife = document.getElementById('stepDesc6TextLife');
-                    if (stepDesc6TextLife) stepDesc6TextLife.textContent = 'Entendamos tus prioridades de organización y qué tan rápido quieres ver resultados.';
+                    if (stepDesc6TextLife) stepDesc6TextLife.textContent = 'Entendamos sus prioridades de organización y qué tan rápido quiere ver resultados.';
                     const organizationGoalsTitle = document.getElementById('organizationGoalsTitle');
-                    if (organizationGoalsTitle) organizationGoalsTitle.textContent = 'Tus Metas de Organización';
+                    if (organizationGoalsTitle) organizationGoalsTitle.textContent = 'Sus Metas de Organización';
                     const organizationPriorityLabel = document.getElementById('organizationPriorityLabel');
-                    if (organizationPriorityLabel) organizationPriorityLabel.innerHTML = '¿Cuál es tu mayor desafío de organización? <span class="required">*</span>';
+                    if (organizationPriorityLabel) organizationPriorityLabel.innerHTML = '¿Cuál es su mayor desafío de organización? <span class="required">*</span>';
                     const organizationTimelineLabel = document.getElementById('organizationTimelineLabel');
-                    if (organizationTimelineLabel) organizationTimelineLabel.innerHTML = '¿Qué tan pronto quieres un hogar organizado? <span class="required">*</span>';
+                    if (organizationTimelineLabel) organizationTimelineLabel.innerHTML = '¿Qué tan pronto quiere un hogar organizado? <span class="required">*</span>';
                     
                     // Both Path
                     const stepDesc6TitleBoth = document.getElementById('stepDesc6TitleBoth');
                     if (stepDesc6TitleBoth) stepDesc6TitleBoth.textContent = 'Metas, Inversión y Cronograma';
                     const stepDesc6TextBoth = document.getElementById('stepDesc6TextBoth');
-                    if (stepDesc6TextBoth) stepDesc6TextBoth.textContent = 'Entendamos tanto tus metas de organización como tu cronograma de negocio.';
+                    if (stepDesc6TextBoth) stepDesc6TextBoth.textContent = 'Entendamos tanto sus metas de organización como su cronograma de emprendimiento.';
                     const bothGoalsTitle = document.getElementById('bothGoalsTitle');
-                    if (bothGoalsTitle) bothGoalsTitle.textContent = 'Metas de Organización y Negocio';
+                    if (bothGoalsTitle) bothGoalsTitle.textContent = 'Metas de Organización y Emprendimiento';
                     const bothPriorityLabel = document.getElementById('bothPriorityLabel');
                     if (bothPriorityLabel) bothPriorityLabel.innerHTML = '¿Qué necesita atención primero? <span class="required">*</span>';
                     const bothInvestmentLabel = document.getElementById('bothInvestmentLabel');
-                    if (bothInvestmentLabel) bothInvestmentLabel.innerHTML = '¿Inversión disponible para negocio? <span class="required">*</span>';
+                    if (bothInvestmentLabel) bothInvestmentLabel.innerHTML = '¿Inversión disponible para emprendimiento? <span class="required">*</span>';
                     const bothTimelineLabel = document.getElementById('bothTimelineLabel');
                     if (bothTimelineLabel) bothTimelineLabel.innerHTML = '¿Cronograma para ambas metas? <span class="required">*</span>';
+                } else {
+                    // English versions (restore original text)
+                    const stepDesc6TitleLife = document.getElementById('stepDesc6TitleLife');
+                    if (stepDesc6TitleLife) stepDesc6TitleLife.textContent = 'Organization Goals & Timeline';
+                    const stepDesc6TextLife = document.getElementById('stepDesc6TextLife');
+                    if (stepDesc6TextLife) stepDesc6TextLife.textContent = 'Let\'s understand your organization priorities and how quickly you want to see results.';
+                    const organizationGoalsTitle = document.getElementById('organizationGoalsTitle');
+                    if (organizationGoalsTitle) organizationGoalsTitle.textContent = 'Your Organization Goals';
+                    const organizationPriorityLabel = document.getElementById('organizationPriorityLabel');
+                    if (organizationPriorityLabel) organizationPriorityLabel.innerHTML = 'What\'s your biggest organization challenge? <span class="required">*</span>';
+                    const organizationTimelineLabel = document.getElementById('organizationTimelineLabel');
+                    if (organizationTimelineLabel) organizationTimelineLabel.innerHTML = 'How soon do you want an organized home? <span class="required">*</span>';
+                    
+                    // Both Path
+                    const stepDesc6TitleBoth = document.getElementById('stepDesc6TitleBoth');
+                    if (stepDesc6TitleBoth) stepDesc6TitleBoth.textContent = 'Goals, Investment & Timeline';
+                    const stepDesc6TextBoth = document.getElementById('stepDesc6TextBoth');
+                    if (stepDesc6TextBoth) stepDesc6TextBoth.textContent = 'Let\'s understand both your organization goals and business timeline.';
+                    const bothGoalsTitle = document.getElementById('bothGoalsTitle');
+                    if (bothGoalsTitle) bothGoalsTitle.textContent = 'Organization & Business Goals';
+                    const bothPriorityLabel = document.getElementById('bothPriorityLabel');
+                    if (bothPriorityLabel) bothPriorityLabel.innerHTML = 'What needs attention first? <span class="required">*</span>';
+                    const bothInvestmentLabel = document.getElementById('bothInvestmentLabel');
+                    if (bothInvestmentLabel) bothInvestmentLabel.innerHTML = 'Business investment available? <span class="required">*</span>';
+                    const bothTimelineLabel = document.getElementById('bothTimelineLabel');
+                    if (bothTimelineLabel) bothTimelineLabel.innerHTML = 'Timeline for both goals? <span class="required">*</span>';
                 }
                 
                 // Update placeholder text
@@ -2597,12 +2653,12 @@
                         'claude-response': 'Copy and paste the complete 84-day interactive calendar from Claude here...'
                     },
                     es: {
-                        'family-structure': 'Cuéntanos sobre el tamaño de tu familia, edades de los niños, sistema de apoyo, situación de pareja, etc. Sé tan detallada como quieras - esto nos ayuda a darte mejores recomendaciones.',
-                        'daily-schedule': 'Describe tu día típico de la mañana a la noche. Incluye horario de trabajo, actividades de los niños, responsabilidades del hogar, tiempo libre disponible, etc.',
-                        'selected-business-idea': 'Escribe o pega tu idea de negocio elegida aquí...',
-                        'chatgpt-response': 'Copia y pega las ideas de negocio de ChatGPT aquí...',
-                        'gemini-response': 'Copia y pega la investigación de mercado de Gemini aquí...',
-                        'claude-response': 'Copia y pega el calendario interactivo completo de 84 días de Claude aquí...'
+                        'family-structure': 'Cuéntenos sobre el tamaño de su familia, edades de los niños, sistema de apoyo, situación de pareja, etc. Sea tan detallada como quiera - esto nos ayuda a darle mejores recomendaciones.',
+                        'daily-schedule': 'Describa su día típico de la mañana a la noche. Incluya horario de trabajo, actividades de los niños, responsabilidades del hogar, tiempo libre disponible, etc.',
+                        'selected-business-idea': 'Escriba o pegue su idea de emprendimiento elegida aquí...',
+                        'chatgpt-response': 'Copie y pegue las ideas de emprendimiento de ChatGPT aquí...',
+                        'gemini-response': 'Copie y pegue la investigación de mercado de Gemini aquí...',
+                        'claude-response': 'Copie y pegue el calendario interactivo completo de 84 días de Claude aquí...'
                     }
                 };
                 
@@ -2663,9 +2719,7 @@
             if (!hoursPerDay) {
                 const validation = document.getElementById('hours-per-day-validation');
                 if (validation) {
-                    validation.textContent = currentLanguage === 'es' ? 
-                        'Por favor selecciona tu disponibilidad de tiempo' : 
-                        'Please select your time availability';
+                    validation.textContent = t('timeSelectHours');
                     validation.classList.remove('success');
                 }
                 isValid = false;
@@ -2675,9 +2729,7 @@
             if (!preferredTimes) {
                 const validation = document.getElementById('preferred-times-validation');
                 if (validation) {
-                    validation.textContent = currentLanguage === 'es' ? 
-                        'Por favor selecciona al menos un horario preferido' : 
-                        'Please select at least one preferred time';
+                    validation.textContent = t('timeSelectOne');
                     validation.classList.remove('success');
                 }
                 isValid = false;
@@ -3128,7 +3180,7 @@
             
             if (!value) {
                 if (validationMsg) {
-                    validationMsg.textContent = currentLanguage === 'es' ? 'Este campo es requerido' : 'This field is required';
+                    validationMsg.textContent = t('fieldRequired');
                     validationMsg.classList.remove('success');
                 }
                 return false;
@@ -3138,7 +3190,7 @@
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(value)) {
                     if (validationMsg) {
-                        validationMsg.textContent = currentLanguage === 'es' ? 'Por favor ingresa un email válido' : 'Please enter a valid email';
+                        validationMsg.textContent = t('validEmail');
                         validationMsg.classList.remove('success');
                     }
                     return false;
@@ -3162,9 +3214,7 @@
             const counter = document.getElementById(`${textarea.id}-counter`);
             
             if (counter) {
-                const text = currentLanguage === 'es' ? 
-                    `${remaining} caracteres restantes` : 
-                    `${remaining} characters remaining`;
+                const text = `${remaining} ${t('charactersRemaining')}`;
                 counter.textContent = text;
             }
         }
@@ -3279,15 +3329,13 @@
                 nextBtn.style.display = 'none';
             } else {
                 nextBtn.style.display = 'block';
-                nextBtn.textContent = currentLanguage === 'es' ? 'Siguiente Paso →' : 'Next Step →';
+                nextBtn.textContent = t('nextStep');
             }
         }
 
         function nextStep() {
             if (!validateCurrentStep()) {
-                alert(currentLanguage === 'es' ? 
-                      'Por favor completa todos los campos requeridos antes de continuar.' : 
-                      'Please complete all required fields before continuing.');
+                alert(t('completePlease'));
                 return;
             }
             
@@ -3311,9 +3359,10 @@
         function updateProgressDisplay() {
             // Update step counter
             const stepCounter = document.getElementById('stepCounter');
-            stepCounter.textContent = currentLanguage === 'es' ? 
+            const stepText = currentLanguage === 'es' ? 
                 `Paso ${currentStep} de ${TOTAL_STEPS}` : 
                 `Step ${currentStep} of ${TOTAL_STEPS}`;
+            stepCounter.textContent = stepText;
             
             // Update progress fill
             const progressFill = document.getElementById('progressFill');
@@ -3395,28 +3444,18 @@
         // ===== AI PROMPT GENERATION =====
         
         function generateChatGPTPrompt() {
-            const prompt = `I'm a mom with the following situation:
-
-Name: ${formData['user-name'] || 'Not provided'}
-Family Structure: ${formData['family-structure'] || 'Not provided'}
-Daily Schedule: ${formData['daily-schedule'] || 'Not provided'}
-Time Availability: ${formData['hours-per-day'] || 'Not specified'} during ${formData['preferred-times'] || 'Not specified'} times
-Investment Level: ${formData['investment-level'] || formData['both-investment'] || 'Not specified'}
-Income Timeline: ${formData['income-timeline'] || formData['both-timeline'] || 'Not specified'}
-
-Please suggest 5 specific business ideas that:
-1. Fit my schedule and family situation
-2. Match my investment level and time availability
-3. Can generate income within my timeline
-4. Are realistic for a busy mom with ${formData['hours-per-day'] || 'limited'} time availability
-5. Include both online and offline options
-
-For each idea, please provide:
-- Business name
-- Brief description
-- Startup steps that fit my time constraints
-- Income potential
-- Why it's perfect for my situation and time availability`;
+            // Get the prompt template in the current language
+            const template = translations[currentLanguage].chatgptPromptTemplate;
+            
+            // Replace placeholders with actual data
+            const prompt = template
+                .replace('{name}', formData['user-name'] || (currentLanguage === 'es' ? 'No proporcionado' : 'Not provided'))
+                .replace('{familyStructure}', formData['family-structure'] || (currentLanguage === 'es' ? 'No proporcionado' : 'Not provided'))
+                .replace('{dailySchedule}', formData['daily-schedule'] || (currentLanguage === 'es' ? 'No proporcionado' : 'Not provided'))
+                .replace(/\{timeAvailability\}/g, formData['hours-per-day'] || (currentLanguage === 'es' ? 'No especificado' : 'Not specified'))
+                .replace('{preferredTimes}', formData['preferred-times'] || (currentLanguage === 'es' ? 'No especificado' : 'Not specified'))
+                .replace('{investmentLevel}', formData['investment-level'] || formData['both-investment'] || (currentLanguage === 'es' ? 'No especificado' : 'Not specified'))
+                .replace('{incomeTimeline}', formData['income-timeline'] || formData['both-timeline'] || (currentLanguage === 'es' ? 'No especificado' : 'Not specified'));
 
             document.getElementById('chatgptPrompt').textContent = prompt;
         }
@@ -3424,22 +3463,14 @@ For each idea, please provide:
         function updateGeminiPrompt(businessIdea) {
             if (!businessIdea) return;
             
-            const prompt = `Please provide detailed market research for this business idea: "${businessIdea}"
-
-Consider the following constraints:
-- Time availability: ${formData['hours-per-day'] || 'Not specified'}
-- Preferred working times: ${formData['preferred-times'] || 'Not specified'}
-
-Include:
-1. Target market analysis
-2. Competition overview
-3. Pricing strategies
-4. Marketing channels that work with limited time
-5. Growth potential
-6. Common challenges and solutions
-7. First month action plan optimized for ${formData['hours-per-day'] || 'limited'} time availability
-
-Focus on practical, actionable information for a mom with specific time constraints.`;
+            // Get the prompt template in the current language
+            const template = translations[currentLanguage].geminiPromptTemplate;
+            
+            // Replace placeholders with actual data
+            const prompt = template
+                .replace('{businessIdea}', businessIdea)
+                .replace(/\{timeAvailability\}/g, formData['hours-per-day'] || (currentLanguage === 'es' ? 'No especificado' : 'Not specified'))
+                .replace('{preferredTimes}', formData['preferred-times'] || (currentLanguage === 'es' ? 'No especificado' : 'Not specified'));
 
             document.getElementById('geminiPrompt').textContent = prompt;
         }
@@ -3448,14 +3479,68 @@ Focus on practical, actionable information for a mom with specific time constrai
         function generateClaudePrompt() {
             // Extract family size from family structure
             const familyStructure = formData['family-structure'] || '';
-            const familySizeMatch = familyStructure.match(/(\d+)\s*(people|person|family|members?|kids?|children)/i);
+            const familySizeMatch = familyStructure.match(/(\d+)\s*(people|person|family|members?|kids?|children|personas?|miembros?|niños?|hijos?)/i);
             const familySize = familySizeMatch ? parseInt(familySizeMatch[1]) : 4; // Default to 4 if not found
 
             // Get time availability info
             const hoursPerDay = formData['hours-per-day'] || 'not-specified';
             const preferredTimes = formData['preferred-times'] || 'not-specified';
 
-            const prompt = `You are creating a personalized 84-day (12 weeks) interactive HTML calendar for a busy mom. This calendar must be extremely detailed, broken down into manageable steps with checkboxes for each task, and OPTIMIZED FOR HER SPECIFIC TIME AVAILABILITY.
+            let prompt = '';
+
+            if (currentLanguage === 'es') {
+                prompt = `Usted está creando un calendario HTML interactivo personalizado de 84 días (12 semanas) para una mamá ocupada. Este calendario debe ser extremadamente detallado, dividido en pasos manejables con casillas de verificación para cada tarea, y OPTIMIZADO PARA SU DISPONIBILIDAD ESPECÍFICA DE TIEMPO.
+
+PERFIL DE USUARIA:
+- Nombre: ${formData['user-name'] || 'No proporcionado'}
+- Email: ${formData['user-email'] || 'No proporcionado'}
+- Estructura Familiar: ${formData['family-structure'] || 'No proporcionado'}
+- Horario Diario: ${formData['daily-schedule'] || 'No proporcionado'}
+- Camino Seleccionado: ${selectedPath}
+- Idioma: ${currentLanguage}
+- Número de Personas en el Hogar: ${familySize}
+
+LIMITACIONES CRÍTICAS DE TIEMPO:
+- Tiempo Disponible Por Día: ${hoursPerDay}
+- Horarios Preferidos de Trabajo: ${preferredTimes}
+
+${selectedPath === 'life-organization' ? `
+- Prioridad de Organización: ${formData['organization-priority'] || 'No especificado'}
+- Cronograma de Organización: ${formData['organization-timeline'] || 'No especificado'}
+` : ''}
+
+${selectedPath === 'business-launch' ? `
+- Nivel de Inversión: ${formData['investment-level'] || 'No especificado'}
+- Cronograma de Ingresos: ${formData['income-timeline'] || 'No especificado'}
+- Ideas de Emprendimiento de ChatGPT: ${aiResponses.chatgpt || 'No proporcionado'}
+- Investigación de Mercado de Gemini: ${aiResponses.gemini || 'No proporcionado'}
+- Idea de Emprendimiento Seleccionada: ${formData['selected-business-idea'] || 'No especificado'}
+` : ''}
+
+${selectedPath === 'both' ? `
+- Enfoque Prioritario: ${formData['both-priority'] || 'No especificado'}
+- Inversión Disponible: ${formData['both-investment'] || 'No especificado'}
+- Cronograma: ${formData['both-timeline'] || 'No especificado'}
+- Ideas de Emprendimiento de ChatGPT: ${aiResponses.chatgpt || 'No proporcionado'}
+- Investigación de Mercado de Gemini: ${aiResponses.gemini || 'No proporcionado'}
+- Idea de Emprendimiento Seleccionada: ${formData['selected-business-idea'] || 'No especificado'}
+` : ''}
+
+REQUISITOS CRÍTICOS - OPTIMIZACIÓN DE TIEMPO:
+
+**${hoursPerDay === '15-30-minutes' ? 'FORMATO MICRO-TAREAS (15-30 min/día):' : 
+   hoursPerDay === '30-60-minutes' ? 'FORMATO TAREAS CORTAS (30-60 min/día):' :
+   hoursPerDay === '1-2-hours' ? 'FORMATO TAREAS ESTÁNDAR (1-2 horas/día):' :
+   hoursPerDay === '2-3-hours' ? 'FORMATO TAREAS INTENSIVAS (2-3 horas/día):' :
+   hoursPerDay === '3-4-hours' ? 'FORMATO TAREAS PODEROSAS (3-4 horas/día):' :
+   hoursPerDay === '4-plus-hours' ? 'FORMATO TAREAS ACELERADAS (4+ horas/día):' :
+   'FORMATO TAREAS FLEXIBLES (Tiempo variable):'
+}**
+
+Crear el calendario completo de 84 días siguiendo este formato exacto, con tareas perfectamente dimensionadas para ${hoursPerDay} y programadas durante ${preferredTimes}. Cada tarea dividida en pasos diminutos con casillas de verificación. Todas las decisiones pre-tomadas. Máximo acompañamiento y aliento optimizado para su disponibilidad específica de tiempo!`;
+            } else {
+                // English version (original)
+                prompt = `You are creating a personalized 84-day (12 weeks) interactive HTML calendar for a busy mom. This calendar must be extremely detailed, broken down into manageable steps with checkboxes for each task, and OPTIMIZED FOR HER SPECIFIC TIME AVAILABILITY.
 
 USER PROFILE:
 - Name: ${formData['user-name'] || 'Not provided'}
@@ -3503,342 +3588,8 @@ CRITICAL REQUIREMENTS - TIME OPTIMIZATION:
    'FLEXIBLE-TASK FORMAT (Variable time):'
 }**
 
-${hoursPerDay === '15-30-minutes' ? `
-- Maximum 1-2 tiny tasks per day (5-15 minutes each)
-- Break everything into micro-steps
-- Focus on quick wins and momentum
-- Tasks should be completable during kids' snack time
-` : hoursPerDay === '30-60-minutes' ? `
-- Maximum 2-3 small tasks per day (10-20 minutes each)
-- Moderate steps that fit into brief free periods
-- Balance quick wins with meaningful progress
-- Tasks designed for naptime or early morning
-` : hoursPerDay === '1-2-hours' ? `
-- 2-4 tasks per day (15-30 minutes each)
-- Standard steps with good momentum
-- Mix of organizational and action tasks
-- Perfect for dedicated morning or evening blocks
-` : hoursPerDay === '2-3-hours' ? `
-- 3-5 substantial tasks per day (20-40 minutes each)
-- Bigger chunks that create significant progress
-- Can include planning + execution in same day
-- Great for major organization overhauls
-` : hoursPerDay === '3-4-hours' ? `
-- 4-6 power tasks per day (30-60 minutes each)
-- Large projects broken into meaningful segments
-- Can tackle multiple areas simultaneously
-- Accelerated timeline with major transformations
-` : hoursPerDay === '4-plus-hours' ? `
-- 5-8 intensive tasks per day (30-90 minutes each)
-- Complete room transformations in single days
-- Multiple business tasks can be completed daily
-- Fast-track to goals with comprehensive daily work
-` : `
-- Flexible daily task load based on available time
-- Include options for different time constraints
-- Scale tasks up/down based on daily availability
-`}
-
-**TIMING OPTIMIZATION:**
-- Schedule tasks during her preferred times: ${preferredTimes}
-- If early morning (5-7 AM): Focus on planning, prep, quiet organizational tasks
-- If morning (7-11 AM): Best for high-energy tasks, decision-making, calls
-- If midday (11 AM-2 PM): Great for errands, organizing, business tasks
-- If afternoon (2-5 PM): Good for creative work, content creation, follow-ups  
-- If evening (5-8 PM): Family time integration, light organizing, planning
-- If night (8-11 PM): Quiet tasks, online work, planning tomorrow
-- If late night (11 PM+): Only light tasks, planning, digital organization
-
-1. **NO DECISIONS NEEDED** - Every choice is already made
-2. **TIME-SPECIFIC TASKS** - Sized exactly for her available time
-3. **Everything Pre-Selected** - Meals, recipes, items to buy, which drawer to organize
-4. **Visual Results** - Show before/after or completion visuals
-5. **Instant Rewards** - Serotonin hits after each micro-step
-
-MEAL PLANNING SPECIFICS:
-
-Based on household size of ${familySize} people, create rotating 2-week meal plans with EXACT recipes:
-
-**Week A Meals:**
-- Monday: Spaghetti with Meat Sauce
-  * 1 lb ground beef
-  * 1 jar Prego sauce (24 oz)
-  * 1 box spaghetti
-  * Garlic bread (frozen)
-  * Bagged salad
-  * Cook time: 20 min
-
-- Tuesday: Rotisserie Chicken Dinner
-  * 1 pre-cooked rotisserie chicken (from store)
-  * 2 bags microwave vegetables
-  * 1 box instant mashed potatoes
-  * 1 can gravy
-  * Prep time: 10 min
-
-[Continue with all meals...]
-
-GROCERY LIST (Scheduled for her preferred time):
-
-**Weekly Shopping List for Family of ${familySize}:**
-
-□ **Produce Section:**
-  - Bananas (${familySize > 3 ? '2 bunches' : '1 bunch'})
-  - Apples (1 bag)
-  - Baby carrots (1 bag)
-  - Bagged salad (${familySize > 3 ? '3 bags' : '2 bags'})
-  - Tomatoes (${familySize > 3 ? '6' : '4'})
-  - Onions (1 bag)
-
-[Continue with complete list...]
-
-💰 Estimated cost: ${familySize > 4 ? '200-250' : familySize > 2 ? '150-200' : '100-150'}
-
-ORGANIZATION TASK EXAMPLES:
-
-${hoursPerDay === '15-30-minutes' ? `
-**Day 3 - Kitchen Junk Drawer (15 min total)**
-
-□ Get supplies ready (1 min):
-  - 1 small trash bag
-  - Wet paper towels
-
-□ Empty just the front half of drawer (2 min):
-  - Take photo of mess 📸
-
-□ Throw away obvious trash (3 min):
-  - Test 2 pens - toss if dry
-  - Expired coupons only
-  - Obviously broken items
-
-□ Keep ONLY essentials (2 min):
-  - 2 working pens
-  - 1 pair scissors
-  - Roll of tape
-
-□ Put back neatly (2 min):
-  - Pens on left
-  - Scissors in middle
-
-□ Victory photo & treat (5 min):
-  - Take "after" photo 📸
-  - Enjoy favorite snack
-
-✅ Reward: 15-min TV break + proud text to friend
-` : hoursPerDay === '1-2-hours' ? `
-**Day 3 - Complete Kitchen Organization (90 min total)**
-
-□ Phase 1: Declutter (30 min):
-  - Empty 3 drawers completely
-  - Sort into keep/donate/trash piles
-  - Take before photos
-
-□ Phase 2: Deep Clean (20 min):
-  - Wipe all drawer interiors
-  - Clean organizer trays
-
-□ Phase 3: Organize (25 min):
-  - Use drawer dividers
-  - Label each section
-  - Return items by category
-
-□ Phase 4: Systems (15 min):
-  - Create "homes" for new items
-  - Set up daily maintenance routine
-  - Take after photos
-
-✅ Reward: Kitchen dance party + social media post
-` : `
-**Day 3 - Kitchen Command Center Setup (${hoursPerDay === '2-3-hours' ? '2.5 hours' : hoursPerDay === '3-4-hours' ? '3 hours' : '4+ hours'} total)**
-
-□ Complete kitchen audit (45 min):
-  - Inventory all cabinets and drawers
-  - Photo documentation of current state
-  - Create priority list
-
-□ Major decluttering session (60-90 min):
-  - Empty all cabinets
-  - Sort into detailed categories
-  - Donation bags ready
-
-□ Deep cleaning (30-45 min):
-  - Clean all surfaces
-  - Organize cleaning supplies
-
-□ System implementation (60+ min):
-  - Install new organizers
-  - Create labeling system
-  - Set up meal planning center
-
-✅ Reward: Order favorite takeout + family celebration
-`}
-
-${selectedPath === 'business-launch' || selectedPath === 'both' ? `
-BUSINESS SETUP TASKS:
-
-${hoursPerDay === '15-30-minutes' ? `
-**Week 2, Day 3 - Create Business Email (15 min)**
-
-□ Open Gmail (2 min):
-  - Go to gmail.com
-  - Click "Create account"
-
-□ Fill basics only (5 min):
-  - First name: ${formData['user-name']?.split(' ')[0] || 'Your name'}
-  - Username: ${formData['user-name']?.toLowerCase().replace(' ', '') || 'yourname'}biz@gmail.com
-  - Simple password
-
-□ Save & verify (5 min):
-  - Write down info
-  - Verify phone number
-
-□ Victory (3 min):
-  - Screenshot confirmation
-  - Text friend "I started!"
-
-✅ Reward: Favorite drink + 10-min social media
-` : `
-**Week 2, Day 3 - Complete Business Setup (${hoursPerDay === '1-2-hours' ? '90 min' : '2+ hours'})**
-
-□ Business email creation (20 min):
-  - Professional Gmail setup
-  - Password manager entry
-  - Signature creation
-
-□ Website builder start (${hoursPerDay === '1-2-hours' ? '40 min' : '60 min'}):
-  - Carrd.co free account
-  - Template selection
-  - Basic content entry
-
-□ Social media presence (${hoursPerDay === '1-2-hours' ? '30 min' : '45 min'}):
-  - Business Facebook page
-  - Instagram account
-  - LinkedIn profile update
-
-□ First marketing action (${hoursPerDay === '1-2-hours' ? '20 min' : '30 min'}):
-  - Post in 3 local mom groups
-  - Message 5 potential clients
-  - Create content calendar
-
-✅ Reward: Celebrate with family + success post
-`}
-` : ''}
-
-CALENDAR FORMAT:
-
-Create the full 84-day calendar as an interactive HTML document with:
-- Inline CSS (calming colors: #6B8E6B sage green, #FAF7F0 cream, #2D5B69 teal)
-- JavaScript for checkbox functionality
-- Progress tracking that shows % complete
-- Celebration animations every 7 days
-- Print-friendly format
-- Mobile responsive design
-- **TIME-SPECIFIC task scheduling based on her preferred times**
-
-DAILY STRUCTURE EXAMPLE:
-
-**Day 15 - Tuesday - "Kitchen Victory Day" 🍳**
-
-Morning Energy: ⚡⚡⚡ High
-Today's Focus: ${selectedPath === 'life-organization' ? 'Meal prep system' : 'Client outreach'}
-Available Time: ${hoursPerDay}
-Best Time Slot: ${preferredTimes}
-
-${hoursPerDay === '15-30-minutes' ? `
-**☀️ ${preferredTimes.includes('morning') ? 'Morning' : preferredTimes.includes('evening') ? 'Evening' : 'Preferred'} Task (15 min)**
-Quick Kitchen Win
-
-□ Set timer for 15 minutes (1 min)
-□ Clear one small counter space (5 min)
-□ Wipe down with favorite cleaner (3 min)
-□ Put 5 items in proper homes (4 min)
-□ Victory dance + photo (2 min)
-
-✅ Reward: Favorite snack + proud moment!
-` : hoursPerDay === '1-2-hours' ? `
-**☀️ Morning Block (45 min - ${preferredTimes.includes('morning') ? 'Perfect timing!' : 'Adapted for your schedule'})**
-Kitchen Command Center Setup
-
-□ Prep (5 min):
-  - Play energizing music 🎵
-  - Get supplies ready
-  - Set phone timer
-
-□ Clear & clean main counter (15 min):
-  - Move everything to table temporarily
-  - Deep clean surface
-  - Before photo! 📸
-
-□ Create meal planning station (20 min):
-  - Hang whiteboard with Command strips
-  - Add weekly meal planner sections
-  - Stock with markers and eraser
-
-□ Victory setup (5 min):
-  - After photo! 📸
-  - Update family on progress
-  - Plan tomorrow's task
-
-✅ Reward: Special coffee + 15-min break
-
-**🌤️ Afternoon Block (30 min - During kids' quiet time)**
-Tomorrow's Prep
-
-□ Menu planning (15 min):
-  - Choose 3 meals from master list
-  - Check ingredients needed
-  - Add to shopping list
-
-□ Kitchen systems (15 min):
-  - Set up breakfast station
-  - Prep lunch boxes
-  - Quick tidy of organized areas
-
-✅ Reward: Guilt-free Netflix time!
-` : `
-**☀️ Extended Morning Session (2+ hours - Your power time!)**
-Complete Kitchen Transformation
-
-□ Phase 1: Total Declutter (45 min):
-  - Empty all drawers and cabinets
-  - Sort into detailed categories
-  - Take comprehensive before photos
-  - Fill donation bags
-
-□ Phase 2: Deep Clean Everything (30 min):
-  - Wipe all surfaces inside and out
-  - Clean organizer tools
-  - Vacuum/sweep thoroughly
-
-□ Phase 3: System Implementation (60+ min):
-  - Install new drawer organizers
-  - Create labeled zones for everything
-  - Set up meal planning command center
-  - Implement new storage solutions
-
-□ Phase 4: Family Integration (15 min):
-  - Walk family through new systems
-  - Assign maintenance responsibilities
-  - Celebrate the transformation!
-
-✅ Reward: Order favorite takeout + family movie night!
-`}
-
-WEEKLY THEMES:
-
-Week 1: "Gentle Start" - Building habits at ${hoursPerDay} pace
-Week 2: "Finding Rhythm" - Optimizing for your time slots
-Week 3: "Quick Wins" - Visible results in your timeframe
-Week 4: "Celebration" - Consolidate & appreciate progress
-Week 5: "Level Up" - Expanding within time constraints
-Week 6: "Systems Rock" - Making it automatic
-Week 7: "Halfway Hero" - Major celebration!
-Week 8: "Flexibility" - Adapting when time changes
-Week 9: "Big Progress" - Seeing major transformation
-Week 10: "Teaching Time" - Family involvement
-Week 11: "Almost There" - Fine-tuning systems
-Week 12: "Victory Lap" - Celebrate & plan ahead
-
 Create the complete 84-day calendar following this exact format, with tasks perfectly sized for ${hoursPerDay} and scheduled during ${preferredTimes}. Every task broken down into tiny steps with checkboxes. All decisions pre-made. Maximum hand-holding and encouragement optimized for her specific time availability!`;
+            }
 
             document.getElementById('claudePrompt').textContent = prompt;
         }
@@ -3848,12 +3599,27 @@ Create the complete 84-day calendar following this exact format, with tasks perf
             const promptText = promptElement.textContent;
             
             navigator.clipboard.writeText(promptText).then(() => {
-                const copyBtn = document.querySelector(`#copy${platform.charAt(0).toUpperCase() + platform.slice(1)}Btn`);
-                const originalText = copyBtn.textContent;
-                copyBtn.textContent = currentLanguage === 'es' ? '¡Copiado!' : 'Copied!';
-                setTimeout(() => {
-                    copyBtn.textContent = originalText;
-                }, 2000);
+                // Fix button ID selector for proper case matching
+                let buttonId = '';
+                if (platform === 'chatgpt') {
+                    buttonId = 'copyChatGPTBtn';
+                } else if (platform === 'gemini') {
+                    buttonId = 'copyGeminiBtn';
+                } else if (platform === 'claude') {
+                    buttonId = 'copyClaudeBtn';
+                }
+                
+                const copyBtn = document.getElementById(buttonId);
+                if (copyBtn) {
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = currentLanguage === 'es' ? '¡Copiado!' : 'Copied!';
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert(currentLanguage === 'es' ? 'Error al copiar. Por favor seleccione el texto manualmente.' : 'Failed to copy. Please select the text manually.');
             });
         }
 
@@ -3977,14 +3743,14 @@ Create the complete 84-day calendar following this exact format, with tasks perf
             if (mode === 'signin') {
                 authTitle.textContent = currentLanguage === 'es' ? 'Iniciar Sesión' : 'Sign In';
                 authSubmitText.textContent = currentLanguage === 'es' ? 'Iniciar Sesión' : 'Sign In';
-                authSwitchText.textContent = currentLanguage === 'es' ? '¿No tienes cuenta?' : "Don't have an account?";
+                authSwitchText.textContent = currentLanguage === 'es' ? '¿No tiene cuenta?' : "Don't have an account?";
                 authSwitchLink.textContent = currentLanguage === 'es' ? 'Crear Cuenta' : 'Create Account';
                 nameField.style.display = 'none';
                 confirmPasswordField.style.display = 'none';
             } else {
-                authTitle.textContent = currentLanguage === 'es' ? 'Crear Tu Cuenta' : 'Create Your Account';
+                authTitle.textContent = currentLanguage === 'es' ? 'Crear Su Cuenta' : 'Create Your Account';
                 authSubmitText.textContent = currentLanguage === 'es' ? 'Crear Cuenta' : 'Create Account';
-                authSwitchText.textContent = currentLanguage === 'es' ? '¿Ya tienes cuenta?' : 'Already have an account?';
+                authSwitchText.textContent = currentLanguage === 'es' ? '¿Ya tiene cuenta?' : 'Already have an account?';
                 authSwitchLink.textContent = currentLanguage === 'es' ? 'Iniciar Sesión' : 'Sign In';
                 nameField.style.display = 'block';
                 confirmPasswordField.style.display = 'block';
@@ -4182,7 +3948,7 @@ Created on: ${new Date().toLocaleString()}
 
         function startOver() {
             if (confirm(currentLanguage === 'es' ? 
-                '¿Estás segura de que quieres comenzar de nuevo? Tu progreso actual se guardará.' : 
+                '¿Está segura de que quiere comenzar de nuevo? Su progreso actual se guardará.' : 
                 'Are you sure you want to start over? Your current progress will be saved.')) {
                 currentStep = 1;
                 selectedPath = '';
